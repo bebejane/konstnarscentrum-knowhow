@@ -81,4 +81,4 @@ const useStore = create<StoreState>((set) => ({
 }));
 
 export default useStore;
-export { shallow, useStore };
+export { useStore };

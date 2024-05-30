@@ -24,20 +24,6 @@ export const AllActivityCategories: DocumentNode;
 }
     
 
-declare module '*/commision.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const Commission: DocumentNode;
-export const AllCommissions: DocumentNode;
-export const AllCommissionsMenu: DocumentNode;
-export const AllCommissionCategories: DocumentNode;
-export const LatestCommissions: DocumentNode;
-export const RelatedCommissions: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
 declare module '*/contact.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
@@ -65,17 +51,6 @@ declare module '*/footer.gql' {
 }
     
 
-declare module '*/forartists.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const ForArtistFragment: DocumentNode;
-export const AllForArtist: DocumentNode;
-export const ForArtist: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
 declare module '*/AboutFragment.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
@@ -98,24 +73,6 @@ declare module '*/ActivityLightFragment.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
   export const ActivityLightFragment: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
-declare module '*/CommissionFragment.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const CommissionFragment: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
-declare module '*/CommissionLightFragment.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const CommissionLightFragment: DocumentNode;
 
   export default defaultDocument;
 }
@@ -184,15 +141,6 @@ declare module '*/NewsFragment.gql' {
 }
     
 
-declare module '*/ProjectFragment.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const ProjectFragment: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
 declare module '*/SiteFragment.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
@@ -250,17 +198,6 @@ declare module '*/news.gql' {
   export const AllNews: DocumentNode;
 export const News: DocumentNode;
 export const LatestNews: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
-declare module '*/project.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const AllProjects: DocumentNode;
-export const ProjectsIntro: DocumentNode;
-export const LatestProjects: DocumentNode;
 
   export default defaultDocument;
 }
