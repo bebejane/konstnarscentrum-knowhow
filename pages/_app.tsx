@@ -1,4 +1,4 @@
-import '/lib/styles/index.scss'
+import '/styles/index.scss'
 import { Layout } from '/components';
 import { ThemeProvider } from 'next-themes'
 import { useRouter } from 'next/router';
