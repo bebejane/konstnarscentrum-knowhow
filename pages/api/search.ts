@@ -23,6 +23,7 @@ export default async function handler(req: NextRequest, res: NextResponse) {
     })
 
   } catch (err) {
+    console.log(err)
     return new Response(JSON.stringify(err), {
       status: 500,
       headers: { 'content-type': 'application/json' }
@@ -62,7 +63,9 @@ export const siteSearch = async (opt: any) => {
     const chunk = search.slice(i, first - 1)
     const res = await apiQuery(SiteSearchDocument, {
       variables: {
-        activityIds: chunk.filter(el => el._api_key === 'ac').map(el => el.id),
+        activityIds: chunk.filter(el => el._api_key === 'activity').map(el => el.id),
+        aboutIds: chunk.filter(el => el._api_key === 'about').map(el => el.id),
+        knowledgeIds: chunk.filter(el => el._api_key === 'knowledge').map(el => el.id),
         first,
         skip: i,
       }
