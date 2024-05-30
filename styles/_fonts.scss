@@ -1,5 +1,6 @@
 // FONT EMBEDDING & TYPO VARIABLES
 $body-font: "Jazz", Arial, Helvetica, Sans-Serif;
+$headline-font: "Headline", Arial, Helvetica, Sans-Serif;
 
 @font-face {
     font-family: "Jazz";
@@ -39,6 +40,13 @@ $body-font: "Jazz", Arial, Helvetica, Sans-Serif;
 @font-face {
     font-family: "Logo";
     src: url("../public/fonts/JazzSN-Custom.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Headline";
+    src: url("../public/fonts/QuadrantText-Regular.woff2") format("woff2");
     font-weight: normal;
     font-style: normal;
 }

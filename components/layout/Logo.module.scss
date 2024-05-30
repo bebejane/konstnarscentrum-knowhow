@@ -34,15 +34,19 @@
 .logo {
   position: fixed;
   z-index: 3000;
-  top: 0.9em;
+  top: 0.5em;
   left: 0;
   margin-left: var(--outer-margin);
   color: var(--black);
   white-space: pre;
-  font-family: "Logo", arial;
+  font-family: $headline-font;
   font-size: var(--logo-size);
-  text-transform: uppercase;
   letter-spacing: -0.03em;
+  line-height: 0.8;
+
+  span {
+    font-size: 2.3rem;
+  }
 
   .vertical,
   .horizontal {
@@ -51,7 +55,7 @@
     left: 0;
     color: var(--black);
 
-    >a {
+    > a {
       max-height: var(--logo-size);
 
       &:hover {
@@ -59,7 +63,7 @@
       }
     }
 
-    >a span {
+    > a span {
       display: inline-block;
       transition: transform 0.3s ease-out;
 

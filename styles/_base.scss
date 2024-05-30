@@ -1,14 +1,14 @@
 :root {
-	--black: #121212;
-	--white: #fcfcfc;
-	--beige-dark: #807a6e;
-	--beige-light: #e1dcd230;
-	--beige-mid: #ddd6c891;
+	--black: #ff4400;
+	--white: #f3ffb0;
+	--beige-dark: #d93b01;
+	--beige-light: #ff440030;
+	--beige-mid: #ff44003f;
 	--beige-light-solid: #eceae5;
 	--beige-very-light: #e1dcd216;
 	--red: #bf0000;
 	--outer-margin: 6vw;
-	--logo-size: 2rem;
+	--logo-size: 2.5rem;
 	--logo-size-optical: 1.7rem;
 	--total-outer-margin: calc((var(--outer-margin) * 2) + var(--logo-size-optical));
 	--grid-unit: calc(((100vw - (2 * var(--total-outer-margin))) / 12));
@@ -46,7 +46,9 @@ body {
 	-webkit-font-smoothing: antialiased;
 	font-feature-settings: "liga", "kern";
 	overflow-x: hidden;
-	transition: color 0.5s ease-in-out, background-color 0.5s ease-in-out;
+	transition:
+		color 0.5s ease-in-out,
+		background-color 0.5s ease-in-out;
 }
 
 html {
@@ -63,7 +65,6 @@ html {
 		span {
 			color: var(--white);
 		}
-
 	}
 }
 
@@ -134,7 +135,9 @@ button {
 	-webkit-box-sizing: border-box;
 	cursor: pointer;
 
-	transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+	transition:
+		color 0.3s ease-in-out,
+		background-color 0.3s ease-in-out;
 
 	&:hover {
 		background-color: var(--foreground);
@@ -229,7 +232,6 @@ select {
 	img {
 		user-select: none !important;
 		pointer-events: none;
-
 	}
 
 	div:nth-child(2) {

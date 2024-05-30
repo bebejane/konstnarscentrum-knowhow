@@ -11,7 +11,7 @@ export default function Logo({ }: Props) {
 
   return (
     <div className={cn(s.logo)}>
-      <Link href="/">Logo</Link>
-    </div>
+      <Link href="/">Know<br /><span>–</span>How</Link>
+    </div >
   )
 }
