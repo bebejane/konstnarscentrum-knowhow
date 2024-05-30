@@ -1,6 +1,5 @@
 export { default as Button } from './blocks/Button'
 export { default as FindArtist } from './blocks/FindArtist'
-export { default as Form } from './blocks/Form'
 export { default as Image } from './blocks/Image'
 export { default as ImageGallery } from './blocks/ImageGallery'
 export { default as ImageShortcut } from './blocks/ImageShortcut'
