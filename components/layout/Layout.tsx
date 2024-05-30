@@ -5,7 +5,7 @@ import { Content, Footer, MenuDesktop, MenuMobile, Logo, Grid, Search, Fullscree
 import type { MenuItem } from '/lib/menu'
 import { buildMenu } from '/lib/menu'
 import { useRouter } from 'next/router'
-import { useStore, shallow } from '/lib/store'
+import { useStore } from '/lib/store'
 
 export type LayoutProps = {
 	children: React.ReactNode,
@@ -17,7 +17,7 @@ export type LayoutProps = {
 export default function Layout({ children, menu: menuFromProps, title, footer }: LayoutProps) {
 
 	const router = useRouter()
-	const [images, imageId, setImageId, showMenu] = useStore((state) => [state.images, state.imageId, state.setImageId, state.showMenu], shallow)
+	const [images, imageId, setImageId, showMenu] = useStore((state) => [state.images, state.imageId, state.setImageId, state.showMenu])
 	const isHome = router.asPath === '/'
 	const [menu, setMenu] = useState(menuFromProps)
 
