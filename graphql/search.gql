@@ -1,7 +1,7 @@
 #import "./fragments/ImageThumbnailFragment"
 
-query SiteSearch($newsIds: [ItemId], $first: IntType = 100, $skip: IntType = 0) {
-	news: allNews(first: $first, skip: $skip, filter: { id: { in: $newsIds } }) {
+query SiteSearch($activityIds: [ItemId], $first: IntType = 100, $skip: IntType = 0) {
+	activities: allActivities(first: $first, skip: $skip, filter: { id: { in: $activityIds } }) {
 		__typename
 		_modelApiKey
 		title

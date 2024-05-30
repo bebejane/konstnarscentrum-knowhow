@@ -5656,10 +5656,10 @@ type LatestActivitiesQueryVariables = Exact<{
 
 type LatestActivitiesQuery = { __typename?: 'Query', activities: Array<{ __typename: 'ActivityRecord', _modelApiKey: string, id: any, createdAt: any, title: string, intro: string, date: any, dateEnd?: any | null, location?: string | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null } | null } | null, category: { __typename?: 'ActivityCategoryRecord', id: any, category: string } }> };
 
-type ContactQueryVariables = Exact<{ [key: string]: never; }>;
+type ContactPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type ContactQuery = { __typename?: 'Query', contactIntro?: { __typename?: 'ContactIntroRecord', id: any, board?: string | null, staff?: string | null, consultant?: string | null } | null };
+type ContactPageQuery = { __typename?: 'Query', contactPage?: { __typename?: 'ContactPageRecord', title: string, showImage?: any | null, intro: string, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } | null, content: { __typename?: 'ContactPageModelContentField', links: Array<string>, value: any } } | null };
 
 type InEnglishQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -5788,13 +5788,13 @@ type LatestNewsQueryVariables = Exact<{
 type LatestNewsQuery = { __typename?: 'Query', news: Array<{ __typename: 'NewsRecord', _modelApiKey: string, id: any, title: string, slug: string, intro: string, createdAt: any, blackHeadline?: any | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } | null, content?: { __typename?: 'NewsModelContentField', value: any, blocks: Array<{ __typename: 'ImageRecord', id: any, image: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null }> } | { __typename: 'RelatedMemberNewsRecord', id: any }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> }> };
 
 type SiteSearchQueryVariables = Exact<{
-  newsIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>> | InputMaybe<Scalars['ItemId']>>;
+  activityIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>> | InputMaybe<Scalars['ItemId']>>;
   first?: InputMaybe<Scalars['IntType']>;
   skip?: InputMaybe<Scalars['IntType']>;
 }>;
 
 
-type SiteSearchQuery = { __typename?: 'Query', news: Array<{ __typename: 'NewsRecord', _modelApiKey: string, title: string, slug: string, text: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null } | null } | null }> };
+type SiteSearchQuery = { __typename?: 'Query', activities: Array<{ __typename: 'ActivityRecord', _modelApiKey: string, title: string, slug: string, text: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null } | null } | null }> };
 
 type StartQueryVariables = Exact<{ [key: string]: never; }>;
 

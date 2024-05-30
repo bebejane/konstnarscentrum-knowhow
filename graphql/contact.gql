@@ -1,8 +1,15 @@
-query Contact {
-	contactIntro {
-		id
-		board(markdown: false)
-		staff(markdown: false)
-		consultant(markdown: false)
+query ContactPage {
+	contactPage {
+		title
+		image {
+			...ImageFragment
+		}
+		showImage
+		intro
+		content {
+			links
+			value
+		}
+		slug
 	}
 }

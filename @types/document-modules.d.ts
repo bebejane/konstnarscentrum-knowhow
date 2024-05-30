@@ -28,7 +28,7 @@ export const LatestActivities: DocumentNode;
 declare module '*/contact.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
-  export const Contact: DocumentNode;
+  export const ContactPage: DocumentNode;
 
   export default defaultDocument;
 }
