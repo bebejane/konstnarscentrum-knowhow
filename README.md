@@ -1,3 +1,3 @@
-## Konstnärscentrum
+## Konstnärscentrum KnowHow
 
 Website
