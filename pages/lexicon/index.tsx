@@ -5,9 +5,9 @@ import { GetStaticProps } from "next";
 import { AllLexiconsDocument } from "/graphql";
 import { StructuredContent } from '/components'
 import React, { CSSProperties, useEffect, useRef, useState } from 'react';
-import { RevealText } from '/components';
+import { RevealText, ToolTip } from '/components';
 import { render } from 'datocms-structured-text-to-html-string';
-import ToolTip from 'rc-tooltip'
+
 
 export type Props = {
   region: Region
@@ -25,16 +25,9 @@ export default function Lexicons({ lexicons, lexiconText }: Props) {
       </h1>
       <StructuredContent content={lexiconText.intro} id={lexiconText.id} record={lexiconText} />
       <ul className={s.words}>
-        {lexicons.map(({ id, word, desc }) =>
-          <li key={id} >
-            <ToolTip
-              placement={'right'}
-              showArrow={false}
-              overlay={<StructuredContent id={id} record={{}} content={desc} />}
-              overlayClassName={s.overlay}
-            >
-              <a href="#" id={id} >{word}</a>
-            </ToolTip>
+        {lexicons.map((l) =>
+          <li key={l.id} >
+            <ToolTip lexicon={l}>{l.word}</ToolTip>
           </li>
         )}
       </ul>
