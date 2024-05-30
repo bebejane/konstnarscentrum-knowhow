@@ -11,11 +11,23 @@ export default withWebPreviewsEdge(async ({ item, itemType }) => {
   let path = null;
 
   switch (itemType.attributes.api_key) {
+    case 'start': case 'footer':
+      path = `/`
+      break;
     case 'about':
       path = `/om/${slug}`
       break;
     case 'in_english':
       path = `/english`
+      break;
+    case 'contact_page':
+      path = `/contact`
+      break;
+    case 'activity':
+      path = `/aktiviteter/${slug}`
+      break;
+    case 'knowledge':
+      path = `/kunskapsbank/${slug}`
       break;
     default:
       break;
