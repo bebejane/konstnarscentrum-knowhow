@@ -23,7 +23,7 @@
   max-height: 40vh;
   overflow-y: scroll;
   padding: 0.2rem;
-  border: 1px solid #000;
+  border: 5px solid var(--foreground);
   background-color: var(--background);
 
   * {
