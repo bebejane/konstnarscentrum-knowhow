@@ -187,6 +187,7 @@ export const apiQueryAll = async (doc: TypedDocumentNode, opt: ApiQueryOptions =
         throw new Error(error)
 
       for (let x = 0; x < data.length; x++)
+        //@ts-ignore
         mergeProps(data[x].value);
       await sleep(100)
       reqs = []
