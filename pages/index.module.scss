@@ -1,6 +1,6 @@
 .container {
   @include mq($from: tablet) {
-    padding-top: var(--navbar-height);
+    //padding-top: var(--navbar-height);
   }
 
   .gallery {}

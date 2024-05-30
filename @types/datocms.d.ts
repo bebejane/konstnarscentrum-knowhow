@@ -3440,9 +3440,9 @@ type KnowledgeRecordintroArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
-/** Block of type Senaste aktiviteter (latest_member_news) */
-type LatestMemberNewsRecord = RecordInterface & {
-  __typename?: 'LatestMemberNewsRecord';
+/** Block of type Senaste aktiviteter (latest_activity) */
+type LatestActivityRecord = RecordInterface & {
+  __typename?: 'LatestActivityRecord';
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
@@ -3463,8 +3463,8 @@ type LatestMemberNewsRecord = RecordInterface & {
 };
 
 
-/** Block of type Senaste aktiviteter (latest_member_news) */
-type LatestMemberNewsRecord_seoMetaTagsArgs = {
+/** Block of type Senaste aktiviteter (latest_activity) */
+type LatestActivityRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -4731,7 +4731,7 @@ enum RegionModelOrderBy {
   updatedAt_DESC = 'updatedAt_DESC'
 }
 
-type RegionModelSectionsField = ImageShortcutRecord | LatestMemberNewsRecord | LatestNewsRecord | SelectedCommissionRecord | SelectedMemberRecord | TextRecord;
+type RegionModelSectionsField = ImageShortcutRecord | LatestActivityRecord | LatestNewsRecord | SelectedCommissionRecord | SelectedMemberRecord | TextRecord;
 
 /** Record of type Region (region) */
 type RegionRecord = RecordInterface & {
@@ -5001,7 +5001,7 @@ type SponsorRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
-type StartModelSectionsField = ImageShortcutRecord | LatestMemberNewsRecord | TextRecord;
+type StartModelSectionsField = ImageShortcutRecord | LatestActivityRecord | TextRecord;
 
 /** Record of type Start (start) */
 type StartRecord = RecordInterface & {
@@ -5126,9 +5126,9 @@ type TextRecord = RecordInterface & {
   createdAt: Scalars['DateTime'];
   headline?: Maybe<Scalars['String']>;
   id: Scalars['ItemId'];
+  link?: Maybe<Scalars['String']>;
   text?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
-  url?: Maybe<Scalars['String']>;
 };
 
 
@@ -5648,6 +5648,14 @@ type AllActivityCategoriesQueryVariables = Exact<{
 
 type AllActivityCategoriesQuery = { __typename?: 'Query', activityCategories: Array<{ __typename?: 'ActivityCategoryRecord', id: any, category: string }> };
 
+type LatestActivitiesQueryVariables = Exact<{
+  first?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']>;
+}>;
+
+
+type LatestActivitiesQuery = { __typename?: 'Query', activities: Array<{ __typename: 'ActivityRecord', _modelApiKey: string, id: any, createdAt: any, title: string, intro: string, date: any, dateEnd?: any | null, location?: string | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null } | null } | null, category: { __typename?: 'ActivityCategoryRecord', id: any, category: string } }> };
+
 type ContactQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -5787,3 +5795,8 @@ type SiteSearchQueryVariables = Exact<{
 
 
 type SiteSearchQuery = { __typename?: 'Query', news: Array<{ __typename: 'NewsRecord', _modelApiKey: string, title: string, slug: string, text: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null } | null } | null }> };
+
+type StartQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type StartQuery = { __typename?: 'Query', start?: { __typename?: 'StartRecord', id: any, gallery: Array<{ __typename?: 'SlideRecord', id: any, headline?: string | null, blackText?: any | null, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null }, link?: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ActivityRecord', id: any, slug: string, title: string } | { __typename?: 'CommissionRecord' } | { __typename?: 'ForArtistRecord' } | { __typename?: 'NewsRecord' } | null }>, sections: Array<{ __typename: 'ImageShortcutRecord', id: any, headline?: string | null, text?: string | null, link?: string | null, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } } | { __typename: 'LatestActivityRecord', id: any } | { __typename: 'TextRecord', id: any, headline?: string | null, text?: string | null, link?: string | null }> } | null };
