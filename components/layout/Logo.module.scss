@@ -1,0 +1,135 @@
+.container {
+  position: relative;
+  max-width: 0;
+
+  &.inverted {
+    * {
+      color: var(--background);
+    }
+
+    .region {
+      -webkit-text-stroke-color: var(--background);
+    }
+  }
+
+  .back {
+    display: block;
+    width: 100vw;
+    height: calc(var(--navbar-height) + 0.5rem);
+    background-color: var(--black);
+    position: fixed;
+    opacity: 0;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    transition: opacity 0s ease-in-out;
+
+    &.dark {
+      opacity: 1;
+    }
+  }
+}
+
+.logo {
+  position: fixed;
+  z-index: 3000;
+  top: 0.9em;
+  left: 0;
+  margin-left: var(--outer-margin);
+  color: var(--black);
+  white-space: pre;
+  font-family: "Logo", arial;
+  font-size: var(--logo-size);
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+
+  .vertical,
+  .horizontal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: var(--black);
+
+    >a {
+      max-height: var(--logo-size);
+
+      &:hover {
+        color: var(--foreground);
+      }
+    }
+
+    >a span {
+      display: inline-block;
+      transition: transform 0.3s ease-out;
+
+      &:first-of-type {
+        margin-right: -0.05em;
+      }
+    }
+
+    @include mq($until: tablet) {
+      margin-top: 0.1em;
+    }
+  }
+
+  .vertical {
+    writing-mode: vertical-rl;
+    transform: rotate(-180deg);
+    text-align: right;
+    margin-top: -0.2em;
+    margin-left: 0.2em;
+
+    span:first-of-type {
+      margin-bottom: -0.05em;
+    }
+
+    @include mq($until: tablet) {
+      margin-top: 0.1em;
+    }
+  }
+
+  .horizontal {
+    text-align: left;
+  }
+
+  .space {
+    display: inline-block;
+    min-height: calc(var(--logo-size) - 0.2rem);
+    visibility: visible;
+  }
+
+  .region {
+    color: transparent !important;
+    -webkit-text-stroke: 0.03em;
+    -webkit-text-stroke-color: var(--foreground);
+    font-size: calc(var(--logo-size) * 0.97);
+
+    @include mq($from: tablet) {
+      margin-left: 0.5rem;
+      -webkit-text-stroke: 1px;
+      -webkit-text-stroke-color: var(--foreground);
+
+      &.end {
+        margin-left: 2rem;
+      }
+    }
+
+    @include mq($until: tablet) {
+      margin-left: 0.3rem;
+
+      &.end {
+        margin-left: 1.3rem;
+      }
+    }
+  }
+
+  @include mq($until: tablet) {
+    margin-top: 0;
+    position: fixed;
+
+    &.end {
+      margin-left: 1.3rem;
+    }
+  }
+}

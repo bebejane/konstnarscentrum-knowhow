@@ -1,0 +1,8 @@
+query Contact {
+	contactIntro {
+		id
+		board(markdown: false)
+		staff(markdown: false)
+		consultant(markdown: false)
+	}
+}

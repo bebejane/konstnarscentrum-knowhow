@@ -1,0 +1,14 @@
+.char {
+  display: inline;
+  position: relative;
+  opacity: 0;
+  animation-duration: 0s;
+  animation-fill-mode: forwards;
+  will-change: opacity;
+
+  @keyframes show {
+    to {
+      opacity: 1;
+    }
+  }
+}

@@ -1,0 +1,261 @@
+{embed="WrappersKcriks/wrapper_kcriks"}
+
+    {exp:stash:set
+         name="AllNamesKonstnarscentrum"
+		 parse_tags="yes"
+		 trim="yes"
+		 scope="local"
+		 replace="yes"
+		 save="no"
+
+     }
+		{exp:channel:entries
+	channel="member_profiles"
+	site="default_site"
+	disable="pagination|category-fields|member-data|relations"
+	orderby="member_last_name"
+	entry_id="not 1605"
+	search:kc="kc-vast|kc-ost"
+	limit="2000"
+	sort="asc"
+	dynamic="off"
+	style="linear"
+	cache="yes"
+	refresh="30"
+	trim="yes"
+	    }
+{value: "{member_first_name} {member_last_name} ({kc})", url: '
+{if kc=='kc-vast'}
+			http://www.kc-vast.se/index.php/Kcvast/konstnar/{author_id}
+{/if}
+{if kc=='kc-ost'}
+		http://www.kcost.se/index.php/konstnar/konstnarscentrum/cv/{author_id}
+{/if}
+		'},
+		{/exp:channel:entries}
+
+     {/exp:stash:set}
+<!-- PageContent kc-vast.se/edit/kc-vast/LayoutsKcvast/SearchPageKcvast_layout-->
+{if segment_3=="medlem"}
+     {exp:stash:set
+    name="MedlemResultKonstnarscentrum"
+    scope="user"
+    save="yes"
+    replace="yes"
+    parse_tags="yes"
+   refresh="30"
+
+}
+<ul class="List">
+     {exp:channel:entries
+	channel="member_profiles"
+	site="default_site"
+	disable="pagination|category-fields|member-data|relations"
+	dynamic_parameters="search:member_letter"
+	search:kc="kc-vast"
+	orderby="member_last_name"
+	sort="asc"
+	dynamic="off"
+	entry_id="not 1605"
+	}
+	        <li>
+<li>{if member_cv}<a href="{if kc=='kc-vast'}http://www.kc-vast.se/index.php/Kcvast/konstnar/{member_id}{/if}{if kc=='kc-ost'}http://www.kcost.se/index.php/konstnar/konstnarscentrum/cv/{member_id}{/if}" target="_blank">{/if}{member_first_name} {member_last_name} ({kc}){if member_cv}</a>{/if}</li>
+	        </li>
+	{/exp:channel:entries}
+</ul>
+     {/exp:stash:set}
+     {exp:stash:set
+         name="AllLetterAuthor"
+		 parse_tags="yes"
+		 trim="yes"
+		 scope="local"
+		 replace="yes"
+		 save="no"
+		 refresh="30"
+     }
+		{exp:channel:entries
+			channel="member_profiles"
+			site="default_site"
+			dynamic_parameters="search:member_letter"
+			search:kc="kc-vast|kc-ost"
+			entry_id="not 1605|3817"
+			orderby="title"
+			sort="asc"
+			dynamic="off"}
+		{author_id}|
+		{/exp:channel:entries}
+     {/exp:stash:set}
+{/if}
+
+    <!-- PageContent -->
+
+    {exp:stash:set
+    	parse_tags="yes"
+		save="yes"
+		refresh="60"
+	}<!--  main stash tag -->
+          {stash:page_content} <!-- get page content -->
+          {stash:ThisPageTitle}sök på alla Kc{/stash:ThisPageTitle}<!--  get the page title here -->
+<div class="row collapse colorWhite" id="IframeSelector">
+<!--  -----------------------------------ContentTopSearch-----------------------------------    -->
+	<div class="medium-10 large-12 columns MultipageContentMainPadding TopSearchPadding clearfix">
+		<div class="float-left">
+		<ul class="tabs KCTabs " data-tabs id="search-tabs">
+		 <li class="tabs-title is-active"><a href="#panel_konstnar" aria-selected="true">sök konstnär bokstav</a></li>
+
+
+		 <li class="tabs-title"><a href="#panel_namn" aria-selected="true">sök konstnär namn</a></li>
+
+		 <li class="tabs-title"><a href="#panel_work">sök konstverk</a></li>
+
+		</ul>
+		</div>
+		<div class="float-left">
+		<ul class="tabs KCTabs">
+		 <li class="tabs-title"><a href="{site_url}/index.php/recentworks">Recent works</a></li>
+		 <li class="tabs-title"><a href="{site_url}/index.php/skapande-skola">Skapande Skola</a></li>
+		</ul>
+		</div>
+		<hr>
+	</div>
+<!-- 	end tabs -->
+
+  	<div class="tabs-panel is-active clearfix" id="panel_konstnar">
+	<form id="artists_letters" class="float-left" method="post" action="{path='dev/Result_Letter/medlem'}">
+        <input id="a" class="button tiny letter" name="search:member_letter" type="submit" value="A">
+        <input id="b" class="button tiny letter" name="search:member_letter" type="submit" value="B">
+        <input id="c" class="button tiny letter" name="search:member_letter" type="submit" value="C">
+        <input id="d" class="button tiny letter" name="search:member_letter" type="submit" value="D">
+        <input id="e" class="button tiny letter" name="search:member_letter" type="submit" value="E">
+        <input id="f" class="button tiny letter" name="search:member_letter" type="submit" value="F">
+        <input id="g" class="button tiny letter" name="search:member_letter" type="submit" value="G">
+        <input id="h" class="button tiny letter" name="search:member_letter" type="submit" value="H">
+        <input id="i" class="button tiny letter" name="search:member_letter" type="submit" value="I">
+        <input id="j" class="button tiny letter" name="search:member_letter" type="submit" value="J">
+        <input id="k" class="button tiny letter" name="search:member_letter" type="submit" value="K">
+        <input id="l" class="button tiny letter" name="search:member_letter" type="submit" value="L">
+        <input id="m" class="button tiny letter" name="search:member_letter" type="submit" value="M">
+        <input id="n" class="button tiny letter" name="search:member_letter" type="submit" value="N">
+        <input id="o" class="button tiny letter" name="search:member_letter" type="submit" value="O">
+        <input id="p" class="button tiny letter" name="search:member_letter" type="submit" value="P">
+        <input id="q" class="button tiny letter" name="search:member_letter" type="submit" value="Q">
+        <input id="r" class="button tiny letter" name="search:member_letter" type="submit" value="R">
+        <input id="s" class="button tiny letter" name="search:member_letter" type="submit" value="S">
+        <input id="t" class="button tiny letter" name="search:member_letter" type="submit" value="T">
+        <input id="u" class="button tiny letter" name="search:member_letter" type="submit" value="U">
+        <input id="v" class="button tiny letter" name="search:member_letter" type="submit" value="V">
+        <input id="w" class="button tiny letter" name="search:member_letter" type="submit" value="W">
+        <input id="x" class="button tiny letter" name="search:member_letter" type="submit" value="X">
+        <input id="y" class="button tiny letter" name="search:member_letter" type="submit" value="Y">
+        <input id="z" class="button tiny letter" name="search:member_letter" type="submit" value="Z">
+        <input id="å" class="button tiny letter" name="search:member_letter" type="submit" value="Å">
+        <input id="ä" class="button tiny letter" name="search:member_letter" type="submit" value="Ä">
+        <input id="ö" class="button tiny letter" name="search:member_letter" type="submit" value="Ö">
+	</form>
+
+	<form id="artists_lettersEmpty" class="float-right " method="post" action="{path='Kcvast/soek_konstnaer'}">
+        <input id="symbol" class="button tiny callout LastButton" name="search:member_letter" type="submit" value="&#x21ba;">
+    </form>
+    {exp:switchee variable = "{segment_3}"
+	    	     	parse="inward"
+	    	}
+	    	     	{case value="medlem"}
+<!-- 	wrapper -->
+<div class="row collapse colorWhite">
+<!-- 	main 	-->
+<!--    sidebar -->
+	 <div class="columns colorWhite ContentBlock newspaper2">
+<!-- get here the names authors as result      -->
+	{exp:stash:get name="MedlemResultKonstnarscentrum"}
+  	</div>
+</div>
+					{/case}
+
+	{/exp:switchee}
+	<!-- end tabs search artist -->
+</div>
+<!-- /tab search artist -->
+
+<!-- tabs content  -->
+	<div class="tabs-panel clearfix" id="panel_namn">
+	  	<div class="row">
+		<div class="small-4 small-centered medium-3 large-2 columns colorWhite ContentBlock">
+		                        <h1>Sök namn här</h1>
+
+
+		<input id="autocomplete" placeholder="sök namn">
+
+
+				</div>
+			</div>
+
+  	</div>
+  	<div class="tabs-panel clearfix" id="panel_work">
+	  <div class="row">
+        <div class="small-4 small-centered medium-3 large-2 columns colorWhite ContentBlock">
+
+            <h1>sök kc-väst</h1>{exp:low_search:form result_page="http://www.kc-vast.se/index.php/kcvast-resultat/" }
+
+            <fieldset class="fieldset">
+                <legend>Miljö</legend> {exp:channel:categories category_group="13" style="linear" site="kc-vast"} <label class="column"><input type="checkbox" style="float-left" name="category[]" value="{category_id}" low_search_category=""> {category_name}</label> {/exp:channel:categories}
+            </fieldset>
+
+            <fieldset class="fieldset">
+                <legend>Typ</legend> {exp:channel:categories category_group="11" style="linear" site="kc-vast"}
+
+                <div class="column">
+                    <label><input type="radio" name="category[]" value="{category_id}" low_search_category=""> {category_name}</label>
+                </div>{/exp:channel:categories}
+                <button class="tiny button float-right" type="submit">Sök i Kc-Väst</button>
+            </fieldset>
+
+
+
+                {/exp:low_search:form}
+
+
+
+            <h1>sök kc-öst</h1>{exp:low_search:form result_page="http://www.kcost.se/index.php/medlemsarkiv/soek-konst/kcost-resultat/" } <input type="hidden" name="collection" value="19|20|22">
+
+            <fieldset class="fieldset">
+                <legend>Miljö</legend> {exp:channel:categories category_group="29" style="linear" site="kc-ost"} <input type="radio" style="float-left" name="category[]" id="{category_id}" value="{category_id}" low_search_category=""> <label for="{category_id}&quot;">{category_name}</label> {/exp:channel:categories}
+            </fieldset>
+
+            <fieldset class="fieldset">
+                <legend>Typ</legend> {exp:low_options:material_typ orderby="typ" sort="asc" site="kc-ost" } {options} <input type="checkbox" style="float-left" id="{option:label}" name="search:material[]" value="{option:value}" low_search_search:material=""> <label for="{option:label}">{option:label}</label> {/options} {/exp:low_options:material_typ}
+
+        <button class="tiny button float-right" type="submit">Sök i Kc-Öst</button> {/exp:low_search:form}            </fieldset></div>
+    </div>
+
+  	</div>
+
+<!-- tabs content  -->
+
+<!--  -----------------------------------ContentMainSearch-----------------------------------    -->
+	</div>
+</div>
+{exp:stash:parse
+process="end"
+scope="local"
+replace="yes"
+save="no"
+refresh="1"
+trim="yes"
+}
+
+<script>
+$(document).ready(function() {
+    $("input#autocomplete").autocomplete({
+        source: [
+             {exp:stash:AllNames}
+        ],
+        select: function (event, ui) {
+            window.location = ui.item.url;
+        }
+    });
+});
+</script>
+  {/exp:stash:parse}
+{/stash:page_content}
+    	    {/exp:stash:set}
+<!-- end PageContent -->

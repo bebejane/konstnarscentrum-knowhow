@@ -1,0 +1,18 @@
+#import "./ImageMediumFragment.gql"
+#import "./RegionFragment.gql"
+
+fragment ProjectFragment on ProjectRecord {
+	__typename
+	_modelApiKey
+	title
+	image {
+		...ImageMediumFragment
+	}
+	url
+	text(markdown: false)
+	_seoMetaTags {
+		attributes
+		content
+		tag
+	}
+}

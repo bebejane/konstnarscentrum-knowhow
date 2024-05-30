@@ -1,0 +1,14 @@
+#import "./fragments/ImageThumbnailFragment"
+
+query SiteSearch($newsIds: [ItemId], $first: IntType = 100, $skip: IntType = 0) {
+	news: allNews(first: $first, skip: $skip, filter: { id: { in: $newsIds } }) {
+		__typename
+		_modelApiKey
+		title
+		text: intro(markdown: false)
+		slug
+		image {
+			...ImageThumbnailFragment
+		}
+	}
+}

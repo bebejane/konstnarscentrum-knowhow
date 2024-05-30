@@ -1,0 +1,24 @@
+<!doctype html>
+<head>
+    <title>My Profile</title>
+</head>
+<body>
+
+    <h1>My Profile</h1>
+    
+{exp:profile:view}
+{if no_results}
+{if logged_out}
+    <p><a href="{path=profile/register}">Register or login</a></p>
+{/if}
+{if logged_in}
+    <p><a href="{path=profile/edit}">Create a new profile</a></p>
+{/if}
+{/if}
+<p>{member_first_name} {member_last_name}<br>
+{member_address}{if member_address2}, {member_address2}{/if}<br>
+{member_city}{if member_city && member_state}, {/if}{member_state} {member_zip}</p>
+<p><a href="{path=profile/edit}">Edit your profile</a></p>
+{/exp:profile:view}
+</body>
+</html>

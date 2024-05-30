@@ -1,0 +1,32 @@
+{embed="LayoutsKonstnarscentrum/Test_Layout"}
+{exp:stash:set
+				name="page_content"
+save="yes" refresh="60"}<!--  main stash tag -->
+
+
+
+
+<!-- content -->
+{exp:channel:entries
+							    channel="kcriks_news"
+							    url_title="{segment_2}"
+							    disable="pagination|categories|category-fields|member-data|relations"
+							    }
+<div class="w3-row w3-margin-top">
+	{if temp_news_image}
+		<img class="w3-image" src="{temp_news_image}" alt="Medlems Nyhet {title}">
+	{/if}
+
+<p>
+
+<span class="FrontContentElementMonth"><br>{entry_date format ="%F"}</span>
+<span class="FrontContentElementYear">{entry_date format ="%Y"}<br></span>
+
+	{temp_news_text}
+</p>
+</div>
+
+						{/exp:channel:entries}
+<!-- end content -->
+			{/exp:stash:set}
+<!-- end content -->

@@ -1,0 +1,13 @@
+@font-face {
+  font-family: "Jazz";
+  src: url("/fonts/JazzSN-Book.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Jazz";
+  src: url("/fonts/JazzSN-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}

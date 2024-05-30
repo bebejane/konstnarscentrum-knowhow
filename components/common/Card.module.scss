@@ -1,0 +1,11 @@
+.card {
+  position: relative;
+  overflow: hidden;
+  padding-right: var(--outer-margin);
+  padding-left: var(--outer-margin);
+
+  @include mq($from: tablet) {
+    padding-right: var(--gutter);
+    padding-left: var(--gutter);
+  }
+}

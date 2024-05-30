@@ -1,0 +1,21 @@
+.container {
+  @include mq($from: tablet) {
+    padding-top: var(--navbar-height);
+  }
+
+  .gallery {}
+
+  .margins {
+    margin-left: var(--outer-margin);
+    margin-right: var(--outer-margin);
+
+    @include mq($from: tablet) {
+      margin-left: calc(var(--total-outer-margin)) !important;
+      margin-right: calc(var(--total-outer-margin)) !important;
+      padding-left: calc(2 * var(--grid-unit));
+      padding-right: calc(2 * var(--grid-unit));
+    }
+  }
+}
+
+.gallery {}

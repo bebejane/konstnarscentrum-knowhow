@@ -1,0 +1,33 @@
+#import "./fragments/ImageFragment.gql"
+#import "./fragments/NewsFragment.gql"
+
+query AllNews($first: IntType = 10, $skip: IntType = 0, $regionId: ItemId) {
+	news: allNews(
+		filter: { region: { eq: $regionId } }
+		orderBy: [createdAt_DESC]
+		first: $first
+		skip: $skip
+	) {
+		...NewsFragment
+	}
+	pagination: _allNewsMeta(filter: { region: { eq: $regionId } }) {
+		count
+	}
+}
+
+query News($slug: String!) {
+	news(filter: { slug: { eq: $slug } }) {
+		...NewsFragment
+	}
+}
+
+query LatestNews($first: IntType = 2, $skip: IntType = 0, $regionId: ItemId) {
+	news: allNews(
+		filter: { region: { eq: $regionId } }
+		orderBy: [createdAt_DESC]
+		first: $first
+		skip: $skip
+	) {
+		...NewsFragment
+	}
+}

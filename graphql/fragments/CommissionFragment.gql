@@ -1,0 +1,58 @@
+#import "./ImageFragment.gql"
+#import "./VideoFragment.gql"
+#import "./RegionFragment.gql"
+
+fragment CommissionFragment on CommissionRecord {
+	__typename
+	_modelApiKey
+	id
+	title
+	intro
+	slug
+	city
+	year
+	artist
+	consultant
+	work
+	commissioner
+	blackHeadline
+	image {
+		...ImageFragment
+	}
+	category {
+		id
+		title
+	}
+	content {
+		... on ImageRecord {
+			__typename
+			id
+			image {
+				...ImageFragment
+			}
+		}
+		... on VideoRecord {
+			__typename
+			id
+			title
+			video {
+				height
+				width
+				title
+				provider
+				providerUid
+				thumbnailUrl
+				url
+			}
+		}
+		... on RecordInterface {
+			__typename
+			id
+		}
+	}
+	_seoMetaTags {
+		attributes
+		content
+		tag
+	}
+}

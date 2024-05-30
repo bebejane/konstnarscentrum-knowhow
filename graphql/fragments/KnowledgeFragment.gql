@@ -1,0 +1,81 @@
+fragment KnowledgeFragment on KnowledgeRecord {
+	__typename
+	_modelApiKey
+	id
+	createdAt
+	title
+	blackHeadline
+	image {
+		...ImageFragment
+	}
+	intro(markdown: false)
+	category {
+		id
+		category
+	}
+	slug
+	content {
+		value
+		blocks {
+			__typename
+			... on ImageRecord {
+				__typename
+				id
+				image {
+					...ImageFragment
+				}
+			}
+			... on ButtonRecord {
+				__typename
+				id
+				text
+				url
+			}
+			... on VideoRecord {
+				__typename
+				id
+				title
+				video {
+					height
+					width
+					title
+					provider
+					providerUid
+					thumbnailUrl
+					url
+				}
+			}
+			... on RecordInterface {
+				__typename
+				id
+			}
+			... on FormRecord {
+				__typename
+				id
+				subject
+				reciever
+				confirmation
+				formFields {
+					__typename
+					... on FormTextRecord {
+						id
+						title
+					}
+					... on FormTextblockRecord {
+						id
+						title
+					}
+					... on PdfFormRecord {
+						id
+						title
+					}
+				}
+			}
+		}
+	}
+	_seoMetaTags {
+		attributes
+		content
+		tag
+	}
+}

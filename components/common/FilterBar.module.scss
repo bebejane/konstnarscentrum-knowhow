@@ -1,0 +1,73 @@
+.filter {
+  position: relative;
+  padding-top: 1rem;
+  padding-bottom: 1.2rem;
+  margin-bottom: calc(var(--small-space) + 1rem);
+
+  @include mq($until: desktop) {
+    overflow: hidden;
+    width: calc(100% + var(--outer-margin) * 2);
+    margin-left: calc(var(--outer-margin) * -1);
+    margin-right: calc(var(--outer-margin) * -1);
+    padding-left: var(--outer-margin);
+  }
+
+  > ul {
+    list-style: none;
+    display: flex;
+    padding-left: 0 !important;
+
+    @include mq($until: tablet) {
+      scrollbar-width: 0px;
+      overflow-x: scroll;
+
+      &::-webkit-scrollbar {
+        height: 0px;
+      }
+
+      &::-webkit-scrollbar-thumb,
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      margin-right: calc(-1 * var(--outer-margin));
+    }
+
+    li {
+      padding-right: 1em;
+      cursor: pointer;
+
+      &:first-child {
+        cursor: default;
+        min-width: 3.8em;
+      }
+
+      &.selected {
+        color: var(--beige-dark);
+      }
+    }
+  }
+
+  &.multi-row {
+    li {
+      padding-bottom: 1em;
+    }
+  }
+
+  .background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    height: 100%;
+    margin-left: calc(-1 * var(--outer-margin));
+    margin-right: calc(-1 * var(--outer-margin));
+    width: calc(100% + (var(--outer-margin) * 2));
+    background-color: var(--beige-light);
+    pointer-events: none;
+
+    @include mq($from: tablet) {
+      width: 100vw;
+      margin-left: calc((var(--full-margin) - var(--total-outer-margin)));
+    }
+  }
+}

@@ -1,0 +1,86 @@
+{embed="LayoutsKonstnarscentrum/SoekVerk_Layout"}
+<!-- set data search here first -->
+
+
+
+
+{exp:stash:set
+         name="AllNamesKonstnarscentrum"
+		 parse_tags="yes"
+		 trim="yes"
+		 scope="local"
+		 replace="yes"
+		 save="no"
+     }
+		{exp:channel:entries
+	channel="member_profiles"
+	site="default_site"
+	disable="pagination|category-fields|member-data|relations"
+	orderby="member_last_name"
+	entry_id="not 1605"
+	search:kc="kc-vast|kc-ost"
+	limit="2000"
+	sort="asc"
+	dynamic="off"
+	style="linear"
+	cache="yes"
+	refresh="30"
+	trim="yes"
+	    }
+{value: "{member_first_name} {member_last_name} ({kc})", url: '
+{if kc=='kc-vast'}
+			https://www.kc-vast.se/index.php/Kcvast/konstnar/{author_id}
+{/if}
+{if kc=='kc-ost'}
+		https://www.kcost.se/index.php/konstnar/konstnarscentrum/cv/{author_id}
+{/if}
+		'},
+		{/exp:channel:entries}
+
+     {/exp:stash:set}
+
+{exp:stash:set
+				name="page_content"
+save="yes" refresh="60"}<!--  main stash tag -->
+
+
+
+<!-- content -->
+			<div class="row">
+				<div class="small-4 small-centered medium-3 large-2 columns colorWhite ContentBlock">
+		                        <h1>Sök namn här</h1>
+
+
+		<input id="autocomplete" placeholder="sök namn">
+
+
+				</div>
+			</div>
+
+
+
+{/stash:page_content}
+    	    {/exp:stash:set}
+<!-- end PageContent -->
+{exp:stash:parse
+process="end"
+scope="local"
+replace="yes"
+save="no"
+refresh="1"
+trim="yes"
+}
+
+<script>
+$(document).ready(function() {
+    $("input#autocomplete").autocomplete({
+        source: [
+             {exp:stash:AllNamesKonstnarscentrum}
+        ],
+        select: function (event, ui) {
+            window.location = ui.item.url;
+        }
+    });
+});
+</script>
+  {/exp:stash:parse}

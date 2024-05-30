@@ -1,0 +1,16 @@
+fragment KnowledgeLightFragment on KnowledgeRecord {
+	__typename
+	_modelApiKey
+	id
+	createdAt
+	title
+	image {
+		...ImageThumbnailFragment
+	}
+	intro(markdown: false)
+	category {
+		id
+		category
+	}
+	slug
+}

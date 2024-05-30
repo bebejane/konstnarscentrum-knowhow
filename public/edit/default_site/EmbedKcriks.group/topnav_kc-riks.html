@@ -1,0 +1,32 @@
+
+<!-- new menu topbar -->
+
+<div>
+	<div class="row">
+		<div class="title-bar" data-responsive-toggle="example-menu" data-hide-for="medium">
+  <button class="menu-icon" type="button" data-toggle></button>
+  <div class="title-bar-title">Menu</div>
+</div>
+
+<div class="top-bar top " id="example-menu">
+  <div class="top-bar-left">
+    <ul class="dropdown menu konstnarscentrum_logo" data-dropdown-menu>
+      <li class="menu-text"><a href="{site_url}/"><img src="{site_url}/edit/images/icons/konstnarscentrum.png" alt="Konstnärscentrum"></a></li>
+    </ul>
+  </div>
+	<div class="kcriksmenu top-bar-right">
+		<ul class="dropdown menu float-right" data-dropdown-menu>
+			<li {if segment_2 == 'om-konstnarscentrum'}class="Navhere"{/if}><a href="{site_url}/index.php/konstnarscentrum/om-konstnarscentrum">om kc</a></li>
+			  <li><a href="#">kc regionerna</a>
+			    <ul class="menu vertical">
+			          <li><a href="https://kc-nord.org">kc nord</a></li>
+			          <li><a href="https://www.kc-vast.se">kc väst</a></li>
+			          <li><a href="http://www.kc-mitt.se">kc mitt</a></li>
+			          <li><a href="https://kcost.se">kc öst</a></li>
+			          <li><a href="https://www.kcsyd.se">kc syd</a></li>
+			    </ul>
+			  </li>
+			  <li {if segment_2 == 'kontakt'}class="Navhere"{/if} ><a href="{site_url}/index.php/konstnarscentrum/kontakt">kontakt</a></li>
+		</ul>
+	</div>
+</div>

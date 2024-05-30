@@ -1,0 +1,148 @@
+html,
+body {
+  font-size: 16px;
+  font-weight: normal;
+  @include mq($from: tablet) {
+    font-size: 22px;
+  }
+  @include mq($from: semi-wide) {
+    font-size: 24px;
+  }
+  @include mq($from: wide) {
+    font-size: 26px;
+  }
+}
+
+h1,
+h2 {
+  font-size: 1.5rem;
+  @include mq($from: tablet) {
+    font-size: 2rem;
+  }
+  letter-spacing: -0.01em;
+  font-weight: normal;
+  padding-top: 0.1em;
+  padding-bottom: 0.8em;
+  line-height: 1.25;
+  &.noPadding {
+    padding: 0;
+  }
+}
+
+h3 {
+  font-size: 1.3rem;
+  @include mq($from: tablet) {
+    font-size: 1.5rem;
+  }
+  font-weight: normal;
+  letter-spacing: -0.015em;
+  padding-bottom: 1em;
+  line-height: 1.25;
+}
+
+h4 {
+  font-size: 1.3rem;
+  padding-bottom: 0;
+  font-weight: normal;
+  line-height: 1.25;
+  margin-bottom: 0.5em;
+  text-underline-offset: 0.1em;
+}
+
+h5 {
+  font-family: "Jazz-Medium";
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.58rem;
+  padding-bottom: 1em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  strong {
+    font-weight: normal;
+  }
+}
+
+// Typo för content
+.article {
+  p + h3,
+  ul + h3,
+  ul + h2,
+  p + h2 {
+    padding-top: 1rem;
+  }
+}
+
+p {
+  line-height: var(--line-height);
+}
+
+p.intro,
+.intro p {
+  font-size: 1.15rem;
+  padding-bottom: 0;
+  font-weight: normal;
+  line-height: var(--line-height);
+}
+
+.small,
+label.small,
+.small p,
+footer,
+footer nav,
+figcaption,
+label {
+  font-size: 0.75rem;
+}
+
+nav,
+.mid,
+button,
+.mid input,
+.mid select {
+  @include mq($from: tablet) {
+    font-size: 0.9rem;
+  }
+}
+
+strong,
+b {
+  font-weight: bold;
+}
+
+article {
+  ul {
+    padding-left: 1em;
+    list-style-type: square;
+
+    p:last-of-type {
+      margin-bottom: 0.7em;
+    }
+
+    & li:last-child p {
+      margin-bottom: 1em;
+    }
+  }
+}
+
+button {
+  font-family: "Jazz";
+}
+
+sup {
+  line-height: 0;
+  font-size: 0.4em;
+  vertical-align: super;
+  letter-spacing: 1px;
+  padding-left: 0.5em;
+}
+
+em,
+i {
+  font-style: italic;
+}

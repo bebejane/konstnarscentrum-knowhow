@@ -1,0 +1,35 @@
+.card {
+  display: flex;
+  flex-direction: column;
+
+  &:hover h4 {
+    text-decoration: underline;
+  }
+
+  .image {
+    max-width: none !important;
+    margin-bottom: 1rem;
+  }
+
+  a {
+    position: relative;
+
+    .label {
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: flex;
+      align-items: flex-end;
+      z-index: 2;
+      color: var(--white);
+      writing-mode: vertical-lr;
+      padding: 0.8rem;
+      padding-top: 1rem;
+      height: calc(100% - 1em);
+      width: 50%;
+      line-height: 1;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.283));
+    }
+  }
+}

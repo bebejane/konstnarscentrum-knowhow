@@ -1,0 +1,25 @@
+.container {
+  position: relative;
+  margin-top: var(--space);
+  padding-top: var(--space);
+  padding-bottom: var(--space);
+
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .background {
+    width: 100vw;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    margin-left: calc((var(--full-margin) - var(--total-outer-margin)));
+    background-color: var(--beige-light);
+    z-index: -1;
+  }
+}

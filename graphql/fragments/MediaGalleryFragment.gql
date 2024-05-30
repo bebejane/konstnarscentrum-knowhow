@@ -1,0 +1,17 @@
+fragment MediaGalleryFragment on FileField {
+	id
+	mimeType
+	url
+	title
+	alt
+	responsiveImage(imgixParams: { q: 70, auto: format, w: 1000 }) {
+		src
+		width
+		height
+		alt
+		title
+		base64
+		bgColor
+		sizes
+	}
+}

@@ -1,0 +1,71 @@
+{embed="LayoutsKonstnarscentrum/Test_Layout"}
+{exp:stash:set
+				name="page_content"
+save="yes" refresh="60"}<!--  main stash tag -->
+<div class="w3-row masonry-wrapper">
+  <div class="w3-third">
+	  <h3>Aktuella Medlemsaktiviteter:</h3>
+	  <ul>
+{exp:channel:entries
+							    channel="kcriks_news"
+								site="default_site"
+							    dynamic="off"
+							    limit="50"
+							    display_by="month" limit="6"
+								orderby=”date”
+								sort="desc"
+							    disable="pagination|categories|category-fields|member-data|relations"
+							    }
+<li><a href="https://konstnarscentrum.org/index.php/medlems-nyhet/{url_title}">{title}</a></li>
+{/exp:channel:entries}
+	  </ul>
+  </div>
+
+<!-- content -->
+<div class="w3-twothird w3-container">
+
+
+
+
+  {exp:channel:entries
+							    channel="kcriks_news"
+								site="default_site"
+							    dynamic="off"
+							    limit="12"
+							    display_by="month" limit="6"
+								orderby=”date”
+								sort="desc"
+							    disable="pagination|categories|category-fields|member-data|relations"
+							    }
+<!-- kc-riks here -->
+
+<div class="masonry-item MedlemNewsItem w3-left">
+	<div class="masonry-content">
+	<a href="https://konstnarscentrum.org/index.php/medlems-nyhet/{url_title}">
+
+								{if temp_news_image}
+								<img src="{temp_news_image:temp-img}" alt="Nyhet {title}">
+								{/if}
+								<div>
+								<p class="FrontContentElementText">
+<!-- 									<span class="FrontContentElementDate"><br>{entry_date format ="%F %Y"}<br></span> -->
+<span class="FrontContentElementMonth"><br>{entry_date format ="%F"}</span>
+<span class="FrontContentElementYear">{entry_date format ="%Y"}<br></span>
+									<span class="FrontContentElementSource">Konstnarscentrum</span>
+									<span class="FrontContentElementTitle">{title}</span>
+								<span class="FrontContentElementContent">
+
+								{kort_text_fram}<br><br>.... läs vidare ....</span>
+								</p>
+								</div>
+
+</a>
+</div></div>
+
+
+	{/exp:channel:entries}
+
+  </div>
+
+<!-- end content -->
+			{/exp:stash:set}

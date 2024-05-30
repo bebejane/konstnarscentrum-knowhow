@@ -1,0 +1,14 @@
+.container {
+  >ul {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    margin-top: var(--space);
+
+    li {
+      margin-right: 1rem;
+    }
+  }
+}

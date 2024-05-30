@@ -1,0 +1,31 @@
+.background {
+  width: calc(100vw);
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  z-index: -1;
+  background-color: var(--beige-very-light);
+  margin-left: calc(-1 * var(--outer-margin));
+  @include mq($from: tablet) {
+    width: 100vw;
+    margin-left: calc((var(--full-margin) - var(--total-outer-margin)));
+  }
+
+  &:before {
+    content: " ";
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.08;
+    filter: grayscale(1);
+    background-blend-mode: screen;
+    background-image: var(--background);
+    background-repeat: no-repeat;
+    background-position: 50% 0;
+    background-size: cover;
+  }
+}

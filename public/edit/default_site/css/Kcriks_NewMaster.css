@@ -1,0 +1,240 @@
+
+
+/* logo link */
+
+
+@media screen and (min-width: 480px) {
+.KcriksBg {
+	background:url(http://www.konstnarscentrum.org/edit/images/icons/konstnarscentrum_m.png);
+	background-position:left top;
+	background-repeat:no-repeat;
+	min-height: 144px;
+	min-width: 500px;
+}
+
+#KcRiksLogo {
+	background:url(http://www.konstnarscentrum.org/edit/images/icons/konstnarscentrum_m.png);
+	background-position:left top;
+	background-repeat:no-repeat;
+	display:block;
+	float: left;
+	overflow:hidden;
+    text-indent:100%;
+    white-space:nowrap;
+	height: 144px;
+	width: 500px;
+	z-index: 999;
+}
+}
+
+@media screen and (min-width: 980px) {
+.KcriksBg {
+	background:url(http://www.konstnarscentrum.org/edit/images/icons/konstnarscentrum.png);
+	background-position:left top;
+	background-repeat:no-repeat;
+}
+#KcRiksLogo {
+	background:url(http://www.konstnarscentrum.org/edit/images/icons/konstnarscentrum.png);
+	background-position:left top;
+	background-repeat:no-repeat;
+	display:block;
+	float: left;
+	overflow:hidden;
+    text-indent:100%;
+    white-space:nowrap;
+	height: 144px;
+	width: 500px;
+}
+
+
+}
+
+/* Indexpage front elements */
+/* added 2016/08/12 HL changed top menu structure */
+.konstnarscentrum_logo {
+	margin-top: -1rem;
+
+}
+.menu-text {
+	margin-left: -.5rem;
+}
+.konstnarscentrum_logo li:hover {
+	background-color:#ffcc99;
+}
+
+
+
+.FrontContentElement ul {
+	margin:0!important;
+}
+
+.FrontContentElement li {
+	display:block;
+	font-size:.5rem;
+	max-width:17.8rem;
+	list-style:none;
+	margin-right: .9171rem; /* pushes blocks to right enough to make the illusion that the are evenly devided and centered but not too much FF does not play nice*/
+	margin-top:.9rem;
+	margin-bottom:1.3rem;
+	background-color:#fff;
+}
+
+.FrontContentElement li:a {
+	text-decoration:none;
+}
+
+.FrontContentElement li:hover {
+	background-color:#ffcc99;
+}
+
+/*
+	this apears to be wrong now
+.FrontContentElementIcon {
+	margin-left: -.5rem;
+}
+*/
+
+#KCC {
+	background-color:grey!important;
+}
+
+#KCC p {
+	color:white !important;
+}
+
+#KCC:hover {
+	background-color:#ffcc99 !important;
+}
+
+#KCC:hover p {
+	color:black !important;
+}
+
+
+/*
+Colors
+-----------------------------------------------------------------------------*/
+.colorWhite {
+	background-color:#fff;
+}
+
+.BgLightGray {
+	background-color:silver;
+}
+
+/* =Typography
+-----------------------------------------------------------------------------*/
+
+
+p, table  {
+	font-size:1.125rem;
+	font-family:'Open Sans',sans-serif;
+	font-style: normal;
+	font-weight:100;
+	line-height:1.375rem;
+	margin-bottom:0.2rem;
+	margin-left:0 !important;
+	margin-right:0;
+	color:#00000;
+}
+
+
+
+h1, h2 {
+		margin-left:.5rem;
+}
+h1 {
+	font-size:1.375rem;
+	font-family:'Open Sans',sans-serif;
+	font-weight:400;
+	line-height:1.375rem;
+	letter-spacing:0.12rem;
+	margin-bottom:0.2rem;
+	margin-right: 0;
+	color:#000;
+}
+
+h2 {
+	font-size:1.188rem;
+	font-family:'Open Sans',sans-serif;
+	font-weight:400;
+	line-height:1.375rem;
+	margin-bottom:0.2rem;
+	margin-top:1.1rem;
+	margin-right:0;
+	color:#000;
+}
+
+
+
+h3 {
+	font-size:1.8em;
+	font-family:'Open Sans',sans-serif;
+	font-weight:400;
+	margin-bottom:.18em;
+}
+
+
+
+tabs
+-----------------------------------------------------------------------------*/
+.KCTabs {
+/* 	border: none; */
+	max-height: .5rem;
+	padding-bottom: 2rem;
+	border-top: 1px solid white;
+	background-color: white !important;
+	 }
+
+.SearchTabsContent {
+	border-bottom: 1px solid #e2e2e2;
+}
+.tabs{
+	border: transparent
+}
+
+.KCTabs a {
+	margin-right: .5rem;
+	margin-left: .5rem;
+	text-transform: lowercase;
+	font-variant: small-caps;
+	color: #000 !important;
+    font-family: 'Lato',sans-serif;
+    font-weight: 700;
+    letter-spacing: .025rem;
+    font-size: 1.2rem;
+    padding: 2rem;
+    }
+.KCTabs a:hover {
+	text-decoration: none;
+	background-color: gray;
+	color: white !important;
+}
+.KCTabs here {
+	text-decoration: none;
+	background-color: gray;
+	color: white !important;
+}
+
+/* end tabs */
+
+/* Demo sidor */
+.DevMessage {
+	margin-left: auto;
+	margin-right: auto;
+	width: 90%;
+	padding: 2rem;
+	background-color: yellow;
+	color: black;
+	font-family: monospace;
+	font-size: 2rem;
+	margin-bottom: 2rem;
+}
+.DemoTitle {
+	text-transform: lowercase;
+	font-variant: small-caps;
+	font-family: monospace;
+	font-size: 3rem;
+	text-align: center;
+	margin-bottom: 2rem;
+}

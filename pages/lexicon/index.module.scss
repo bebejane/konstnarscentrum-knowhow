@@ -1,0 +1,23 @@
+.container {
+  .members {
+    column-count: 2;
+
+    @include mq($from: tablet) {
+      column-count: 3;
+    }
+
+    a,
+    > span {
+      display: block;
+      padding-bottom: 0.2em;
+    }
+
+    .letter {
+      opacity: 0;
+    }
+  }
+
+  h3:not(:first-of-type) {
+    padding-top: 2rem;
+  }
+}

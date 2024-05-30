@@ -1,0 +1,44 @@
+// FONT EMBEDDING & TYPO VARIABLES
+$body-font: "Jazz", Arial, Helvetica, Sans-Serif;
+
+@font-face {
+    font-family: "Jazz";
+    src: url("../../public/fonts/JazzSN-Book.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Jazz";
+    src: url("../../public/fonts/JazzSN-BookItalic.woff2") format("woff2");
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Jazz";
+    src: url("../../public/fonts/JazzSN-Bold.woff2") format("woff2");
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Jazz";
+    src: url("../../public/fonts/JazzSN-BoldItalic.woff2") format("woff2");
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Jazz-Medium";
+    src: url("../../public/fonts/JazzSN-Medium.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Logo";
+    src: url("../../public/fonts/JazzSN-Custom.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+}

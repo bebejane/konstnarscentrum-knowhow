@@ -1,0 +1,110 @@
+<!-- TEST for adaptive content combining Foundation and Masonry -->
+
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TESTINDEX Konstnärcentrum huvudportal | sammlingsplats alla KC i Sverige </title>
+  <!-- Foundation.css is core stylesheet & custom.css is customized stylesheet-->
+    <link rel="stylesheet" href="{site_url}edit/custom-f62/css/foundation.css" />
+    <link rel="stylesheet" href="{site_url}edit/default_site/css/Kcriks_master2.css" />
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'> <!-- fonts     -->
+
+
+  <!-- Other JS plugins can be included here -->
+
+
+  </head>
+
+ <body>
+	 				{embed="EmbedKcriks/topnav_kc-riks"}
+
+				<!-- content -->
+<div class="row">
+<!-- test -->
+<!-- /test -->
+  {exp:channel:entries
+							    channel="temp_news"
+							    dynamic="off"
+							    limit="25"
+								orderby="source"
+								sort="date"
+							    disable="pagination|categories|category-fields|member-data|relations"
+							    }
+							    {if count=="1"}
+							<ul id="container" class="FrontContentElement TestColorGreen" >
+								{/if}
+<a href="{temp_news_link}">
+								<li {if source=="konstnarscentrum"} id="KCC"{/if} class="small-12 medium-2 large-1  columns {if source=="konstnarscentrum"} KCC {/if}">
+
+{exp:ifelse parse="inward"}
+    {if source =="konstnarscentrum"}
+        <img src="{site_url}edit/images/icons/kc_riks.png">
+    {if:elseif source =="konstnarscentrum nord"}
+        <img src="{site_url}edit/images/icons/kc_nord.png">
+    {if:elseif source =="konstnarscentrum väst"}
+        <img src="{site_url}edit/images/icons/kc_vast.png">
+    {if:elseif source =="konstnarscentrum mitt"}
+        <img src="{site_url}edit/images/icons/kc_mitt.png">
+    {if:elseif source =="konstnarscentrum öst"}
+        <img src="{site_url}edit/images/icons/kc_ost.png">
+    {if:else}
+        <img src="{site_url}edit/images/icons/kc_syd.png">
+    {/if}
+{/exp:ifelse}
+								{if temp_news_image}
+								<img src="{temp_news_image:temp-img}">
+								{/if}
+								<div>
+
+
+								<p class="FrontContentElementText">
+									<span class="FrontContentElementDate">{entry_date format ="%F %Y"}</span>
+									<span class="">{source}</span>
+									<span class="">{title}</span>
+								{exp:ce_img:bulk width="285" add_dims="no"}
+								<span class="">{temp_news_text}</span>
+								{/exp:ce_img:bulk}
+								</p>
+								</div>
+								</li>
+								</a>
+
+	{/exp:channel:entries}
+</ul>
+</div>
+<!-- end content -->
+				{embed="EmbedKcriks/footer_kc-riks"}
+
+	 <script src="{site_url}edit/kcriks-f6-3/js/vendor/jquery.min.js"></script>
+  <script src="{site_url}edit/kcriks-f6-3/js/foundation.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.min.js"></script>
+
+      <script>
+      $(document).foundation();
+var container = document.querySelector('#container');
+var msnry = new Masonry( container, {
+  // options
+  itemSelector: '#container li'
+});
+</script>
+<!--
+<script>
+var elem = document.querySelector('.grid');
+var msnry = new Masonry( elem, {
+  // options
+  itemSelector: '.grid-item',
+  columnWidth: 285
+});
+
+// element argument can be a selector string
+//   for an individual element
+var msnry = new Masonry( '.grid', {
+  // options
+});
+</script>
+-->
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+{embed="LayoutsKonstnarscentrum/KonstnarscentrumTextPage_Layout"}
+
+{exp:stash:set
+				name="page_content"
+save="yes" refresh="60"}<!--  main stash tag -->
+
+
+
+
+<!-- content -->
+{exp:channel:entries
+							    channel="v-text-kcriks|kcriks_publish|temp-news|kcriks_news"
+							    url_title="{segment_1}"
+							    disable="pagination|categories|category-fields|member-data|relations"
+							    }
+
+		                        <h1>{title}</h1>
+		                        <article>
+			                        <img src="{temp_news_image}">
+			                        {temp_news_text}
+									{text_{language_code}}
+									{if file_download}
+																		<hr>
+
+									<p>Ladda ner:
+									{file_download}
+									<br><a href="{file_download:file}">{file_download:file_title}</a></p>
+									{/file_download}
+									{/if}
+		                        </article>
+
+						{/exp:channel:entries}
+<!-- end content -->
+			{/exp:stash:set}

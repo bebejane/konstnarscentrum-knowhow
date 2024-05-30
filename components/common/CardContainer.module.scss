@@ -1,0 +1,110 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: calc(-1 * var(--outer-margin));
+  margin-right: calc(-1 * var(--outer-margin));
+  width: calc(100% + (2 * var(--outer-margin)));
+
+  @include mq($from: tablet) {
+    margin-left: calc(-1 * var(--gutter));
+    margin-right: calc(-1 * var(--gutter));
+    width: calc(100% + (2 * var(--gutter)));
+  }
+
+  padding: 0;
+  list-style: none;
+
+  @include mq($from: tablet) {
+    width: calc(100% + (2 * var(--grid-unit)) + (2 * var(--gutter)));
+    margin-left: calc((-1 * var(--grid-unit)) - var(--gutter));
+  }
+
+  li a:hover {
+    color: var(--black) !important;
+  }
+
+  > li {
+    border-right: 1px solid var(--beige-mid);
+  }
+
+  &.two > li {
+    @include mq($from: tablet) {
+      width: 50%;
+
+      &:nth-of-type(2n) {
+        border-right: none;
+      }
+    }
+
+    @include mq($until: tablet) {
+      width: 100%;
+      border-right: none;
+      a:last-of-type {
+        margin-bottom: 2rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid var(--beige-mid);
+      }
+
+      &:last-of-type a:last-of-type {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &.two {
+    @include mq($until: tablet) {
+      hr {
+        display: none;
+      }
+    }
+  }
+
+  &.three > li {
+    width: 33.333%;
+
+    @include mq($from: tablet) {
+      &:nth-of-type(3n) {
+        border-right: none;
+      }
+    }
+
+    @include mq($until: tablet) {
+      width: 50%;
+
+      &:nth-of-type(odd) {
+        border-right: 1px solid var(--beige-mid);
+      }
+
+      &:nth-of-type(even) {
+        border-right: none;
+      }
+    }
+  }
+
+  hr {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    margin-left: var(--gutter);
+    margin-right: var(--gutter);
+
+    @include mq($until: tablet) {
+      margin-top: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    &:last-child {
+      display: none;
+    }
+  }
+
+  &.whiteBorder {
+    & > li {
+      border-color: var(--white) !important;
+    }
+
+    hr {
+      background: var(--white) !important;
+    }
+  }
+}

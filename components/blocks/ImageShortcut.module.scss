@@ -1,0 +1,78 @@
+.container {
+  color: var(--white);
+  margin-top: var(--space);
+
+  figure {
+    position: relative;
+
+    .image {
+      margin-right: calc(-1 * var(--outer-margin));
+      margin-left: calc(-1 * var(--outer-margin));
+      width: calc(100% + (2 * var(--outer-margin))) !important;
+
+      @include mq($until: tablet) {
+        height: 60vh;
+      }
+
+      @include mq($from: tablet) {
+        min-width: calc(100% - (2 * var(--full-margin)));
+        margin-right: var(--full-margin);
+        margin-left: var(--full-margin);
+        max-width: none;
+        max-height: calc(100vh - (2 * var(--navbar-height)));
+      }
+    }
+
+    figcaption {
+      position: absolute;
+      top: var(--small-space);
+      left: 0;
+      width: 100%;
+      height: 100%;
+
+      @include mq($from: tablet) {
+        margin-left: calc(-1 * var(--grid-unit));
+      }
+
+      h2,
+      p,
+      a {
+        z-index: 2;
+        position: relative;
+      }
+
+      p {
+        margin-bottom: 0;
+        padding-right: var(--grid-unit);
+      }
+
+      a {
+        color: var(--white);
+      }
+
+      .fade {
+        //background-color: red;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.297) 0%, rgba(0, 0, 0, 0) 100%);
+        position: absolute;
+        z-index: 0;
+        top: 0;
+        left: 0;
+        height: 50%;
+        margin-left: calc(-1 * var(--outer-margin));
+        margin-right: calc(-1 * var(--outer-margin));
+        margin-top: calc(-1 * var(--small-space));
+        width: calc(100% + (2 * var(--outer-margin)));
+
+        @include mq($from: tablet) {
+          margin-left: calc(-1 * var(--grid-unit));
+          margin-right: calc(-1 * var(--grid-unit));
+          width: calc(100% + (4 * var(--grid-unit)));
+        }
+      }
+    }
+  }
+
+  .black {
+    color: var(--black);
+  }
+}

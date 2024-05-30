@@ -1,0 +1,77 @@
+query Activity($slug: String!) {
+	activity(filter: { slug: { eq: $slug } }) {
+		...ActivityFragment
+	}
+}
+query ActivityById($id: ItemId!) {
+	activity(filter: { id: { eq: $id } }) {
+		...ActivityFragment
+	}
+}
+
+query AllActivities($first: IntType = 10, $skip: IntType = 0) {
+	activities: allActivities(orderBy: [createdAt_DESC], first: $first, skip: $skip) {
+		...ActivityLightFragment
+	}
+	pagination: _allActivitiesMeta {
+		count
+	}
+}
+
+query AllPastAndFutureActivities(
+	$categoryId: ItemId
+	$date: Date
+	$first: IntType
+	$skip: IntType
+) {
+	activities: allActivities(
+		filter: {
+			category: { eq: $categoryId }
+			OR: [
+				{ date: { gt: $date }, dateEnd: { gt: $date, exists: true } }
+				{ dateEnd: { lt: $date, exists: true } }
+				{ date: { gt: $date } }
+			]
+		}
+		orderBy: [date_DESC]
+		first: $first
+		skip: $skip
+	) {
+		...ActivityLightFragment
+	}
+	pagination: _allActivitiesMeta(
+		filter: {
+			category: { eq: $categoryId }
+			OR: [
+				{ date: { gt: $date }, dateEnd: { gt: $date, exists: true } }
+				{ dateEnd: { lt: $date, exists: true } }
+				{ date: { gt: $date } }
+			]
+		}
+	) {
+		count
+	}
+}
+
+query AllPresentActivities($first: IntType = 100, $skip: IntType = 0, $date: Date) {
+	presentActivities: allActivities(
+		filter: { date: { lte: $date }, dateEnd: { gte: $date, exists: true } }
+		orderBy: [date_DESC]
+		first: $first
+		skip: $skip
+	) {
+		...ActivityLightFragment
+	}
+	pagination: _allActivitiesMeta(
+		filter: { date: { lte: $date }, dateEnd: { gte: $date, exists: true } }
+	) {
+		count
+	}
+}
+
+query AllActivityCategories($first: IntType = 100, $skip: IntType = 0) {
+	activityCategories: allActivityCategories(first: $first, skip: $skip) {
+		id
+		category
+	}
+}

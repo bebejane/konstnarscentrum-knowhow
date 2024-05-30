@@ -1,0 +1,122 @@
+.article {
+  >header {
+    display: block;
+    position: relative;
+    padding-bottom: var(--small-space);
+
+    @include mq($from: tablet) {
+      padding-bottom: 0;
+    }
+
+    figure {
+      margin-left: calc(-1 * var(--outer-margin));
+      margin-right: calc(-1 * var(--outer-margin));
+
+
+      @include mq($from: tablet) {
+        margin-left: var(--full-margin);
+        margin-right: var(--full-margin);
+
+        .image,
+        .placeholder,
+        .emptyEditable {
+          min-height: calc(100vh - (2 * var(--navbar-height)));
+          max-height: calc(100vh - (2 * var(--navbar-height)));
+          min-width: calc(100% + (2 * var(--outer-margin)));
+          min-width: calc(100% + (2 * var(--full-margin)));
+          max-width: none !important;
+        }
+
+        .placeholder {
+          width: 110% !important;
+        }
+      }
+
+      .emptyEditable {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          opacity: 0.05;
+          max-height: 300px;
+        }
+      }
+
+      figcaption {
+        display: none;
+
+        @include mq($from: tablet) {
+          height: var(--navbar-height);
+        }
+
+        display: flex;
+        align-items: center;
+
+        opacity: 1;
+        transition: opacity 0.4s ease-in-out;
+
+        @include mq($until: tablet) {
+          margin-left: var(--outer-margin);
+          margin-right: var(--outer-margin);
+          padding-top: 1em;
+
+          p {
+            margin-bottom: 0;
+          }
+        }
+
+        &.hide {
+          opacity: 0;
+        }
+      }
+    }
+
+    .title {
+      position: relative;
+      z-index: 2;
+      color: var(--white);
+      //padding-top: 1em;
+      width: 100%;
+
+      &.absolute {
+        position: absolute;
+        padding-top: 1em;
+      }
+
+      &.black {
+        color: var(--black);
+      }
+
+      .fade {
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.297) 0%, rgba(0, 0, 0, 0) 100%);
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        left: 0;
+        height: 150%;
+        width: calc(100% + (2 * var(--outer-margin)));
+        margin-left: calc(-1 * var(--outer-margin));
+        margin-right: calc(-1 * var(--outer-margin));
+
+        @include mq($from: tablet) {
+          margin-left: var(--full-margin);
+          margin-right: var(--full-margin);
+          width: calc(100% - (2 * var(--full-margin)));
+        }
+      }
+
+      &.black .fade {
+        display: none;
+      }
+    }
+  }
+
+  &.noBottom {
+    padding-bottom: 0;
+  }
+
+  a:hover {
+    color: var(--beige-dark) !important;
+  }
+}

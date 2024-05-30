@@ -1,0 +1,44 @@
+query Knowledge($slug: String!) {
+	knowledge(filter: { slug: { eq: $slug } }) {
+		...KnowledgeFragment
+	}
+}
+query KnowledgeById($id: ItemId!) {
+	knowledge(filter: { id: { eq: $id } }) {
+		...KnowledgeFragment
+	}
+}
+
+query AllKnowledges($first: IntType = 10, $skip: IntType = 0) {
+	knowledges: allKnowledges(orderBy: [createdAt_DESC], first: $first, skip: $skip) {
+		...KnowledgeLightFragment
+	}
+	pagination: _allKnowledgesMeta {
+		count
+	}
+}
+
+query AllPastAndFutureKnowledges($categoryId: ItemId, $first: IntType, $skip: IntType) {
+	knowledges: allKnowledges(filter: { category: { eq: $categoryId } }, first: $first, skip: $skip) {
+		...KnowledgeLightFragment
+	}
+	pagination: _allKnowledgesMeta(filter: { category: { eq: $categoryId } }) {
+		count
+	}
+}
+
+query AllPresentKnowledges($first: IntType = 100, $skip: IntType = 0) {
+	presentKnowledges: allKnowledges(first: $first, skip: $skip) {
+		...KnowledgeLightFragment
+	}
+	pagination: _allKnowledgesMeta {
+		count
+	}
+}
+
+query AllKnowledgeCategories($first: IntType = 100, $skip: IntType = 0) {
+	knowledgeCategories: allKnowledgeCategories(first: $first, skip: $skip) {
+		id
+		category
+	}
+}

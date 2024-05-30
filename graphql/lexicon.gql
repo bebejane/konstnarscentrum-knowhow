@@ -1,0 +1,23 @@
+query Lexicon($id: ItemId!) {
+	lexicon(filter: { id: { eq: $id } }) {
+		id
+		word
+		desc {
+			blocks
+			value
+			links
+		}
+	}
+}
+
+query AllLexicons($first: IntType, $skip: IntType) {
+	lexicons: allLexicons(first: $first, skip: $skip) {
+		id
+		word
+		desc {
+			blocks
+			value
+			links
+		}
+	}
+}

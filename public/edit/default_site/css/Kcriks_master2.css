@@ -1,0 +1,270 @@
+/*
+DEV
+-----------------------------------------------------------------------------*/
+.TestColorGreen {
+	background-color:green;
+}
+
+.TestColorBlue {
+	background-color:blue;
+}
+
+.TestOutline {
+	border-bottom:1px solid #e2e2e2;
+}/* reset */
+/*
+html {
+    background-color: #e6e2e2
+}
+*/
+/*
+responsive
+-----------------------------------------------------------------------------*/
+/*
+components
+-----------------------------------------------------------------------------*/
+/*
+.PaddingTopFooter {      /* helps making the illusion that the front element blocks line with outsine of #top and #footer */
+	padding-left: .58rem;
+	padding-right: .58rem;
+}
+*/
+
+.ContentBlock {
+	min-height: 40rem;
+	margin-top: 1.4rem;
+}
+@media screen and (min-width: 480px) {
+.KcriksBg {
+	background:url(http://www.konstnarscentrum.org/edit/images/icons/konstnarscentrum_m.png);
+	background-position:left top;
+	background-repeat:no-repeat;
+}
+}
+@media screen and (min-width: 980px) {
+.KcriksBg {
+	background:url(http://www.konstnarscentrum.org/edit/images/icons/konstnarscentrum.png);
+	background-position:left top;
+	background-repeat:no-repeat;
+}
+}
+
+.row ul {
+	margin-left: 0 !important;
+	padding: 0 !important;
+	}
+
+.FrontContentElement li {
+	display:block;
+	font-size:.5rem;
+	border-style:solid;
+	border-width:thin;
+	border-color:gray;
+	list-style:none;
+	background-color:#fff;
+	margin-bottom: 0.8rem;
+	margin-right: 1.8rem;
+}
+
+
+.FrontContentElement li:a {
+	text-decoration:none;
+}
+
+.FrontContentElement li:hover {
+	background-color:#d0d0d0;
+}
+
+.KCCentrum li:hover {
+	background-color:white !important;
+}
+
+.FrontContentElementText p a {
+	padding-left:.5rem;
+	padding-right:.5rem;
+	padding-top:0!important;
+}
+
+.FrontContentElementDate {
+	font-variant:small-caps;
+	font-weight:700;
+	font-size:1rem;
+	margin-bottom:-.1rem;
+}
+
+
+#KCC {
+	background-color:grey!important;
+}
+
+#KCC p {
+	color:white !important;
+}
+
+#KCC:hover {
+	background-color:#d0d0d0 !important;
+}
+
+#KCC:hover p {
+	color:black !important;
+}
+
+.top,footer {
+	background-color:#000;
+	height:9rem;
+}
+
+/*
+Colors
+-----------------------------------------------------------------------------*/
+.colorWhite {
+	background-color:#fff;
+}
+
+.BgLightGray {
+	background-color:silver;
+}
+
+/* =Typography
+-----------------------------------------------------------------------------*/
+body {
+	background-color:#e6e2e2;
+}
+
+p, table  {
+	font-size:1.2rem;
+	font-family:'Open Sans',sans-serif;
+	font-weight:100;
+	line-height:1.4rem;
+	letter-spacing:.05rem;
+	margin-bottom:1.5rem;
+	margin-left:0;
+	margin-right:0;
+	color:#000;
+}
+
+
+
+.FooterAdress {
+	font-family:'Open Sans',sans-serif;
+	font-size:.8em;
+	letter-spacing:.005em;
+	font-variant:small-caps;
+	font-weight:300;
+}
+
+.FooterAdressNumber {
+	font-family:'Open Sans',sans-serif;
+	font-size:.7em;
+	letter-spacing:.005em;
+	font-weight:300;
+}
+
+a:link {
+	text-decoration:none;
+	color:gray;
+}
+
+a:visited {
+	text-decoration:none;
+	color:silver;
+}
+
+a:hover {
+	text-decoration:none;
+	color:#9C3;
+}
+
+a:active {
+	text-decoration:none;
+	color:gray;
+}
+
+h1, h2 {
+	font-size:1.2rem;
+	font-family:'Open Sans',sans-serif;
+	font-weight:100;
+	line-height:1.4rem;
+	letter-spacing:.05rem;
+	margin-bottom:1.8rem;
+	margin-left:0;
+	margin-right:0;
+	color:#000;
+}
+
+
+
+h3 {
+	font-size:1.8em;
+	font-family:'Open Sans',sans-serif;
+	font-weight:400;
+	margin-bottom:.18em;
+}
+
+h4 {
+	font-size:1.5em;
+	font-family:'Open Sans',sans-serif;
+	font-variant:small-caps;
+	color:#3b3b3b;
+	padding-left:.5em;
+	padding-bottom:-2em;
+}
+
+h5 {
+	font-family:'Open Sans',sans-serif;
+	font-weight:400;
+	font-size:2.4em;
+	font-variant:small-caps;
+	letter-spacing:.025em;
+	color:#666;
+	height:auto;
+	margin-top:3.9em;
+	margin-bottom:.0001em;
+}
+
+/* navmenu */
+.kcriksmenu {
+	margin-top:5.4rem; /* pushes the menu */
+	z-index:999;
+	color: white !important;
+	font-size:1.5rem;
+	font-family:'Open Sans',sans-serif;
+	font-weight:300;
+	font-variant:small-caps;
+	letter-spacing:.04rem;
+
+}
+
+
+/* orig from Foundation */
+.dropdown.menu {
+	background: black;
+}
+.dropdown.menu li a {
+	color: white !important;
+}
+.dropdown.menu .submenu {
+ 	background: #cc9966 !important;
+    min-width: 150px;
+    margin-left: .5rem; /* pushes the dropdown */
+  .dropdown.menu .submenu > li {
+    width: 100%; }
+    }
+
+/* orig from Foundation */
+
+
+.submenu li a:link {
+	background-color:#cc9966;
+	color:#000;
+	padding-left: 1.8rem; /* space left dropdowntext */
+	text-decoration:none;
+	margin-bottom:.5rem;
+	font-size: 1.6rem !important;
+
+}
+
+.submenu li a:hover {
+	background-color:#ffcc99;
+	text-decoration:none;
+}

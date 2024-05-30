@@ -1,0 +1,44 @@
+// Google Map Custom Marker Maker 2012
+// Please include the following credit in your code
+
+// Sample custom marker code created with Google Map Custom Marker Maker
+// http://powerhut.co.uk/googlemaps/custom_markers.php
+
+var point = new google.maps.LatLng(50.875311, 0.351563);
+
+var myMapOptions = {
+  zoom: 5,
+  center: point,
+  mapTypeId: google.maps.MapTypeId.TERRAIN
+};
+
+var map = new google.maps.Map(document.getElementById("map"),myMapOptions);
+
+var image = new google.maps.MarkerImage(
+  'marker-images/image.png',
+  new google.maps.Size(17,34),
+  new google.maps.Point(0,0),
+  new google.maps.Point(9,34)
+);
+
+var shadow = new google.maps.MarkerImage(
+  'marker-images/shadow.png',
+  new google.maps.Size(37,34),
+  new google.maps.Point(0,0),
+  new google.maps.Point(9,34)
+);
+
+var shape = {
+  coord: [9,0,9,1,8,2,12,3,13,4,13,5,11,6,16,7,16,8,16,9,16,10,14,11,8,12,8,13,9,14,9,15,9,16,9,17,9,18,9,19,9,20,9,21,9,22,9,23,9,24,9,25,9,26,9,27,9,28,9,29,9,30,9,31,9,32,9,33,7,33,7,32,7,31,7,30,7,29,7,28,7,27,7,26,7,25,7,24,7,23,7,22,7,21,7,20,7,19,7,18,7,17,7,16,7,15,3,14,3,13,2,12,1,11,0,10,0,9,0,8,0,7,0,6,0,5,1,4,2,3,2,2,3,1,4,0,9,0],
+  type: 'poly'
+};
+
+var marker = new google.maps.Marker({
+  draggable: true,
+  raiseOnDrag: false,
+  icon: image,
+  shadow: shadow,
+  shape: shape,
+  map: map,
+  position: point
+});

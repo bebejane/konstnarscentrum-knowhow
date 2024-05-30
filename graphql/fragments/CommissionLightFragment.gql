@@ -1,0 +1,22 @@
+#import "./ImageThumbnailFragment.gql"
+#import "./RegionFragment.gql"
+
+fragment CommissionLightFragment on CommissionRecord {
+	__typename
+	_modelApiKey
+	id
+	title
+	slug
+	city
+	year
+	artist
+	consultant
+	blackHeadline
+	image {
+		...ImageThumbnailFragment
+	}
+	category {
+		id
+		title
+	}
+}

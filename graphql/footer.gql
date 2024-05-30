@@ -1,0 +1,5 @@
+query Footer {
+	footer {
+		aboutTheProject(markdown: false)
+	}
+}

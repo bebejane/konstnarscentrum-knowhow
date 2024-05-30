@@ -1,0 +1,46 @@
+.container {
+  width: 100%;
+  padding-top: var(--small-space);
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+
+    li {
+      margin-bottom: 2em;
+      padding-bottom: 2em;
+
+      border-bottom: 1px solid var(--beige-mid);
+    }
+  }
+
+  h2 {
+    padding-bottom: 0.5em;
+  }
+
+  p {
+    margin-bottom: 0em;
+  }
+
+
+}
+
+
+.nomatches,
+.error {
+  margin-left: var(--outer-margin);
+  margin-right: var(--outer-margin);
+  width: 100%;
+  text-align: center;
+  color: var(--beige-dark);
+  margin-top: 1rem;
+}
+
+.error {
+  color: var(--red);
+
+}
+
+.loader {
+  margin-top: var(--space);
+}
