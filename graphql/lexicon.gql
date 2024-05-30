@@ -20,4 +20,11 @@ query AllLexicons($first: IntType, $skip: IntType) {
 			links
 		}
 	}
+	lexiconText {
+		intro {
+			blocks
+			value
+			links
+		}
+	}
 }

@@ -23,6 +23,8 @@
 	--background: var(--white);
 	--foreground: var(--black);
 
+	--z-popup: 10000;
+
 	@include mq($from: tablet) {
 		--space: 4rem;
 		--outer-margin: 3.333vw;

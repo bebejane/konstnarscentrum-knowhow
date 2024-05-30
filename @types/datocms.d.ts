@@ -790,6 +790,54 @@ type ContactIntroRecordstaffArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
+type ContactPageModelContentBlocksField = ButtonRecord | ImageRecord | VideoRecord;
+
+type ContactPageModelContentField = {
+  __typename?: 'ContactPageModelContentField';
+  blocks: Array<ContactPageModelContentBlocksField>;
+  links: Array<Scalars['String']>;
+  value: Scalars['JsonField'];
+};
+
+/** Record of type Kontakta oss (contact_page) */
+type ContactPageRecord = RecordInterface & {
+  __typename?: 'ContactPageRecord';
+  _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
+  _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
+  content: ContactPageModelContentField;
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ItemId'];
+  image?: Maybe<FileField>;
+  intro: Scalars['String'];
+  showImage?: Maybe<Scalars['BooleanType']>;
+  slug: Scalars['String'];
+  title: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
+};
+
+
+/** Record of type Kontakta oss (contact_page) */
+type ContactPageRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Kontakta oss (contact_page) */
+type ContactPageRecordintroArgs = {
+  markdown?: InputMaybe<Scalars['Boolean']>;
+};
+
 /** Block of type Kontakt (contact) */
 type ContactRecord = RecordInterface & {
   __typename?: 'ContactRecord';
@@ -3529,6 +3577,41 @@ type LexiconRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
+type LexiconTextModelIntroField = {
+  __typename?: 'LexiconTextModelIntroField';
+  blocks: Array<Scalars['String']>;
+  links: Array<Scalars['String']>;
+  value: Scalars['JsonField'];
+};
+
+/** Record of type Lexikon text (lexicon_text) */
+type LexiconTextRecord = RecordInterface & {
+  __typename?: 'LexiconTextRecord';
+  _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
+  _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ItemId'];
+  intro?: Maybe<LexiconTextModelIntroField>;
+  updatedAt: Scalars['DateTime'];
+};
+
+
+/** Record of type Lexikon text (lexicon_text) */
+type LexiconTextRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
 /** Specifies how to filter Single-link fields */
 type LinkFilter = {
   /** Search for records with an exact match. The specified value must be a Record ID */
@@ -4006,6 +4089,8 @@ type Query = {
   consultant?: Maybe<ConsultantRecord>;
   /** Returns the single instance record */
   contactIntro?: Maybe<ContactIntroRecord>;
+  /** Returns the single instance record */
+  contactPage?: Maybe<ContactPageRecord>;
   /** Returns a specific record */
   employee?: Maybe<EmployeeRecord>;
   /** Returns the single instance record */
@@ -4022,6 +4107,8 @@ type Query = {
   knowledgeCategory?: Maybe<KnowledgeCategoryRecord>;
   /** Returns a specific record */
   lexicon?: Maybe<LexiconRecord>;
+  /** Returns the single instance record */
+  lexiconText?: Maybe<LexiconTextRecord>;
   /** Returns a specific record */
   memberCategory?: Maybe<MemberCategoryRecord>;
   /** Returns a specific record */
@@ -4437,6 +4524,13 @@ type QuerycontactIntroArgs = {
 
 
 /** The query root for this schema */
+type QuerycontactPageArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** The query root for this schema */
 type QueryemployeeArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<EmployeeModelFilter>;
@@ -4499,6 +4593,13 @@ type QuerylexiconArgs = {
   filter?: InputMaybe<LexiconModelFilter>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<LexiconModelOrderBy>>>;
+};
+
+
+/** The query root for this schema */
+type QuerylexiconTextArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
 };
 
 
@@ -5651,7 +5752,7 @@ type AllLexiconsQueryVariables = Exact<{
 }>;
 
 
-type AllLexiconsQuery = { __typename?: 'Query', lexicons: Array<{ __typename?: 'LexiconRecord', id: any, word?: string | null, desc?: { __typename?: 'LexiconModelDescField', blocks: Array<string>, value: any, links: Array<string> } | null }> };
+type AllLexiconsQuery = { __typename?: 'Query', lexicons: Array<{ __typename?: 'LexiconRecord', id: any, word?: string | null, desc?: { __typename?: 'LexiconModelDescField', blocks: Array<string>, value: any, links: Array<string> } | null }>, lexiconText?: { __typename?: 'LexiconTextRecord', intro?: { __typename?: 'LexiconTextModelIntroField', blocks: Array<string>, value: any, links: Array<string> } | null } | null };
 
 type AllNewsQueryVariables = Exact<{
   first?: InputMaybe<Scalars['IntType']>;

@@ -1,11 +1,11 @@
 import '/styles/index.scss'
+import 'rc-tooltip/assets/bootstrap_white.css'
 import { Layout } from '/components';
 import { ThemeProvider } from 'next-themes'
 import { useRouter } from 'next/router';
 import { DefaultDatoSEO } from 'dato-nextjs-utils/components';
 import { sv } from 'date-fns/locale'
 import { PageProvider } from '/lib/context/page';
-import { GoogleAnalytics } from "nextjs-google-analytics";
 
 import setDefaultOptions from 'date-fns/setDefaultOptions';
 
