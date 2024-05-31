@@ -31,13 +31,13 @@ export default function Knowledge({ knowledge: {
 				title={title}
 				text={intro}
 				blackHeadline={blackHeadline}
+				content={content}
 			>
 				<MetaSection
 					items={[
 						{ title: 'Kategori', value: category.category }
 					]}
 				/>
-				<StructuredContent id={id} record={knowledge} content={content} />
 			</Article>
 			<Link href={`/kunskapsbank/${category.slug}`}>
 				<button className="wide">Tillbaka till översikt</button>
