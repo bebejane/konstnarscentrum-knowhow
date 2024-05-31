@@ -1,5 +1,5 @@
 .article {
-  >header {
+  > header {
     display: block;
     position: relative;
     padding-bottom: var(--small-space);
@@ -11,7 +11,6 @@
     figure {
       margin-left: calc(-1 * var(--outer-margin));
       margin-right: calc(-1 * var(--outer-margin));
-
 
       @include mq($from: tablet) {
         margin-left: var(--full-margin);
@@ -89,7 +88,7 @@
       }
 
       .fade {
-        background: linear-gradient(180deg, rgba(0, 0, 0, 0.297) 0%, rgba(0, 0, 0, 0) 100%);
+        background: linear-gradient(180deg, rgba(255, 69, 0, 0.297) 0%, rgba(255, 68, 0, 0) 100%);
         position: absolute;
         z-index: -1;
         top: 0;
