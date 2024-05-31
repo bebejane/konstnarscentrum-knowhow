@@ -8,7 +8,7 @@ export const config = {
 export default withRevalidate(async (record, revalidate) => {
 
   const { api_key: apiKey } = record.model;
-  const { slug } = record
+  const { slug, category } = record
   const paths = []
 
   switch (apiKey) {
@@ -28,7 +28,7 @@ export default withRevalidate(async (record, revalidate) => {
       paths.push(`/aktiviteter/${slug}`)
       break;
     case 'knowledge':
-      paths.push(`/kunskapsbank/${slug}`)
+      paths.push(`/kunskapsbank/${category.slug}/${slug}`)
       break;
     default:
       break;

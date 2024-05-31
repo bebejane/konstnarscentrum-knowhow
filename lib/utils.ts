@@ -78,14 +78,14 @@ export const recordToSlug = (record: any, region?: Region): string => {
   if (typeof record === 'string')
     return record
   else {
-    const { __typename, slug } = record
+    const { __typename, slug, category } = record
 
     switch (__typename) {
       case 'ActivityRecord':
         url = `/aktiviteter/${slug}`
         break;
       case 'KnowledgeRecord':
-        url = `/kunskapsbank/${slug}`
+        url = `/kunskapsbank/${category.slug}/${slug}`
         break;
       case 'AboutRecord':
         url = `/om/${slug}`
@@ -235,7 +235,7 @@ export const getStaticPagePaths = async (query: TypedDocumentNode, segment: stri
   const items = await fetchAllRecords(query)
   const paths = []
 
-  items.forEach(({ slug, region }) => {
+  items.forEach(({ slug }) => {
     const params = { [segment]: slug }
     paths.push({ params })
   })

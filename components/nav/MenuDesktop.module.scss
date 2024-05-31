@@ -51,6 +51,12 @@
       &:hover {
         color: var(--beige-dark) !important;
       }
+
+      &:last-child {
+        flex: 1 1;
+        text-align: right;
+        margin-right: 0;
+      }
     }
   }
 

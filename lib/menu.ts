@@ -1,5 +1,5 @@
 import { apiQuery } from 'dato-nextjs-utils/api';
-import { LatestNewsDocument, AllAboutsMenuDocument, AllKnowledgeCategoriesDocument } from "/graphql";
+import { AllAboutsMenuDocument, AllKnowledgeCategoriesDocument } from "/graphql";
 
 export type Menu = MenuItem[]
 
@@ -27,14 +27,12 @@ export const buildMenu = async () => {
     abouts,
     knowledgeCategories
   }: {
-    news: NewsRecord[],
     abouts: AboutRecord[],
     knowledgeCategories: KnowledgeCategoryRecord[]
   } = await apiQuery([
-    LatestNewsDocument,
     AllAboutsMenuDocument,
     AllKnowledgeCategoriesDocument
-  ], { variables: [{ first: 5 }, { first: 5 }] });
+  ]);
 
   const menu = base.map(item => {
     let sub: MenuItem[];
@@ -43,7 +41,8 @@ export const buildMenu = async () => {
         sub = abouts.map(el => ({ type: 'about', label: el.title, slug: `/om/${el.slug}` }))
         break;
       case 'knowledge':
-        sub = item.sub.concat(knowledgeCategories.map(el => ({ type: 'knowledge', label: el.category, slug: `/kunskapsbank?category=${el.category}` })))
+        //sub = item.sub.concat(knowledgeCategories.map(el => ({ type: 'knowledge', label: el.category, slug: `/kunskapsbank?category=${el.category}` })))
+        sub = item.sub.concat(knowledgeCategories.map(el => ({ type: 'knowledge', label: el.category, slug: `/kunskapsbank/${el.slug}` })))
         break;
       default:
         break;

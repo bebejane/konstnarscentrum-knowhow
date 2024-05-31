@@ -3278,6 +3278,7 @@ type KnowledgeCategoryModelFilter = {
   createdAt?: InputMaybe<CreatedAtFilter>;
   id?: InputMaybe<ItemIdFilter>;
   position?: InputMaybe<PositionFilter>;
+  slug?: InputMaybe<SlugFilter>;
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
 
@@ -3330,6 +3331,7 @@ type KnowledgeCategoryRecord = RecordInterface & {
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   position?: Maybe<Scalars['IntType']>;
+  slug: Scalars['String'];
   updatedAt: Scalars['DateTime'];
 };
 
@@ -5683,9 +5685,9 @@ type ImageMediumFragment = { __typename?: 'FileField', id: any, mimeType: string
 
 type ImageThumbnailFragment = { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null } | null };
 
-type KnowledgeFragment = { __typename: 'KnowledgeRecord', _modelApiKey: string, id: any, createdAt: any, title: string, blackHeadline?: any | null, intro: string, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } | null, category: { __typename?: 'KnowledgeCategoryRecord', id: any, category: string }, content: { __typename?: 'KnowledgeModelContentField', value: any, blocks: Array<{ __typename: 'ButtonRecord', id: any, text: string, url: string } | { __typename: 'FormRecord', id: any, subject?: string | null, reciever?: string | null, confirmation: string, formFields: Array<{ __typename: 'FormTextRecord', id: any, title?: string | null } | { __typename: 'FormTextblockRecord', id: any, title?: string | null } | { __typename: 'PdfFormRecord', id: any, title?: string | null }> } | { __typename: 'ImageRecord', id: any, image: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null }> } | { __typename: 'VideoRecord', id: any, title?: string | null, video?: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } | null }> }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> };
+type KnowledgeFragment = { __typename: 'KnowledgeRecord', _modelApiKey: string, id: any, createdAt: any, title: string, blackHeadline?: any | null, intro: string, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } | null, category: { __typename?: 'KnowledgeCategoryRecord', id: any, category: string, slug: string }, content: { __typename?: 'KnowledgeModelContentField', value: any, blocks: Array<{ __typename: 'ButtonRecord', id: any, text: string, url: string } | { __typename: 'FormRecord', id: any, subject?: string | null, reciever?: string | null, confirmation: string, formFields: Array<{ __typename: 'FormTextRecord', id: any, title?: string | null } | { __typename: 'FormTextblockRecord', id: any, title?: string | null } | { __typename: 'PdfFormRecord', id: any, title?: string | null }> } | { __typename: 'ImageRecord', id: any, image: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null }> } | { __typename: 'VideoRecord', id: any, title?: string | null, video?: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } | null }> }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> };
 
-type KnowledgeLightFragment = { __typename: 'KnowledgeRecord', _modelApiKey: string, id: any, createdAt: any, title: string, intro: string, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null } | null } | null, category: { __typename?: 'KnowledgeCategoryRecord', id: any, category: string } };
+type KnowledgeLightFragment = { __typename: 'KnowledgeRecord', _modelApiKey: string, id: any, createdAt: any, title: string, intro: string, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null } | null } | null, category: { __typename?: 'KnowledgeCategoryRecord', id: any, category: string, slug: string } };
 
 type MediaGalleryFragment = { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, bgColor?: string | null, sizes: string } | null };
 
@@ -5705,14 +5707,14 @@ type KnowledgeQueryVariables = Exact<{
 }>;
 
 
-type KnowledgeQuery = { __typename?: 'Query', knowledge?: { __typename: 'KnowledgeRecord', _modelApiKey: string, id: any, createdAt: any, title: string, blackHeadline?: any | null, intro: string, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } | null, category: { __typename?: 'KnowledgeCategoryRecord', id: any, category: string }, content: { __typename?: 'KnowledgeModelContentField', value: any, blocks: Array<{ __typename: 'ButtonRecord', id: any, text: string, url: string } | { __typename: 'FormRecord', id: any, subject?: string | null, reciever?: string | null, confirmation: string, formFields: Array<{ __typename: 'FormTextRecord', id: any, title?: string | null } | { __typename: 'FormTextblockRecord', id: any, title?: string | null } | { __typename: 'PdfFormRecord', id: any, title?: string | null }> } | { __typename: 'ImageRecord', id: any, image: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null }> } | { __typename: 'VideoRecord', id: any, title?: string | null, video?: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } | null }> }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
+type KnowledgeQuery = { __typename?: 'Query', knowledge?: { __typename: 'KnowledgeRecord', _modelApiKey: string, id: any, createdAt: any, title: string, blackHeadline?: any | null, intro: string, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } | null, category: { __typename?: 'KnowledgeCategoryRecord', id: any, category: string, slug: string }, content: { __typename?: 'KnowledgeModelContentField', value: any, blocks: Array<{ __typename: 'ButtonRecord', id: any, text: string, url: string } | { __typename: 'FormRecord', id: any, subject?: string | null, reciever?: string | null, confirmation: string, formFields: Array<{ __typename: 'FormTextRecord', id: any, title?: string | null } | { __typename: 'FormTextblockRecord', id: any, title?: string | null } | { __typename: 'PdfFormRecord', id: any, title?: string | null }> } | { __typename: 'ImageRecord', id: any, image: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null }> } | { __typename: 'VideoRecord', id: any, title?: string | null, video?: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } | null }> }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
 
 type KnowledgeByIdQueryVariables = Exact<{
   id: Scalars['ItemId'];
 }>;
 
 
-type KnowledgeByIdQuery = { __typename?: 'Query', knowledge?: { __typename: 'KnowledgeRecord', _modelApiKey: string, id: any, createdAt: any, title: string, blackHeadline?: any | null, intro: string, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } | null, category: { __typename?: 'KnowledgeCategoryRecord', id: any, category: string }, content: { __typename?: 'KnowledgeModelContentField', value: any, blocks: Array<{ __typename: 'ButtonRecord', id: any, text: string, url: string } | { __typename: 'FormRecord', id: any, subject?: string | null, reciever?: string | null, confirmation: string, formFields: Array<{ __typename: 'FormTextRecord', id: any, title?: string | null } | { __typename: 'FormTextblockRecord', id: any, title?: string | null } | { __typename: 'PdfFormRecord', id: any, title?: string | null }> } | { __typename: 'ImageRecord', id: any, image: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null }> } | { __typename: 'VideoRecord', id: any, title?: string | null, video?: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } | null }> }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
+type KnowledgeByIdQuery = { __typename?: 'Query', knowledge?: { __typename: 'KnowledgeRecord', _modelApiKey: string, id: any, createdAt: any, title: string, blackHeadline?: any | null, intro: string, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } | null, category: { __typename?: 'KnowledgeCategoryRecord', id: any, category: string, slug: string }, content: { __typename?: 'KnowledgeModelContentField', value: any, blocks: Array<{ __typename: 'ButtonRecord', id: any, text: string, url: string } | { __typename: 'FormRecord', id: any, subject?: string | null, reciever?: string | null, confirmation: string, formFields: Array<{ __typename: 'FormTextRecord', id: any, title?: string | null } | { __typename: 'FormTextblockRecord', id: any, title?: string | null } | { __typename: 'PdfFormRecord', id: any, title?: string | null }> } | { __typename: 'ImageRecord', id: any, image: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null }> } | { __typename: 'VideoRecord', id: any, title?: string | null, video?: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } | null }> }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
 
 type AllKnowledgesQueryVariables = Exact<{
   first?: InputMaybe<Scalars['IntType']>;
@@ -5720,7 +5722,16 @@ type AllKnowledgesQueryVariables = Exact<{
 }>;
 
 
-type AllKnowledgesQuery = { __typename?: 'Query', knowledges: Array<{ __typename: 'KnowledgeRecord', _modelApiKey: string, id: any, createdAt: any, title: string, intro: string, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null } | null } | null, category: { __typename?: 'KnowledgeCategoryRecord', id: any, category: string } }>, pagination: { __typename?: 'CollectionMetadata', count: any } };
+type AllKnowledgesQuery = { __typename?: 'Query', knowledges: Array<{ __typename: 'KnowledgeRecord', _modelApiKey: string, id: any, createdAt: any, title: string, intro: string, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null } | null } | null, category: { __typename?: 'KnowledgeCategoryRecord', id: any, category: string, slug: string } }>, pagination: { __typename?: 'CollectionMetadata', count: any } };
+
+type AllKnowledgesByCategoryQueryVariables = Exact<{
+  categoryId: Scalars['ItemId'];
+  first?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']>;
+}>;
+
+
+type AllKnowledgesByCategoryQuery = { __typename?: 'Query', knowledges: Array<{ __typename: 'KnowledgeRecord', _modelApiKey: string, id: any, createdAt: any, title: string, intro: string, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null } | null } | null, category: { __typename?: 'KnowledgeCategoryRecord', id: any, category: string, slug: string } }>, pagination: { __typename?: 'CollectionMetadata', count: any } };
 
 type AllPastAndFutureKnowledgesQueryVariables = Exact<{
   categoryId?: InputMaybe<Scalars['ItemId']>;
@@ -5729,15 +5740,16 @@ type AllPastAndFutureKnowledgesQueryVariables = Exact<{
 }>;
 
 
-type AllPastAndFutureKnowledgesQuery = { __typename?: 'Query', knowledges: Array<{ __typename: 'KnowledgeRecord', _modelApiKey: string, id: any, createdAt: any, title: string, intro: string, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null } | null } | null, category: { __typename?: 'KnowledgeCategoryRecord', id: any, category: string } }>, pagination: { __typename?: 'CollectionMetadata', count: any } };
+type AllPastAndFutureKnowledgesQuery = { __typename?: 'Query', knowledges: Array<{ __typename: 'KnowledgeRecord', _modelApiKey: string, id: any, createdAt: any, title: string, intro: string, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null } | null } | null, category: { __typename?: 'KnowledgeCategoryRecord', id: any, category: string, slug: string } }>, pagination: { __typename?: 'CollectionMetadata', count: any } };
 
 type AllPresentKnowledgesQueryVariables = Exact<{
+  categoryId: Scalars['ItemId'];
   first?: InputMaybe<Scalars['IntType']>;
   skip?: InputMaybe<Scalars['IntType']>;
 }>;
 
 
-type AllPresentKnowledgesQuery = { __typename?: 'Query', presentKnowledges: Array<{ __typename: 'KnowledgeRecord', _modelApiKey: string, id: any, createdAt: any, title: string, intro: string, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null } | null } | null, category: { __typename?: 'KnowledgeCategoryRecord', id: any, category: string } }>, pagination: { __typename?: 'CollectionMetadata', count: any } };
+type AllPresentKnowledgesQuery = { __typename?: 'Query', presentKnowledges: Array<{ __typename: 'KnowledgeRecord', _modelApiKey: string, id: any, createdAt: any, title: string, intro: string, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null } | null } | null, category: { __typename?: 'KnowledgeCategoryRecord', id: any, category: string, slug: string } }>, pagination: { __typename?: 'CollectionMetadata', count: any } };
 
 type AllKnowledgeCategoriesQueryVariables = Exact<{
   first?: InputMaybe<Scalars['IntType']>;
@@ -5745,7 +5757,7 @@ type AllKnowledgeCategoriesQueryVariables = Exact<{
 }>;
 
 
-type AllKnowledgeCategoriesQuery = { __typename?: 'Query', knowledgeCategories: Array<{ __typename?: 'KnowledgeCategoryRecord', id: any, category: string }> };
+type AllKnowledgeCategoriesQuery = { __typename?: 'Query', knowledgeCategories: Array<{ __typename?: 'KnowledgeCategoryRecord', id: any, category: string, slug: string }>, pagination: { __typename?: 'CollectionMetadata', count: any } };
 
 type LexiconQueryVariables = Exact<{
   id: Scalars['ItemId'];
@@ -5761,31 +5773,6 @@ type AllLexiconsQueryVariables = Exact<{
 
 
 type AllLexiconsQuery = { __typename?: 'Query', lexicons: Array<{ __typename?: 'LexiconRecord', id: any, word?: string | null, desc?: { __typename?: 'LexiconModelDescField', blocks: Array<string>, value: any, links: Array<string> } | null }>, lexiconText?: { __typename?: 'LexiconTextRecord', intro?: { __typename?: 'LexiconTextModelIntroField', blocks: Array<string>, value: any, links: Array<string> } | null } | null };
-
-type AllNewsQueryVariables = Exact<{
-  first?: InputMaybe<Scalars['IntType']>;
-  skip?: InputMaybe<Scalars['IntType']>;
-  regionId?: InputMaybe<Scalars['ItemId']>;
-}>;
-
-
-type AllNewsQuery = { __typename?: 'Query', news: Array<{ __typename: 'NewsRecord', _modelApiKey: string, id: any, title: string, slug: string, intro: string, createdAt: any, blackHeadline?: any | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } | null, content?: { __typename?: 'NewsModelContentField', value: any, blocks: Array<{ __typename: 'ImageRecord', id: any, image: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null }> } | { __typename: 'RelatedMemberNewsRecord', id: any }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> }>, pagination: { __typename?: 'CollectionMetadata', count: any } };
-
-type NewsQueryVariables = Exact<{
-  slug: Scalars['String'];
-}>;
-
-
-type NewsQuery = { __typename?: 'Query', news?: { __typename: 'NewsRecord', _modelApiKey: string, id: any, title: string, slug: string, intro: string, createdAt: any, blackHeadline?: any | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } | null, content?: { __typename?: 'NewsModelContentField', value: any, blocks: Array<{ __typename: 'ImageRecord', id: any, image: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null }> } | { __typename: 'RelatedMemberNewsRecord', id: any }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
-
-type LatestNewsQueryVariables = Exact<{
-  first?: InputMaybe<Scalars['IntType']>;
-  skip?: InputMaybe<Scalars['IntType']>;
-  regionId?: InputMaybe<Scalars['ItemId']>;
-}>;
-
-
-type LatestNewsQuery = { __typename?: 'Query', news: Array<{ __typename: 'NewsRecord', _modelApiKey: string, id: any, title: string, slug: string, intro: string, createdAt: any, blackHeadline?: any | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } | null, content?: { __typename?: 'NewsModelContentField', value: any, blocks: Array<{ __typename: 'ImageRecord', id: any, image: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null }> } | { __typename: 'RelatedMemberNewsRecord', id: any }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> }> };
 
 type SiteSearchQueryVariables = Exact<{
   activityIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>> | InputMaybe<Scalars['ItemId']>>;
