@@ -81,17 +81,11 @@ export const recordToSlug = (record: any, region?: Region): string => {
     const { __typename, slug } = record
 
     switch (__typename) {
-      case 'CommissionRecord':
-        url = `/anlita-oss/uppdrag/${slug}`
+      case 'ActivityRecord':
+        url = `/aktiviteter/${slug}`
         break;
-      case 'MemberRecord':
-        url = `/anlita-oss/hitta-konstnar/${slug}`
-        break;
-      case 'NewsRecord':
-        url = `/nyheter/${slug}`
-        break;
-      case 'MemberNewsRecord':
-        url = `/konstnar/aktuellt/${slug}`
+      case 'KnowledgeRecord':
+        url = `/kunskapsbank/${slug}`
         break;
       case 'AboutRecord':
         url = `/om/${slug}`
@@ -193,6 +187,7 @@ export const apiQueryAll = async (doc: TypedDocumentNode, opt: ApiQueryOptions =
         throw new Error(error)
 
       for (let x = 0; x < data.length; x++)
+        //@ts-ignore
         mergeProps(data[x].value);
       await sleep(100)
       reqs = []

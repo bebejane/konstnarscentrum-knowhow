@@ -17,14 +17,8 @@ const base: Menu = [
   { type: 'activity', label: 'Aktiviteter', slug: '/aktiviteter', index: true, sub: [] },
   { type: 'knowledge', label: 'Kunskapsbank', slug: '/kunskapsbank', sub: [] },
   { type: 'lexicon', label: 'Lexicon', slug: '/lexicon', index: true, sub: [] },
-  //{ type: 'news', label: 'Nyheter', slug: '/nyheter', index: true, sub: [] },
-  /*{
-    type: 'contact', label: 'Kontakt', slug: '/kontakt', sub: [
-      { type: 'contact', label: 'Konstkonsulter', slug: '/kontakt/konstkonsulter' },
-      { type: 'contact', label: 'Personal', slug: '/kontakt/personal' },
-      { type: 'contact', label: 'Styrelse', slug: '/kontakt/styrelse' },
-    ]
-  },*/
+  { type: 'contact', label: 'Kontakt', slug: '/kontakta-oss', index: true, sub: [] },
+  { type: 'in-english', label: 'In English', slug: '/english', index: true, sub: [] },
 ]
 
 export const buildMenu = async () => {

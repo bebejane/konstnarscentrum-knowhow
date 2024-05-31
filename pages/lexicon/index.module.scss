@@ -1,23 +1,46 @@
 .container {
-  .members {
+  .words {
     column-count: 2;
 
     @include mq($from: tablet) {
       column-count: 3;
     }
 
-    a,
-    > span {
+    li {
       display: block;
       padding-bottom: 0.2em;
-    }
-
-    .letter {
-      opacity: 0;
     }
   }
 
   h3:not(:first-of-type) {
     padding-top: 2rem;
+  }
+}
+
+
+.overlay {
+  max-width: 30vw;
+  max-height: 40vh;
+  overflow-y: scroll;
+  padding: 0.2rem;
+  border: 5px solid var(--foreground);
+  background-color: var(--background);
+
+  * {
+    border: 0;
+    font-size: 0.7rem;
+    color: var(--foreground);
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar {
+    width: 1px;
+  }
+
+
+  &.show {
+    opacity: 1;
+    pointer-events: all;
+
   }
 }

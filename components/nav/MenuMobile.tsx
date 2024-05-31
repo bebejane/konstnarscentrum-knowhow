@@ -51,11 +51,6 @@ export default function MenuMobile({ items, home }: MenuMobileProps) {
 	}, [showMenuMobile, setTheme])
 
 	useEffect(() => {
-		if (showRegions && regionsRef.current !== null)
-			regionsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
-	}, [showRegions, regionsRef])
-
-	useEffect(() => {
 		if (!items || !items.length) return
 
 		const allItems = [...items, englishMenuItem]
@@ -66,6 +61,10 @@ export default function MenuMobile({ items, home }: MenuMobileProps) {
 		const item = menuItem.slug === router.asPath ? menuItem : menuItem.sub?.find(({ slug }) => slug === router.asPath)
 		item && setSelected(item)
 	}, [router, items])
+
+	useEffect(() => {
+		setShowMenuMobile(false)
+	}, [setShowMenuMobile, router.pathname])
 
 	return (
 		<>
@@ -112,9 +111,6 @@ export default function MenuMobile({ items, home }: MenuMobileProps) {
 					<ul className={s.footer}>
 						<li onClick={handleSearch}>
 							Sök
-						</li>
-						<li ref={regionsRef} onClick={() => setShowRegions(!showRegions)}>
-							Region <img className={cn(s.caret, showRegions && s.open)} src="/images/caret.png" />
 						</li>
 					</ul>
 				</nav>

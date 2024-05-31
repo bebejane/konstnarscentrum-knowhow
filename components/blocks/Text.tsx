@@ -8,7 +8,7 @@ export type TextBlockProps = {
   data: TextRecord
 }
 
-export default function Text({ data: { text, headline, url } }: TextBlockProps) {
+export default function Text({ data: { text, headline, link } }: TextBlockProps) {
 
   return (
     <div className={s.container}>
@@ -20,7 +20,7 @@ export default function Text({ data: { text, headline, url } }: TextBlockProps) 
           {text}
         </Markdown>
       </h3>
-      <ReadMore link={url} message='Läs mer' regional={false}></ReadMore>
+      <ReadMore link={link} message='Läs mer' regional={false}></ReadMore>
     </div>
   )
 }

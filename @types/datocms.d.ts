@@ -206,7 +206,7 @@ type ActivityModelContentBlocksField = ButtonRecord | FormRecord | ImageRecord |
 type ActivityModelContentField = {
   __typename?: 'ActivityModelContentField';
   blocks: Array<ActivityModelContentBlocksField>;
-  links: Array<Scalars['String']>;
+  links: Array<LexiconRecord>;
   value: Scalars['JsonField'];
 };
 
@@ -787,6 +787,54 @@ type ContactIntroRecordconsultantArgs = {
 
 /** Record of type Kontakt ingress (contact_intro) */
 type ContactIntroRecordstaffArgs = {
+  markdown?: InputMaybe<Scalars['Boolean']>;
+};
+
+type ContactPageModelContentBlocksField = ButtonRecord | ImageRecord | VideoRecord;
+
+type ContactPageModelContentField = {
+  __typename?: 'ContactPageModelContentField';
+  blocks: Array<ContactPageModelContentBlocksField>;
+  links: Array<Scalars['String']>;
+  value: Scalars['JsonField'];
+};
+
+/** Record of type Kontakta oss (contact_page) */
+type ContactPageRecord = RecordInterface & {
+  __typename?: 'ContactPageRecord';
+  _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
+  _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
+  content: ContactPageModelContentField;
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ItemId'];
+  image?: Maybe<FileField>;
+  intro: Scalars['String'];
+  showImage?: Maybe<Scalars['BooleanType']>;
+  slug: Scalars['String'];
+  title: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
+};
+
+
+/** Record of type Kontakta oss (contact_page) */
+type ContactPageRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Kontakta oss (contact_page) */
+type ContactPageRecordintroArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
@@ -3392,9 +3440,9 @@ type KnowledgeRecordintroArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
-/** Block of type Senaste aktiviteter (latest_member_news) */
-type LatestMemberNewsRecord = RecordInterface & {
-  __typename?: 'LatestMemberNewsRecord';
+/** Block of type Senaste aktiviteter (latest_activity) */
+type LatestActivityRecord = RecordInterface & {
+  __typename?: 'LatestActivityRecord';
   _createdAt: Scalars['DateTime'];
   /** Editing URL */
   _editingUrl?: Maybe<Scalars['String']>;
@@ -3415,8 +3463,8 @@ type LatestMemberNewsRecord = RecordInterface & {
 };
 
 
-/** Block of type Senaste aktiviteter (latest_member_news) */
-type LatestMemberNewsRecord_seoMetaTagsArgs = {
+/** Block of type Senaste aktiviteter (latest_activity) */
+type LatestActivityRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -3526,6 +3574,41 @@ type LexiconRecord = RecordInterface & {
 
 /** Record of type Lexikon (lexicon) */
 type LexiconRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
+type LexiconTextModelIntroField = {
+  __typename?: 'LexiconTextModelIntroField';
+  blocks: Array<Scalars['String']>;
+  links: Array<Scalars['String']>;
+  value: Scalars['JsonField'];
+};
+
+/** Record of type Lexikon text (lexicon_text) */
+type LexiconTextRecord = RecordInterface & {
+  __typename?: 'LexiconTextRecord';
+  _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
+  _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ItemId'];
+  intro?: Maybe<LexiconTextModelIntroField>;
+  updatedAt: Scalars['DateTime'];
+};
+
+
+/** Record of type Lexikon text (lexicon_text) */
+type LexiconTextRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -4006,6 +4089,8 @@ type Query = {
   consultant?: Maybe<ConsultantRecord>;
   /** Returns the single instance record */
   contactIntro?: Maybe<ContactIntroRecord>;
+  /** Returns the single instance record */
+  contactPage?: Maybe<ContactPageRecord>;
   /** Returns a specific record */
   employee?: Maybe<EmployeeRecord>;
   /** Returns the single instance record */
@@ -4022,6 +4107,8 @@ type Query = {
   knowledgeCategory?: Maybe<KnowledgeCategoryRecord>;
   /** Returns a specific record */
   lexicon?: Maybe<LexiconRecord>;
+  /** Returns the single instance record */
+  lexiconText?: Maybe<LexiconTextRecord>;
   /** Returns a specific record */
   memberCategory?: Maybe<MemberCategoryRecord>;
   /** Returns a specific record */
@@ -4437,6 +4524,13 @@ type QuerycontactIntroArgs = {
 
 
 /** The query root for this schema */
+type QuerycontactPageArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** The query root for this schema */
 type QueryemployeeArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<EmployeeModelFilter>;
@@ -4499,6 +4593,13 @@ type QuerylexiconArgs = {
   filter?: InputMaybe<LexiconModelFilter>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<LexiconModelOrderBy>>>;
+};
+
+
+/** The query root for this schema */
+type QuerylexiconTextArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
 };
 
 
@@ -4630,7 +4731,7 @@ enum RegionModelOrderBy {
   updatedAt_DESC = 'updatedAt_DESC'
 }
 
-type RegionModelSectionsField = ImageShortcutRecord | LatestMemberNewsRecord | LatestNewsRecord | SelectedCommissionRecord | SelectedMemberRecord | TextRecord;
+type RegionModelSectionsField = ImageShortcutRecord | LatestActivityRecord | LatestNewsRecord | SelectedCommissionRecord | SelectedMemberRecord | TextRecord;
 
 /** Record of type Region (region) */
 type RegionRecord = RecordInterface & {
@@ -4900,7 +5001,7 @@ type SponsorRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
-type StartModelSectionsField = ImageShortcutRecord | LatestMemberNewsRecord | TextRecord;
+type StartModelSectionsField = ImageShortcutRecord | LatestActivityRecord | TextRecord;
 
 /** Record of type Start (start) */
 type StartRecord = RecordInterface & {
@@ -5025,9 +5126,9 @@ type TextRecord = RecordInterface & {
   createdAt: Scalars['DateTime'];
   headline?: Maybe<Scalars['String']>;
   id: Scalars['ItemId'];
+  link?: Maybe<Scalars['String']>;
   text?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
-  url?: Maybe<Scalars['String']>;
 };
 
 
@@ -5503,14 +5604,14 @@ type ActivityQueryVariables = Exact<{
 }>;
 
 
-type ActivityQuery = { __typename?: 'Query', activity?: { __typename: 'ActivityRecord', _modelApiKey: string, id: any, createdAt: any, title: string, blackHeadline?: any | null, intro: string, date: any, dateEnd?: any | null, location?: string | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } | null, category: { __typename?: 'ActivityCategoryRecord', id: any, category: string }, content: { __typename?: 'ActivityModelContentField', value: any, blocks: Array<{ __typename: 'ButtonRecord', id: any, text: string, url: string } | { __typename: 'FormRecord', id: any, subject?: string | null, reciever?: string | null, confirmation: string, formFields: Array<{ __typename: 'FormTextRecord', id: any, title?: string | null } | { __typename: 'FormTextblockRecord', id: any, title?: string | null } | { __typename: 'PdfFormRecord', id: any, title?: string | null }> } | { __typename: 'ImageRecord', id: any, image: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null }> } | { __typename: 'VideoRecord', id: any, title?: string | null, video?: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } | null }> }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
+type ActivityQuery = { __typename?: 'Query', activity?: { __typename: 'ActivityRecord', _modelApiKey: string, id: any, createdAt: any, title: string, blackHeadline?: any | null, intro: string, date: any, dateEnd?: any | null, location?: string | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } | null, category: { __typename?: 'ActivityCategoryRecord', id: any, category: string }, content: { __typename?: 'ActivityModelContentField', value: any, links: Array<{ __typename: 'LexiconRecord', id: any, word?: string | null, desc?: { __typename?: 'LexiconModelDescField', blocks: Array<string>, links: Array<string>, value: any } | null }>, blocks: Array<{ __typename: 'ButtonRecord', id: any, text: string, url: string } | { __typename: 'FormRecord', id: any, subject?: string | null, reciever?: string | null, confirmation: string, formFields: Array<{ __typename: 'FormTextRecord', id: any, title?: string | null } | { __typename: 'FormTextblockRecord', id: any, title?: string | null } | { __typename: 'PdfFormRecord', id: any, title?: string | null }> } | { __typename: 'ImageRecord', id: any, image: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null }> } | { __typename: 'VideoRecord', id: any, title?: string | null, video?: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } | null }> }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
 
 type ActivityByIdQueryVariables = Exact<{
   id: Scalars['ItemId'];
 }>;
 
 
-type ActivityByIdQuery = { __typename?: 'Query', activity?: { __typename: 'ActivityRecord', _modelApiKey: string, id: any, createdAt: any, title: string, blackHeadline?: any | null, intro: string, date: any, dateEnd?: any | null, location?: string | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } | null, category: { __typename?: 'ActivityCategoryRecord', id: any, category: string }, content: { __typename?: 'ActivityModelContentField', value: any, blocks: Array<{ __typename: 'ButtonRecord', id: any, text: string, url: string } | { __typename: 'FormRecord', id: any, subject?: string | null, reciever?: string | null, confirmation: string, formFields: Array<{ __typename: 'FormTextRecord', id: any, title?: string | null } | { __typename: 'FormTextblockRecord', id: any, title?: string | null } | { __typename: 'PdfFormRecord', id: any, title?: string | null }> } | { __typename: 'ImageRecord', id: any, image: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null }> } | { __typename: 'VideoRecord', id: any, title?: string | null, video?: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } | null }> }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
+type ActivityByIdQuery = { __typename?: 'Query', activity?: { __typename: 'ActivityRecord', _modelApiKey: string, id: any, createdAt: any, title: string, blackHeadline?: any | null, intro: string, date: any, dateEnd?: any | null, location?: string | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } | null, category: { __typename?: 'ActivityCategoryRecord', id: any, category: string }, content: { __typename?: 'ActivityModelContentField', value: any, links: Array<{ __typename: 'LexiconRecord', id: any, word?: string | null, desc?: { __typename?: 'LexiconModelDescField', blocks: Array<string>, links: Array<string>, value: any } | null }>, blocks: Array<{ __typename: 'ButtonRecord', id: any, text: string, url: string } | { __typename: 'FormRecord', id: any, subject?: string | null, reciever?: string | null, confirmation: string, formFields: Array<{ __typename: 'FormTextRecord', id: any, title?: string | null } | { __typename: 'FormTextblockRecord', id: any, title?: string | null } | { __typename: 'PdfFormRecord', id: any, title?: string | null }> } | { __typename: 'ImageRecord', id: any, image: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null }> } | { __typename: 'VideoRecord', id: any, title?: string | null, video?: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } | null }> }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
 
 type AllActivitiesQueryVariables = Exact<{
   first?: InputMaybe<Scalars['IntType']>;
@@ -5547,10 +5648,18 @@ type AllActivityCategoriesQueryVariables = Exact<{
 
 type AllActivityCategoriesQuery = { __typename?: 'Query', activityCategories: Array<{ __typename?: 'ActivityCategoryRecord', id: any, category: string }> };
 
-type ContactQueryVariables = Exact<{ [key: string]: never; }>;
+type LatestActivitiesQueryVariables = Exact<{
+  first?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']>;
+}>;
 
 
-type ContactQuery = { __typename?: 'Query', contactIntro?: { __typename?: 'ContactIntroRecord', id: any, board?: string | null, staff?: string | null, consultant?: string | null } | null };
+type LatestActivitiesQuery = { __typename?: 'Query', activities: Array<{ __typename: 'ActivityRecord', _modelApiKey: string, id: any, createdAt: any, title: string, intro: string, date: any, dateEnd?: any | null, location?: string | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null } | null } | null, category: { __typename?: 'ActivityCategoryRecord', id: any, category: string } }> };
+
+type ContactPageQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type ContactPageQuery = { __typename?: 'Query', contactPage?: { __typename?: 'ContactPageRecord', title: string, showImage?: any | null, intro: string, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } | null, content: { __typename?: 'ContactPageModelContentField', links: Array<string>, value: any } } | null };
 
 type InEnglishQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -5564,7 +5673,7 @@ type FooterQuery = { __typename?: 'Query', footer?: { __typename?: 'FooterRecord
 
 type AboutFragment = { __typename: 'AboutRecord', _modelApiKey: string, id: any, title: string, intro: string, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } | null, content: { __typename?: 'AboutModelContentField', value: any, blocks: Array<{ __typename: 'ButtonRecord', id: any, text: string, url: string } | { __typename: 'ImageRecord', id: any, image: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null }> } | { __typename: 'VideoRecord', id: any, title?: string | null, video?: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } | null }> }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> };
 
-type ActivityFragment = { __typename: 'ActivityRecord', _modelApiKey: string, id: any, createdAt: any, title: string, blackHeadline?: any | null, intro: string, date: any, dateEnd?: any | null, location?: string | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } | null, category: { __typename?: 'ActivityCategoryRecord', id: any, category: string }, content: { __typename?: 'ActivityModelContentField', value: any, blocks: Array<{ __typename: 'ButtonRecord', id: any, text: string, url: string } | { __typename: 'FormRecord', id: any, subject?: string | null, reciever?: string | null, confirmation: string, formFields: Array<{ __typename: 'FormTextRecord', id: any, title?: string | null } | { __typename: 'FormTextblockRecord', id: any, title?: string | null } | { __typename: 'PdfFormRecord', id: any, title?: string | null }> } | { __typename: 'ImageRecord', id: any, image: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null }> } | { __typename: 'VideoRecord', id: any, title?: string | null, video?: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } | null }> }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> };
+type ActivityFragment = { __typename: 'ActivityRecord', _modelApiKey: string, id: any, createdAt: any, title: string, blackHeadline?: any | null, intro: string, date: any, dateEnd?: any | null, location?: string | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } | null, category: { __typename?: 'ActivityCategoryRecord', id: any, category: string }, content: { __typename?: 'ActivityModelContentField', value: any, links: Array<{ __typename: 'LexiconRecord', id: any, word?: string | null, desc?: { __typename?: 'LexiconModelDescField', blocks: Array<string>, links: Array<string>, value: any } | null }>, blocks: Array<{ __typename: 'ButtonRecord', id: any, text: string, url: string } | { __typename: 'FormRecord', id: any, subject?: string | null, reciever?: string | null, confirmation: string, formFields: Array<{ __typename: 'FormTextRecord', id: any, title?: string | null } | { __typename: 'FormTextblockRecord', id: any, title?: string | null } | { __typename: 'PdfFormRecord', id: any, title?: string | null }> } | { __typename: 'ImageRecord', id: any, image: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null }> } | { __typename: 'VideoRecord', id: any, title?: string | null, video?: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } | null }> }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> };
 
 type ActivityLightFragment = { __typename: 'ActivityRecord', _modelApiKey: string, id: any, createdAt: any, title: string, intro: string, date: any, dateEnd?: any | null, location?: string | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null } | null } | null, category: { __typename?: 'ActivityCategoryRecord', id: any, category: string } };
 
@@ -5651,7 +5760,7 @@ type AllLexiconsQueryVariables = Exact<{
 }>;
 
 
-type AllLexiconsQuery = { __typename?: 'Query', lexicons: Array<{ __typename?: 'LexiconRecord', id: any, word?: string | null, desc?: { __typename?: 'LexiconModelDescField', blocks: Array<string>, value: any, links: Array<string> } | null }> };
+type AllLexiconsQuery = { __typename?: 'Query', lexicons: Array<{ __typename?: 'LexiconRecord', id: any, word?: string | null, desc?: { __typename?: 'LexiconModelDescField', blocks: Array<string>, value: any, links: Array<string> } | null }>, lexiconText?: { __typename?: 'LexiconTextRecord', intro?: { __typename?: 'LexiconTextModelIntroField', blocks: Array<string>, value: any, links: Array<string> } | null } | null };
 
 type AllNewsQueryVariables = Exact<{
   first?: InputMaybe<Scalars['IntType']>;
@@ -5679,10 +5788,17 @@ type LatestNewsQueryVariables = Exact<{
 type LatestNewsQuery = { __typename?: 'Query', news: Array<{ __typename: 'NewsRecord', _modelApiKey: string, id: any, title: string, slug: string, intro: string, createdAt: any, blackHeadline?: any | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } | null, content?: { __typename?: 'NewsModelContentField', value: any, blocks: Array<{ __typename: 'ImageRecord', id: any, image: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null }> } | { __typename: 'RelatedMemberNewsRecord', id: any }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> }> };
 
 type SiteSearchQueryVariables = Exact<{
-  newsIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>> | InputMaybe<Scalars['ItemId']>>;
+  activityIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>> | InputMaybe<Scalars['ItemId']>>;
+  knowledgeIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>> | InputMaybe<Scalars['ItemId']>>;
+  aboutIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>> | InputMaybe<Scalars['ItemId']>>;
   first?: InputMaybe<Scalars['IntType']>;
   skip?: InputMaybe<Scalars['IntType']>;
 }>;
 
 
-type SiteSearchQuery = { __typename?: 'Query', news: Array<{ __typename: 'NewsRecord', _modelApiKey: string, title: string, slug: string, text: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null } | null } | null }> };
+type SiteSearchQuery = { __typename?: 'Query', activities: Array<{ __typename: 'ActivityRecord', _modelApiKey: string, title: string, slug: string, text: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null } | null } | null }>, knowledges: Array<{ __typename: 'KnowledgeRecord', _modelApiKey: string, title: string, slug: string, text: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null } | null } | null }>, abouts: Array<{ __typename: 'AboutRecord', _modelApiKey: string, title: string, slug: string, text: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null } | null } | null }> };
+
+type StartQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type StartQuery = { __typename?: 'Query', start?: { __typename?: 'StartRecord', id: any, gallery: Array<{ __typename?: 'SlideRecord', id: any, headline?: string | null, blackText?: any | null, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null }, link?: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ActivityRecord', id: any, slug: string, title: string } | { __typename?: 'CommissionRecord' } | { __typename?: 'ForArtistRecord' } | { __typename?: 'NewsRecord' } | null }>, sections: Array<{ __typename: 'ImageShortcutRecord', id: any, headline?: string | null, text?: string | null, link?: string | null, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } } | { __typename: 'LatestActivityRecord', id: any } | { __typename: 'TextRecord', id: any, headline?: string | null, text?: string | null, link?: string | null }> } | null };

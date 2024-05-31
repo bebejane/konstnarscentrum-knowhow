@@ -12,11 +12,23 @@ export default withRevalidate(async (record, revalidate) => {
   const paths = []
 
   switch (apiKey) {
+    case 'start': case 'footer':
+      paths.push(`/`)
+      break;
     case 'about':
       paths.push(`/om/${slug}`)
       break;
-    case 'footer':
-      paths.push(`/`)
+    case 'in_english':
+      paths.push(`/english`)
+      break;
+    case 'contact_page':
+      paths.push(`/contact`)
+      break;
+    case 'activity':
+      paths.push(`/aktiviteter/${slug}`)
+      break;
+    case 'knowledge':
+      paths.push(`/kunskapsbank/${slug}`)
       break;
     default:
       break;

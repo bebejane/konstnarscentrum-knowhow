@@ -41,11 +41,12 @@ export default function Knowledges({ presentKnowledges, knowledges: knowledgesFr
 	return (
 		<>
 			<h1><RevealText>Kunskapsbank</RevealText></h1>
-			<FilterBar
+			{/*<FilterBar
 				multi={false}
 				options={knowledgeCategories.map(({ id, category }) => ({ label: category, id }))}
 				onChange={(id) => setKnowledgesCategoryId(id)}
 			/>
+	*/}
 
 			<CardContainer columns={2} className={s.knowledges} key={`${page.no}-${knowledgesCategoryId}`}>
 				{allNews.length > 0 ? allNews.map((el, idx) => {

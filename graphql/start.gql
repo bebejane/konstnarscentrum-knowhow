@@ -1,0 +1,47 @@
+query Start {
+	start {
+		id
+		gallery {
+			id
+			headline
+			image {
+				...ImageFragment
+			}
+			link {
+				... on AboutRecord {
+					id
+					slug
+					title
+				}
+				... on ActivityRecord {
+					id
+					slug
+					title
+				}
+			}
+			blackText
+		}
+		sections {
+			__typename
+			... on ImageShortcutRecord {
+				id
+				image {
+					...ImageFragment
+				}
+				headline
+				text
+				link
+			}
+			... on TextRecord {
+				id
+				headline
+				text
+				link
+			}
+
+			... on LatestActivityRecord {
+				id
+			}
+		}
+	}
+}
