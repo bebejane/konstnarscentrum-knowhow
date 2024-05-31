@@ -1,5 +1,5 @@
 import { StructuredText, renderNodeRule } from 'react-datocms/structured-text';
-import { isParagraph, isRoot } from 'datocms-structured-text-utils';
+import { isParagraph, isSpan, isRoot } from 'datocms-structured-text-utils';
 import ToolTip from '/components/common/ToolTip'
 
 import Block from '/components/blocks';
@@ -31,6 +31,7 @@ export default function StructuredContent({ record, content, onClick, className,
         }
       }}
       renderLinkToRecord={({ record, children, transformedMeta }) => {
+
         switch (record.__typename) {
           case 'LexiconRecord':
             return <ToolTip lexicon={record as LexiconRecord}>{children}</ToolTip>
