@@ -3278,6 +3278,7 @@ type KnowledgeCategoryModelFilter = {
   createdAt?: InputMaybe<CreatedAtFilter>;
   id?: InputMaybe<ItemIdFilter>;
   position?: InputMaybe<PositionFilter>;
+  slug?: InputMaybe<SlugFilter>;
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
 
@@ -3330,6 +3331,7 @@ type KnowledgeCategoryRecord = RecordInterface & {
   createdAt: Scalars['DateTime'];
   id: Scalars['ItemId'];
   position?: Maybe<Scalars['IntType']>;
+  slug: Scalars['String'];
   updatedAt: Scalars['DateTime'];
 };
 
