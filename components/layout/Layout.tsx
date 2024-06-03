@@ -36,7 +36,7 @@ export default function Layout({ children, menu: menuFromProps, title, footer }:
 
 			<div className={s.layout}>
 				<Logo />
-				<Content noMargins={isHome}>
+				<Content noMargins={isHome} key={asPath}>
 					{children}
 				</Content>
 				<Breadcrumbs title={title} show={!showMenu} />
