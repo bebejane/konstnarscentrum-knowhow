@@ -44,7 +44,7 @@ export default function Article({
       {showImage &&
         <header>
           {title &&
-            <h1 className={cn(s.title, haveImage && s.absolute, blackHeadline || !haveImage && s.black)}>
+            <h1 className={cn(s.title, haveImage && s.absolute, (blackHeadline || !haveImage) && s.black)}>
               <RevealText>
                 <BalanceText>
                   {title}
