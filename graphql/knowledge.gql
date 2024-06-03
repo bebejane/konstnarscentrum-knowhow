@@ -18,6 +18,20 @@ query AllKnowledges($first: IntType = 10, $skip: IntType = 0) {
 	}
 }
 
+query AllKnowledgesByCategory($categoryId: ItemId!, $first: IntType = 10, $skip: IntType = 0) {
+	knowledges: allKnowledges(
+		filter: { category: { eq: $categoryId } }
+		orderBy: [createdAt_DESC]
+		first: $first
+		skip: $skip
+	) {
+		...KnowledgeLightFragment
+	}
+	pagination: _allKnowledgesMeta(filter: { category: { eq: $categoryId } }) {
+		count
+	}
+}
+
 query AllPastAndFutureKnowledges($categoryId: ItemId, $first: IntType, $skip: IntType) {
 	knowledges: allKnowledges(filter: { category: { eq: $categoryId } }, first: $first, skip: $skip) {
 		...KnowledgeLightFragment
@@ -27,8 +41,12 @@ query AllPastAndFutureKnowledges($categoryId: ItemId, $first: IntType, $skip: In
 	}
 }
 
-query AllPresentKnowledges($first: IntType = 100, $skip: IntType = 0) {
-	presentKnowledges: allKnowledges(first: $first, skip: $skip) {
+query AllPresentKnowledges($categoryId: ItemId!, $first: IntType = 100, $skip: IntType = 0) {
+	presentKnowledges: allKnowledges(
+		filter: { category: { eq: $categoryId } }
+		first: $first
+		skip: $skip
+	) {
 		...KnowledgeLightFragment
 	}
 	pagination: _allKnowledgesMeta {
@@ -40,5 +58,9 @@ query AllKnowledgeCategories($first: IntType = 100, $skip: IntType = 0) {
 	knowledgeCategories: allKnowledgeCategories(first: $first, skip: $skip) {
 		id
 		category
+		slug
+	}
+	pagination: _allKnowledgeCategoriesMeta {
+		count
 	}
 }

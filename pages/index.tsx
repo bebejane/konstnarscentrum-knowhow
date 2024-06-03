@@ -3,7 +3,7 @@ import cn from 'classnames'
 import withGlobalProps from "/lib/withGlobalProps";
 import { GetStaticProps } from "next";
 import { apiQuery } from "dato-nextjs-utils/api";
-import { LatestActivitiesDocument, LatestNewsDocument, StartDocument } from "/graphql";
+import { LatestActivitiesDocument, StartDocument } from "/graphql";
 import { Block, HomeGallery } from "/components";
 
 export type Props = {

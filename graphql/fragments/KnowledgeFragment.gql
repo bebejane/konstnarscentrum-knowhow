@@ -12,6 +12,7 @@ fragment KnowledgeFragment on KnowledgeRecord {
 	category {
 		id
 		category
+		slug
 	}
 	slug
 	content {

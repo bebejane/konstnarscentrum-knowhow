@@ -6,7 +6,7 @@ export const config = {
 
 export default withWebPreviewsEdge(async ({ item, itemType }) => {
 
-  const { slug } = item.attributes
+  const { slug, category } = item.attributes
 
   let path = null;
 
@@ -27,7 +27,7 @@ export default withWebPreviewsEdge(async ({ item, itemType }) => {
       path = `/aktiviteter/${slug}`
       break;
     case 'knowledge':
-      path = `/kunskapsbank/${slug}`
+      path = `/kunskapsbank/${category.slug}/${slug}`
       break;
     default:
       break;

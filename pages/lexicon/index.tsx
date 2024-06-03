@@ -3,7 +3,7 @@ import cn from 'classnames'
 import withGlobalProps from "/lib/withGlobalProps";
 import { GetStaticProps } from "next";
 import { AllLexiconsDocument } from "/graphql";
-import { StructuredContent } from '/components'
+import { Article, StructuredContent } from '/components'
 import React, { CSSProperties, useEffect, useRef, useState } from 'react';
 import { RevealText, ToolTip } from '/components';
 import { render } from 'datocms-structured-text-to-html-string';
@@ -17,13 +17,12 @@ export type Props = {
 
 export default function Lexicons({ lexicons, lexiconText }: Props) {
 
-
   return (
-    <div className={s.container}>
-      <h1>
-        <RevealText>Lexicon</RevealText><sup className="amount">{lexicons.length}</sup>
-      </h1>
-      <StructuredContent content={lexiconText.intro} id={lexiconText.id} record={lexiconText} />
+    <Article
+      id={'lexicon'}
+      title={'Lexicon'}
+      content={lexiconText.intro}
+    >
       <ul className={s.words}>
         {lexicons.map((l) =>
           <li key={l.id} >
@@ -31,7 +30,7 @@ export default function Lexicons({ lexicons, lexiconText }: Props) {
           </li>
         )}
       </ul>
-    </div>
+    </Article>
   );
 }
 

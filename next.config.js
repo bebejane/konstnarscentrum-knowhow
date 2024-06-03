@@ -19,9 +19,6 @@ const nextOptions = {
 	devIndicators: {
 		buildActivity: false,
 	},
-	experimental: {
-		scrollRestoration: true,
-	},
 	webpack: (config, ctx) => {
 		config.module.rules.push({
 			test: /\.(graphql|gql)$/,

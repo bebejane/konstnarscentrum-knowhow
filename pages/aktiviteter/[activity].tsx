@@ -3,7 +3,7 @@ import { GetStaticProps } from "next";
 import { apiQuery } from "dato-nextjs-utils/api";
 import { ActivityDocument, AllActivitiesDocument } from "/graphql";
 import { format } from "date-fns";
-import { Article, MetaSection, StructuredContent } from "/components";
+import { Article, MetaSection } from "/components";
 import { getStaticPagePaths } from "/lib/utils";
 import { DatoSEO } from "dato-nextjs-utils/components";
 import Link from "next/link";
@@ -21,11 +21,10 @@ export default function MemberNewsArticle({ activity: {
 	title,
 	content,
 	image,
-	location,
 	category,
 	blackHeadline,
 	_seoMetaTags
-}, activity }: Props) {
+} }: Props) {
 
 	return (
 		<>
@@ -36,16 +35,15 @@ export default function MemberNewsArticle({ activity: {
 				title={title}
 				text={intro}
 				blackHeadline={blackHeadline}
+				content={content}
 			>
 				<MetaSection
 					items={[
 						{ title: 'Kategori', value: category.category },
-						{ title: 'Plats', value: location },
 						{ title: 'Datum', value: format(new Date(date), "d MMMM y") },
 						{ title: 'Slutdatum', value: dateEnd ? format(new Date(dateEnd), "d MMMM y") : undefined },
 					]}
 				/>
-				<StructuredContent id={id} record={activity} content={content} />
 			</Article>
 			<Link href={'/aktiviteter'}>
 				<button className="wide">Tillbaka till översikt</button>

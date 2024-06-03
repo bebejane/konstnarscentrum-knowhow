@@ -133,15 +133,6 @@ declare module '*/MediaGalleryFragment.gql' {
 }
     
 
-declare module '*/NewsFragment.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const NewsFragment: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
 declare module '*/SiteFragment.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
@@ -175,6 +166,7 @@ declare module '*/knowledge.gql' {
   export const Knowledge: DocumentNode;
 export const KnowledgeById: DocumentNode;
 export const AllKnowledges: DocumentNode;
+export const AllKnowledgesByCategory: DocumentNode;
 export const AllPastAndFutureKnowledges: DocumentNode;
 export const AllPresentKnowledges: DocumentNode;
 export const AllKnowledgeCategories: DocumentNode;
@@ -188,17 +180,6 @@ declare module '*/lexicon.gql' {
   const defaultDocument: DocumentNode;
   export const Lexicon: DocumentNode;
 export const AllLexicons: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
-declare module '*/news.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const AllNews: DocumentNode;
-export const News: DocumentNode;
-export const LatestNews: DocumentNode;
 
   export default defaultDocument;
 }

@@ -31,11 +31,6 @@ function App({ Component, pageProps }) {
         siteTitle="KnowHow"
         title={title}
       />
-      {/*<GoogleAnalytics
-        strategy={'afterInteractive'}
-        trackPageViews={{ ignoreHashChange: true }}
-        gaMeasurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}
-  />*/}
       <PageProvider value={page}>
         <ThemeProvider defaultTheme="light" themes={['light', 'dark']} enableSystem={false}>
           <Layout title={pageTitle} menu={menu || []} footer={footer}>

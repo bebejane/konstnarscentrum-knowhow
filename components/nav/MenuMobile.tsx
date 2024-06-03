@@ -31,7 +31,6 @@ export default function MenuMobile({ items, home }: MenuMobileProps) {
 	const [showMenuMobile, setShowMenuMobile, invertedMenu, setInvertedMenu, setShowSearch] = useStore((state) => [state.showMenuMobile, state.setShowMenuMobile, state.invertedMenu, state.setInvertedMenu, state.setShowSearch])
 	const regionsRef = useRef<HTMLLIElement | null>(null)
 
-	const allItems = [...items, englishMenuItem]
 
 	const handleSearch = (e) => {
 		setShowSearch(true)
@@ -53,8 +52,8 @@ export default function MenuMobile({ items, home }: MenuMobileProps) {
 	useEffect(() => {
 		if (!items || !items.length) return
 
-		const allItems = [...items, englishMenuItem]
-		const menuItem = allItems.find(({ slug, sub }) => slug === router.asPath || sub?.find(({ slug }) => slug === router.asPath))
+
+		const menuItem = items.find(({ slug, sub }) => slug === router.asPath || sub?.find(({ slug }) => slug === router.asPath))
 
 		if (!menuItem) return
 
@@ -81,7 +80,7 @@ export default function MenuMobile({ items, home }: MenuMobileProps) {
 			<div className={cn(s.mobileMenu, showMenuMobile && s.show)}>
 				<nav>
 					<ul className={s.nav}>
-						{allItems.map((item, idx) =>
+						{items.map((item, idx) =>
 							<React.Fragment key={idx}>
 								<li
 									data-slug={item.slug}
