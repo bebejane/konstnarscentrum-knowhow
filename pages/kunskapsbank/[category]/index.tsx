@@ -34,7 +34,7 @@ export default function Knowledges({ category, presentKnowledges, knowledges: kn
 		if (inView && !page.end && !loading) nextPage()
 	}, [inView, page, loading, nextPage])
 
-	const allNews = [...presentKnowledges, ...knowledges]
+	const allKnowledges = [...presentKnowledges, ...knowledges]
 
 	return (
 		<>
@@ -42,7 +42,7 @@ export default function Knowledges({ category, presentKnowledges, knowledges: kn
 			<h3>{category.category}</h3>
 
 			<CardContainer columns={2} className={s.knowledges} key={`${page.no}-${category.id}`}>
-				{allNews.length > 0 ? allNews.map((el, idx) => {
+				{allKnowledges.length > 0 ? allKnowledges.map((el, idx) => {
 					const { id, title, intro, slug, image, category } = el
 					return (
 						<NewsCard
@@ -55,7 +55,10 @@ export default function Knowledges({ category, presentKnowledges, knowledges: kn
 							slug={`/kunskapsbank/${category.slug}/${slug}`}
 						/>
 					)
-				}) : <div className={s.nomatches}>Inga träffar...</div>
+				}) :
+					<div className={s.nomatches}>
+						Det finns inga poster under denna kategori...
+					</div>
 				}
 			</CardContainer>
 

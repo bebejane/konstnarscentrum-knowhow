@@ -1,4 +1,5 @@
 .container {
+  position: relative;
   width: 100%;
   padding-top: var(--small-space);
 
@@ -9,7 +10,6 @@
     li {
       margin-bottom: 2em;
       padding-bottom: 2em;
-
       border-bottom: 1px solid var(--beige-mid);
     }
   }
@@ -28,10 +28,11 @@
 
 .nomatches,
 .error {
+  padding: 0;
   margin-left: var(--outer-margin);
   margin-right: var(--outer-margin);
   width: 100%;
-  text-align: center;
+  text-align: left;
   color: var(--beige-dark);
   margin-top: 1rem;
 }

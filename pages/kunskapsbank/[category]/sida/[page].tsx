@@ -1,4 +1,4 @@
-import { chunkArray, getStaticPaginationPaths, pageSize } from '/lib/utils'
+import { chunkArray, pageSize } from '/lib/utils'
 import { AllKnowledgesDocument } from "/graphql";
 import { apiQueryAll } from 'dato-nextjs-utils/api';
 export { default, getStaticProps } from '..'

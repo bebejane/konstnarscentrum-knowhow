@@ -1,9 +1,7 @@
-import s from "./index.module.scss";
 import withGlobalProps from "/lib/withGlobalProps";
 import { GetStaticProps } from "next";
 import { ContactPageDocument } from "/graphql";
-import { StructuredContent } from "/components";
-import { Image } from "react-datocms";
+import { Article } from "/components";
 
 export type Props = {
 	contactPage: ContactPageRecord
@@ -12,12 +10,13 @@ export type Props = {
 export default function Contact({ contactPage: { id, title, image, showImage, intro, content, slug }, contactPage }: Props) {
 
 	return (
-		<div className={s.container}>
-			<h1>{title}</h1>
-			{image?.responsiveImage && <Image data={image.responsiveImage} />}
-			<p>{intro}</p>
-			<StructuredContent id={id} record={contactPage} content={content} />
-		</div>
+		<Article
+			id={id}
+			image={image}
+			title={title}
+			text={intro}
+			content={content}
+		/>
 	);
 }
 

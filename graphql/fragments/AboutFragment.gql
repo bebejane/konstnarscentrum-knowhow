@@ -1,5 +1,4 @@
-#import "./ImageFragment.gql"
-#import "./VideoFragment.gql"
+#import ImageFragment from './ImageFragment.gql'
 
 fragment AboutFragment on AboutRecord {
 	__typename

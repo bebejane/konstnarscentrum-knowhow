@@ -16,14 +16,18 @@ export type LayoutProps = {
 
 export default function Layout({ children, menu: menuFromProps, title, footer }: LayoutProps) {
 
-	const router = useRouter()
 	const [images, imageId, setImageId, showMenu] = useStore((state) => [state.images, state.imageId, state.setImageId, state.showMenu])
-	const isHome = router.asPath === '/'
+	const { asPath } = useRouter()
+	const [isHome, setIsHome] = useState(asPath === '/')
 	const [menu, setMenu] = useState(menuFromProps)
 
 	useEffect(() => { // Refresh menu on load.
 		buildMenu().then(res => setMenu(res)).catch(err => console.error(err))
 	}, [])
+
+	useEffect(() => { // Detect if we are on the home page.
+		setIsHome(asPath === '/')
+	}, [asPath])
 
 	return (
 		<>
