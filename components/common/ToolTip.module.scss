@@ -2,17 +2,17 @@
   max-width: 30vw;
   max-height: 40vh;
   overflow-y: scroll;
-  padding: 0;
   border: 5px solid var(--foreground);
 
-  >div {
+  > div {
     all: unset;
 
-    >div {
+    > div {
       background-color: var(--background);
       opacity: 1;
       border: 0;
       border-radius: 0;
+      padding: 1rem;
 
       p {
         color: var(--foreground);
@@ -21,8 +21,6 @@
       }
     }
   }
-
-
 
   &::-webkit-scrollbar {
     width: 1px;

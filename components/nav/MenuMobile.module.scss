@@ -68,10 +68,10 @@
         width: 100%;
         border-bottom: 1px solid var(--beige-mid);
 
-
-
         &:last-child {
           border-bottom: none;
+          position: absolute;
+          right: 0;
         }
 
         &.sub {
@@ -130,11 +130,9 @@
   a {
     color: var(--beige-dark) !important;
   }
-
 }
 
 @include mq($from: nav-break) {
-
   .mobileMenu,
   .hamburger {
     display: none;

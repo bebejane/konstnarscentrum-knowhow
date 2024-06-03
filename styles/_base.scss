@@ -253,3 +253,11 @@ select {
 		}
 	}
 }
+
+[data-tooltip="true"] {
+	text-decoration-style: dotted !important;
+	//background-color: green;
+	&:hover {
+		cursor: pointer;
+	}
+}

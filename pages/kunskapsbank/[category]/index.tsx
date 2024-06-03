@@ -38,8 +38,7 @@ export default function Knowledges({ category, presentKnowledges, knowledges: kn
 
 	return (
 		<>
-			<h1><RevealText>Kunskapsbank</RevealText></h1>
-			<h3>{category.category}</h3>
+			<h1><RevealText>{category.category}</RevealText></h1>
 
 			<CardContainer columns={2} className={s.knowledges} key={`${page.no}-${category.id}`}>
 				{allKnowledges.length > 0 ? allKnowledges.map((el, idx) => {
