@@ -15,7 +15,7 @@ function App({ Component, pageProps }) {
 
   const router = useRouter()
   const page = (Component.page || {}) as PageProps
-  const { menu, footer, site, pageTitle } = pageProps;
+  const { menu, footer, site, pageTitle, lexicons } = pageProps;
   const errorCode = parseInt(router.pathname.replace('/', ''))
   const isError = (!isNaN(errorCode) && (errorCode > 400 && errorCode < 600)) || router.pathname.replace('/', '') === '_error'
 
@@ -31,7 +31,7 @@ function App({ Component, pageProps }) {
         siteTitle="KnowHow"
         title={title}
       />
-      <PageProvider value={page}>
+      <PageProvider value={{ ...page, lexicons }}>
         <ThemeProvider defaultTheme="light" themes={['light', 'dark']} enableSystem={false}>
           <Layout title={pageTitle} menu={menu || []} footer={footer}>
             <Component {...pageProps} />

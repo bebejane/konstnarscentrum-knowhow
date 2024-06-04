@@ -6,6 +6,7 @@ import { StructuredContent, RevealText } from "/components";
 import { KCImage as Image } from '/components'
 import BalanceText from 'react-balance-text'
 import { useScrollInfo } from 'dato-nextjs-utils/hooks';
+import { usePage } from '../../lib/context/page';
 
 export type ArticleProps = {
   id: string,
@@ -34,6 +35,7 @@ export default function Article({
   onClick,
 }: ArticleProps, record: ArticleProps) {
 
+  const { lexicons } = usePage()
   const { scrolledPosition } = useScrollInfo()
   const hideCaption = scrolledPosition > 100;
   const haveImage = image?.responsiveImage !== undefined
@@ -88,6 +90,7 @@ export default function Article({
           record={record}
           content={content}
           onClick={(imageId) => onClick?.(imageId)}
+          lexicons={lexicons}
         />
       }
       {children}

@@ -1,5 +1,5 @@
 import { StructuredText, renderNodeRule } from 'react-datocms/structured-text';
-import { isParagraph, isSpan, isRoot } from 'datocms-structured-text-utils';
+import { isParagraph, isRoot } from 'datocms-structured-text-utils';
 import ToolTip from '/components/common/ToolTip'
 
 import Block from '/components/blocks';
@@ -11,9 +11,10 @@ export type Props = {
   className?: string
   styles?: { [key: string]: string }
   onClick?: (imageId: string) => void
+  lexicons?: LexiconRecord[]
 }
 
-export default function StructuredContent({ record, content, onClick, className, styles }: Props) {
+export default function StructuredContent({ record, content, onClick, className, styles, lexicons }: Props) {
 
   if (!content)
     return null
@@ -31,6 +32,7 @@ export default function StructuredContent({ record, content, onClick, className,
         }
       }}
       renderLinkToRecord={({ record, children, transformedMeta }) => {
+        //return <>{children}</>
 
         switch (record.__typename) {
           case 'LexiconRecord':
@@ -40,8 +42,14 @@ export default function StructuredContent({ record, content, onClick, className,
         }
       }}
       renderText={(text) => {
-        // Replace nbsp
-        return text?.replace(/\s/g, ' ');
+        const t = text?.replace(/\s/g, ' ')
+        return t;
+        if (!lexicons || !t) return t
+
+        return t.split(' ').map((word, index) => {
+          const lexicon = lexicons.find(l => l.word.toLowerCase() === word.toLowerCase())
+          return lexicon ? <ToolTip lexicon={lexicon}>{word} </ToolTip> : <>{word} </>
+        }) as any
       }}
 
       customNodeRules={[

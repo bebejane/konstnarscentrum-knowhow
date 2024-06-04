@@ -20,6 +20,9 @@ query AllLexicons($first: IntType, $skip: IntType) {
 			links
 		}
 	}
+	pagination: _allLexiconsMeta {
+		count
+	}
 	lexiconText {
 		intro {
 			blocks
