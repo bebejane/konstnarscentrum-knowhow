@@ -11,6 +11,19 @@ fragment AboutFragment on AboutRecord {
 		...ImageFragment
 	}
 	content {
+		links {
+			__typename
+			... on LexiconRecord {
+				__typename
+				id
+				word
+				desc {
+					blocks
+					links
+					value
+				}
+			}
+		}
 		value
 		blocks {
 			__typename

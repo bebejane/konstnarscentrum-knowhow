@@ -17,6 +17,19 @@ fragment KnowledgeFragment on KnowledgeRecord {
 	slug
 	content {
 		value
+		links {
+			__typename
+			... on LexiconRecord {
+				__typename
+				id
+				word
+				desc {
+					blocks
+					links
+					value
+				}
+			}
+		}
 		blocks {
 			__typename
 			... on ImageRecord {
