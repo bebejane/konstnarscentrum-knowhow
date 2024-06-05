@@ -86,6 +86,7 @@ export default function Footer({ menu, footer }: FooterProps) {
 				</section>
 
 				<section className={s.support}>
+					Med support av Arbetsförmedlingen.
 					<div className={cn(s.logo, inView && s.inview)}>
 						<Logo />
 					</div>

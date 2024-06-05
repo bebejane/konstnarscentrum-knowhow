@@ -30,7 +30,12 @@
     cursor: pointer;
 
     svg {
+      path,
+      circle {
+        stroke: var(--black);
+      }
       height: 1rem;
+      stroke: var(--black);
     }
   }
 }

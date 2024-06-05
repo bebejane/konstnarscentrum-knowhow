@@ -162,6 +162,9 @@
         margin-left: 0px;
         width: 4rem;
         height: 4rem;
+        path {
+          fill: var(--white);
+        }
       }
     }
   }
