@@ -22,4 +22,5 @@ type PageProps = {
     title: string,
     regional: boolean
   }[]
+  lexicons?: LexiconRecord[]
 }

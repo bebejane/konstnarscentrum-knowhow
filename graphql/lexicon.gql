@@ -7,6 +7,11 @@ query Lexicon($id: ItemId!) {
 			value
 			links
 		}
+		_allReferencingActivities {
+			id
+			title
+			slug
+		}
 	}
 }
 
@@ -19,6 +24,9 @@ query AllLexicons($first: IntType, $skip: IntType) {
 			value
 			links
 		}
+	}
+	pagination: _allLexiconsMeta {
+		count
 	}
 	lexiconText {
 		intro {

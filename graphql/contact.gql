@@ -7,7 +7,19 @@ query ContactPage {
 		showImage
 		intro
 		content {
-			links
+			links {
+				__typename
+				... on LexiconRecord {
+					__typename
+					id
+					word
+					desc {
+						blocks
+						links
+						value
+					}
+				}
+			}
 			value
 		}
 		slug

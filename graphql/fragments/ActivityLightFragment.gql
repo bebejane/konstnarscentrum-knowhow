@@ -6,6 +6,7 @@ fragment ActivityLightFragment on ActivityRecord {
 	id
 	createdAt
 	title
+	blackHeadline
 	image {
 		...ImageThumbnailFragment
 	}

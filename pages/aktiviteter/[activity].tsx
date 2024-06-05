@@ -13,7 +13,7 @@ export type Props = {
 	region: Region
 }
 
-export default function MemberNewsArticle({ activity: {
+export default function Activity({ activity: {
 	id,
 	date,
 	dateEnd,
@@ -52,7 +52,7 @@ export default function MemberNewsArticle({ activity: {
 	);
 }
 
-MemberNewsArticle.page = { crumbs: [{ slug: 'aktiviteter', title: 'Aktuellt' }] } as PageProps
+Activity.page = { crumbs: [{ slug: 'aktiviteter', title: 'Aktiviteter' }] } as PageProps
 
 export async function getStaticPaths() {
 	return getStaticPagePaths(AllActivitiesDocument, 'activity')

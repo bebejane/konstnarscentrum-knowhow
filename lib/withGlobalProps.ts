@@ -1,7 +1,7 @@
-import { apiQuery, SEOQuery } from "dato-nextjs-utils/api";
+import { apiQuery, apiQueryAll, SEOQuery } from "dato-nextjs-utils/api";
 import { GetStaticProps } from 'next'
 import type { TypedDocumentNode } from "@apollo/client/core/types.js";
-import { GlobalDocument, FooterDocument, AllAboutsMenuDocument } from "/graphql";
+import { GlobalDocument, FooterDocument, AllAboutsMenuDocument, AllLexiconsDocument } from "/graphql";
 import { buildMenu } from "/lib/menu";
 
 export default function withGlobalProps(opt: any, callback: Function): GetStaticProps {
@@ -20,6 +20,9 @@ export default function withGlobalProps(opt: any, callback: Function): GetStatic
 
     const props = await apiQuery(queries, { preview: context.preview });
     props.menu = await buildMenu()
+
+    //const { lexicons } = await apiQueryAll(AllLexiconsDocument, { preview: context.preview });
+    //props.lexicons = lexicons
 
     if (callback)
       return await callback({ context, props: { ...props }, revalidate });

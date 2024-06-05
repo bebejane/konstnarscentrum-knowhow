@@ -7,6 +7,19 @@ query InEnglish {
 		slug
 		content {
 			value
+			links {
+				__typename
+				... on LexiconRecord {
+					__typename
+					id
+					word
+					desc {
+						blocks
+						links
+						value
+					}
+				}
+			}
 			blocks {
 				... on ImageRecord {
 					__typename
