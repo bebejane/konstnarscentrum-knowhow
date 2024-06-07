@@ -5,17 +5,16 @@ import { usePage } from '/lib/context/page'
 
 export type ContentProps = {
 	children: React.ReactNode,
-	noMargins?: boolean
-	noBottom?: boolean
+	noMargins: boolean
 }
 
-export default function Content({ children, noMargins = false }: ContentProps) {
+export default function Content({ children, noMargins }: ContentProps) {
 
 	const page = usePage()
 
 	return (
-		<main id="content" className={cn(s.content, noMargins && s.noMargins, page.noBottom && s.noBottom)}>
-			<article>
+		<main id="content" className={s.content}>
+			<article className={cn(noMargins && s.nomargins, page.noBottom && s.nobottom)}>
 				{children}
 			</article>
 		</main>
