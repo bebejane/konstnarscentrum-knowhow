@@ -84,6 +84,7 @@ export default function Article({
           {text}
         </Markdown>
       }
+      {children}
       {content &&
         <StructuredContent
           id={id}
@@ -93,7 +94,7 @@ export default function Article({
           lexicons={lexicons}
         />
       }
-      {children}
+
     </div>
 
   )

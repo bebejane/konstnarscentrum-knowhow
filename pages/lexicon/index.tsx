@@ -21,8 +21,13 @@ export default function Lexicons({ lexicons, lexiconText }: Props) {
     <Article
       id={'lexicon'}
       title={'Lexicon'}
-      content={lexiconText.intro}
     >
+      <StructuredContent
+        id={lexiconText.id}
+        record={lexiconText}
+        content={lexiconText.intro}
+        className={"intro"}
+      />
       <ul className={s.words}>
         {lexicons.map((l) =>
           <li key={l.id} >
