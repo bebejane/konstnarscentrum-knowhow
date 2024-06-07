@@ -13,8 +13,8 @@ export default function Content({ children, noMargins }: ContentProps) {
 	const page = usePage()
 
 	return (
-		<main id="content" className={cn(s.content, noMargins && s.nomargins, page.noBottom && s.nobottom)}>
-			<article>
+		<main id="content" className={s.content}>
+			<article className={cn(noMargins && s.nomargins, page.noBottom && s.nobottom)}>
 				{children}
 			</article>
 		</main>

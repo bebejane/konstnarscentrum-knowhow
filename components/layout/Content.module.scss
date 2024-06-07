@@ -4,7 +4,6 @@
   flex-direction: column;
   flex: 1 1 auto;
   min-width: 100%;
-  //min-height: 100vh;
 
   article {
     padding-left: var(--outer-margin);
@@ -22,28 +21,24 @@
     @include mq($until: tablet) {
       padding-top: var(--navbar-height);
     }
-  }
 
+    &.nomargins {
 
-}
-
-.nomargins {
-  article {
-    margin: 0;
-    padding-left: 0;
-    padding-right: 0;
-
-    @include mq($from: tablet) {
-      margin-left: 0;
-      margin-right: 0;
+      margin: 0;
       padding-left: 0;
       padding-right: 0;
-    }
-  }
-}
 
-.nobottom {
-  article {
-    padding-bottom: 0;
+      @include mq($from: tablet) {
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+    }
+
+    &.nobottom {
+      padding-bottom: 0;
+    }
   }
 }
