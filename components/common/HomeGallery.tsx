@@ -39,7 +39,7 @@ function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-const slideTime = 6000
+const slideTime = 4000
 
 export default function HomeGallery({ slides }: Props) {
 
