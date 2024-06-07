@@ -26,7 +26,6 @@ export default function Layout({ children, menu: menuFromProps, title, footer }:
 	}, [])
 
 	useEffect(() => { // Detect if we are on the home page.
-		console.log(asPath)
 		setIsHome(asPath === '/')
 	}, [asPath])
 

@@ -24,24 +24,26 @@
     }
   }
 
-  &.noMargins {
-    article {
-      margin: 0;
+
+}
+
+.noMargins {
+  article {
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+
+    @include mq($from: tablet) {
+      margin-left: 0;
+      margin-right: 0;
       padding-left: 0;
       padding-right: 0;
-
-      @include mq($from: tablet) {
-        margin-left: 0;
-        margin-right: 0;
-        padding-left: 0;
-        padding-right: 0;
-      }
     }
   }
+}
 
-  &.noBottom {
-    article {
-      padding-bottom: 0;
-    }
+.noBottom {
+  article {
+    padding-bottom: 0;
   }
 }

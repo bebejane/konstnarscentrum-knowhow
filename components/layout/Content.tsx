@@ -12,7 +12,7 @@ export type ContentProps = {
 export default function Content({ children, noMargins = false }: ContentProps) {
 
 	const page = usePage()
-	console.log(noMargins)
+
 	return (
 		<main id="content" className={cn(s.content, noMargins && s.noMargins, page.noBottom && s.noBottom)}>
 			<article>
