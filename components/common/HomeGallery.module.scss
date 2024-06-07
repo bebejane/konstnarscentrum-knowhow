@@ -14,7 +14,7 @@
     margin-right: calc(-1 * var(--outer-margin));
   }
 
-  >ul {
+  > ul {
     height: 70vh;
     --height: 70vh;
 
@@ -71,7 +71,6 @@
 
         &.current {
           z-index: 1;
-
         }
 
         &.next {
@@ -103,7 +102,8 @@
             color: var(--black);
 
             & .fade {
-              display: none;
+              //display: none;
+              background: var(--fade-light);
             }
           }
 
@@ -112,7 +112,7 @@
           }
 
           .fade {
-            background: linear-gradient(180deg, rgba(0, 0, 0, 0.348) 0%, rgba(0, 0, 0, 0) 100%);
+            background: var(--fade);
             position: absolute;
             z-index: -1;
             top: 0;

@@ -88,12 +88,12 @@
       }
 
       .fade {
-        background: linear-gradient(180deg, rgba(255, 69, 0, 0.297) 0%, rgba(255, 68, 0, 0) 100%);
+        background: var(--fade);
         position: absolute;
         z-index: -1;
         top: 0;
         left: 0;
-        height: 150%;
+        height: 200%;
         width: calc(100% + (2 * var(--outer-margin)));
         margin-left: calc(-1 * var(--outer-margin));
         margin-right: calc(-1 * var(--outer-margin));
@@ -106,7 +106,8 @@
       }
 
       &.black .fade {
-        display: none;
+        //display: none;
+        background: var(--fade-light);
       }
     }
   }

@@ -1,6 +1,6 @@
 :root {
 	--black: #ff4400;
-	--white: #f3ffb0;
+	--white: rgb(243, 255, 176);
 	--beige-dark: #d93b01;
 	--beige-light: #ff440030;
 	--beige-mid: #ff44003f;
@@ -19,6 +19,8 @@
 	--line-height-nav: 1.6em;
 	--gutter: 4vw;
 	--navbar-height: 4.5rem;
+	--fade: linear-gradient(180deg, rgba(255, 69, 0, 0.297) 0%, rgba(255, 68, 0, 0) 100%);
+	--fade-light: linear-gradient(180deg, rgba(243, 255, 176, 0.68) 0%, rgba(243, 255, 176, 0) 100%);
 
 	--background: var(--white);
 	--foreground: var(--black);
