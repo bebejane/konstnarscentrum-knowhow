@@ -11,7 +11,6 @@ export type ContentProps = {
 export default function Content({ children, noMargins }: ContentProps) {
 
 	const page = usePage()
-	console.log('noMargins', noMargins)
 
 	return (
 		<main id="content" className={s.content}>

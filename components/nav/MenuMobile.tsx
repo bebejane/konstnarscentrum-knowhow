@@ -21,17 +21,19 @@ const englishMenuItem: MenuItem = {
 
 export default function MenuMobile({ items, home }: MenuMobileProps) {
 
-	const router = useRouter()
+	const router = useRouter();
+	const { asPath } = router;
+	const isHome = asPath === '/'
+
 	const { theme, setTheme } = useTheme()
-	const isHome = router.asPath === '/'
 	const { scrolledPosition } = useScrollInfo()
 	const [selected, setSelected] = useState<MenuItem | undefined>();
-	const [showRegions, setShowRegions] = useState<boolean>(false);
 	const { isDesktop } = useDevice()
 	const [showMenuMobile, setShowMenuMobile, invertedMenu, setInvertedMenu, setShowSearch] = useStore((state) => [state.showMenuMobile, state.setShowMenuMobile, state.invertedMenu, state.setInvertedMenu, state.setShowSearch])
-	const regionsRef = useRef<HTMLLIElement | null>(null)
 
-
+	const handleClick = () => [
+		setShowMenuMobile(false)
+	]
 	const handleSearch = (e) => {
 		setShowSearch(true)
 		setShowMenuMobile(false)
@@ -40,6 +42,7 @@ export default function MenuMobile({ items, home }: MenuMobileProps) {
 	useEffect(() => {
 		if (!isHome || isDesktop)
 			return setInvertedMenu(false)
+
 		setInvertedMenu(!showMenuMobile)
 
 	}, [isDesktop, isHome, scrolledPosition, setInvertedMenu, showMenuMobile])
@@ -63,7 +66,7 @@ export default function MenuMobile({ items, home }: MenuMobileProps) {
 
 	useEffect(() => {
 		setShowMenuMobile(false)
-	}, [setShowMenuMobile, router.pathname])
+	}, [setShowMenuMobile, asPath])
 
 	return (
 		<>
@@ -88,7 +91,7 @@ export default function MenuMobile({ items, home }: MenuMobileProps) {
 									onClick={() => setSelected(selected?.type === item.type ? undefined : item)}
 								>
 									{item.index ?
-										<Link href={item.slug}>
+										<Link href={item.slug} onClick={handleClick}>
 											{item.label}
 										</Link>
 										:
@@ -98,7 +101,7 @@ export default function MenuMobile({ items, home }: MenuMobileProps) {
 								{item.type === selected?.type && !item.index &&
 									item.sub?.map(({ slug, label }, idx) =>
 										<li className={cn(slug === router.asPath && s.selectedSub)} key={`sub-${idx}`}>
-											<Link href={slug}>
+											<Link href={slug} onClick={handleClick}>
 												{label}
 											</Link>
 										</li>
