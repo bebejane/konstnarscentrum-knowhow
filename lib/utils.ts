@@ -69,7 +69,7 @@ export const pingEndpoint = async (path: string | string[], method: 'GET' | 'POS
 
 export const recordToSlug = (record: any, region?: Region): string => {
 
-  let url;
+  let url: string;
 
   if (!record) {
     throw new Error('recordToSlug: Record  is empty')
@@ -77,23 +77,23 @@ export const recordToSlug = (record: any, region?: Region): string => {
 
   if (typeof record === 'string')
     return record
-  else {
-    const { __typename, slug, category } = record
 
-    switch (__typename) {
-      case 'ActivityRecord':
-        url = `/aktiviteter/${slug}`
-        break;
-      case 'KnowledgeRecord':
-        url = `/kunskapsbank/${category.slug}/${slug}`
-        break;
-      case 'AboutRecord':
-        url = `/om/${slug}`
-        break;
-      default:
-        throw Error(`${__typename} is unknown record slug!`)
-    }
+  const { __typename, slug, category } = record
+
+  switch (__typename) {
+    case 'ActivityRecord':
+      url = `/aktiviteter/${slug}`
+      break;
+    case 'KnowledgeRecord':
+      url = `/kunskapsbank/${category.slug}/${slug}`
+      break;
+    case 'AboutRecord':
+      url = `/om/${slug}`
+      break;
+    default:
+      throw Error(`${__typename} is unknown record slug!`)
   }
+
 
   return region && !region?.global ? `/${region.slug}/${url}` : url
 }

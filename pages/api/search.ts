@@ -1,6 +1,5 @@
 import type { NextRequest, NextResponse } from 'next/server'
 import { apiQuery } from 'dato-nextjs-utils/api';
-import { apiQueryAll } from '/lib/utils';
 import { buildClient } from '@datocms/cma-client';
 import { SiteSearchDocument } from '/graphql';
 import { truncateParagraph, isEmptyObject, recordToSlug } from '/lib/utils';
@@ -75,7 +74,7 @@ export const siteSearch = async (opt: any) => {
       data[k] = data[k].concat(res[k])
     })
   }
-
+  console.log('hej search')
   Object.keys(data).forEach(type => {
     if (!data[type].length)
       delete data[type]
@@ -87,6 +86,7 @@ export const siteSearch = async (opt: any) => {
         slug: recordToSlug(el)
       }))
   })
+
   console.timeEnd(`search: "${query}"`)
   return data;
 }

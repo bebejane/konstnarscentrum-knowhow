@@ -15,6 +15,7 @@ export default function Loader({ message, loading = true, className, color, inve
   if (!loading) return null
 
   const style = { color }
+
   return (
     <div className={cn(s.container, className, invert && s.invert)} style={{ maxHeight: `${size}px` }}>
 
