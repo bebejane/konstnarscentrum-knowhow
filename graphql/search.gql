@@ -23,6 +23,11 @@ query SiteSearch(
 		title
 		text: intro(markdown: false)
 		slug
+		category {
+			id
+			category
+			slug
+		}
 		image {
 			...ImageThumbnailFragment
 		}

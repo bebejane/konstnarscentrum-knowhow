@@ -11,11 +11,7 @@ import Loader from '/components/common/Loader'
 import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components'
 import useStore from '/lib/store'
 
-export type Props = {
-
-}
-
-export default function Search({ }: Props) {
+export default function Search() {
 
   const router = useRouter()
   const [open, setOpen] = useState<boolean>(false)
@@ -38,6 +34,7 @@ export default function Search({ }: Props) {
 
     setResults(undefined)
     setLoading(true)
+    setError(undefined)
 
     abortController.current?.abort(new DOMException('signal timed out', 'AbortError'));
     abortController.current = new AbortController()
@@ -113,7 +110,7 @@ export default function Search({ }: Props) {
                           <h4>
                             <Link href={slug}>{title}</Link>
                           </h4>
-                          <Markdown>{text}</Markdown>
+                          <Link href={slug}><Markdown>{text}</Markdown></Link>
                         </div>
                         {image &&
                           <figure>

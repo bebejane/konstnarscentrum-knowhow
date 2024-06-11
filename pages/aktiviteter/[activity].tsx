@@ -26,6 +26,9 @@ export default function Activity({ activity: {
 	_seoMetaTags
 } }: Props) {
 
+	const startDate = format(new Date(date), "d MMMM y")
+	const endDate = dateEnd ? format(new Date(dateEnd), "d MMMM y") : undefined
+
 	return (
 		<>
 			<DatoSEO title={title} description={intro} seo={_seoMetaTags} />
@@ -40,8 +43,8 @@ export default function Activity({ activity: {
 				<MetaSection
 					items={[
 						{ title: 'Kategori', value: category.category },
-						{ title: 'Datum', value: format(new Date(date), "d MMMM y") },
-						{ title: 'Slutdatum', value: dateEnd ? format(new Date(dateEnd), "d MMMM y") : undefined },
+						{ title: 'Datum', value: startDate },
+						{ title: 'Slutdatum', value: endDate !== startDate ? endDate : undefined },
 					]}
 				/>
 			</Article>

@@ -18,7 +18,7 @@ export default function Layout({ children, menu: menuFromProps, title, footer }:
 
 	const [images, imageId, setImageId, showMenu] = useStore((state) => [state.images, state.imageId, state.setImageId, state.showMenu])
 	const { asPath } = useRouter()
-	const [isHome, setIsHome] = useState(asPath === '/')
+	const [isHome, setIsHome] = useState(true)
 	const [menu, setMenu] = useState(menuFromProps)
 
 	useEffect(() => { // Refresh menu on load.

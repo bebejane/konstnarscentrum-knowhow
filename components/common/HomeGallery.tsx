@@ -18,16 +18,12 @@ const parseRecord = (record: any) => {
   const { __typename, slug } = record
 
   switch (__typename) {
-    case 'CommissionRecord':
-      return { type: 'Uppdrag', slug: `/anlita-oss/uppdrag/${slug}` }
-    case 'MemberNewsRecord':
-      return { type: 'Aktuellt', slug: `/konstnar/aktuellt/${slug}` }
-    case 'NewsRecord':
-      return { type: 'Nyheter', slug: `/nyheter/${slug}` }
+    case 'ActivityRecord':
+      return { type: 'Aktivitet', slug: `/aktiviteter/${slug}`, headline: record.title }
     case 'AboutRecord':
       return { type: 'Om', slug: `/om/${slug}` }
-    case 'ForArtistRecord':
-      return { type: 'För konstnärer', slug: `/` }
+    case 'KnowledgeRecord':
+      return { type: 'Kunskapsbank', slug: `/kunskapsbank/${record.category?.slug}/${slug}`, headline: record.title }
     default:
       return { type: '', slug: '/' }
   }
@@ -160,6 +156,7 @@ const Mask = ({ id, size, start }) => {
     timeoutRef.current = setTimeout(blobIt, slideTime - animationTime)
 
     return () => {
+      //@ts-ignore
       clearTimeout(timeoutRef.current)
       timeoutRef.current = undefined
     }
