@@ -56,27 +56,24 @@ export default function Article({
             </h1>
           }
 
-          <figure data-editable={editable} onClick={() => onClick?.(image?.id)}>
-            {haveImage ?
-              <>
-                <Image
-                  className={s.image}
-                  data={image.responsiveImage}
-                  objectFit="cover"
-                  placeholderClassName={s.placeholder}
-                />
-                <figcaption className={cn(hideCaption && s.hide)}>
-                  <Markdown>{image.title}</Markdown>
-                </figcaption>
-              </>
-              : editable ?
-                <div className={s.emptyEditable}>
-                  <img src={'/images/noimage.svg'} />
-                </div>
-                : null
-            }
-          </figure>
-          <div className={s.colorBg} style={{ backgroundColor: image?.responsiveImage?.bgColor }}></div>
+          {haveImage &&
+            <>
+              <figure data-editable={editable} onClick={() => onClick?.(image?.id)}>
+                <>
+                  <Image
+                    className={s.image}
+                    data={image.responsiveImage}
+                    objectFit="cover"
+                    placeholderClassName={s.placeholder}
+                  />
+                  <figcaption className={cn(hideCaption && s.hide)}>
+                    <Markdown>{image.title}</Markdown>
+                  </figcaption>
+                </>
+              </figure>
+              <div className={s.colorBg} style={{ backgroundColor: image.responsiveImage.bgColor }} />
+            </>
+          }
         </header>
       }
       {text &&
@@ -94,7 +91,6 @@ export default function Article({
           lexicons={lexicons}
         />
       }
-
     </div>
 
   )

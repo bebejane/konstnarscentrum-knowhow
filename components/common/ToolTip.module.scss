@@ -1,13 +1,20 @@
 .tooltip {
+
+  width: 30vw;
   max-width: 30vw;
   max-height: 40vh;
   overflow-y: scroll;
   border: 5px solid var(--foreground);
 
-  > div {
+  @include mq($until: desktop) {
+    width: 45vw;
+    max-width: 45vw;
+  }
+
+  >div {
     all: unset;
 
-    > div {
+    >div {
       background-color: var(--background);
       opacity: 1;
       border: 0;
