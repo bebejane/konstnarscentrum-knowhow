@@ -8,6 +8,12 @@
       padding-bottom: 0;
     }
 
+    @include mq($until: desktop) {
+      & > figure {
+        padding-bottom: var(--space);
+      }
+    }
+
     figure {
       margin-left: calc(-1 * var(--outer-margin));
       margin-right: calc(-1 * var(--outer-margin));
