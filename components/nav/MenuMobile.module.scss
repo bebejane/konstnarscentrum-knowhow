@@ -11,6 +11,10 @@
   @include mq($from: tablet, $until: nav-break) {
     top: 20px;
   }
+
+  div div {
+    background-color: var(--black) !important;
+  }
 }
 
 .mobileMenu {
@@ -69,7 +73,9 @@
         border-bottom: 1px solid var(--beige-mid);
 
         &:last-child {
-          position: absolute;
+          @include mq($from: desktop) {
+            position: absolute;
+          }
         }
 
         &.sub {

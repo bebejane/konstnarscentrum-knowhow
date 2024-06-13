@@ -2,7 +2,7 @@
   > header {
     display: block;
     position: relative;
-    padding-bottom: var(--small-space);
+    //padding-bottom: var(--small-space);
 
     @include mq($from: tablet) {
       padding-bottom: 0;

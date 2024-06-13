@@ -1,8 +1,18 @@
 .tooltip {
-  max-width: 30vw;
-  max-height: 40vh;
+  //max-width: 30vw;
+  //max-height: 40vh;
   overflow-y: scroll;
   border: 5px solid var(--foreground);
+
+  @include mq($until: desktop) {
+    margin-left: var(--outer-margin);
+    margin-right: var(--outer-margin);
+  }
+
+  @include mq($from: desktop) {
+    max-width: 30vw;
+    max-height: 40vh;
+  }
 
   > div {
     all: unset;
