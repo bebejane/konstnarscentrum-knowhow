@@ -17,7 +17,7 @@ export default function Lexicons({ lexicons, lexiconText }: Props) {
   return (
     <Article
       id={'lexicon'}
-      title={'Lexicon'}
+      title={'Lexikon'}
     >
       <StructuredContent
         id={lexiconText.id}
