@@ -1,12 +1,9 @@
 import s from './index.module.scss'
-import cn from 'classnames'
 import withGlobalProps from "/lib/withGlobalProps";
 import { GetStaticProps } from "next";
 import { AllLexiconsDocument } from "/graphql";
 import { Article, StructuredContent } from '/components'
-import React, { CSSProperties, useEffect, useRef, useState } from 'react';
-import { RevealText, ToolTip } from '/components';
-import { render } from 'datocms-structured-text-to-html-string';
+import { ToolTip } from '/components';
 
 
 export type Props = {
