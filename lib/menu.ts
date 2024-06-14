@@ -16,7 +16,7 @@ const base: Menu = [
   { type: 'about', label: 'Om', slug: '/om' },
   { type: 'activity', label: 'Aktiviteter', slug: '/aktiviteter', index: true, sub: [] },
   { type: 'knowledge', label: 'Kunskapsbank', slug: '/kunskapsbank', sub: [] },
-  { type: 'lexicon', label: 'Lexicon', slug: '/lexicon', index: true, sub: [] },
+  { type: 'Lexikon', label: 'Lexikon', slug: '/lexicon', index: true, sub: [] },
   { type: 'contact', label: 'Kontakt', slug: '/kontakta-oss', index: true, sub: [] },
   { type: 'in-english', label: 'In English', slug: '/english', index: true, sub: [] },
 ]

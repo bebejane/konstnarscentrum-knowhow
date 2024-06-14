@@ -56,7 +56,7 @@ export default function Knowledges({ category, presentKnowledges, knowledges: kn
 					)
 				}) :
 					<div className={s.nomatches}>
-						Det finns inga poster under denna kategori...
+						Mer information kommer här i augusti.
 					</div>
 				}
 			</CardContainer>
