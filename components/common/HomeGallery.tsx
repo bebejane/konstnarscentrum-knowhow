@@ -121,7 +121,7 @@ export default function HomeGallery({ slides }: Props) {
 const Mask = ({ id, size, start }) => {
 
   const numBlobs = 200
-  const animationTime = 850
+  const animationTime = 1050
   let timeoutRef = useRef<NodeJS.Timer | undefined>()
 
   useEffect(() => {
@@ -131,8 +131,8 @@ const Mask = ({ id, size, start }) => {
 
       const { path } = blobshape({
         size: randomInt(size.width * (idx / numBlobs), size.width * (idx / numBlobs)),
-        growth: randomInt(2, 9),
-        edges: randomInt(2, 40),
+        growth: randomInt(10, 20),
+        edges: randomInt(2, 4),
         seed: null
       })
       return path
