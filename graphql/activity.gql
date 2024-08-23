@@ -10,7 +10,7 @@ query ActivityById($id: ItemId!) {
 }
 
 query AllActivities($first: IntType = 10, $skip: IntType = 0) {
-	activities: allActivities(orderBy: [createdAt_DESC], first: $first, skip: $skip) {
+	activities: allActivities(orderBy: [date_ASC], first: $first, skip: $skip) {
 		...ActivityLightFragment
 	}
 	pagination: _allActivitiesMeta {
@@ -33,7 +33,7 @@ query AllPastAndFutureActivities(
 				{ date: { gt: $date } }
 			]
 		}
-		orderBy: [date_DESC]
+		orderBy: [date_ASC]
 		first: $first
 		skip: $skip
 	) {
@@ -56,7 +56,7 @@ query AllPastAndFutureActivities(
 query AllPresentActivities($first: IntType = 100, $skip: IntType = 0, $date: Date) {
 	presentActivities: allActivities(
 		filter: { date: { lte: $date }, dateEnd: { gte: $date, exists: true } }
-		orderBy: [date_DESC]
+		orderBy: [date_ASC]
 		first: $first
 		skip: $skip
 	) {

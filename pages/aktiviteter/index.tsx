@@ -5,7 +5,7 @@ import { GetStaticProps } from "next";
 import { apiQuery } from "dato-nextjs-utils/api";
 import { AllPresentActivitiesDocument, AllPastAndFutureActivitiesDocument, AllActivityCategoriesDocument } from "/graphql";
 import { format } from "date-fns";
-import { pageSize, apiQueryAll, activityStatus, isServer } from "/lib/utils";
+import { pageSize, apiQueryAll, activityStatus } from "/lib/utils";
 import { CardContainer, NewsCard, FilterBar, RevealText, Loader } from '/components'
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
@@ -55,7 +55,7 @@ export default function Activities({ presentActivities, activities: activitiesFr
 						<NewsCard
 							key={id}
 							title={title}
-							subtitle={`${category.category} • ${format(new Date(date), "d MMM").replace('.', '')}`}
+							subtitle={`${category.category} • ${date}`}
 							label={activityStatus(el.date, el.dateEnd).label}
 							text={intro}
 							image={image}
@@ -65,13 +65,11 @@ export default function Activities({ presentActivities, activities: activitiesFr
 				}) : <div className={s.nomatches}>Inga träffar...</div>
 				}
 			</CardContainer>
-
 			{!page.end &&
 				<div ref={ref} className={s.loader} key={`page-${page.no}`}>
 					{loading && <Loader />}
 				</div>
 			}
-
 			{error &&
 				<div className={s.error}><>Error: {error.message || error}</></div>
 			}
@@ -96,11 +94,11 @@ export const getStaticProps: GetStaticProps = withGlobalProps({ queries: [AllAct
 	const count = activities.length
 
 	activities = activities
-		.map(el => ({ ...el, status: activityStatus(el.date, el.dateEnd) }))
+		.map(el => ({ ...el, status: activityStatus(el.date, el.dateEnd), date: format(new Date(el.date), "d MMM").replace('.', '') }))
 		.slice(start, end)
 
 	presentActivities = presentActivities
-		.map(el => ({ ...el, status: activityStatus(el.date, el.dateEnd) }))
+		.map(el => ({ ...el, status: activityStatus(el.date, el.dateEnd), date: format(new Date(el.date), "d MMM").replace('.', '') }))
 		.sort((a, b) => a.status.order > b.status.order ? -1 : 1)
 
 	if (!activities.length && !presentActivities.length)
