@@ -12,8 +12,8 @@ import { useInView } from "react-intersection-observer";
 
 export type ActivityRecordWithStatus = ActivityRecord & { status: { value: string, label: string } }
 export type Props = {
-	presentActivities: ActivityRecord[],
-	activities: ActivityRecord[],
+	presentActivities: ActivityRecordWithStatus[],
+	activities: ActivityRecordWithStatus[],
 	activityCategories: ActivityCategoryRecord[]
 	date: string
 	pagination: Pagination
@@ -23,7 +23,7 @@ export default function Activities({ presentActivities, activities: activitiesFr
 
 	const [activitiesCategoryId, setActivitiesCategoryId] = useState<string | string[] | undefined>()
 
-	const { data: { activities }, loading, error, nextPage, page } = useApiQuery<{ activities: ActivityRecord[] }>(AllPastAndFutureActivitiesDocument, {
+	let { data: { activities }, loading, error, nextPage, page } = useApiQuery<{ activities: ActivityRecordWithStatus[] }>(AllPastAndFutureActivitiesDocument, {
 		initialData: { activities: activitiesFromProps, pagination },
 		variables: { first: pageSize, date },
 		pageSize
@@ -37,11 +37,13 @@ export default function Activities({ presentActivities, activities: activitiesFr
 
 	const allNews = [...presentActivities, ...activities]
 		.filter(({ category }) => activitiesCategoryId ? activitiesCategoryId === category?.id : true)
+		.sort((a, b) => a.date > b.date ? -1 : 1)
+		.sort((a, b) => a.status.value === 'past' ? 1 : -1)
+
 
 	return (
 		<>
 			<h1><RevealText>Aktiviteter</RevealText></h1>
-
 			<FilterBar
 				multi={false}
 				options={activityCategories.map(({ id, category }) => ({ label: category, id }))}
