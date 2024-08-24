@@ -9,6 +9,7 @@ import { pageSize, apiQueryAll, activityStatus } from "/lib/utils";
 import { CardContainer, NewsCard, FilterBar, RevealText, Loader } from '/components'
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
+import { sv } from 'date-fns/locale'
 
 export type ActivityRecordWithStatus = ActivityRecord & { status: { value: string, label: string } }
 export type Props = {
@@ -40,7 +41,6 @@ export default function Activities({ presentActivities, activities: activitiesFr
 		.sort((a, b) => a.date > b.date ? -1 : 1)
 		.sort((a, b) => a.status.value === 'past' ? 1 : -1)
 
-
 	return (
 		<>
 			<h1><RevealText>Aktiviteter</RevealText></h1>
@@ -57,7 +57,8 @@ export default function Activities({ presentActivities, activities: activitiesFr
 						<NewsCard
 							key={id}
 							title={title}
-							subtitle={`${category.category} • ${date}`}
+							subtitle={`${category.category}`}
+							date={date}
 							label={activityStatus(el.date, el.dateEnd).label}
 							text={intro}
 							image={image}
@@ -96,11 +97,11 @@ export const getStaticProps: GetStaticProps = withGlobalProps({ queries: [AllAct
 	const count = activities.length
 
 	activities = activities
-		.map(el => ({ ...el, status: activityStatus(el.date, el.dateEnd), date: format(new Date(el.date), "d MMM").replace('.', '') }))
+		.map(el => ({ ...el, status: activityStatus(el.date, el.dateEnd) }))
 		.slice(start, end)
 
 	presentActivities = presentActivities
-		.map(el => ({ ...el, status: activityStatus(el.date, el.dateEnd), date: format(new Date(el.date), "d MMM").replace('.', '') }))
+		.map(el => ({ ...el, status: activityStatus(el.date, el.dateEnd) }))
 		.sort((a, b) => a.status.order > b.status.order ? -1 : 1)
 
 	if (!activities.length && !presentActivities.length)

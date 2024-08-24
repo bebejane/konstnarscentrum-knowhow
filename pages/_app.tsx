@@ -4,14 +4,15 @@ import { Layout } from '/components';
 import { ThemeProvider } from 'next-themes'
 import { useRouter } from 'next/router';
 import { DefaultDatoSEO } from 'dato-nextjs-utils/components';
-import { sv } from 'date-fns/locale'
 import { PageProvider } from '/lib/context/page';
-
+import { sv } from 'date-fns/locale'
 import setDefaultOptions from 'date-fns/setDefaultOptions';
 
 setDefaultOptions({ locale: sv })
 
 function App({ Component, pageProps }) {
+
+  setDefaultOptions({ locale: sv })
 
   const router = useRouter()
   const page = (Component.page || {}) as PageProps

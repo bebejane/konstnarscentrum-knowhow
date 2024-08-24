@@ -5,6 +5,7 @@ import { KCImage as Image } from '/components'
 import { Card, ReadMore } from '/components'
 import BalanceText from 'react-balance-text'
 import { truncateParagraph } from '/lib/utils'
+import { format } from 'date-fns'
 
 export type NewsCardProps = {
   title: string,
@@ -12,10 +13,11 @@ export type NewsCardProps = {
   label?: string,
   text: string,
   slug: string,
+  date?: string
   image?: FileField
 }
 
-export default function NewsCard({ title, subtitle, text, slug, image, label }: NewsCardProps) {
+export default function NewsCard({ title, subtitle, date, text, slug, image, label }: NewsCardProps) {
 
   return (
     <Card className={s.card}>
@@ -25,7 +27,7 @@ export default function NewsCard({ title, subtitle, text, slug, image, label }: 
           {label && <div className={s.label}><h5>{label}</h5></div>}
         </Link>
       }
-      <h5>{subtitle}</h5>
+      <h5 suppressHydrationWarning>{`${subtitle}${date ? `• ${format(new Date(date), "d MMM").replace('.', '')}` : ''}`}</h5>
 
       <Link href={slug}>
         <h4><BalanceText>{title}</BalanceText></h4>
