@@ -29,13 +29,11 @@ export default function Home({ start }: Props) {
 
 export const getStaticProps: GetStaticProps = withGlobalProps({ queries: [] }, async ({ props, revalidate, context }: any) => {
 
-	const date = format(new Date(), 'yyyy-MM-dd')
-	console.log(date)
 	const { start, activities }: {
 		start: StartRecord
 		activities: ActivityRecord[]
 	} = await apiQuery([LatestActivitiesDocument, StartDocument], {
-		variables: { date },
+		variables: { date: format(new Date(), 'yyyy-MM-dd') },
 		preview: context.preview
 	});
 
