@@ -9,7 +9,6 @@ import { pageSize, apiQueryAll, activityStatus } from "/lib/utils";
 import { CardContainer, NewsCard, FilterBar, RevealText, Loader } from '/components'
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import { sv } from 'date-fns/locale'
 
 export type ActivityRecordWithStatus = ActivityRecord & { status: { value: string, label: string } }
 export type Props = {

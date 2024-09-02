@@ -5,6 +5,7 @@ import { GetStaticProps } from "next";
 import { apiQuery } from "dato-nextjs-utils/api";
 import { LatestActivitiesDocument, StartDocument } from "/graphql";
 import { Block, HomeGallery } from "/components";
+import { format } from "date-fns";
 
 export type Props = {
 	start: StartRecord
@@ -28,10 +29,13 @@ export default function Home({ start }: Props) {
 
 export const getStaticProps: GetStaticProps = withGlobalProps({ queries: [] }, async ({ props, revalidate, context }: any) => {
 
+	const date = format(new Date(), 'yyyy-MM-dd')
+	console.log(date)
 	const { start, activities }: {
 		start: StartRecord
 		activities: ActivityRecord[]
 	} = await apiQuery([LatestActivitiesDocument, StartDocument], {
+		variables: { date },
 		preview: context.preview
 	});
 

@@ -76,8 +76,13 @@ query AllActivityCategories($first: IntType = 100, $skip: IntType = 0) {
 	}
 }
 
-query LatestActivities($first: IntType = 2, $skip: IntType = 0) {
-	activities: allActivities(orderBy: [createdAt_DESC], first: $first, skip: $skip) {
+query LatestActivities($first: IntType = 2, $skip: IntType = 0, $date: Date) {
+	activities: allActivities(
+		filter: { dateEnd: { gte: $date } }
+		orderBy: [date_ASC]
+		first: $first
+		skip: $skip
+	) {
 		...ActivityLightFragment
 	}
 }

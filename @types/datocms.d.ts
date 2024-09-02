@@ -5984,6 +5984,7 @@ type AllActivityCategoriesQuery = { __typename?: 'Query', activityCategories: Ar
 type LatestActivitiesQueryVariables = Exact<{
   first?: InputMaybe<Scalars['IntType']>;
   skip?: InputMaybe<Scalars['IntType']>;
+  date?: InputMaybe<Scalars['Date']>;
 }>;
 
 
