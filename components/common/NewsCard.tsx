@@ -29,7 +29,7 @@ export default function NewsCard({ title, subtitle, date, text, slug, image, lab
       }
 
       <h5 suppressHydrationWarning>
-        {`${subtitle}${date ? `• ${format(new Date(date), "d MMM").replace('.', '')}` : ''}`}
+        {`${subtitle}${date ? ` • ${format(new Date(date), "d MMM").replace('.', '')}` : ''}`}
       </h5>
       <Link href={slug}>
         <BalanceText><h4>{title}</h4></BalanceText>
