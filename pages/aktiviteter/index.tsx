@@ -36,6 +36,7 @@ export default function Activities({ presentActivities, activities: activitiesFr
 	}, [inView, page, loading, nextPage])
 
 	const allNews = [...presentActivities, ...activities]
+		.map(el => ({ ...el, status: activityStatus(el.date, el.dateEnd) }))
 		.filter(({ category }) => activitiesCategoryId ? activitiesCategoryId === category?.id : true)
 		.sort((a, b) => a.date > b.date ? -1 : 1)
 		.sort((a, b) => a.status.value === 'past' ? 1 : -1)
