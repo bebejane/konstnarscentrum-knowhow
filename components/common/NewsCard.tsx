@@ -27,10 +27,12 @@ export default function NewsCard({ title, subtitle, date, text, slug, image, lab
           {label && <div className={s.label}><h5>{label}</h5></div>}
         </Link>
       }
-      <h5 suppressHydrationWarning>{`${subtitle}${date ? `• ${format(new Date(date), "d MMM").replace('.', '')}` : ''}`}</h5>
 
+      <h5 suppressHydrationWarning>
+        {`${subtitle}${date ? `• ${format(new Date(date), "d MMM").replace('.', '')}` : ''}`}
+      </h5>
       <Link href={slug}>
-        <h4><BalanceText>{title}</BalanceText></h4>
+        <BalanceText><h4>{title}</h4></BalanceText>
       </Link>
       <p className="mid">{truncateParagraph(text, 1, false)}</p>
       <ReadMore link={slug} regional={false} message='Läs mer'></ReadMore>
