@@ -21,10 +21,15 @@ query InEnglish {
 				}
 			}
 			blocks {
+				... on ButtonRecord {
+					__typename
+					id
+					text
+					url
+				}
 				... on ImageRecord {
 					__typename
 					id
-
 					image {
 						...ImageFragment
 					}
