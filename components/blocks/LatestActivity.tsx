@@ -12,7 +12,7 @@ export default function LatestActivity({ data: { activities } }: LatestActivityB
 
   return (
     <section className={s.container}>
-      <SectionHeader title="Senaste aktiviteter" slug={"/aktiviteter"} margin={true} regional={true} />
+      <SectionHeader title="Aktuella aktiviteter" slug={"/aktiviteter"} margin={true} regional={true} />
       <CardContainer columns={2}>
         {activities.map(({ title, intro, slug, image, category }, idx) =>
           <NewsCard

@@ -27,7 +27,7 @@ export default function ImageShortcut({ data: { headline, image, link, text, bla
             {headline}
           </h2>
           <p className={cn(blackHeadline && s.black, "intro")}>{text}</p><br />
-          <ReadMore link={link} message='Läs mer' external={true} regional={false} invert={blackHeadline ? false : true} />
+          <ReadMore link={link} message={link === '/english' ? 'Read more' : 'Läs mer'} external={true} regional={false} invert={blackHeadline ? false : true} />
         </figcaption>
       </figure>
     </section >

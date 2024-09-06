@@ -5,15 +5,15 @@ import { GetStaticProps } from "next";
 import { apiQuery } from "dato-nextjs-utils/api";
 import { AllPresentActivitiesDocument, AllPastAndFutureActivitiesDocument, AllActivityCategoriesDocument } from "/graphql";
 import { format } from "date-fns";
-import { pageSize, apiQueryAll, activityStatus, isServer } from "/lib/utils";
+import { pageSize, apiQueryAll, activityStatus } from "/lib/utils";
 import { CardContainer, NewsCard, FilterBar, RevealText, Loader } from '/components'
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
 export type ActivityRecordWithStatus = ActivityRecord & { status: { value: string, label: string } }
 export type Props = {
-	presentActivities: ActivityRecord[],
-	activities: ActivityRecord[],
+	presentActivities: ActivityRecordWithStatus[],
+	activities: ActivityRecordWithStatus[],
 	activityCategories: ActivityCategoryRecord[]
 	date: string
 	pagination: Pagination
@@ -23,7 +23,7 @@ export default function Activities({ presentActivities, activities: activitiesFr
 
 	const [activitiesCategoryId, setActivitiesCategoryId] = useState<string | string[] | undefined>()
 
-	const { data: { activities }, loading, error, nextPage, page } = useApiQuery<{ activities: ActivityRecord[] }>(AllPastAndFutureActivitiesDocument, {
+	let { data: { activities }, loading, error, nextPage, page } = useApiQuery<{ activities: ActivityRecordWithStatus[] }>(AllPastAndFutureActivitiesDocument, {
 		initialData: { activities: activitiesFromProps, pagination },
 		variables: { first: pageSize, date },
 		pageSize
@@ -37,11 +37,12 @@ export default function Activities({ presentActivities, activities: activitiesFr
 
 	const allNews = [...presentActivities, ...activities]
 		.filter(({ category }) => activitiesCategoryId ? activitiesCategoryId === category?.id : true)
+		.sort((a, b) => a.date > b.date ? -1 : 1)
+		.sort((a, b) => a.status.value === 'past' ? 1 : -1)
 
 	return (
 		<>
 			<h1><RevealText>Aktiviteter</RevealText></h1>
-
 			<FilterBar
 				multi={false}
 				options={activityCategories.map(({ id, category }) => ({ label: category, id }))}
@@ -55,7 +56,8 @@ export default function Activities({ presentActivities, activities: activitiesFr
 						<NewsCard
 							key={id}
 							title={title}
-							subtitle={`${category.category} • ${format(new Date(date), "d MMM").replace('.', '')}`}
+							subtitle={`${category.category}`}
+							date={date}
 							label={activityStatus(el.date, el.dateEnd).label}
 							text={intro}
 							image={image}
@@ -65,13 +67,11 @@ export default function Activities({ presentActivities, activities: activitiesFr
 				}) : <div className={s.nomatches}>Inga träffar...</div>
 				}
 			</CardContainer>
-
 			{!page.end &&
 				<div ref={ref} className={s.loader} key={`page-${page.no}`}>
 					{loading && <Loader />}
 				</div>
 			}
-
 			{error &&
 				<div className={s.error}><>Error: {error.message || error}</></div>
 			}
