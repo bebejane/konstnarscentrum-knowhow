@@ -81,14 +81,16 @@ export default function Footer({ menu, footer }: FooterProps) {
 						<span><a href="https://www.facebook.com/profile.php?id=100079288527813">Facebook</a></span>
 					</div>
 					<div className={s.copyright}>
-						<span>Copyright Konstnärscentrum 2022</span><span>GDPR & Cookies</span>
+						<span>Copyright Konstnärscentrum 2024</span><span>GDPR & Cookies</span>
 					</div>
 				</section>
 
 				<section className={s.support}>
 					Med support av Arbetsförmedlingen.
 					<div className={cn(s.logo, inView && s.inview)}>
-						<Logo />
+						<a href="https://www.konstnarscentrum.org/" target="new">
+							<Logo />
+						</a>
 					</div>
 				</section>
 			</footer>
