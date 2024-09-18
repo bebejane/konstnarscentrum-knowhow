@@ -24,9 +24,8 @@ export default async function handler(req: NextRequest, res: NextResponse) {
     const applicationTypeId = itemTypes.find(({ api_key }) => api_key === 'application')?.id;
 
     let member = null;
-    let application = null;
-
-    const activity = await client.items.find(id);
+    console.log(mode)
+    //const activity = await client.items.find(id);
     const currentMember = (await client.items.list({
       filter: {
         type: 'member',
@@ -48,8 +47,9 @@ export default async function handler(req: NextRequest, res: NextResponse) {
     } else {
 
       const memberData = {}
-      if (firstName) memberData['firstName'] = firstName;
-      if (lastName) memberData['lastName'] = lastName;
+
+      if (firstName) memberData['first_name'] = firstName;
+      if (lastName) memberData['last_name'] = lastName;
       if (email) memberData['email'] = email;
 
       if (currentMember)
@@ -60,8 +60,8 @@ export default async function handler(req: NextRequest, res: NextResponse) {
 
     console.log(member)
 
-    //Find exisiting application
-    application = (await client.items.list({
+    // Find exisiting application
+    let application = (await client.items.list({
       filter: {
         type: 'application',
         fields: { activity: { eq: id }, member: { eq: member.id } }
@@ -84,6 +84,7 @@ export default async function handler(req: NextRequest, res: NextResponse) {
     console.log(err)
     return new Response(JSON.stringify(err), {
       status: 500,
+      //statusText: err?.message,
       headers: { 'content-type': 'application/json' }
     })
   }

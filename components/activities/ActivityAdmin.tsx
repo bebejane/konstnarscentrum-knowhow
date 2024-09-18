@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import cn from 'classnames';
 import s from './ActivityAdmin.module.scss';
+import { sleep } from '../../lib/utils';
 
 type Props = {
   activity: ActivityRecord,
@@ -17,17 +18,16 @@ export default function ActivityAdmin({ activity, applications: _applications }:
   const [open, setOpen] = useState({});
   const abortController = useRef(new AbortController());
 
-  const updateStatus = async (id: string, status: ApprovalStatus) => {
+  const updateStatus = async (id: string, approvalStatus: ApprovalStatus) => {
 
+    setLoading(true);
     abortController.current?.abort();
     abortController.current = new AbortController();
 
-    const data = {
-      id,
-      approvalStatus: status
-    }
+    const data = { id, approvalStatus }
 
     try {
+
       const res = await fetch('/api/activity/status', {
         method: 'POST',
         body: JSON.stringify(data),
@@ -44,8 +44,12 @@ export default function ActivityAdmin({ activity, applications: _applications }:
 
     } catch (e) {
       if (e.name === 'AbortError') return;
+      setLoading(false);
       throw e
     }
+
+    setLoading(false);
+
   };
 
   const handleApprove = (e: React.MouseEvent) => {
@@ -56,7 +60,6 @@ export default function ActivityAdmin({ activity, applications: _applications }:
     const applicationId = target.getAttribute('data-application-id');
     const currentApplications = [...applications]
 
-
     setApplications((applications) => applications.map((a) => {
       if (a.id === applicationId)
         a.approvalStatus = approval;
@@ -66,12 +69,22 @@ export default function ActivityAdmin({ activity, applications: _applications }:
 
     setError(null)
     updateStatus(applicationId, approval).then(() => {
-      console.log('success')
+      //console.log('success')
     }).catch((e) => {
       console.log('error', e)
       setApplications(currentApplications)
       setError(e.message)
     })
+  }
+
+  const handleExport = async () => {
+    const t = applications
+      .filter((application) => application.approvalStatus === 'APPROVED')
+      .map(({ member }) => `${member.firstName}\t${member.lastName}\t${member.email}`).join('\n');
+
+    if (!t) return
+    navigator.clipboard.writeText(t);
+    alert('Kopierat till urklipp');
   }
 
   const approved = applications.filter((application) => application.approvalStatus === 'APPROVED');
@@ -129,7 +142,7 @@ export default function ActivityAdmin({ activity, applications: _applications }:
 
       {error && <p className={s.error}>{error}</p>}
 
-      <button className="wide">Exportera lista</button>
+      <button className="wide" onClick={handleExport}>Exportera lista</button>
     </div>
   );
 }

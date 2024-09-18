@@ -42,6 +42,7 @@ export default function MemberForm({ activity, show }: Props) {
     abortController.current = new AbortController();
 
     try {
+
       const res = await fetch('/api/activity/register', {
         method: 'POST',
         body: JSON.stringify(data),
@@ -51,9 +52,8 @@ export default function MemberForm({ activity, show }: Props) {
         },
       });
 
-      if (res.status === 404) {
+      if (res.status === 404)
         throw new Error('Du måste registrera dig först');
-      }
 
       if (res.status !== 200)
         throw new Error('Något gick fel, försök igen senare');
@@ -76,7 +76,7 @@ export default function MemberForm({ activity, show }: Props) {
   return (
     <form className={cn(s.form, show && s.show)} onSubmit={handleSubmit(onSubmit)}>
       <input type="hidden" name="id" value={activity.id} {...register("id")} />
-      <input type="hidden" name="mode" value={mode} {...register("mode")} />
+      <input type="hidden" name="mode" value={mode} />
       <label htmlFor="email">E-post</label>
       <input
         id="email"
@@ -117,8 +117,8 @@ export default function MemberForm({ activity, show }: Props) {
       }
       {error && <span className={s.error}>{error}</span>}
 
-      <button type="button" onClick={() => setMode(mode === 'login' ? 'register' : 'login')}>
-        {mode === 'login' ? 'Registrera dig' : 'Logga in'}
+      <button className={s.register} type="button" onClick={() => setMode(mode === 'login' ? 'register' : 'login')}>
+        {mode === 'login' ? 'Registrera dig' : 'Stäng'}
       </button>
 
       <button type="submit" disabled={loading}>Skicka</button>
