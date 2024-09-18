@@ -3,7 +3,7 @@ import { GetStaticProps } from "next";
 import { apiQuery } from "dato-nextjs-utils/api";
 import { ActivityDocument, AllApplicationsByActivityDocument } from "/graphql";
 import { format } from "date-fns";
-import { ActivityEditor, Article } from "/components";
+import { ActivityAdmin, Article } from "/components";
 import { apiQueryAll, } from "/lib/utils";
 import Link from "next/link";
 
@@ -12,7 +12,7 @@ export type Props = {
 	applications: ApplicationRecord[],
 }
 
-export default function ActivityAdmin({ activity: {
+export default function ActivityAdminPage({ activity: {
 	id,
 	title,
 	date,
@@ -27,7 +27,7 @@ export default function ActivityAdmin({ activity: {
 		<>
 			<Article id={id} title={`${title} - Admin`}>
 				<h5 suppressHydrationWarning={true}>{startDate} - {endDate}</h5>
-				<ActivityEditor applications={applications} activity={activity} />
+				<ActivityAdmin applications={applications} activity={activity} />
 			</Article>
 			<Link href={`/aktiviteter/${slug}`}>
 				<button className="wide">Tillbaka till aktivitet</button>
@@ -36,7 +36,7 @@ export default function ActivityAdmin({ activity: {
 	);
 }
 
-ActivityAdmin.page = { crumbs: [{ slug: 'aktiviteter', title: 'Aktiviteter' }] } as PageProps
+ActivityAdminPage.page = { crumbs: [{ slug: 'aktiviteter', title: 'Aktiviteter' }] } as PageProps
 
 
 export const getServerSideProps: GetStaticProps = withGlobalProps({ queries: [] }, async ({ props, revalidate, context }: any) => {

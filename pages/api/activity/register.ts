@@ -17,9 +17,9 @@ export default async function handler(req: NextRequest, res: NextResponse) {
     return new Response('method not allowed', { status: 405 })
 
   try {
-    const { id, firstName, lastName, email } = await req.json();
-    const itemTypes = await client.itemTypes.list()
+    const { id, firstName, lastName, email, mode } = await req.json();
 
+    const itemTypes = await client.itemTypes.list()
     const memberTypeId = itemTypes.find(({ api_key }) => api_key === 'member')?.id;
     const applicationTypeId = itemTypes.find(({ api_key }) => api_key === 'application')?.id;
 
@@ -38,17 +38,25 @@ export default async function handler(req: NextRequest, res: NextResponse) {
       }
     }))?.[0];
 
-    const memberData = {
-      first_name: firstName,
-      last_name: lastName,
-      email: email
-    }
+    if (mode === 'login' && !currentMember) {
+      return new Response(JSON.stringify({ message: 'Member not found' }), {
+        status: 404,
+        headers: { 'content-type': 'application/json' }
+      })
+    } else if (mode === 'login' && currentMember) {
+      member = currentMember;
+    } else {
 
-    console.log(currentMember)
-    if (currentMember)
-      member = await client.items.update(currentMember.id, memberData);
-    else
-      member = await client.items.create({ item_type: { type: "item_type", id: memberTypeId }, ...memberData });
+      const memberData = {}
+      if (firstName) memberData['firstName'] = firstName;
+      if (lastName) memberData['lastName'] = lastName;
+      if (email) memberData['email'] = email;
+
+      if (currentMember)
+        member = await client.items.update(currentMember.id, memberData);
+      else
+        member = await client.items.create({ item_type: { type: "item_type", id: memberTypeId }, ...memberData });
+    }
 
     console.log(member)
 

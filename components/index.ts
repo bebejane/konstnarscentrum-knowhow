@@ -1,5 +1,5 @@
-export { default as ActivityEditor } from './activities/ActivityEditor'
-export { default as ActivityForm } from './activities/ActivityForm'
+export { default as ActivityAdmin } from './activities/ActivityAdmin'
+export { default as MemberForm } from './activities/MemberForm'
 export { default as Button } from './blocks/Button'
 export { default as FindArtist } from './blocks/FindArtist'
 export { default as Image } from './blocks/Image'

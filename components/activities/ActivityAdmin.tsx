@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import cn from 'classnames';
-import s from './ActivityEditor.module.scss';
+import s from './ActivityAdmin.module.scss';
 
 type Props = {
   activity: ActivityRecord,
@@ -9,7 +9,7 @@ type Props = {
 
 type ApprovalStatus = 'APPROVED' | 'DENIED' | 'PENDING'
 
-export default function ActivityEditor({ activity, applications: _applications }: Props) {
+export default function ActivityAdmin({ activity, applications: _applications }: Props) {
 
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -109,22 +109,26 @@ export default function ActivityEditor({ activity, applications: _applications }
 
   return (
     <div className={s.container}>
-      <h5>Nya</h5>
-      <ul>
-        {pending.map((application, i) => <Application key={i} application={application} />)}
-        {!pending.length && <li>Inga nya ansökningar...</li>}
-      </ul>
       <h5>Godkända</h5>
       <ul>
         {approved.map((application, i) => <Application key={i} application={application} />)}
-        {!approved.length && <li>Inga ansökningar är godkända...</li>}
+        {!approved.length && <li>Inga ansökningar är godkända</li>}
       </ul>
+
+      <h5>Nya</h5>
+      <ul>
+        {pending.map((application, i) => <Application key={i} application={application} />)}
+        {!pending.length && <li>Inga nya ansökningar</li>}
+      </ul>
+
       <h5>Nekade</h5>
       <ul>
         {declined.map((application, i) => <Application key={i} application={application} />)}
-        {!declined.length && <li>Inga ansökningar är nekade...</li>}
+        {!declined.length && <li>Inga ansökningar är nekade</li>}
       </ul>
+
       {error && <p className={s.error}>{error}</p>}
+
       <button className="wide">Exportera lista</button>
     </div>
   );

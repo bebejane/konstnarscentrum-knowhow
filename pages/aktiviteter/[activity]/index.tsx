@@ -3,7 +3,7 @@ import { GetStaticProps } from "next";
 import { apiQuery } from "dato-nextjs-utils/api";
 import { ActivityDocument, AllActivitiesDocument } from "/graphql";
 import { format } from "date-fns";
-import { Article, ActivityForm, MetaSection } from "/components";
+import { Article, MemberForm, MetaSection } from "/components";
 import { getStaticPagePaths } from "/lib/utils";
 import { DatoSEO } from "dato-nextjs-utils/components";
 import Link from "next/link";
@@ -53,11 +53,10 @@ export default function Activity({ activity: {
 			<button data-toggled={showForm} className="wide" onClick={() => setShowForm(!showForm)}>
 				Anmäl dig
 			</button>
-			<ActivityForm activity={activity} show={showForm} />
+			<MemberForm activity={activity} show={showForm} />
 			<Link href={`/aktiviteter/${slug}/admin`}>
 				<button className="wide">Administrera</button>
 			</Link>
-
 			<Link href={'/aktiviteter'}>
 				<button className="wide">Tillbaka till översikt</button>
 			</Link>
