@@ -54,7 +54,7 @@ export default function Activity({ activity: {
 				Anmäl dig
 			</button>
 			<MemberForm activity={activity} show={showForm} />
-			<Link href={`/aktiviteter/${slug}/admin`}>
+			<Link href={`/aktiviteter/${slug}/admin`} prefetch={true}>
 				<button className="wide">Administrera</button>
 			</Link>
 			<Link href={'/aktiviteter'}>
