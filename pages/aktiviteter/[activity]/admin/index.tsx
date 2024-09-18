@@ -48,7 +48,7 @@ export const getServerSideProps: GetStaticProps = withGlobalProps({ queries: [] 
 		return { notFound: true, revalidate }
 
 	const { applications }: { applications: ApplicationRecord[] } = await apiQueryAll(AllApplicationsByActivityDocument, {
-		variables: { activity: activity.id },
+		variables: { activityId: activity.id },
 		preview: context.preview
 	})
 
