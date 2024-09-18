@@ -95,7 +95,7 @@ export default function ActivityEditor({ activity, applications: _applications }
           data-approval={'DECLINED'}
           disabled={approvalStatus === 'DECLINED'}
           onClick={handleApprove}
-        >Avslå</button>
+        >Neka</button>
         <button
           type="button"
           data-application-id={id}
