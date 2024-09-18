@@ -16,6 +16,7 @@
     display: flex;
     flex-direction: row;
     margin-bottom: var(--small-space);
+
     &:first-of-type {
       //padding-top: var(--space);
     }
@@ -35,17 +36,18 @@
 
     a {
       color: var(--white);
+
       &:hover {
-        color: var(--beige-dark) !important;
+        color: var(--orange) !important;
       }
     }
 
-    > ul {
+    >ul {
       display: flex;
       flex-direction: row;
       list-style: none;
 
-      > li {
+      >li {
         width: calc(100% / 6);
         line-height: var(--line-height-nav);
 
@@ -114,6 +116,7 @@
 
     @include mq($until: tablet) {
       align-items: end;
+
       svg {
         transform: scale(0.8);
       }
@@ -126,11 +129,13 @@
       ul {
         display: flex;
         flex-wrap: wrap;
+
         @include mq($until: tablet) {
           li:first-of-type {
             width: 100%;
           }
         }
+
         list-style: none;
 
         li {
@@ -147,6 +152,7 @@
             min-height: 0.8rem;
             max-height: 0.8rem;
             height: 0.8rem;
+
             @include mq($from: tablet) {
               min-height: 1rem;
               max-height: 1rem;
@@ -162,6 +168,7 @@
         margin-left: 0px;
         width: 4rem;
         height: 4rem;
+
         path {
           fill: var(--white);
         }

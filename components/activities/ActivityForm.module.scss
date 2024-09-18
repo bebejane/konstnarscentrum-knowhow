@@ -1,0 +1,42 @@
+.form {
+  position: relative;
+  display: none;
+  flex-direction: column;
+  margin-top: 1rem;
+
+  &.show {
+    display: flex;
+  }
+
+  label {}
+
+  input {
+    margin: 0;
+  }
+}
+
+.error {
+  color: #e00;
+  margin-bottom: 1rem;
+}
+
+.success {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: var(--white);
+
+  .close {
+    all: unset;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.5rem;
+    cursor: pointer;
+  }
+}

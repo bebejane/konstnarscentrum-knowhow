@@ -9,11 +9,13 @@ const config = {
 	skipDocumentsValidation: false,
 };
 
+console.log(process.env.DATOCMS_ENVIRONMENT);
 module.exports = {
 	schema: {
 		"https://graphql.datocms.com": {
 			headers: {
 				Authorization: process.env.GRAPHQL_API_TOKEN,
+				"X-Environment": process.env.DATOCMS_ENVIRONMENT,
 				"X-Exclude-Invalid": true,
 			},
 		},

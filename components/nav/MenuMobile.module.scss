@@ -70,7 +70,7 @@
         padding-top: 1rem;
         padding-bottom: 1rem;
         width: 100%;
-        border-bottom: 1px solid var(--beige-mid);
+        border-bottom: 1px solid var(--orange-mid);
 
         &:last-child {
           @include mq($from: desktop) {
@@ -79,7 +79,7 @@
         }
 
         &.sub {
-          background-color: var(--beige-light);
+          background-color: var(--orange-light);
           padding-left: 1rem;
           width: calc(100% + 1rem);
         }
@@ -127,16 +127,17 @@
 }
 
 .selected {
-  color: var(--beige-dark) !important;
+  color: var(--orange) !important;
 }
 
 .selectedSub {
   a {
-    color: var(--beige-dark) !important;
+    color: var(--orange) !important;
   }
 }
 
 @include mq($from: nav-break) {
+
   .mobileMenu,
   .hamburger {
     display: none;

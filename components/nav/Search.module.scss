@@ -30,10 +30,12 @@
     cursor: pointer;
 
     svg {
+
       path,
       circle {
         stroke: var(--black);
       }
+
       height: 1rem;
       stroke: var(--black);
     }
@@ -104,7 +106,7 @@
       height: 100%;
 
       &::-webkit-scrollbar {
-        background: var(--beige-light);
+        background: var(--orange-light);
       }
 
       &::-webkit-scrollbar:vertical {
@@ -112,7 +114,7 @@
       }
 
       &::-webkit-scrollbar-thumb {
-        background: var(--beige-dark);
+        background: var(--orange);
       }
 
       flex: 0 0;

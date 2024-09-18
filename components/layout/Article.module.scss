@@ -1,5 +1,5 @@
 .article {
-  > header {
+  >header {
     display: block;
     position: relative;
     //padding-bottom: var(--small-space);
@@ -9,7 +9,7 @@
     }
 
     @include mq($until: desktop) {
-      & > figure {
+      &>figure {
         padding-bottom: var(--space);
       }
     }
@@ -123,6 +123,6 @@
   }
 
   a:hover {
-    color: var(--beige-dark) !important;
+    color: var(--orange) !important;
   }
 }

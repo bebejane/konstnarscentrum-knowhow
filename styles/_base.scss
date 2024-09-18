@@ -1,11 +1,11 @@
 :root {
 	--black: #ff4400;
 	--white: rgb(243, 255, 176);
-	--beige-dark: #d93b01;
-	--beige-light: #ff440030;
-	--beige-mid: #ff44003f;
-	--beige-light-solid: #eceae5;
-	--beige-very-light: #e1dcd216;
+	--orange: #d93b01;
+	--orange-light: #ff440030;
+	--orange-mid: #ff44003f;
+	--orange-light-solid: #eceae5;
+	--orange-very-light: #e1dcd216;
 	--red: #bf0000;
 	--outer-margin: 6vw;
 	--logo-size: 2.5rem;
@@ -79,7 +79,7 @@ body {
 
 ::-webkit-scrollbar {
 	-webkit-appearance: none;
-	background: var(--beige-light);
+	background: var(--orange-light);
 }
 
 ::-webkit-scrollbar:vertical {
@@ -105,7 +105,7 @@ a {
 	color: var(--foreground);
 
 	&:hover {
-		color: var(--beige-dark);
+		color: var(--orange);
 	}
 
 	&:visited {
@@ -118,7 +118,7 @@ article p a {
 	text-underline-offset: 0.1em;
 
 	&:hover {
-		color: var(--beige-dark);
+		color: var(--orange);
 	}
 }
 
@@ -156,7 +156,12 @@ button {
 	&[disabled] {
 		opacity: 0.5;
 		pointer-events: none;
-		border-color: var(--beige-dark);
+		border-color: var(--orange);
+	}
+
+	&[data-toggled="true"] {
+		background-color: var(--orange);
+		color: var(--background);
 	}
 }
 
@@ -169,13 +174,13 @@ hr {
 	width: 100%;
 	height: 1px;
 	border: 0px;
-	background: var(--beige-mid);
+	background: var(--orange-mid);
 }
 
 input,
 textarea,
 select {
-	background-color: var(--beige-light);
+	background-color: var(--orange-light);
 	margin-bottom: 1em;
 	padding: 0.8em;
 	padding-bottom: 0.9em;
@@ -184,7 +189,7 @@ select {
 	border: none;
 
 	&:focus {
-		outline: 1px solid var(--beige-mid);
+		outline: 1px solid var(--orange-mid);
 	}
 }
 
@@ -223,7 +228,7 @@ select {
 	max-height: var(--height);
 	height: var(--height);
 	padding: 1rem;
-	background-color: var(--beige-light);
+	background-color: var(--orange-light);
 	border: var(--border-width) solid transparent;
 	margin-bottom: var(--padding);
 	z-index: 10000 !important;
@@ -231,7 +236,7 @@ select {
 	cursor: pointer;
 	margin-right: var(--padding);
 	opacity: 1 !important;
-	border-color: var(--beige-dark);
+	border-color: var(--orange);
 
 	img {
 		user-select: none !important;
@@ -248,7 +253,7 @@ select {
 		margin: 0.3rem;
 		font-size: 1.5rem;
 
-		color: var(--beige-dark);
+		color: var(--orange);
 
 		&:hover {
 			color: var(--black);
@@ -258,6 +263,7 @@ select {
 
 [data-tooltip="true"] {
 	text-decoration-style: dotted !important;
+
 	//background-color: green;
 	&:hover {
 		cursor: pointer;

@@ -29,7 +29,7 @@
   }
 
   a:hover {
-    color: var(--beige-dark) !important;
+    color: var(--orange) !important;
   }
 
   >ul {
@@ -49,7 +49,7 @@
       cursor: default;
 
       &:hover {
-        color: var(--beige-dark) !important;
+        color: var(--orange) !important;
       }
 
       &:last-child {
@@ -61,10 +61,10 @@
   }
 
   li.active {
-    color: var(--beige-dark);
+    color: var(--orange);
 
     a {
-      color: var(--beige-dark);
+      color: var(--orange);
     }
   }
 

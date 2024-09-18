@@ -1,5 +1,5 @@
 .meta {
-  border: 1px solid var(--beige-mid);
+  border: 1px solid var(--orange-mid);
   padding: 1em;
   padding-left: 1em;
   padding-right: 1em;
@@ -8,9 +8,11 @@
 
   table {
     columns: 2;
+
     @include mq($from: tablet) {
       display: block;
     }
+
     list-style: none;
     padding-left: 0;
 
@@ -18,7 +20,7 @@
       padding-bottom: 0.5em;
 
       span {
-        color: var(--beige-dark);
+        color: var(--orange);
         padding-right: 1em;
 
         @include mq($from: tablet) {

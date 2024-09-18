@@ -5,8 +5,9 @@
   left: 0;
   position: absolute;
   z-index: -1;
-  background-color: var(--beige-very-light);
+  background-color: var(--orange-very-light);
   margin-left: calc(-1 * var(--outer-margin));
+
   @include mq($from: tablet) {
     width: 100vw;
     margin-left: calc((var(--full-margin) - var(--total-outer-margin)));

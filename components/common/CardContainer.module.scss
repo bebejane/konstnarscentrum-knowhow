@@ -24,11 +24,11 @@
     color: var(--black) !important;
   }
 
-  > li {
-    border-right: 1px solid var(--beige-mid);
+  >li {
+    border-right: 1px solid var(--orange-mid);
   }
 
-  &.two > li {
+  &.two>li {
     @include mq($from: tablet) {
       width: 50%;
 
@@ -40,10 +40,11 @@
     @include mq($until: tablet) {
       width: 100%;
       border-right: none;
+
       a:last-of-type {
         margin-bottom: 2rem;
         padding-bottom: 2rem;
-        border-bottom: 1px solid var(--beige-mid);
+        border-bottom: 1px solid var(--orange-mid);
       }
 
       &:last-of-type a:last-of-type {
@@ -60,7 +61,7 @@
     }
   }
 
-  &.three > li {
+  &.three>li {
     width: 33.333%;
 
     @include mq($from: tablet) {
@@ -73,7 +74,7 @@
       width: 50%;
 
       &:nth-of-type(odd) {
-        border-right: 1px solid var(--beige-mid);
+        border-right: 1px solid var(--orange-mid);
       }
 
       &:nth-of-type(even) {
@@ -99,7 +100,7 @@
   }
 
   &.whiteBorder {
-    & > li {
+    &>li {
       border-color: var(--white) !important;
     }
 

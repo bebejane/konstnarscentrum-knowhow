@@ -12,7 +12,7 @@
     padding-left: var(--outer-margin);
   }
 
-  > ul {
+  >ul {
     list-style: none;
     display: flex;
     padding-left: 0 !important;
@@ -29,6 +29,7 @@
       &::-webkit-scrollbar-track {
         background: transparent;
       }
+
       margin-right: calc(-1 * var(--outer-margin));
     }
 
@@ -42,7 +43,7 @@
       }
 
       &.selected {
-        color: var(--beige-dark);
+        color: var(--orange);
       }
     }
   }
@@ -62,7 +63,7 @@
     margin-left: calc(-1 * var(--outer-margin));
     margin-right: calc(-1 * var(--outer-margin));
     width: calc(100% + (var(--outer-margin) * 2));
-    background-color: var(--beige-light);
+    background-color: var(--orange-light);
     pointer-events: none;
 
     @include mq($from: tablet) {

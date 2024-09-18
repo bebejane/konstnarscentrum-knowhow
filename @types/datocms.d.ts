@@ -324,6 +324,82 @@ type ActivityRecordintroArgs = {
   markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
+type ApplicationModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ApplicationModelFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<ApplicationModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
+  activity?: InputMaybe<LinkFilter>;
+  approvalStatus?: InputMaybe<StringFilter>;
+  createdAt?: InputMaybe<CreatedAtFilter>;
+  id?: InputMaybe<ItemIdFilter>;
+  member?: InputMaybe<LinkFilter>;
+  updatedAt?: InputMaybe<UpdatedAtFilter>;
+};
+
+enum ApplicationModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
+  approvalStatus_ASC = 'approvalStatus_ASC',
+  approvalStatus_DESC = 'approvalStatus_DESC',
+  createdAt_ASC = 'createdAt_ASC',
+  createdAt_DESC = 'createdAt_DESC',
+  id_ASC = 'id_ASC',
+  id_DESC = 'id_DESC',
+  updatedAt_ASC = 'updatedAt_ASC',
+  updatedAt_DESC = 'updatedAt_DESC'
+}
+
+/** Record of type Anmälan (application) */
+type ApplicationRecord = RecordInterface & {
+  __typename?: 'ApplicationRecord';
+  _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
+  _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
+  activity: ActivityRecord;
+  approvalStatus: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ItemId'];
+  member: MemberRecord;
+  updatedAt: Scalars['DateTime'];
+};
+
+
+/** Record of type Anmälan (application) */
+type ApplicationRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
 type BoardModelFilter = {
   AND?: InputMaybe<Array<InputMaybe<BoardModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<BoardModelFilter>>>;
@@ -4031,6 +4107,86 @@ type MemberCategoryRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
+type MemberModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<MemberModelFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<MemberModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
+  createdAt?: InputMaybe<CreatedAtFilter>;
+  email?: InputMaybe<StringFilter>;
+  firstName?: InputMaybe<StringFilter>;
+  id?: InputMaybe<ItemIdFilter>;
+  lastName?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<UpdatedAtFilter>;
+};
+
+enum MemberModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
+  createdAt_ASC = 'createdAt_ASC',
+  createdAt_DESC = 'createdAt_DESC',
+  email_ASC = 'email_ASC',
+  email_DESC = 'email_DESC',
+  firstName_ASC = 'firstName_ASC',
+  firstName_DESC = 'firstName_DESC',
+  id_ASC = 'id_ASC',
+  id_DESC = 'id_DESC',
+  lastName_ASC = 'lastName_ASC',
+  lastName_DESC = 'lastName_DESC',
+  updatedAt_ASC = 'updatedAt_ASC',
+  updatedAt_DESC = 'updatedAt_DESC'
+}
+
+/** Record of type Medlem (member) */
+type MemberRecord = RecordInterface & {
+  __typename?: 'MemberRecord';
+  _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
+  _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
+  createdAt: Scalars['DateTime'];
+  email: Scalars['String'];
+  firstName: Scalars['String'];
+  id: Scalars['ItemId'];
+  lastName: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
+};
+
+
+/** Record of type Medlem (member) */
+type MemberRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
 /** Block of type Meta (meta_block) */
 type MetaBlockRecord = RecordInterface & {
   __typename?: 'MetaBlockRecord';
@@ -4343,6 +4499,8 @@ type Query = {
   /** Returns meta information regarding a record collection */
   _allActivityCategoriesMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
+  _allApplicationsMeta: CollectionMetadata;
+  /** Returns meta information regarding a record collection */
   _allBoardsMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
   _allCommissionCategoriesMeta: CollectionMetadata;
@@ -4362,6 +4520,8 @@ type Query = {
   _allLexiconsMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
   _allMemberCategoriesMeta: CollectionMetadata;
+  /** Returns meta information regarding a record collection */
+  _allMembersMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
   _allNewsMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
@@ -4385,6 +4545,8 @@ type Query = {
   /** Returns a collection of records */
   allActivityCategories: Array<ActivityCategoryRecord>;
   /** Returns a collection of records */
+  allApplications: Array<ApplicationRecord>;
+  /** Returns a collection of records */
   allBoards: Array<BoardRecord>;
   /** Returns a collection of records */
   allCommissionCategories: Array<CommissionCategoryRecord>;
@@ -4405,6 +4567,8 @@ type Query = {
   /** Returns a collection of records */
   allMemberCategories: Array<MemberCategoryRecord>;
   /** Returns a collection of records */
+  allMembers: Array<MemberRecord>;
+  /** Returns a collection of records */
   allNews: Array<NewsRecord>;
   /** Returns a collection of records */
   allProjects: Array<ProjectRecord>;
@@ -4412,6 +4576,8 @@ type Query = {
   allRegions: Array<RegionRecord>;
   /** Returns a collection of assets */
   allUploads: Array<FileField>;
+  /** Returns a specific record */
+  application?: Maybe<ApplicationRecord>;
   /** Returns a specific record */
   board?: Maybe<BoardRecord>;
   /** Returns a specific record */
@@ -4442,6 +4608,8 @@ type Query = {
   lexicon?: Maybe<LexiconRecord>;
   /** Returns the single instance record */
   lexiconText?: Maybe<LexiconTextRecord>;
+  /** Returns a specific record */
+  member?: Maybe<MemberRecord>;
   /** Returns a specific record */
   memberCategory?: Maybe<MemberCategoryRecord>;
   /** Returns a specific record */
@@ -4477,6 +4645,14 @@ type Query_allActivitiesMetaArgs = {
 type Query_allActivityCategoriesMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ActivityCategoryModelFilter>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** The query root for this schema */
+type Query_allApplicationsMetaArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<ApplicationModelFilter>;
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -4557,6 +4733,14 @@ type Query_allLexiconsMetaArgs = {
 type Query_allMemberCategoriesMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<MemberCategoryModelFilter>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** The query root for this schema */
+type Query_allMembersMetaArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<MemberModelFilter>;
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -4655,6 +4839,17 @@ type QueryallActivityCategoriesArgs = {
   first?: InputMaybe<Scalars['IntType']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<ActivityCategoryModelOrderBy>>>;
+  skip?: InputMaybe<Scalars['IntType']>;
+};
+
+
+/** The query root for this schema */
+type QueryallApplicationsArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<ApplicationModelFilter>;
+  first?: InputMaybe<Scalars['IntType']>;
+  locale?: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<ApplicationModelOrderBy>>>;
   skip?: InputMaybe<Scalars['IntType']>;
 };
 
@@ -4770,6 +4965,17 @@ type QueryallMemberCategoriesArgs = {
 
 
 /** The query root for this schema */
+type QueryallMembersArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<MemberModelFilter>;
+  first?: InputMaybe<Scalars['IntType']>;
+  locale?: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<MemberModelOrderBy>>>;
+  skip?: InputMaybe<Scalars['IntType']>;
+};
+
+
+/** The query root for this schema */
 type QueryallNewsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<NewsModelFilter>;
@@ -4810,6 +5016,15 @@ type QueryallUploadsArgs = {
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<UploadOrderBy>>>;
   skip?: InputMaybe<Scalars['IntType']>;
+};
+
+
+/** The query root for this schema */
+type QueryapplicationArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<ApplicationModelFilter>;
+  locale?: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<ApplicationModelOrderBy>>>;
 };
 
 
@@ -4933,6 +5148,15 @@ type QuerylexiconArgs = {
 type QuerylexiconTextArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** The query root for this schema */
+type QuerymemberArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<MemberModelFilter>;
+  locale?: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<MemberModelOrderBy>>>;
 };
 
 
@@ -6103,6 +6327,19 @@ type AllLexiconsQueryVariables = Exact<{
 
 
 type AllLexiconsQuery = { __typename?: 'Query', lexicons: Array<{ __typename?: 'LexiconRecord', id: any, word?: string | null, desc?: { __typename?: 'LexiconModelDescField', blocks: Array<string>, value: any, links: Array<string> } | null }>, pagination: { __typename?: 'CollectionMetadata', count: any }, lexiconText?: { __typename?: 'LexiconTextRecord', intro?: { __typename?: 'LexiconTextModelIntroField', blocks: Array<string>, value: any, links: Array<string> } | null } | null };
+
+type AllApplicationsByActivityQueryVariables = Exact<{
+  first?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']>;
+  activityId?: InputMaybe<Scalars['ItemId']>;
+}>;
+
+
+type AllApplicationsByActivityQuery = { __typename?: 'Query', applications: Array<{ __typename: 'ApplicationRecord', id: any, approvalStatus: string, member: { __typename: 'MemberRecord', id: any, firstName: string, lastName: string, email: string } }>, pagination: { __typename?: 'CollectionMetadata', count: any } };
+
+type ApplicationFragment = { __typename: 'ApplicationRecord', id: any, approvalStatus: string, member: { __typename: 'MemberRecord', id: any, firstName: string, lastName: string, email: string } };
+
+type MemberFragment = { __typename: 'MemberRecord', id: any, firstName: string, lastName: string, email: string };
 
 type SiteSearchQueryVariables = Exact<{
   activityIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>> | InputMaybe<Scalars['ItemId']>>;

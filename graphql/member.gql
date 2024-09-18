@@ -1,0 +1,29 @@
+query AllApplicationsByActivity($first: IntType = 100, $skip: IntType = 0, $activityId: ItemId) {
+	applications: allApplications(
+		first: $first
+		skip: $skip
+		filter: { activity: { eq: $activityId } }
+	) {
+		...ApplicationFragment
+	}
+	pagination: _allMembersMeta {
+		count
+	}
+}
+
+fragment ApplicationFragment on ApplicationRecord {
+	__typename
+	id
+	approvalStatus
+	member {
+		...MemberFragment
+	}
+}
+
+fragment MemberFragment on MemberRecord {
+	__typename
+	id
+	firstName
+	lastName
+	email
+}

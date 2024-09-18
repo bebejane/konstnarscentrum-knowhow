@@ -185,6 +185,17 @@ export const AllLexicons: DocumentNode;
 }
     
 
+declare module '*/member.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const AllApplicationsByActivity: DocumentNode;
+export const ApplicationFragment: DocumentNode;
+export const MemberFragment: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
 declare module '*/search.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
