@@ -1,10 +1,10 @@
 
-import { getServerSession } from "next-auth/next"
+import { getServerSession } from "next-auth"
 import { Session } from 'next-auth'
 import { authOptions } from '/pages/api/auth/[...nextauth]'
 import { NextApiResponse, NextApiRequest } from 'next'
 
-export default function withAuthentication(callback: authenticationHandler) {
+export default function withAuthentication(callback: AuthenticationHandler) {
   return async (req: NextApiRequest, res: NextApiResponse) => {
     const session = await getServerSession(req, res, authOptions)
     if (!session?.user)
@@ -14,8 +14,8 @@ export default function withAuthentication(callback: authenticationHandler) {
   };
 };
 
-export type authenticationHandler = (
+export type AuthenticationHandler = (
   req: NextApiRequest,
   res: NextApiResponse,
   session: Session
-) => Promise<void>
+) => void

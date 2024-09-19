@@ -55,7 +55,8 @@ export default function Activity({ activity: {
 			<button data-toggled={showForm} className="wide" onClick={() => setShowForm(!showForm)}>
 				Anmäl dig
 			</button>
-			<MemberForm activity={activity} show={showForm} />
+
+			<MemberForm activity={activity} show={showForm} setShow={setShowForm} />
 
 			<Link href={`/aktiviteter/${slug}/admin`} prefetch={true}>
 				<button className="wide">Administrera</button>

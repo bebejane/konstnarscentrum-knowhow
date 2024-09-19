@@ -1,15 +1,10 @@
 import type { NextRequest, NextResponse } from 'next/server'
-import { buildClient } from '@datocms/cma-client';
+import client from '/lib/client'
 
 export const config = {
   runtime: 'edge',
   maxDuration: 60
 }
-
-const client = buildClient({
-  apiToken: process.env.DATOCMS_API_TOKEN,
-  environment: process.env.DATOCMS_ENVIRONMENT
-});
 
 const pick = (obj: any, keys) => Object.fromEntries(
   keys
@@ -42,13 +37,12 @@ export default async function handler(req: NextRequest, res: NextResponse) {
   try {
 
     const body = await req.json();
-    const { id, mode } = body;
+    let { member, id } = body;
+
     const itemTypes = await client.itemTypes.list()
     const memberTypeId = itemTypes.find(({ api_key }) => api_key === 'member')?.id;
     const applicationTypeId = itemTypes.find(({ api_key }) => api_key === 'application')?.id;
-    const fields = pick(body, field_ids);
-
-    let member = null;
+    const fields = pick(member, field_ids);
 
     const currentMember = (await client.items.list({
       filter: {
@@ -61,29 +55,18 @@ export default async function handler(req: NextRequest, res: NextResponse) {
       }
     }))?.[0];
 
-    if (mode === 'login' && !currentMember) {
-      console.log('member doesnt exists: login')
-      return new Response(JSON.stringify({ message: 'Member not found' }), {
-        status: 404,
-        headers: { 'content-type': 'application/json' }
-      })
-    } else if (mode === 'login' && currentMember) {
-      console.log('member exists: login')
-      member = currentMember;
+    const memberData = {}
+
+    Object.keys(fields).forEach(key => fields[key] && (memberData[key] = fields[key]));
+
+    console.log(memberData)
+
+    if (currentMember) {
+      console.log('updating member')
+      member = await client.items.update(currentMember.id, memberData);
     } else {
-
-      const memberData = {}
-
-      Object.keys(fields).forEach(key => fields[key] && (memberData[key] = fields[key]));
-
-      if (currentMember) {
-        console.log('updating member')
-        member = await client.items.update(currentMember.id, memberData);
-      } else {
-        console.log('creating member')
-        member = await client.items.create({ item_type: { type: "item_type", id: memberTypeId }, ...memberData });
-      }
-
+      console.log('creating member')
+      member = await client.items.create({ item_type: { type: "item_type", id: memberTypeId }, ...memberData });
     }
 
     // Find exisiting application
@@ -94,11 +77,13 @@ export default async function handler(req: NextRequest, res: NextResponse) {
       }
     }))?.[0];
 
+    console.log('activity id', id, applicationTypeId, member.id)
+
     if (!application) {
       application = await client.items.create({
         item_type: { type: "item_type", id: applicationTypeId },
         activity: id,
-        member: member.id
+        member: member.id,
       });
     }
 
@@ -107,7 +92,7 @@ export default async function handler(req: NextRequest, res: NextResponse) {
     })
 
   } catch (err) {
-    console.log(err)
+    //console.log(err)
     return new Response(JSON.stringify(err), {
       status: 500,
       headers: { 'content-type': 'application/json' }

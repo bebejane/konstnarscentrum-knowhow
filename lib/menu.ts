@@ -18,6 +18,8 @@ const base: Menu = [
   { type: 'knowledge', label: 'Kunskapsbank', slug: '/kunskapsbank', sub: [] },
   { type: 'Lexikon', label: 'Lexikon', slug: '/lexicon', index: true, sub: [] },
   { type: 'contact', label: 'Kontakt', slug: '/kontakta-oss', index: true, sub: [] },
+  { type: 'login', label: 'Logga in', slug: '/logga-in', index: true, sub: [] },
+  { type: 'logout', label: 'Logga ut', slug: '/logga-ut', index: true, sub: [] },
   { type: 'in-english', label: 'In English', slug: '/english', index: true, sub: [] },
 ]
 

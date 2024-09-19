@@ -3,10 +3,12 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import s from './MemberForm.module.scss';
 import cn from 'classnames';
 import React from 'react';
+import { signIn, useSession } from 'next-auth/react';
 
 type Props = {
   activity: ActivityRecord
   show: boolean
+  setShow: (show: boolean) => void
 };
 
 type FormInputs = {
@@ -28,7 +30,7 @@ type FormField = {
   value?: string
 }
 
-export default function MemberForm({ activity, show }: Props) {
+export default function MemberForm({ activity, show, setShow }: Props) {
 
   const {
     register,
@@ -40,8 +42,10 @@ export default function MemberForm({ activity, show }: Props) {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
+
   const [mode, setMode] = useState<'login' | 'register'>('login');
   const abortController = useRef(new AbortController());
+  const { data, status } = useSession();
 
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
 
@@ -53,10 +57,10 @@ export default function MemberForm({ activity, show }: Props) {
     abortController.current = new AbortController();
 
     try {
-
+      console.log(data)
       const res = await fetch('/api/activity/register', {
         method: 'POST',
-        body: JSON.stringify(data),
+        body: JSON.stringify({ member: data, id: activity.id }),
         signal: abortController.current.signal,
         headers: {
           'Content-Type': 'application/json',
@@ -84,6 +88,27 @@ export default function MemberForm({ activity, show }: Props) {
     setError(null);
   }, [mode])
 
+  useEffect(() => {
+    console.log('fetch member...')
+    const fetchMember = async () => {
+      const res = await fetch(`/api/auth/member`);
+
+      if (res.status === 200) {
+        const member = await res.json();
+        reset(member);
+      }
+    }
+
+    if (status === 'authenticated') fetchMember();
+
+  }, [reset, status, show])
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const email = e.target['email'].value;
+    const res = await signIn('email', { email, redirect: false, callbackUrl: window.location.href });
+    if (res.error) setError(res.error);
+  }
 
   const fields: FormField[] = [
     { id: 'email', type: 'email', label: 'E-post', required: 'E-post är obligatoriskt', pattern: { value: /\S+@\S+\.\S+/, message: 'Ogiltig e-postadress' } },
@@ -99,45 +124,55 @@ export default function MemberForm({ activity, show }: Props) {
     { id: 'education', type: 'textarea', label: 'Utbildning' },
     { id: 'mission', type: 'textarea', label: 'Uppdrag' },
     { id: 'work_category', type: 'textarea', label: 'Arbetskategori' },
-    { id: 'mode', type: 'hidden', value: mode },
     { id: 'id', type: 'hidden', value: activity.id },
   ]
 
   return (
-    <form
-      className={cn(s.form, show && s.show)}
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      {fields.map(({ id, type, label, value, required, pattern }, idx) => (
-        <React.Fragment key={idx}>
-          {label &&
-            <label htmlFor={id}>
-              {label}
-              {required && <span className={s.required}>*</span>}
-            </label>
-          }
-          {type === 'textarea' ?
-            <textarea id={id} {...register(id, { required, pattern })} />
-            :
-            <input id={id} type={type} value={value} {...register(id, { required, pattern })} />
-          }
+    <div className={cn(s.container, show && s.show)}>
+      {status !== 'authenticated' &&
+        <form onSubmit={handleLogin} className={cn(s.form, show && s.show)}>
+          <input type="email" name="email" />
+          <button className={s.register} type="submit" >
+            Skicka
+          </button>
+        </form>
+      }
+      {!success ?
+        <form className={s.form} onSubmit={handleSubmit(onSubmit)} >
+          {fields.map(({ id, type, label, value, required, pattern }, idx) => (
+            <React.Fragment key={idx}>
+              {label &&
+                <label htmlFor={id}>
+                  {label}
+                  {required && <span className={s.required}>*</span>}
+                </label>
+              }
+              {type === 'textarea' ?
+                <textarea id={id} {
+                  //@ts-ignore
+                  ...register(id, { required, pattern })} />
+                :
+                <input id={id} type={type} value={value} {
+                  //@ts-ignore
+                  ...register(id, { required, pattern })} />
+              }
 
-          {errors[id] && <span className={s.error}>{errors[id].message}</span>}
-        </React.Fragment>
-      ))}
-      {success &&
+              {errors[id] && <span className={s.error}>{errors[id].message}</span>}
+            </React.Fragment>
+          ))}
+          {error && <span className={s.error}>{error}</span>}
+          <button type="submit" disabled={loading}>Skicka</button>
+        </form>
+        :
         <div className={s.success}>
           Tack för din anmälan!
-          <button className={s.close} onClick={() => setSuccess(false)}>X</button>
+          <button onClick={() => {
+            setShow(false)
+            setSuccess(false)
+            setError(null)
+          }}>Stäng</button>
         </div>
       }
-      {error && <span className={s.error}>{error}</span>}
-
-      <button className={s.register} type="button" onClick={() => setMode(mode === 'login' ? 'register' : 'login')}>
-        {mode === 'login' ? 'Registrera dig' : 'Stäng'}
-      </button>
-
-      <button type="submit" disabled={loading}>Skicka</button>
-    </form>
+    </div>
   );
 }

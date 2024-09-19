@@ -1,8 +1,7 @@
 import s from "./index.module.scss";
-import cn from 'classnames'
 import withGlobalProps from "/lib/withGlobalProps";
 import { GetStaticProps } from "next";
-import { ClientSafeProvider, getCsrfToken, signIn, useSession } from "next-auth/react";
+import { getCsrfToken, signIn, useSession } from "next-auth/react";
 import { RevealText } from "/components";
 import { useEffect, useState } from "react";
 import { Loader } from "/components";
@@ -11,10 +10,9 @@ import { useRouter } from "next/router";
 
 export type Props = {
 	csrfToken: string,
-	providers: ClientSafeProvider[]
 }
 
-export default function Login({ providers }: Props) {
+export default function Login({ }: Props) {
 
 	const router = useRouter()
 	const [csrfToken, setCsrfToken] = useState<string | undefined>()
@@ -34,13 +32,13 @@ export default function Login({ providers }: Props) {
 
 		setError(null)
 		const referer = router.query.referer as string
-
 		await signIn("credentials", {
 			callbackUrl: `${window.location.origin}${referer ?? ''}`,
 			redirect: true,
 			username,
 			password,
 		});
+
 	};
 
 	return (
@@ -49,7 +47,6 @@ export default function Login({ providers }: Props) {
 				:
 				<>
 					<h1><RevealText>Logga in</RevealText></h1>
-					<p className="intro">Här kan du som administrator logga in.</p>
 					<form
 						className={s.form}
 						method="post"
@@ -59,6 +56,13 @@ export default function Login({ providers }: Props) {
 						<input name="csrfToken" type="hidden" value={csrfToken} />
 
 						<input
+							{...register("username", { required: true })}
+							placeholder="E-post..."
+							name="username"
+							type="email"
+						/>
+
+						<input
 							{...register("password", { required: true })}
 							placeholder={`Lösenord...`}
 							name="password"
@@ -66,7 +70,7 @@ export default function Login({ providers }: Props) {
 						/>
 
 						<button disabled={isSubmitting}>
-							Login
+							Skicka
 						</button>
 						{error &&
 							<p className={s.formError}>

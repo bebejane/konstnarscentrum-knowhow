@@ -1,18 +1,13 @@
 import s from "./index.module.scss";
-import cn from 'classnames'
 import withGlobalProps from "/lib/withGlobalProps";
-import { ClientSafeProvider, signOut } from "next-auth/react";
-import { useRouter } from "next/router";
+import { signOut } from "next-auth/react";
 import { useEffect } from "react";
 
 export type Props = {
 	csrfToken: string,
-	providers: ClientSafeProvider[]
 }
 
 export default function Logout({ }: Props) {
-
-	const router = useRouter()
 
 	useEffect(() => {
 		signOut({ callbackUrl: `${window.location.origin}/` })
