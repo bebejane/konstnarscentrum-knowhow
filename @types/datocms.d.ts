@@ -3402,6 +3402,24 @@ type InUseFilter = {
   eq?: InputMaybe<Scalars['BooleanType']>;
 };
 
+/** Specifies how to filter Integer fields */
+type IntegerFilter = {
+  /** Search for records with an exact match */
+  eq?: InputMaybe<Scalars['IntType']>;
+  /** Filter records with the specified field defined (i.e. with any value) or not */
+  exists?: InputMaybe<Scalars['BooleanType']>;
+  /** Filter records with a value that's strictly greater than the one specified */
+  gt?: InputMaybe<Scalars['IntType']>;
+  /** Filter records with a value that's greater than or equal to the one specified */
+  gte?: InputMaybe<Scalars['IntType']>;
+  /** Filter records with a value that's less than the one specified */
+  lt?: InputMaybe<Scalars['IntType']>;
+  /** Filter records with a value that's less or equal than the one specified */
+  lte?: InputMaybe<Scalars['IntType']>;
+  /** Exclude records with an exact match */
+  neq?: InputMaybe<Scalars['IntType']>;
+};
+
 /** Record of type Våra initiativ (intro_initiative) */
 type IntroInitiativeRecord = RecordInterface & {
   __typename?: 'IntroInitiativeRecord';
@@ -4118,12 +4136,23 @@ type MemberModelFilter = {
   _status?: InputMaybe<StatusFilter>;
   _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
   _updatedAt?: InputMaybe<UpdatedAtFilter>;
+  address?: InputMaybe<StringFilter>;
+  age?: InputMaybe<IntegerFilter>;
+  country?: InputMaybe<StringFilter>;
   createdAt?: InputMaybe<CreatedAtFilter>;
+  education?: InputMaybe<TextFilter>;
   email?: InputMaybe<StringFilter>;
   firstName?: InputMaybe<StringFilter>;
   id?: InputMaybe<ItemIdFilter>;
+  language?: InputMaybe<StringFilter>;
   lastName?: InputMaybe<StringFilter>;
+  mission?: InputMaybe<TextFilter>;
+  phone?: InputMaybe<StringFilter>;
+  postalCode?: InputMaybe<StringFilter>;
+  sex?: InputMaybe<StringFilter>;
   updatedAt?: InputMaybe<UpdatedAtFilter>;
+  url?: InputMaybe<StringFilter>;
+  workCategory?: InputMaybe<StringFilter>;
 };
 
 enum MemberModelOrderBy {
@@ -4143,6 +4172,12 @@ enum MemberModelOrderBy {
   _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
   _updatedAt_ASC = '_updatedAt_ASC',
   _updatedAt_DESC = '_updatedAt_DESC',
+  address_ASC = 'address_ASC',
+  address_DESC = 'address_DESC',
+  age_ASC = 'age_ASC',
+  age_DESC = 'age_DESC',
+  country_ASC = 'country_ASC',
+  country_DESC = 'country_DESC',
   createdAt_ASC = 'createdAt_ASC',
   createdAt_DESC = 'createdAt_DESC',
   email_ASC = 'email_ASC',
@@ -4151,10 +4186,22 @@ enum MemberModelOrderBy {
   firstName_DESC = 'firstName_DESC',
   id_ASC = 'id_ASC',
   id_DESC = 'id_DESC',
+  language_ASC = 'language_ASC',
+  language_DESC = 'language_DESC',
   lastName_ASC = 'lastName_ASC',
   lastName_DESC = 'lastName_DESC',
+  phone_ASC = 'phone_ASC',
+  phone_DESC = 'phone_DESC',
+  postalCode_ASC = 'postalCode_ASC',
+  postalCode_DESC = 'postalCode_DESC',
+  sex_ASC = 'sex_ASC',
+  sex_DESC = 'sex_DESC',
   updatedAt_ASC = 'updatedAt_ASC',
-  updatedAt_DESC = 'updatedAt_DESC'
+  updatedAt_DESC = 'updatedAt_DESC',
+  url_ASC = 'url_ASC',
+  url_DESC = 'url_DESC',
+  workCategory_ASC = 'workCategory_ASC',
+  workCategory_DESC = 'workCategory_DESC'
 }
 
 /** Record of type Medlem (member) */
@@ -4173,18 +4220,41 @@ type MemberRecord = RecordInterface & {
   _status: ItemStatus;
   _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
   _updatedAt: Scalars['DateTime'];
+  address: Scalars['String'];
+  age: Scalars['IntType'];
+  country: Scalars['String'];
   createdAt: Scalars['DateTime'];
+  education?: Maybe<Scalars['String']>;
   email: Scalars['String'];
   firstName: Scalars['String'];
   id: Scalars['ItemId'];
+  language: Scalars['String'];
   lastName: Scalars['String'];
+  mission?: Maybe<Scalars['String']>;
+  phone?: Maybe<Scalars['String']>;
+  postalCode: Scalars['String'];
+  sex?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
+  url?: Maybe<Scalars['String']>;
+  workCategory: Scalars['String'];
 };
 
 
 /** Record of type Medlem (member) */
 type MemberRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Medlem (member) */
+type MemberRecordeducationArgs = {
+  markdown?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+/** Record of type Medlem (member) */
+type MemberRecordmissionArgs = {
+  markdown?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** Block of type Meta (meta_block) */
@@ -6335,11 +6405,11 @@ type AllApplicationsByActivityQueryVariables = Exact<{
 }>;
 
 
-type AllApplicationsByActivityQuery = { __typename?: 'Query', applications: Array<{ __typename: 'ApplicationRecord', id: any, approvalStatus: string, member: { __typename: 'MemberRecord', id: any, firstName: string, lastName: string, email: string } }>, pagination: { __typename?: 'CollectionMetadata', count: any } };
+type AllApplicationsByActivityQuery = { __typename?: 'Query', applications: Array<{ __typename: 'ApplicationRecord', id: any, approvalStatus: string, member: { __typename: 'MemberRecord', id: any, firstName: string, lastName: string, email: string, phone?: string | null, education?: string | null, age: any, country: string, language: string, address: string, mission?: string | null, postalCode: string, sex?: string | null, workCategory: string, url?: string | null } }>, pagination: { __typename?: 'CollectionMetadata', count: any } };
 
-type ApplicationFragment = { __typename: 'ApplicationRecord', id: any, approvalStatus: string, member: { __typename: 'MemberRecord', id: any, firstName: string, lastName: string, email: string } };
+type ApplicationFragment = { __typename: 'ApplicationRecord', id: any, approvalStatus: string, member: { __typename: 'MemberRecord', id: any, firstName: string, lastName: string, email: string, phone?: string | null, education?: string | null, age: any, country: string, language: string, address: string, mission?: string | null, postalCode: string, sex?: string | null, workCategory: string, url?: string | null } };
 
-type MemberFragment = { __typename: 'MemberRecord', id: any, firstName: string, lastName: string, email: string };
+type MemberFragment = { __typename: 'MemberRecord', id: any, firstName: string, lastName: string, email: string, phone?: string | null, education?: string | null, age: any, country: string, language: string, address: string, mission?: string | null, postalCode: string, sex?: string | null, workCategory: string, url?: string | null };
 
 type SiteSearchQueryVariables = Exact<{
   activityIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>> | InputMaybe<Scalars['ItemId']>>;

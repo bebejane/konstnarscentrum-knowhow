@@ -1,26 +1,27 @@
 .container {
-  ul {
-    display: flex;
-    flex-direction: column;
-    list-style: none;
+
+  width: 100%;
+  font-size: 0.7rem;
+
+  th {
+    font-weight: bold;
+    text-align: left;
+  }
+
+  tr {
     padding: 0;
     margin-bottom: 1rem;
+    position: relative;
+    width: 100%;
 
-    li {
-      display: flex;
-      position: relative;
-      flex-direction: column;
-      //align-items: center;
-      width: 100%;
+    td {
+      width: auto;
+
       cursor: pointer;
 
-      .buttons {
-        position: absolute;
-        right: 0;
-        top: 0;
+      &.buttons {
         display: flex;
         flex-direction: row;
-        align-items: center;
         align-items: center;
 
         button {

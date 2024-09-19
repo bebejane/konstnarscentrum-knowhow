@@ -26,4 +26,16 @@ fragment MemberFragment on MemberRecord {
 	firstName
 	lastName
 	email
+	phone
+	education
+	age
+	country
+	language
+	address
+	mission
+	phone
+	postalCode
+	sex
+	workCategory
+	url
 }

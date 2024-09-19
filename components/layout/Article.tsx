@@ -19,6 +19,7 @@ export type ArticleProps = {
   content?: any
   editable?: any
   noBottom?: boolean
+  className?: string
   onClick?: (id: string) => void
 }
 
@@ -31,6 +32,7 @@ export default function Article({
   image,
   content,
   showImage = true,
+  className,
   editable,
   onClick,
 }: ArticleProps, record: ArticleProps) {
@@ -42,7 +44,7 @@ export default function Article({
 
   return (
 
-    <div className={cn(s.article, 'article')}>
+    <div className={cn(s.article, 'article', className)}>
       {showImage &&
         <header>
           {title &&

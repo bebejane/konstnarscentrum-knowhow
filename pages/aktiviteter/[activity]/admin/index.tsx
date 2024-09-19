@@ -1,4 +1,5 @@
 import withGlobalProps from "/lib/withGlobalProps";
+import s from "./index.module.scss";
 import { GetStaticProps } from "next";
 import { apiQuery } from "dato-nextjs-utils/api";
 import { ActivityDocument, AllApplicationsByActivityDocument } from "/graphql";
@@ -25,7 +26,7 @@ export default function ActivityAdminPage({ activity: {
 
 	return (
 		<>
-			<Article id={id} title={`${title} - Admin`}>
+			<Article id={id} title={`${title} - Admin`} className={s.article}>
 				<h5 suppressHydrationWarning={true}>{startDate} - {endDate}</h5>
 				<ActivityAdmin applications={applications} activity={activity} />
 			</Article>

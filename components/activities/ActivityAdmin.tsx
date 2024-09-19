@@ -92,57 +92,69 @@ export default function ActivityAdmin({ activity, applications: _applications }:
   const pending = applications.filter((application) => application.approvalStatus === 'PENDING');
 
   const Application = ({ application: { id, approvalStatus, member } }) => (
-    <li
-      key={id}
-      className={open[id] ? s.open : undefined}
-      onClick={() => setOpen((o) => ({ ...o, [id]: open[id] ? false : true }))}
-    >
-      {member.firstName} {member.lastName} ({member.email})
-      <p className={s.extended}>
-        Extended info...
-      </p>
-      <div className={s.buttons}>
-        <button
-          type="button"
-          data-application-id={id}
-          data-approval={'DECLINED'}
-          disabled={approvalStatus === 'DECLINED'}
-          onClick={handleApprove}
-        >Neka</button>
-        <button
-          type="button"
-          data-application-id={id}
-          data-approval={'APPROVED'}
-          disabled={approvalStatus === 'APPROVED'}
-          onClick={handleApprove}
-        >Godkänn</button>
-      </div>
-    </li>
+    <>
+      <tr
+        key={id}
+        className={open[id] ? s.open : undefined}
+        onClick={() => setOpen((o) => ({ ...o, [id]: open[id] ? false : true }))}
+      >
+        <td>{member.firstName} {member.lastName}</td>
+        <td>{member.email}</td>
+        <td>{member.sex}</td>
+        <td>{member.age}</td>
+        <td>{member.country}</td>
+        <td>{member.language}</td>
+        <td className={s.buttons}>
+          <button
+            type="button"
+            data-application-id={id}
+            data-approval={'DECLINED'}
+            disabled={approvalStatus === 'DECLINED'}
+            onClick={handleApprove}
+          >Nej</button>
+          <button
+            type="button"
+            data-application-id={id}
+            data-approval={'APPROVED'}
+            disabled={approvalStatus === 'APPROVED'}
+            onClick={handleApprove}
+          >Ja</button>
+        </td>
+      </tr>
+      {open[id] &&
+        <tr>
+          <td colSpan={20} className={s.extended}>
+            Extended content...
+          </td>
+        </tr>
+      }
+    </>
   )
 
   return (
-    <div className={s.container}>
-      <h5>Godkända</h5>
-      <ul>
-        {approved.map((application, i) => <Application key={i} application={application} />)}
-        {!approved.length && <li>Inga ansökningar är godkända</li>}
-      </ul>
-
-      <h5>Nya</h5>
-      <ul>
+    <table className={s.container}>
+      <tbody>
+        <tr><th colSpan={20}>Nya ansökningar ({pending.length})</th></tr>
         {pending.map((application, i) => <Application key={i} application={application} />)}
-        {!pending.length && <li>Inga nya ansökningar</li>}
-      </ul>
+        {!pending.length && <tr><td>Inga nya ansökningar</td></tr>}
 
-      <h5>Nekade</h5>
-      <ul>
+        <tr><th colSpan={20}>Utvalda ({approved.length})</th></tr>
+        {approved.map((application, i) => <Application key={i} application={application} />)}
+        {!approved.length && <tr><td>Inga ansökningar är godkänd</td></tr>}
+
+
+        <tr><th colSpan={20}>Bortvalda ({declined.length})</th></tr>
         {declined.map((application, i) => <Application key={i} application={application} />)}
-        {!declined.length && <li>Inga ansökningar är nekade</li>}
-      </ul>
+        {!declined.length && <tr><td>Inga ansökningar är nekade</td></tr>}
 
-      {error && <p className={s.error}>{error}</p>}
+        <tr><td colSpan={20}>{error && <p className={s.error}>{error}</p>}</td></tr>
 
-      <button className="wide" onClick={handleExport} disabled={approved.length === 0}>Exportera lista</button>
-    </div>
+        <tr>
+          <td colSpan={20}>
+            <button className="wide" onClick={handleExport} disabled={approved.length === 0}>Exportera lista</button>
+          </td>
+        </tr>
+      </tbody >
+    </table >
   );
 }
