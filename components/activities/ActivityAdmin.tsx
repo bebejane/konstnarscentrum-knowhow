@@ -78,9 +78,11 @@ export default function ActivityAdmin({ activity, applications: _applications }:
   }
 
   const handleExport = async () => {
+    const columns = ['firstName', 'lastName', 'email'];
+
     const t = applications
       .filter((application) => application.approvalStatus === 'APPROVED')
-      .map(({ member }) => `${member.firstName}\t${member.lastName}\t${member.email}`).join('\n');
+      .map(({ member }) => columns.map(c => member[c]).join('\t')).join('\n');
 
     if (!t) return
     navigator.clipboard.writeText(t);
@@ -104,6 +106,7 @@ export default function ActivityAdmin({ activity, applications: _applications }:
         <td>{member.age}</td>
         <td>{member.country}</td>
         <td>{member.language}</td>
+
         <td className={s.buttons}>
           <button
             type="button"
