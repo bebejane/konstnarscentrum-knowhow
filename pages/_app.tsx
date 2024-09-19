@@ -2,6 +2,7 @@ import '/styles/index.scss'
 import 'rc-tooltip/assets/bootstrap_white.css'
 import { Layout } from '/components';
 import { ThemeProvider } from 'next-themes'
+import { SessionProvider } from "next-auth/react"
 import { useRouter } from 'next/router';
 import { DefaultDatoSEO } from 'dato-nextjs-utils/components';
 import { PageProvider } from '/lib/context/page';
@@ -16,7 +17,7 @@ function App({ Component, pageProps }) {
 
   const router = useRouter()
   const page = (Component.page || {}) as PageProps
-  const { menu, footer, site, pageTitle, lexicons } = pageProps;
+  const { menu, footer, site, pageTitle, lexicons, session } = pageProps;
   const errorCode = parseInt(router.pathname.replace('/', ''))
   const isError = (!isNaN(errorCode) && (errorCode > 400 && errorCode < 600)) || router.pathname.replace('/', '') === '_error'
 
@@ -32,13 +33,15 @@ function App({ Component, pageProps }) {
         siteTitle="KnowHow"
         title={title}
       />
-      <PageProvider value={{ ...page, lexicons }}>
-        <ThemeProvider defaultTheme="light" themes={['light', 'dark']} enableSystem={false}>
-          <Layout title={pageTitle} menu={menu || []} footer={footer}>
-            <Component {...pageProps} />
-          </Layout>
-        </ThemeProvider>
-      </PageProvider>
+      <SessionProvider session={session}>
+        <PageProvider value={{ ...page, lexicons }}>
+          <ThemeProvider defaultTheme="light" themes={['light', 'dark']} enableSystem={false}>
+            <Layout title={pageTitle} menu={menu || []} footer={footer}>
+              <Component {...pageProps} />
+            </Layout>
+          </ThemeProvider>
+        </PageProvider>
+      </SessionProvider>
     </>
   );
 }

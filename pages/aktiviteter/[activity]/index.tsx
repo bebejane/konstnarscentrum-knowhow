@@ -8,6 +8,7 @@ import { getStaticPagePaths } from "/lib/utils";
 import { DatoSEO } from "dato-nextjs-utils/components";
 import Link from "next/link";
 import { useState } from "react";
+import { useSession } from "next-auth/react";
 
 export type Props = {
 	activity: ActivityRecord,
@@ -30,6 +31,7 @@ export default function Activity({ activity: {
 	const startDate = format(new Date(date), "d MMMM y")
 	const endDate = dateEnd ? format(new Date(dateEnd), "d MMMM y") : undefined
 	const [showForm, setShowForm] = useState(false)
+	const { data: session } = useSession()
 
 	return (
 		<>
@@ -54,9 +56,11 @@ export default function Activity({ activity: {
 				Anmäl dig
 			</button>
 			<MemberForm activity={activity} show={showForm} />
+
 			<Link href={`/aktiviteter/${slug}/admin`} prefetch={true}>
 				<button className="wide">Administrera</button>
 			</Link>
+
 			<Link href={'/aktiviteter'}>
 				<button className="wide">Tillbaka till översikt</button>
 			</Link>

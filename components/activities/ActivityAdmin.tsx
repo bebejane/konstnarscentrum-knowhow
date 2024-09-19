@@ -17,6 +17,7 @@ export default function ActivityAdmin({ activity, applications: _applications }:
   const [applications, setApplications] = useState(_applications);
   const [open, setOpen] = useState({});
   const abortController = useRef(new AbortController());
+  const colSpanMax = 20;
 
   const updateStatus = async (id: string, approvalStatus: ApprovalStatus) => {
 
@@ -126,7 +127,7 @@ export default function ActivityAdmin({ activity, applications: _applications }:
       </tr>
       {open[id] &&
         <tr>
-          <td colSpan={20} className={s.extended}>
+          <td colSpan={colSpanMax} className={s.extended}>
             Extended content...
           </td>
         </tr>
@@ -134,26 +135,29 @@ export default function ActivityAdmin({ activity, applications: _applications }:
     </>
   )
 
+
   return (
     <table className={s.container}>
       <tbody>
-        <tr><th colSpan={20}>Nya ansökningar ({pending.length})</th></tr>
+        <tr><th colSpan={colSpanMax}>Nya ansökningar ({pending.length})</th></tr>
+        <tr><td colSpan={colSpanMax}><hr /></td></tr>
         {pending.map((application, i) => <Application key={i} application={application} />)}
         {!pending.length && <tr><td>Inga nya ansökningar</td></tr>}
 
-        <tr><th colSpan={20}>Utvalda ({approved.length})</th></tr>
+        <tr><th colSpan={colSpanMax}>Utvalda ({approved.length})</th></tr>
+        <tr><td colSpan={colSpanMax}><hr /></td></tr>
         {approved.map((application, i) => <Application key={i} application={application} />)}
         {!approved.length && <tr><td>Inga ansökningar är godkänd</td></tr>}
 
-
-        <tr><th colSpan={20}>Bortvalda ({declined.length})</th></tr>
+        <tr><th colSpan={colSpanMax}>Bortvalda ({declined.length})</th></tr>
+        <tr><td colSpan={colSpanMax}><hr /></td></tr>
         {declined.map((application, i) => <Application key={i} application={application} />)}
         {!declined.length && <tr><td>Inga ansökningar är nekade</td></tr>}
 
-        <tr><td colSpan={20}>{error && <p className={s.error}>{error}</p>}</td></tr>
+        <tr><td colSpan={colSpanMax}>{error && <p className={s.error}>{error}</p>}</td></tr>
 
         <tr>
-          <td colSpan={20}>
+          <td colSpan={colSpanMax}>
             <button className="wide" onClick={handleExport} disabled={approved.length === 0}>Exportera lista</button>
           </td>
         </tr>

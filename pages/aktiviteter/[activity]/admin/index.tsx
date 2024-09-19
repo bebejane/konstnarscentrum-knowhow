@@ -1,12 +1,13 @@
 import withGlobalProps from "/lib/withGlobalProps";
 import s from "./index.module.scss";
-import { GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import { apiQuery } from "dato-nextjs-utils/api";
 import { ActivityDocument, AllApplicationsByActivityDocument } from "/graphql";
 import { format } from "date-fns";
 import { ActivityAdmin, Article } from "/components";
 import { apiQueryAll, } from "/lib/utils";
 import Link from "next/link";
+import { requireAuthentication } from "/lib/auth";
 
 export type Props = {
 	activity: ActivityRecord,
@@ -40,7 +41,7 @@ export default function ActivityAdminPage({ activity: {
 ActivityAdminPage.page = { crumbs: [{ slug: 'aktiviteter', title: 'Aktiviteter' }] } as PageProps
 
 
-export const getServerSideProps: GetStaticProps = withGlobalProps({ queries: [] }, async ({ props, revalidate, context }: any) => {
+export const getServerSideProps: GetServerSideProps = requireAuthentication(withGlobalProps({ queries: [] }, async ({ props, revalidate, context }: any, session) => {
 
 	const slug = context.params.activity;
 	const { activity }: { activity: ActivityRecord } = await apiQuery(ActivityDocument, { variables: { slug }, preview: context.preview })
@@ -61,4 +62,4 @@ export const getServerSideProps: GetStaticProps = withGlobalProps({ queries: [] 
 			pageTitle: `${activity.title} - Admin`,
 		}
 	};
-});
+}));

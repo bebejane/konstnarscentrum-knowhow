@@ -6,6 +6,7 @@
   th {
     font-weight: bold;
     text-align: left;
+    padding-top: 2rem;
   }
 
   tr {
@@ -16,7 +17,6 @@
 
     td {
       width: auto;
-
       cursor: pointer;
 
       &.buttons {
@@ -41,7 +41,12 @@
           display: block;
         }
       }
+
+      hr {
+        width: 100%;
+      }
     }
+
   }
 }
 

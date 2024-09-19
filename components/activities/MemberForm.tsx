@@ -2,20 +2,31 @@ import { useEffect, useRef, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import s from './MemberForm.module.scss';
 import cn from 'classnames';
-
-type FormInputs = {
-  id: string
-  mode: 'login' | 'register'
-  firstName: string;
-  lastName: string;
-  email: string;
-
-};
+import React from 'react';
 
 type Props = {
   activity: ActivityRecord
   show: boolean
 };
+
+type FormInputs = {
+  first_name: string;
+  last_name: string;
+  address: string;
+  postal_code: string;
+  email: string;
+  id: string
+  mode: 'login' | 'register'
+};
+
+type FormField = {
+  id: string
+  type: 'email' | 'hidden' | 'text' | 'textarea'
+  label?: string
+  required?: string
+  pattern?: { value: RegExp, message: string }
+  value?: string
+}
 
 export default function MemberForm({ activity, show }: Props) {
 
@@ -73,42 +84,47 @@ export default function MemberForm({ activity, show }: Props) {
     setError(null);
   }, [mode])
 
+
+  const fields: FormField[] = [
+    { id: 'email', type: 'email', label: 'E-post', required: 'E-post är obligatoriskt', pattern: { value: /\S+@\S+\.\S+/, message: 'Ogiltig e-postadress' } },
+    { id: 'first_name', type: 'text', label: 'Namn', required: 'Namn är obligatoriskt' },
+    { id: 'last_name', type: 'text', label: 'Efternamn', required: 'Efternamn är obligatoriskt' },
+    { id: 'address', type: 'text', label: 'Adress', required: 'Adress är obligatoriskt' },
+    { id: 'postal_code', type: 'text', label: 'Postnummer', required: 'Postnummer är obligatoriskt' },
+    { id: 'phone', type: 'text', label: 'Telefon' },
+    { id: 'age', type: 'text', label: 'Ålder', required: 'Ålder är obligatoriskt' },
+    { id: 'sex', type: 'text', label: 'Kön' },
+    { id: 'country', type: 'text', label: 'Födelseland', required: 'Födelseland är obligatoriskt' },
+    { id: 'language', type: 'text', label: 'Språk', required: 'Språk är obligatoriskt' },
+    { id: 'education', type: 'textarea', label: 'Utbildning' },
+    { id: 'mission', type: 'textarea', label: 'Uppdrag' },
+    { id: 'work_category', type: 'textarea', label: 'Arbetskategori' },
+    { id: 'mode', type: 'hidden', value: mode },
+    { id: 'id', type: 'hidden', value: activity.id },
+  ]
+
   return (
-    <form className={cn(s.form, show && s.show)} onSubmit={handleSubmit(onSubmit)}>
-      <input type="hidden" name="id" value={activity.id} {...register("id")} />
-      <input type="hidden" name="mode" value={mode} {...register("mode")} />
-      <label htmlFor="email">E-post</label>
-      <input
-        id="email"
-        type="email"
-        {...register("email", {
-          required: "E-post är obligatoriskt",
-          pattern: {
-            value: /\S+@\S+\.\S+/,
-            message: "Ogiltig e-postadress",
-          },
-        })}
-      />
-      {errors.email && <span className={s.error}>{errors.email.message}</span>}
+    <form
+      className={cn(s.form, show && s.show)}
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      {fields.map(({ id, type, label, value, required, pattern }, idx) => (
+        <React.Fragment key={idx}>
+          {label &&
+            <label htmlFor={id}>
+              {label}
+              {required && <span className={s.required}>*</span>}
+            </label>
+          }
+          {type === 'textarea' ?
+            <textarea id={id} {...register(id, { required, pattern })} />
+            :
+            <input id={id} type={type} value={value} {...register(id, { required, pattern })} />
+          }
 
-      {mode === 'register' &&
-        <>
-          <label htmlFor="firstName">Namn</label>
-          <input
-            id="firstName"
-            {...register("firstName", { required: "Namn är obligatoriskt" })}
-          />
-          {errors.firstName && <span className={s.error}>{errors.firstName.message}</span>}
-
-          <label htmlFor="lastName">Efternamn</label>
-          <input
-            id="lastName"
-            {...register("lastName", { required: "Efternamn är obligatoriskt" })}
-          />
-          {errors.lastName && <span className={s.error}>{errors.lastName.message}</span>}
-        </>
-      }
-
+          {errors[id] && <span className={s.error}>{errors[id].message}</span>}
+        </React.Fragment>
+      ))}
       {success &&
         <div className={s.success}>
           Tack för din anmälan!

@@ -11,17 +11,42 @@ const client = buildClient({
   environment: process.env.DATOCMS_ENVIRONMENT
 });
 
+const pick = (obj: any, keys) => Object.fromEntries(
+  keys
+    .filter(key => key in obj)
+    .map(key => [key, obj[key]])
+);
+
+const field_ids = [
+  'first_name',
+  'last_name',
+  'email',
+  'address',
+  'postal_code',
+  'phone',
+  'age',
+  'sex',
+  'city',
+  'language',
+  'url',
+  'education',
+  'mission',
+  'work_category',
+];
+
 export default async function handler(req: NextRequest, res: NextResponse) {
 
   if (req.method !== 'POST')
     return new Response('method not allowed', { status: 405 })
 
   try {
-    const { id, firstName, lastName, email, mode } = await req.json();
 
+    const body = await req.json();
+    const { id, mode } = body;
     const itemTypes = await client.itemTypes.list()
     const memberTypeId = itemTypes.find(({ api_key }) => api_key === 'member')?.id;
     const applicationTypeId = itemTypes.find(({ api_key }) => api_key === 'application')?.id;
+    const fields = pick(body, field_ids);
 
     let member = null;
 
@@ -30,34 +55,36 @@ export default async function handler(req: NextRequest, res: NextResponse) {
         type: 'member',
         fields: {
           email: {
-            eq: email,
+            eq: fields.email,
           }
         },
       }
     }))?.[0];
 
     if (mode === 'login' && !currentMember) {
+      console.log('member doesnt exists: login')
       return new Response(JSON.stringify({ message: 'Member not found' }), {
         status: 404,
         headers: { 'content-type': 'application/json' }
       })
     } else if (mode === 'login' && currentMember) {
+      console.log('member exists: login')
       member = currentMember;
     } else {
 
       const memberData = {}
 
-      if (firstName) memberData['first_name'] = firstName;
-      if (lastName) memberData['last_name'] = lastName;
-      if (email) memberData['email'] = email;
+      Object.keys(fields).forEach(key => fields[key] && (memberData[key] = fields[key]));
 
-      if (currentMember)
+      if (currentMember) {
+        console.log('updating member')
         member = await client.items.update(currentMember.id, memberData);
-      else
+      } else {
+        console.log('creating member')
         member = await client.items.create({ item_type: { type: "item_type", id: memberTypeId }, ...memberData });
-    }
+      }
 
-    console.log(member)
+    }
 
     // Find exisiting application
     let application = (await client.items.list({
@@ -83,7 +110,6 @@ export default async function handler(req: NextRequest, res: NextResponse) {
     console.log(err)
     return new Response(JSON.stringify(err), {
       status: 500,
-      //statusText: err?.message,
       headers: { 'content-type': 'application/json' }
     })
   }
