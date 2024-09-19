@@ -76,7 +76,7 @@ export default function MemberForm({ activity, show }: Props) {
   return (
     <form className={cn(s.form, show && s.show)} onSubmit={handleSubmit(onSubmit)}>
       <input type="hidden" name="id" value={activity.id} {...register("id")} />
-      <input type="hidden" name="mode" value={mode} />
+      <input type="hidden" name="mode" value={mode} {...register("mode")} />
       <label htmlFor="email">E-post</label>
       <input
         id="email"

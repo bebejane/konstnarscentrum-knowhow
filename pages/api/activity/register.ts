@@ -24,8 +24,7 @@ export default async function handler(req: NextRequest, res: NextResponse) {
     const applicationTypeId = itemTypes.find(({ api_key }) => api_key === 'application')?.id;
 
     let member = null;
-    console.log(mode)
-    //const activity = await client.items.find(id);
+
     const currentMember = (await client.items.list({
       filter: {
         type: 'member',
