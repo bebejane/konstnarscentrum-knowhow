@@ -60,8 +60,9 @@ export default function DatoCMSAdapter(): Adapter {
         user = await datocms.items.update(user.id, { auth: JSON.stringify(params) })
         return user.auth
       }
-      else
-        throw new Error('User not found!')
+      //else
+      //return throw new Error('User not found!')
+
     },
     async useVerificationToken(params) {
       console.log('useVerificationToken', params)

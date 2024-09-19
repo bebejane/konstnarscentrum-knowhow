@@ -4,6 +4,7 @@ import s from './MemberForm.module.scss';
 import cn from 'classnames';
 import React from 'react';
 import { signIn, useSession } from 'next-auth/react';
+import { set } from 'date-fns';
 
 type Props = {
   activity: ActivityRecord
@@ -42,7 +43,7 @@ export default function MemberForm({ activity, show, setShow }: Props) {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const [loadingMember, setLoadingMember] = useState(false);
   const [mode, setMode] = useState<'login' | 'register'>('login');
   const abortController = useRef(new AbortController());
   const { data, status } = useSession();
@@ -89,26 +90,27 @@ export default function MemberForm({ activity, show, setShow }: Props) {
   }, [mode])
 
   useEffect(() => {
-    console.log('fetch member...')
-    const fetchMember = async () => {
-      const res = await fetch(`/api/auth/member`);
 
-      if (res.status === 200) {
-        const member = await res.json();
-        reset(member);
+    const fetchMember = async () => {
+      setLoadingMember(true);
+
+      try {
+        const res = await fetch(`/api/auth/member`);
+
+        if (res.status === 200) {
+          const member = await res.json();
+          reset(member);
+        }
+
+      } catch (e) {
+        console.log(e)
       }
+      setLoadingMember(false);
     }
 
     if (status === 'authenticated') fetchMember();
 
   }, [reset, status, show])
-
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const email = e.target['email'].value;
-    const res = await signIn('email', { email, redirect: false, callbackUrl: window.location.href });
-    if (res.error) setError(res.error);
-  }
 
   const fields: FormField[] = [
     { id: 'email', type: 'email', label: 'E-post', required: 'E-post är obligatoriskt', pattern: { value: /\S+@\S+\.\S+/, message: 'Ogiltig e-postadress' } },
@@ -129,14 +131,7 @@ export default function MemberForm({ activity, show, setShow }: Props) {
 
   return (
     <div className={cn(s.container, show && s.show)}>
-      {status !== 'authenticated' &&
-        <form onSubmit={handleLogin} className={cn(s.form, show && s.show)}>
-          <input type="email" name="email" />
-          <button className={s.register} type="submit" >
-            Skicka
-          </button>
-        </form>
-      }
+      <MemberLogin activity={activity} />
       {!success ?
         <form className={s.form} onSubmit={handleSubmit(onSubmit)} >
           {fields.map(({ id, type, label, value, required, pattern }, idx) => (
@@ -175,4 +170,65 @@ export default function MemberForm({ activity, show, setShow }: Props) {
       }
     </div>
   );
+}
+
+type MemberLoginProps = {
+  activity: ActivityRecord
+}
+
+function MemberLogin({ activity }: MemberLoginProps) {
+
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState('');
+  const { data, status } = useSession();
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    setSuccess(false);
+    setLoading(true);
+
+    const email = e.target['email'].value;
+
+    try {
+      const res = await signIn('email', { email, redirect: false, callbackUrl: window.location.href });
+      if (res.error === 'EmailSignin')
+        setError('Något gick fel, försök igen senare');
+
+      else setSuccess(true);
+
+    } catch (e) {
+      setError(e.message)
+      setSuccess(false);
+    }
+    setLoading(false);
+  }
+
+
+  if (status === 'authenticated') return null;
+
+  return (
+    <form onSubmit={handleLogin} className={cn(s.form)}>
+      <input
+        type="email"
+        value={email}
+        onChange={({ target }) => setEmail(target.value)}
+        name="email"
+        placeholder={'E-post...'}
+        disabled={loading}
+      />
+      <button className={s.register} type="submit" disabled={loading}>
+        Skicka login länk
+      </button>
+      {success &&
+        <div className={s.success}>
+          <span>Ett mail med din login länk har skickats till din e-postadress.</span>
+          <button type="reset" onClick={() => setSuccess(false)}>Stäng</button>
+        </div>
+      }
+      {error && <span className={s.error}>{error}</span>}
+    </form>
+  )
 }
