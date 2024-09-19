@@ -142,7 +142,7 @@ export default function ActivityAdmin({ activity, applications: _applications }:
 
       {error && <p className={s.error}>{error}</p>}
 
-      <button className="wide" onClick={handleExport}>Exportera lista</button>
+      <button className="wide" onClick={handleExport} disabled={approved.length === 0}>Exportera lista</button>
     </div>
   );
 }
