@@ -7,6 +7,8 @@
   }
 
   .form {
+    background-color: var(--orange-light);
+    padding: var(--space);
     position: relative;
     display: flex;
     flex-direction: column;
@@ -22,6 +24,7 @@
       margin: 0;
       margin-bottom: var(--small-space);
       color: var(--foreground);
+      background-color: var(--background);
     }
 
     .success {
