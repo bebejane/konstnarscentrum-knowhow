@@ -109,20 +109,21 @@ export default function ActivityAdmin({ activity, applications: _applications }:
         <td>{member.language}</td>
 
         <td className={s.buttons}>
+          |
           <button
             type="button"
             data-application-id={id}
             data-approval={'DECLINED'}
             disabled={approvalStatus === 'DECLINED'}
             onClick={handleApprove}
-          >Nej</button>
+          >Bortvald</button>
           <button
             type="button"
             data-application-id={id}
             data-approval={'APPROVED'}
             disabled={approvalStatus === 'APPROVED'}
             onClick={handleApprove}
-          >Ja</button>
+          >Utvald</button>
         </td>
       </tr>
       {open[id] &&
@@ -147,7 +148,7 @@ export default function ActivityAdmin({ activity, applications: _applications }:
         <tr><th colSpan={colSpanMax}>Utvalda ({approved.length})</th></tr>
         <tr><td colSpan={colSpanMax}><hr /></td></tr>
         {approved.map((application, i) => <Application key={i} application={application} />)}
-        {!approved.length && <tr><td>Inga ansökningar är godkänd</td></tr>}
+        {!approved.length && <tr><td>Inga ansökningar är godkända</td></tr>}
 
         <tr><th colSpan={colSpanMax}>Bortvalda ({declined.length})</th></tr>
         <tr><td colSpan={colSpanMax}><hr /></td></tr>

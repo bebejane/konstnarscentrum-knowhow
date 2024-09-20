@@ -13,10 +13,15 @@
     margin-top: 1rem;
     width: 100%;
 
-    label {}
+    label {
+      margin-bottom: 0.25em;
+    }
 
-    input {
+    input,
+    textarea {
       margin: 0;
+      margin-bottom: var(--small-space);
+      color: var(--foreground);
     }
 
     .success {

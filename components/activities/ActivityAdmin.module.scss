@@ -1,5 +1,4 @@
 .container {
-
   width: 100%;
   font-size: 0.7rem;
 
@@ -22,12 +21,17 @@
       &.buttons {
         display: flex;
         flex-direction: row;
-        align-items: center;
+        align-items: flex-end;
+        justify-content: space-between;
 
         button {
           //all: unset;
+          font-size: 0.7rem !important;
+
           cursor: pointer;
           padding: 0rem;
+          padding-left: 0.25em;
+          padding-right: 0.25em;
           border: none;
         }
       }
@@ -46,10 +50,8 @@
         width: 100%;
       }
     }
-
   }
 }
-
 
 .error {
   color: #e00;
