@@ -109,7 +109,7 @@ export default function ActivityAdmin({ activity, applications: _applications }:
         <td>{member.language}</td>
 
         <td className={s.buttons}>
-          |
+
           <button
             type="button"
             data-application-id={id}
@@ -140,20 +140,20 @@ export default function ActivityAdmin({ activity, applications: _applications }:
   return (
     <table className={s.container}>
       <tbody>
-        <tr><th colSpan={colSpanMax}>Nya ansökningar ({pending.length})</th></tr>
+        <tr><th colSpan={colSpanMax}>Ohanterade anmälningar ({pending.length})</th></tr>
         <tr><td colSpan={colSpanMax}><hr /></td></tr>
         {pending.map((application, i) => <Application key={i} application={application} />)}
-        {!pending.length && <tr><td>Inga nya ansökningar</td></tr>}
+        {!pending.length && <tr><td>Alla anmälningar hanterade</td></tr>}
 
         <tr><th colSpan={colSpanMax}>Utvalda ({approved.length})</th></tr>
         <tr><td colSpan={colSpanMax}><hr /></td></tr>
         {approved.map((application, i) => <Application key={i} application={application} />)}
-        {!approved.length && <tr><td>Inga ansökningar är godkända</td></tr>}
+        {!approved.length && <tr><td>Inga anmälningar är utvalda</td></tr>}
 
         <tr><th colSpan={colSpanMax}>Bortvalda ({declined.length})</th></tr>
         <tr><td colSpan={colSpanMax}><hr /></td></tr>
         {declined.map((application, i) => <Application key={i} application={application} />)}
-        {!declined.length && <tr><td>Inga ansökningar är nekade</td></tr>}
+        {!declined.length && <tr><td>Inga anmälningar är bortvalda</td></tr>}
 
         <tr><td colSpan={colSpanMax}>{error && <p className={s.error}>{error}</p>}</td></tr>
 
