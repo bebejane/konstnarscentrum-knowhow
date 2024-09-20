@@ -1,5 +1,4 @@
 export { default as ActivityAdmin } from './activities/ActivityAdmin'
-export { default as FileUpload } from './activities/FileUpload'
 export { default as MemberForm } from './activities/MemberForm'
 export { default as Button } from './blocks/Button'
 export { default as FindArtist } from './blocks/FindArtist'

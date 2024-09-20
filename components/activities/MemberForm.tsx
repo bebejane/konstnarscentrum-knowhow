@@ -66,13 +66,13 @@ export default function MemberForm({ activity, show, setShow }: Props) {
     abortController.current = new AbortController();
 
     try {
-      console.log('uploading....', data.pdf)
+
       const body = { member: data, id: activity.id }
       const upload = data.pdf ? await createUpload(data.pdf[0] as File, []) : null;
+
       if (upload)
         body.member.pdf = { upload_id: upload.id }
 
-      console.log('uploading done')
       const res = await fetch('/api/activity/register', {
         method: 'POST',
         body: JSON.stringify(body),
