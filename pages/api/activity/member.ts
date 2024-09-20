@@ -1,5 +1,4 @@
-import { buildClient } from '@datocms/cma-client';
-import { get } from 'http';
+import { buildClient, Client } from '@datocms/cma-client';
 import withAuthentication from '/lib/auth/withAuthentication';
 
 export const config = {
@@ -12,7 +11,7 @@ const client = buildClient({
   environment: process.env.DATOCMS_ENVIRONMENT
 });
 
-const getUserByEmail = async (client, email) => {
+const getUserByEmail = async (client: Client, email: string) => {
   return (await client.items.list({ filter: { type: 'member', fields: { email: { eq: email } } } }))?.[0]
 }
 

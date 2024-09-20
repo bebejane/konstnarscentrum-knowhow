@@ -22,7 +22,7 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     session: async (params: { session: Session; token: JWT; user: AdapterUser; }) => {
-      console.log('session callback', params)
+      //console.log('session callback', params)
       const { session, user } = params;
 
       if (session.user && user) {

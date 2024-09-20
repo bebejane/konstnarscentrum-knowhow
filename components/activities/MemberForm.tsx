@@ -26,7 +26,7 @@ type FormInputs = {
   address: string;
   postal_code: string;
   email: string;
-  pdf?: string | { upload_id: string }
+  pdf?: string | { upload_id: string, default_field_metadata: any }
   id: string
   mode: 'login' | 'register'
 };
@@ -52,6 +52,7 @@ export default function MemberForm({ activity, show, setShow }: Props) {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [member, setMember] = useState<any | null>(null);
   const [loadingMember, setLoadingMember] = useState(false);
   const abortController = useRef(new AbortController());
   const { status } = useSession();
@@ -66,12 +67,13 @@ export default function MemberForm({ activity, show, setShow }: Props) {
     abortController.current = new AbortController();
 
     try {
+      console.log(data)
 
       const body = { member: data, id: activity.id }
-      const upload = data.pdf ? await createUpload(data.pdf[0] as File, []) : null;
+      const upload = data.pdf[0] instanceof File ? await createUpload(data.pdf[0] as File, []) : null;
 
       if (upload)
-        body.member.pdf = { upload_id: upload.id }
+        body.member.pdf = { upload_id: upload.id, default_field_metadata: upload.default_field_metadata }
 
       const res = await fetch('/api/activity/register', {
         method: 'POST',
@@ -86,12 +88,13 @@ export default function MemberForm({ activity, show, setShow }: Props) {
         throw new Error('Du måste registrera dig först');
 
       if (res.status !== 200)
-        throw new Error('Något gick fel, försök igen senare');
+        throw new Error('Något gick fel, försök igen senare.');
 
-      const result = await res.json();
-      console.log(result)
+      //const result = await res.json();
+      //console.log(result)
       reset()
       setSuccess(true)
+      //fetchMember();
     } catch (e) {
       if (e.name === 'AbortError') return;
       setError(e.message);
@@ -100,27 +103,36 @@ export default function MemberForm({ activity, show, setShow }: Props) {
 
   };
 
+  const fetchMember = async () => {
+    setLoadingMember(true);
+
+    try {
+      const res = await fetch(`/api/activity/member`, { cache: 'no-store' });
+      if (res.status === 200) {
+        const member = await res.json();
+        setMember(member);
+      }
+
+    } catch (e) {
+      console.log(e)
+      setError(e.message)
+    }
+    setLoadingMember(false);
+  }
+
+  useEffect(() => {
+    if (status === 'authenticated')
+      fetchMember();
+  }, [reset, status, show])
+
   useEffect(() => {
 
-    const fetchMember = async () => {
-      setLoadingMember(true);
+    if (!member) return
+    reset(member)
+    setSuccess(false)
+    setError(null)
 
-      try {
-        const res = await fetch(`/api/auth/member`);
-        if (res.status === 200) {
-          const member = await res.json();
-          reset(member);
-        }
-
-      } catch (e) {
-        console.log(e)
-      }
-      setLoadingMember(false);
-    }
-
-    if (status === 'authenticated') fetchMember();
-
-  }, [reset, status, show])
+  }, [member, reset])
 
   useEffect(() => {
     if (window.location.hash !== '#apply?login=1') return
@@ -134,22 +146,20 @@ export default function MemberForm({ activity, show, setShow }: Props) {
 
     if (!file)
       return Promise.reject(new Error('Ingen fil vald'))
-    console.log(process.env.NEXT_PUBLIC_UPLOADS_API_TOKEN)
+
     return new Promise((resolve, reject) => {
       uploadClient.uploads.createFromFileOrBlob({
         fileOrBlob: file,
         filename: file.name,
-        tags: allTags,
+        tags: allTags.concat(['upload']),
         default_field_metadata: {
           en: {
-            alt: '',
-            title: '',
+            alt: file.name,
+            title: file.name,
             custom_data: {}
           }
         },
         onProgress: (info: OnProgressInfo) => {
-          //if (info.payload && 'progress' in info.payload)
-          //onProgress(info.payload.progress)
           console.log(info)
         }
       }).then((u) => resolve(u)).catch(reject)
@@ -158,6 +168,7 @@ export default function MemberForm({ activity, show, setShow }: Props) {
   }, [])
 
   const fields: FormField[] = [
+    { id: 'id', type: 'hidden', value: activity.id },
     { id: 'email', type: 'email', label: 'E-post', required: 'E-post är obligatoriskt', pattern: { value: /\S+@\S+\.\S+/, message: 'Ogiltig e-postadress' } },
     { id: 'first_name', type: 'text', label: 'Namn', required: 'Namn är obligatoriskt' },
     { id: 'last_name', type: 'text', label: 'Efternamn', required: 'Efternamn är obligatoriskt' },
@@ -171,8 +182,7 @@ export default function MemberForm({ activity, show, setShow }: Props) {
     { id: 'education', type: 'textarea', label: 'Utbildning' },
     { id: 'mission', type: 'textarea', label: 'Uppdrag' },
     { id: 'work_category', type: 'textarea', label: 'Arbetskategori' },
-    { id: 'pdf', type: 'file', label: 'Pdf' },
-    { id: 'id', type: 'hidden', value: activity.id },
+    { id: 'pdf', type: 'file', label: 'Pdf', value: '' },
   ]
 
   return (
@@ -189,15 +199,30 @@ export default function MemberForm({ activity, show, setShow }: Props) {
                 </label>
               }
               {type === 'textarea' ?
-                <textarea id={id} {...register(id, { required, pattern })} />
+                <textarea id={id} {
+                  // @ts-ignore
+                  ...register(id, { required, pattern })}
+                  className={cn(errors[id] && s.error)}
+                />
                 :
                 type === 'file' ?
-                  <input id={id} type={type} {...register(id, { required })} accept=".pdf" />
+                  <FileField
+                    id={id}
+                    register={register}
+                    member={member}
+                    className={cn(errors[id] && s.error)}
+                  />
                   :
-                  <input id={id} type={type} value={value} {...register(id, { required, pattern })} />
+                  <input
+                    id={id}
+                    type={type}
+                    value={value}
+                    {
+                    // @ts-ignore
+                    ...register(id, { required, pattern })}
+                    className={cn(errors[id] && s.error)}
+                  />
               }
-
-              {errors[id] && <span className={s.error}>{errors[id].message}</span>}
             </React.Fragment>
           ))}
           {error && <span className={s.error}>{error}</span>}
@@ -217,9 +242,7 @@ export default function MemberForm({ activity, show, setShow }: Props) {
   );
 }
 
-type MemberLoginProps = {
-
-}
+type MemberLoginProps = {}
 
 function MemberLogin({ }: MemberLoginProps) {
 
@@ -283,4 +306,29 @@ function MemberLogin({ }: MemberLoginProps) {
       {error && <span className={s.error}>{error}</span>}
     </form>
   )
+}
+
+type FileFieldProps = {
+  member: any
+  id: string
+  register: any
+  className: string
+}
+
+function FileField({ member, id, register, className }: FileFieldProps) {
+
+  const [newUpload, setNewUpload] = useState(false)
+
+  const upload = member?.[id]
+
+  if (upload && !newUpload) {
+    const title = upload.default_field_metadata?.en?.title ?? upload.title ?? 'Unknow.pdf'
+    return (
+      <div className={cn(s.upload, className)}>
+        <div className={s.title}>{title}</div>
+        <button onClick={() => setNewUpload(true)}>&times;</button>
+      </div>
+    )
+  }
+  return <input id={id} {...register(id)} type="file" accept=".pdf" className={className} />
 }
