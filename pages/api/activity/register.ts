@@ -6,11 +6,7 @@ export const config = {
   maxDuration: 60
 }
 
-const pick = (obj: any, keys) => Object.fromEntries(
-  keys
-    .filter(key => key in obj)
-    .map(key => [key, obj[key]])
-);
+const pick = (obj: any, keys) => Object.fromEntries(keys.filter(key => key in obj).map(key => [key, obj[key]]));
 
 const field_ids = [
   'first_name',
@@ -27,6 +23,7 @@ const field_ids = [
   'education',
   'mission',
   'work_category',
+  'pdf'
 ];
 
 export default async function handler(req: NextRequest, res: NextResponse) {
@@ -59,7 +56,7 @@ export default async function handler(req: NextRequest, res: NextResponse) {
 
     Object.keys(fields).forEach(key => fields[key] && (memberData[key] = fields[key]));
 
-    console.log(memberData)
+    //console.log(memberData)
 
     if (currentMember) {
       console.log('updating member')
@@ -77,8 +74,6 @@ export default async function handler(req: NextRequest, res: NextResponse) {
       }
     }))?.[0];
 
-    console.log('activity id', id, applicationTypeId, member.id)
-
     if (!application) {
       application = await client.items.create({
         item_type: { type: "item_type", id: applicationTypeId },
@@ -92,7 +87,7 @@ export default async function handler(req: NextRequest, res: NextResponse) {
     })
 
   } catch (err) {
-    //console.log(err)
+    console.log(err)
     return new Response(JSON.stringify(err), {
       status: 500,
       headers: { 'content-type': 'application/json' }

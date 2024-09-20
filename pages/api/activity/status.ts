@@ -25,15 +25,16 @@ export default async function handler(req: NextRequest, res: NextResponse) {
     const application = await client.items.find(id);
 
     if (!application) {
-      return new Response(JSON.stringify({}), {
+      return new Response('error', {
         status: 404,
+        statusText: 'Anmälan hittades ej',
         headers: { 'content-type': 'application/json' }
       })
     }
 
     const updatedApplication = await client.items.update(id, { approval_status: approvalStatus });
 
-    return new Response(JSON.stringify({}), {
+    return new Response(JSON.stringify(updatedApplication), {
       headers: { 'content-type': 'application/json' }
     })
 

@@ -3554,6 +3554,12 @@ enum ItemStatus {
   updated = 'updated'
 }
 
+/** Specifies how to filter JSON fields */
+type JsonFilter = {
+  /** Filter records with the specified field defined (i.e. with any value) or not */
+  exists?: InputMaybe<Scalars['BooleanType']>;
+};
+
 type KnowledgeCategoryModelFilter = {
   AND?: InputMaybe<Array<InputMaybe<KnowledgeCategoryModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<KnowledgeCategoryModelFilter>>>;
@@ -4138,6 +4144,7 @@ type MemberModelFilter = {
   _updatedAt?: InputMaybe<UpdatedAtFilter>;
   address?: InputMaybe<StringFilter>;
   age?: InputMaybe<IntegerFilter>;
+  auth?: InputMaybe<JsonFilter>;
   country?: InputMaybe<StringFilter>;
   createdAt?: InputMaybe<CreatedAtFilter>;
   education?: InputMaybe<TextFilter>;
@@ -4147,6 +4154,7 @@ type MemberModelFilter = {
   language?: InputMaybe<StringFilter>;
   lastName?: InputMaybe<StringFilter>;
   mission?: InputMaybe<TextFilter>;
+  pdf?: InputMaybe<FileFilter>;
   phone?: InputMaybe<StringFilter>;
   postalCode?: InputMaybe<StringFilter>;
   sex?: InputMaybe<StringFilter>;
@@ -4222,6 +4230,7 @@ type MemberRecord = RecordInterface & {
   _updatedAt: Scalars['DateTime'];
   address: Scalars['String'];
   age: Scalars['IntType'];
+  auth?: Maybe<Scalars['JsonField']>;
   country: Scalars['String'];
   createdAt: Scalars['DateTime'];
   education?: Maybe<Scalars['String']>;
@@ -4231,6 +4240,7 @@ type MemberRecord = RecordInterface & {
   language: Scalars['String'];
   lastName: Scalars['String'];
   mission?: Maybe<Scalars['String']>;
+  pdf?: Maybe<FileField>;
   phone?: Maybe<Scalars['String']>;
   postalCode: Scalars['String'];
   sex?: Maybe<Scalars['String']>;

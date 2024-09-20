@@ -32,6 +32,7 @@ export default function Activity({ activity: {
 	const endDate = dateEnd ? format(new Date(dateEnd), "d MMMM y") : undefined
 	const [showForm, setShowForm] = useState(false)
 	const { data: session } = useSession()
+	const isAdmin = session?.user?.name === 'admin'
 
 	return (
 		<>
@@ -52,15 +53,18 @@ export default function Activity({ activity: {
 					]}
 				/>
 			</Article>
+
 			<button data-toggled={showForm} className="wide" onClick={() => setShowForm(!showForm)}>
 				Anmäl dig
 			</button>
 
 			<MemberForm activity={activity} show={showForm} setShow={setShowForm} />
 
-			<Link href={`/aktiviteter/${slug}/admin`} prefetch={true}>
-				<button className="wide">Administrera</button>
-			</Link>
+			{isAdmin &&
+				<Link href={`/aktiviteter/${slug}/admin`} prefetch={true}>
+					<button className="wide">Administrera</button>
+				</Link>
+			}
 
 			<Link href={'/aktiviteter'}>
 				<button className="wide">Tillbaka till översikt</button>

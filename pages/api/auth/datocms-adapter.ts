@@ -1,3 +1,4 @@
+//@ts-nocheck
 import type { Adapter } from "next-auth/adapters"
 import { buildClient } from "@datocms/cma-client"
 
@@ -60,8 +61,6 @@ export default function DatoCMSAdapter(): Adapter {
         user = await datocms.items.update(user.id, { auth: JSON.stringify(params) })
         return user.auth
       }
-      //else
-      //return throw new Error('User not found!')
 
     },
     async useVerificationToken(params) {
@@ -72,7 +71,7 @@ export default function DatoCMSAdapter(): Adapter {
       const auth = user ? JSON.parse(user.auth) : null
 
       if (auth?.token === token) {
-        console.log('token matched', user.auth, token)
+        console.log('token matched')
         return auth
       }
       return
