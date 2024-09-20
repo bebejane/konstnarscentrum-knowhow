@@ -25,6 +25,36 @@
       margin-bottom: var(--small-space);
       color: var(--foreground);
       background-color: var(--background);
+      width: 100%;
+    }
+
+    input[type="file"]::file-selector-button {
+      display: none;
+    }
+
+    input[type="file"]::file-selector-label {
+      display: none;
+    }
+
+    .file {
+
+      display: flex;
+      flex-direction: row;
+      padding: 0.8em;
+      background-color: var(--background);
+      margin-bottom: var(--small-space);
+
+      input {
+        display: inline;
+        margin-bottom: 0;
+      }
+
+      button {
+        display: inline;
+        white-space: nowrap;
+        //padding: 0.3em;
+        font-size: 1rem !important;
+      }
     }
 
     .upload {

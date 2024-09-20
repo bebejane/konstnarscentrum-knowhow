@@ -318,11 +318,13 @@ type FileFieldProps = {
 function FileField({ member, id, register, className }: FileFieldProps) {
 
   const [newUpload, setNewUpload] = useState(false)
-
+  const ref = useRef<HTMLInputElement | null>(null)
   const upload = member?.[id]
 
   if (upload && !newUpload) {
+
     const title = upload.default_field_metadata?.en?.title ?? upload.title ?? 'Unknow.pdf'
+
     return (
       <div className={cn(s.upload, className)}>
         <div className={s.title}>{title}</div>
@@ -330,5 +332,16 @@ function FileField({ member, id, register, className }: FileFieldProps) {
       </div>
     )
   }
-  return <input id={id} {...register(id)} type="file" accept=".pdf" className={className} />
+
+  const handleClick = () => {
+    const input = document.getElementById(id) as HTMLInputElement
+    input?.click()
+  }
+
+  return (
+    <div className={cn(s.file, className)}>
+      <button type="button" onClick={handleClick}>Välj fil</button>
+      <input ref={ref} id={id} {...register(id)} type="file" accept=".pdf" className={className} />
+    </div>
+  )
 }
