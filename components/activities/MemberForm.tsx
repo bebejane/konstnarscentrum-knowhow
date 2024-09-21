@@ -12,6 +12,11 @@ const uploadClient = buildClient({
   environment: process.env.NEXT_PUBLIC_DATOCMS_ENVIRONMENT ?? 'main'
 })
 
+type ActivityRecord = {
+  id: string;
+  // Add other properties of ActivityRecord as needed
+};
+
 type Props = {
   activity: ActivityRecord
   show: boolean
@@ -26,13 +31,20 @@ type FormInputs = {
   address: string;
   postal_code: string;
   email: string;
-  pdf?: string | { upload_id: string, default_field_metadata: any }
+  pdf?: File | { upload_id: string, default_field_metadata: any }
   id: string
-  mode: 'login' | 'register'
+  phone?: string;
+  age?: string;
+  sex?: string;
+  country?: string;
+  language?: string;
+  education?: string;
+  mission?: string;
+  work_category?: string;
 };
 
 type FormField = {
-  id: string
+  id: keyof FormInputs
   type: 'email' | 'hidden' | 'text' | 'textarea' | 'file'
   label?: string
   required?: string
@@ -55,7 +67,7 @@ export default function MemberForm({ activity, show, setShow }: Props) {
   const [member, setMember] = useState<any | null>(null);
   const [loadingMember, setLoadingMember] = useState(false);
   const abortController = useRef(new AbortController());
-  const { status } = useSession();
+  const { data: session, status } = useSession();
 
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
 
@@ -70,7 +82,7 @@ export default function MemberForm({ activity, show, setShow }: Props) {
       console.log(data)
 
       const body = { member: data, id: activity.id }
-      const upload = data.pdf[0] instanceof File ? await createUpload(data.pdf[0] as File, []) : null;
+      const upload = data.pdf[0] instanceof File ? await createUpload(data.pdf[0], []) : null;
 
       if (upload)
         body.member.pdf = { upload_id: upload.id, default_field_metadata: upload.default_field_metadata }
@@ -90,12 +102,10 @@ export default function MemberForm({ activity, show, setShow }: Props) {
       if (res.status !== 200)
         throw new Error('Något gick fel, försök igen senare.');
 
-      //const result = await res.json();
-      //console.log(result)
+      const result = await res.json(); console.log(result);
       reset()
       setSuccess(true)
-      //fetchMember();
-    } catch (e) {
+    } catch (e: any) {
       if (e.name === 'AbortError') return;
       setError(e.message);
     }
@@ -113,7 +123,7 @@ export default function MemberForm({ activity, show, setShow }: Props) {
         setMember(member);
       }
 
-    } catch (e) {
+    } catch (e: any) {
       console.log(e)
       setError(e.message)
     }
@@ -142,7 +152,7 @@ export default function MemberForm({ activity, show, setShow }: Props) {
 
   }, [setShow])
 
-  const createUpload = useCallback(async (file: File, allTags): Promise<Upload> => {
+  const createUpload = useCallback(async (file: File, allTags: string[]): Promise<Upload> => {
 
     if (!file)
       return Promise.reject(new Error('Ingen fil vald'))
@@ -199,9 +209,9 @@ export default function MemberForm({ activity, show, setShow }: Props) {
                 </label>
               }
               {type === 'textarea' ?
-                <textarea id={id} {
-                  // @ts-ignore
-                  ...register(id, { required, pattern })}
+                <textarea
+                  id={id}
+                  {...register(id, { required, pattern })}
                   className={cn(errors[id] && s.error)}
                 />
                 :
@@ -217,9 +227,7 @@ export default function MemberForm({ activity, show, setShow }: Props) {
                     id={id}
                     type={type}
                     value={value}
-                    {
-                    // @ts-ignore
-                    ...register(id, { required, pattern })}
+                    {...register(id, { required, pattern })}
                     className={cn(errors[id] && s.error)}
                   />
               }
@@ -253,14 +261,15 @@ function MemberLogin({ }: MemberLoginProps) {
   const [email, setEmail] = useState('');
   const { data: session, status } = useSession();
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
     setSuccess(false);
     setLoading(true);
     setDone(false);
 
-    const email = e.target['email'].value;
+    const emailInput = e.currentTarget.elements.namedItem('email') as HTMLInputElement;
+    const email = emailInput.value;
     const callbackUrl = `${window.location.href.replace('#apply?login=1', '')}#apply?login=1`;
 
     try {
@@ -270,12 +279,12 @@ function MemberLogin({ }: MemberLoginProps) {
         redirect: false,
       });
 
-      if (res.error === 'EmailSignin')
+      if (res?.error === 'EmailSignin')
         setError('Något gick fel, försök igen senare');
       else
         setSuccess(true);
 
-    } catch (e) {
+    } catch (e: any) {
       setError(e.message)
       setSuccess(false);
     }

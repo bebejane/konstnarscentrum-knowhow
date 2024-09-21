@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react';
 import cn from 'classnames';
 import s from './ActivityAdmin.module.scss';
-import { sleep } from '../../lib/utils';
 
 type Props = {
   activity: ActivityRecord,
@@ -135,7 +134,6 @@ export default function ActivityAdmin({ activity, applications: _applications }:
       }
     </>
   )
-
 
   return (
     <table className={s.container}>

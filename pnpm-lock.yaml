@@ -12,11 +12,11 @@ dependencies:
     specifier: 3.3.12
     version: 3.3.12
   '@datocms/cma-client-browser':
-    specifier: ^3.0.1
+    specifier: ^3.3.12
     version: 3.3.12
   '@datocms/cma-client-node':
-    specifier: 3.0.2
-    version: 3.0.2
+    specifier: 3.3.12
+    version: 3.3.12
   '@next/bundle-analyzer':
     specifier: ^12.3.2
     version: 12.3.4(bufferutil@4.0.8)(utf-8-validate@5.0.10)
@@ -76,7 +76,7 @@ dependencies:
     version: 2.30.0
   dato-nextjs-utils:
     specifier: github:bebejane/dato-nextjs-utils
-    version: github.com/bebejane/dato-nextjs-utils/25a4c44aaaf0463f44bcbb4cf5149d300933d057(@apollo/client@3.11.8)(@datocms/cma-client-browser@3.3.12)(@datocms/cma-client-node@3.0.2)(@datocms/cma-client@3.3.12)(@types/node@18.19.50)(@types/react-dom@18.3.0)(@types/react@18.3.8)(datocms-listen@1.0.1)(next-seo@5.15.0)(next@14.2.7)(react-datocms@6.0.6)(react-dom@18.3.1)(react@18.3.1)
+    version: github.com/bebejane/dato-nextjs-utils/25a4c44aaaf0463f44bcbb4cf5149d300933d057(@apollo/client@3.11.8)(@datocms/cma-client-browser@3.3.12)(@datocms/cma-client-node@3.3.12)(@datocms/cma-client@3.3.12)(@types/node@18.19.50)(@types/react-dom@18.3.0)(@types/react@18.3.8)(datocms-listen@1.0.1)(next-seo@5.15.0)(next@14.2.7)(react-datocms@6.0.6)(react-dom@18.3.1)(react@18.3.1)
   datocms-structured-text-to-html-string:
     specifier: 4.0.0
     version: 4.0.0
@@ -84,7 +84,7 @@ dependencies:
     specifier: ^2.0.4
     version: 2.1.12
   dotenv:
-    specifier: ^16.0.0
+    specifier: ^16.4.5
     version: 16.4.5
   email-validator:
     specifier: ^2.0.4
@@ -130,7 +130,7 @@ dependencies:
     version: 2.0.8(mjml@4.15.3)(react-dom@18.3.1)(react@18.3.1)
   next:
     specifier: 14.2.7
-    version: 14.2.7(@babel/core@7.25.2)(react-dom@18.3.1)(react@18.3.1)(sass@1.79.2)
+    version: 14.2.7(@babel/core@7.25.2)(react-dom@18.3.1)(react@18.3.1)(sass@1.79.3)
   next-auth:
     specifier: 4.19.2
     version: 4.19.2(next@14.2.7)(nodemailer@6.9.15)(react-dom@18.3.1)(react@18.3.1)
@@ -155,6 +155,9 @@ dependencies:
   nextjs-google-analytics:
     specifier: ^2.2.0
     version: 2.3.7(next@14.2.7)(react@18.3.1)
+  node-fetch:
+    specifier: ^3.3.2
+    version: 3.3.2
   nodemailer:
     specifier: ^6.9.15
     version: 6.9.15
@@ -214,7 +217,7 @@ dependencies:
     version: 7.14.1(react-dom@18.3.1)(react@18.3.1)
   sass:
     specifier: ^1.56.0
-    version: 1.79.2
+    version: 1.79.3
   slugify:
     specifier: ^1.6.5
     version: 1.6.6
@@ -289,6 +292,9 @@ devDependencies:
   '@types/lodash-es':
     specifier: ^4.17.6
     version: 4.17.12
+  '@types/node-fetch':
+    specifier: ^2.6.11
+    version: 2.6.11
   '@types/react':
     specifier: ^18.0.23
     version: 18.3.8
@@ -1935,16 +1941,6 @@ packages:
       '@datocms/rest-client-utils': 3.3.10
     dev: false
 
-  /@datocms/cma-client-node@3.0.2:
-    resolution: {integrity: sha512-NdTDigCQrVgw3Y46wRXk+P8c0CX8BhE1bblTaUCkCbDJik1wMfvyxaBqT3QbhAT98r+NeDqFd4I/mxmPf++JVA==}
-    dependencies:
-      '@datocms/cma-client': 3.3.12
-      '@datocms/rest-client-utils': 3.3.10
-      got: 11.8.6
-      mime-types: 2.1.35
-      tmp-promise: 3.0.3
-    dev: false
-
   /@datocms/cma-client-node@3.3.12:
     resolution: {integrity: sha512-rJWdDI4InD/29T6BQHOd53OO+HfSCwHMz8j89bQe4helGvZkKbPGyTxrwEglV8xJlpkpT9U+UTkI41GAjQJ76A==}
     dependencies:
@@ -1953,7 +1949,6 @@ packages:
       got: 11.8.6
       mime-types: 2.1.35
       tmp-promise: 3.0.3
-    dev: true
 
   /@datocms/cma-client@3.3.12:
     resolution: {integrity: sha512-atPin559flVi27s6s+kYyuSbE4VTkEf1+sbgTBklfx4I2yuAHUYdUKMFFoEIiBnEEsGMf9orsphK0Rt3xyT/qg==}
@@ -3032,8 +3027,8 @@ packages:
       - supports-color
     dev: false
 
-  /@mux/mux-player-react@2.9.1(@types/react-dom@18.3.0)(@types/react@18.3.8)(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-1BpMs1J7P+d+/QCf9/mkTk/NPYR6sOskR4Ih0uFZjDAqNUN7/C9Q0FEJ6hF3sFXwAXo50RhnfCzsC5uYx3QHbA==}
+  /@mux/mux-player-react@3.0.0(@types/react-dom@18.3.0)(@types/react@18.3.8)(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-W6NCgZ7Syh67HdsPFZGLtw98y9L/et4efqdVaYzgK5vJOMWFhEetLkal49LyoskhhyrFlPgZWsTTBcTQf+YJdg==}
     peerDependencies:
       '@types/react': ^17.0.0 || ^18 || ^19
       '@types/react-dom': '*'
@@ -3045,8 +3040,8 @@ packages:
       '@types/react-dom':
         optional: true
     dependencies:
-      '@mux/mux-player': 2.9.1
-      '@mux/playback-core': 0.25.2
+      '@mux/mux-player': 3.0.0
+      '@mux/playback-core': 0.26.0
       '@types/react': 18.3.8
       '@types/react-dom': 18.3.0
       prop-types: 15.8.1
@@ -3054,28 +3049,29 @@ packages:
       react-dom: 18.3.1(react@18.3.1)
     dev: false
 
-  /@mux/mux-player@2.9.1:
-    resolution: {integrity: sha512-TAyoUSPTV0IXWGMOknL6O+IeGSEJ8aS154DzyzqZgdd3zDJHM8JpkyNHgtowatMHT2lB6h+qMtWfp4u3ijpo2A==}
+  /@mux/mux-player@3.0.0:
+    resolution: {integrity: sha512-ZdJGSQ+uoh1A5quo7p6pQXRO7zh9hxcbAaRf21aOZHW7rWEF/SP5hp6ruRGZe5Za2EGVrVbMQpGUpfWSBFBLZA==}
     dependencies:
-      '@mux/mux-video': 0.20.2
-      '@mux/playback-core': 0.25.2
-      media-chrome: 3.2.5
+      '@mux/mux-video': 0.21.0
+      '@mux/playback-core': 0.26.0
+      media-chrome: 4.1.1
+      player.style: 0.0.8
     dev: false
 
-  /@mux/mux-video@0.20.2:
-    resolution: {integrity: sha512-CqkK9EZZWdQE4U62JKlmWDskirT+D9C4suh2tSqKb2CA/0S4ybbbrVWcCKF7xfadUacfKO1yPsOKbe46F6phVQ==}
+  /@mux/mux-video@0.21.0:
+    resolution: {integrity: sha512-/NUIJBYBAOd5P3oyN8bpUGShuUbVOE+y70MP5De8SqMj2mKG0WuY75biuU8ormoI5Jv474Ps7PWPA/MHyg44TA==}
     dependencies:
-      '@mux/playback-core': 0.25.2
-      castable-video: 1.0.10
+      '@mux/playback-core': 0.26.0
+      castable-video: 1.1.0
       custom-media-element: 1.3.2
       media-tracks: 0.3.3
     dev: false
 
-  /@mux/playback-core@0.25.2:
-    resolution: {integrity: sha512-vrBbCgLHwmPpVxF0QGj+sXHUVXSxgDJJhVm8pxPXEkbw0vjPNHTXgAd/Ty6JA0vZ0ZjoQuAa17AxJ+c02JYeWQ==}
+  /@mux/playback-core@0.26.0:
+    resolution: {integrity: sha512-Q2M+g6gAC8dwX62YGWiK6R+IT5gc3ArgQ0rI13SY6na3bKcbx8oL/tKRSi2iTnBhl0dcZrlezuVUCN6PE87nNQ==}
     dependencies:
       hls.js: 1.5.15
-      mux-embed: 5.2.1
+      mux-embed: 5.3.0
     dev: false
 
   /@next/bundle-analyzer@12.3.4(bufferutil@4.0.8)(utf-8-validate@5.0.10):
@@ -5361,7 +5357,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001662
-      electron-to-chromium: 1.5.26
+      electron-to-chromium: 1.5.27
       node-releases: 2.0.18
       update-browserslist-db: 1.1.0(browserslist@4.23.3)
 
@@ -5502,8 +5498,8 @@ packages:
       redeyed: 2.1.1
     dev: true
 
-  /castable-video@1.0.10:
-    resolution: {integrity: sha512-tJgUv+8/zE191y8EKojvB0eKIyKA9obIttd6Wpdm6x2qBmuwZ7wDgzVCSmf5cN2v9jBiuu0s7O5poz8a8cFX/w==}
+  /castable-video@1.1.0:
+    resolution: {integrity: sha512-64/roq+vieXz8aOEvSs5bohHRym1fxhvHQMZXPn8/s8z0oi7XD5B67fnt9gFyCsfzH8RnuYJ0PxMSYjbMPHOtw==}
     dependencies:
       custom-media-element: 1.3.2
     dev: false
@@ -6106,6 +6102,11 @@ packages:
     resolution: {integrity: sha512-sdQSFB7+llfUcQHUQO3+B8ERRj0Oa4w9POWMI/puGtuf7gFywGmkaLCElnudfTiKZV+NvHqL0ifzdrI8Ro7ESA==}
     dev: true
 
+  /data-uri-to-buffer@4.0.1:
+    resolution: {integrity: sha512-0R9ikRb668HB7QDxT1vkpuUBtqc53YyAwMwGeUFKRojY/NWKvdZ+9UYtRfGmhqNbRkTSVpMbmyhXipFFv2cb/A==}
+    engines: {node: '>= 12'}
+    dev: false
+
   /data-view-buffer@1.0.1:
     resolution: {integrity: sha512-0lht7OugA5x3iJLOWFhWK/5ehONdprk0ISXqVFn/NFrDu+cuc8iADFrGQz5BnRK7LLU3JmkbXSxaqX+/mXYtUA==}
     engines: {node: '>= 0.4'}
@@ -6498,8 +6499,8 @@ packages:
       jake: 10.9.2
     dev: true
 
-  /electron-to-chromium@1.5.26:
-    resolution: {integrity: sha512-Z+OMe9M/V6Ep9n/52+b7lkvYEps26z4Yz3vjWL1V61W0q+VLF1pOHhMY17sa4roz4AWmULSI8E6SAojZA5L0YQ==}
+  /electron-to-chromium@1.5.27:
+    resolution: {integrity: sha512-o37j1vZqCoEgBuWWXLHQgTN/KDKe7zwpiY5CPeq2RvUqOyJw9xnrULzZAEVQ5p4h+zjMk7hgtOoPdnLxr7m/jw==}
 
   /elegant-spinner@1.0.1:
     resolution: {integrity: sha512-B+ZM+RXvRqQaAmkMlO/oSe5nMUOaUnyfGYCEHoR8wrXsZR2mA0XVibsxV1bvTwxdRWah1PkQqso2EzhILGHtEQ==}
@@ -7455,6 +7456,14 @@ packages:
       - encoding
     dev: true
 
+  /fetch-blob@3.2.0:
+    resolution: {integrity: sha512-7yAQpD2UMJzLi1Dqv7qFYnPbaPx7ZfFK6PiIxQ4PfkGPyNyl2Ugx+a/umUonmKqjhM4DnfbMvdX6otXq83soQQ==}
+    engines: {node: ^12.20 || >= 14.13}
+    dependencies:
+      node-domexception: 1.0.0
+      web-streams-polyfill: 3.3.3
+    dev: false
+
   /figures@1.7.0:
     resolution: {integrity: sha512-UxKlfCRuCBxSXU4C6t9scbDyWZ4VlaFFdojKtzJuSkuOBQ5CNFum+zZXFwHjo+CxBC1t6zlYPgHIgFjL8ggoEQ==}
     engines: {node: '>=0.10.0'}
@@ -7567,6 +7576,13 @@ packages:
       asynckit: 0.4.0
       combined-stream: 1.0.8
       mime-types: 2.1.35
+
+  /formdata-polyfill@4.0.10:
+    resolution: {integrity: sha512-buewHzMvYL29jdeQTVILecSaZKnt/RJWjoZCF5OW60Z67/GmSLBkOFM7qh1PI3zFNtJbaZL5eQu1vLfazOwj4g==}
+    engines: {node: '>=12.20.0'}
+    dependencies:
+      fetch-blob: 3.2.0
+    dev: false
 
   /fraction.js@4.3.7:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
@@ -8360,7 +8376,7 @@ packages:
       '@types/node': 17.0.45
       cookie: 0.5.0
       iron-webcrypto: 0.2.8
-      next: 14.2.7(@babel/core@7.25.2)(react-dom@18.3.1)(react@18.3.1)(sass@1.79.2)
+      next: 14.2.7(@babel/core@7.25.2)(react-dom@18.3.1)(react@18.3.1)(sass@1.79.3)
     dev: false
 
   /iron-webcrypto@0.2.8:
@@ -9388,7 +9404,7 @@ packages:
       lodash: 4.17.21
       mailing-core: 1.1.0(encoding@0.1.13)(react-dom@18.3.1)(react@18.3.1)
       mjml: 4.15.3(encoding@0.1.13)
-      next: 14.2.7(@babel/core@7.25.2)(react-dom@18.3.1)(react@18.3.1)(sass@1.79.2)
+      next: 14.2.7(@babel/core@7.25.2)(react-dom@18.3.1)(react@18.3.1)(sass@1.79.3)
       node-fetch: 2.7.0(encoding@0.1.13)
       node-html-parser: 6.1.13
       nodemailer: 6.8.0
@@ -9590,8 +9606,8 @@ packages:
     resolution: {integrity: sha512-dn6wd0uw5GsdswPFfsgMp5NSB0/aDe6fK94YJV/AJDYXL6HVLWBsxeq7js7Ad+mU2K9LAlwpk6kN2D5mwCPVow==}
     dev: false
 
-  /media-chrome@3.2.5:
-    resolution: {integrity: sha512-tTsgS7x77Bn4p/wca/Si/7A+Q3z9DzKq0SOkroQvrNMXBVyQasMayDcsKg5Ur5NGsymZfttnJi7tXvVr/tPj8g==}
+  /media-chrome@4.1.1:
+    resolution: {integrity: sha512-3L2S8ZF0aGM99ULW9bKftgjsrZLK07+ExzRAaephRPOfO+8ann+1iQ+CimuQ+UY6xqlON6Acm5jKi0u13buaLQ==}
     dev: false
 
   /media-tracks@0.3.3:
@@ -10360,8 +10376,8 @@ packages:
     resolution: {integrity: sha512-nnbWWOkoWyUsTjKrhgD0dcz22mdkSnpYqbEjIm2nhwhuxlSkpywJmBo8h0ZqJdkp73mb90SssHkN4rsRaBAfAA==}
     dev: true
 
-  /mux-embed@5.2.1:
-    resolution: {integrity: sha512-NukHw91xeEVDBeXVDBpi2BvXNix7gSuvdtyvOph5yR/ROn1hHbTlcYWoKQyCyJX9frsF00UROEul+S8wPzU3aQ==}
+  /mux-embed@5.3.0:
+    resolution: {integrity: sha512-d9dMFKL2Opcv6P/+VjdzafWLdzHN4APtWoszkAOJ5b3p2qvZJ0HW9OgybKrJ+ggk9tQfE0yL5GrPeebSkUG7UA==}
     dev: false
 
   /mz@2.7.0:
@@ -10410,7 +10426,7 @@ packages:
       '@panva/hkdf': 1.2.1
       cookie: 0.5.0
       jose: 4.15.9
-      next: 14.2.7(@babel/core@7.25.2)(react-dom@18.3.1)(react@18.3.1)(sass@1.79.2)
+      next: 14.2.7(@babel/core@7.25.2)(react-dom@18.3.1)(react@18.3.1)(sass@1.79.3)
       nodemailer: 6.9.15
       oauth: 0.9.15
       openid-client: 5.7.0
@@ -10440,7 +10456,7 @@ packages:
       react: '>=16.0.0'
       react-dom: '>=16.0.0'
     dependencies:
-      next: 14.2.7(@babel/core@7.25.2)(react-dom@18.3.1)(react@18.3.1)(sass@1.79.2)
+      next: 14.2.7(@babel/core@7.25.2)(react-dom@18.3.1)(react@18.3.1)(sass@1.79.3)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
     dev: false
@@ -10456,7 +10472,7 @@ packages:
       '@corex/deepmerge': 4.0.43
       '@next/env': 13.5.7
       minimist: 1.2.8
-      next: 14.2.7(@babel/core@7.25.2)(react-dom@18.3.1)(react@18.3.1)(sass@1.79.2)
+      next: 14.2.7(@babel/core@7.25.2)(react-dom@18.3.1)(react@18.3.1)(sass@1.79.3)
     dev: false
 
   /next-themes@0.2.1(next@14.2.7)(react-dom@18.3.1)(react@18.3.1):
@@ -10466,12 +10482,12 @@ packages:
       react: '*'
       react-dom: '*'
     dependencies:
-      next: 14.2.7(@babel/core@7.25.2)(react-dom@18.3.1)(react@18.3.1)(sass@1.79.2)
+      next: 14.2.7(@babel/core@7.25.2)(react-dom@18.3.1)(react@18.3.1)(sass@1.79.3)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
     dev: false
 
-  /next@14.2.7(@babel/core@7.25.2)(react-dom@18.3.1)(react@18.3.1)(sass@1.79.2):
+  /next@14.2.7(@babel/core@7.25.2)(react-dom@18.3.1)(react@18.3.1)(sass@1.79.3):
     resolution: {integrity: sha512-4Qy2aK0LwH4eQiSvQWyKuC7JXE13bIopEQesWE0c/P3uuNRnZCQanI0vsrMLmUQJLAto+A+/8+sve2hd+BQuOQ==}
     engines: {node: '>=18.17.0'}
     hasBin: true
@@ -10497,7 +10513,7 @@ packages:
       postcss: 8.4.31
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
-      sass: 1.79.2
+      sass: 1.79.3
       styled-jsx: 5.1.1(@babel/core@7.25.2)(react@18.3.1)
     optionalDependencies:
       '@next/swc-darwin-arm64': 14.2.7
@@ -10520,7 +10536,7 @@ packages:
       next: ^8.1.1-canary.54 || ^9.0.0 || ^10.0.0-0 || ^11.0.0 || ^12.0.0 || ^13.0.0 || ^14.0.0
     dependencies:
       cors: 2.8.5
-      next: 14.2.7(@babel/core@7.25.2)(react-dom@18.3.1)(react@18.3.1)(sass@1.79.2)
+      next: 14.2.7(@babel/core@7.25.2)(react-dom@18.3.1)(react@18.3.1)(sass@1.79.3)
     dev: false
 
   /nextjs-google-analytics@2.3.7(next@14.2.7)(react@18.3.1):
@@ -10529,7 +10545,7 @@ packages:
       next: '>=11.0.0'
       react: '>=17.0.0'
     dependencies:
-      next: 14.2.7(@babel/core@7.25.2)(react-dom@18.3.1)(react@18.3.1)(sass@1.79.2)
+      next: 14.2.7(@babel/core@7.25.2)(react-dom@18.3.1)(react@18.3.1)(sass@1.79.3)
       react: 18.3.1
     optionalDependencies:
       fsevents: 2.3.3
@@ -10550,6 +10566,11 @@ packages:
     resolution: {integrity: sha512-eh0GgfEkpnoWDq+VY8OyvYhFEzBk6jIYbRKdIlyTiAXIVJ8PyBaKb0rp7oDtoddbdoHWhq8wwr+XZ81F1rpNdA==}
     dev: false
 
+  /node-domexception@1.0.0:
+    resolution: {integrity: sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==}
+    engines: {node: '>=10.5.0'}
+    dev: false
+
   /node-fetch@1.7.3:
     resolution: {integrity: sha512-NhZ4CsKx7cYm2vSrBAr2PvFOe6sWDf0UYLRqA6svUYg7+/TSfVAu49jYC4BvQ4Sms9SZgdqGBgroqfDhJdTyKQ==}
     dependencies:
@@ -10568,6 +10589,15 @@ packages:
     dependencies:
       encoding: 0.1.13
       whatwg-url: 5.0.0
+
+  /node-fetch@3.3.2:
+    resolution: {integrity: sha512-dRB78srN/l6gqWulah9SrxeYnxeddIG30+GOqK/9OlLVyLg3HPnr6SqOWTWOXKRwC2eGYCkZ59NNuSgvSrpgOA==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    dependencies:
+      data-uri-to-buffer: 4.0.1
+      fetch-blob: 3.2.0
+      formdata-polyfill: 4.0.10
+    dev: false
 
   /node-gyp-build@4.8.2:
     resolution: {integrity: sha512-IRUxE4BVsHWXkV/SFOut4qTlagw2aM8T5/vnTsmrHJvVoKueJHRc/JaFND7QDDc61kLYUJ6qlZM3sqTSyx2dTw==}
@@ -11098,6 +11128,12 @@ packages:
     engines: {node: '>= 6'}
     dev: false
 
+  /player.style@0.0.8:
+    resolution: {integrity: sha512-ScmFzio3634eEn+ejpkEw13F5xYvnPghtaZz/Kg7QQP78ECrxdjRVqwVPZhUwbYxmg5OIScByOgHfrHpzTtR1Q==}
+    dependencies:
+      media-chrome: 4.1.1
+    dev: false
+
   /possible-typed-array-names@1.0.0:
     resolution: {integrity: sha512-d7Uw+eZoloe0EHDIYoe+bQ5WXnGMOpmiZFTuMWCwpjzzkL2nTjcKiAk4hh8TjnGye2TwWOk3UXucZ+3rbmBa8Q==}
     engines: {node: '>= 0.4'}
@@ -11418,7 +11454,7 @@ packages:
     peerDependencies:
       react: '>= 16.12.0'
     dependencies:
-      '@mux/mux-player-react': 2.9.1(@types/react-dom@18.3.0)(@types/react@18.3.8)(react-dom@18.3.1)(react@18.3.1)
+      '@mux/mux-player-react': 3.0.0(@types/react-dom@18.3.0)(@types/react@18.3.8)(react-dom@18.3.1)(react@18.3.1)
       datocms-listen: 0.1.15(graphql@16.9.0)
       datocms-structured-text-generic-html-renderer: 4.0.1
       datocms-structured-text-utils: 4.0.1
@@ -12002,8 +12038,8 @@ packages:
   /safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
 
-  /sass@1.79.2:
-    resolution: {integrity: sha512-YmT1aoF1MwHsZEu/eXhbAJNsPGAhNP4UixW9ckEwWCvPcVdVF0/C104OGDVEqtoctKq0N+wM20O/rj+sSPsWeg==}
+  /sass@1.79.3:
+    resolution: {integrity: sha512-m7dZxh0W9EZ3cw50Me5GOuYm/tVAJAn91SUnohLRo9cXBixGUOdvmryN+dXpwR831bhoY3Zv7rEFt85PUwTmzA==}
     engines: {node: '>=14.0.0'}
     hasBin: true
     dependencies:
@@ -13370,7 +13406,6 @@ packages:
   /web-streams-polyfill@3.3.3:
     resolution: {integrity: sha512-d2JWLCivmZYTSIoge9MsgFCZrt571BikcWGYkjC1khllbTeDlGqZ2D8vD8E/lJa8WGWbb7Plm8/XJYV7IJHZZw==}
     engines: {node: '>= 8'}
-    dev: true
 
   /webcrypto-core@1.8.0:
     resolution: {integrity: sha512-kR1UQNH8MD42CYuLzvibfakG5Ew5seG85dMMoAM/1LqvckxaF6pUiidLuraIu4V+YCIFabYecUZAW0TuxAoaqw==}
@@ -13769,7 +13804,7 @@ packages:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
     dev: false
 
-  github.com/bebejane/dato-nextjs-utils/25a4c44aaaf0463f44bcbb4cf5149d300933d057(@apollo/client@3.11.8)(@datocms/cma-client-browser@3.3.12)(@datocms/cma-client-node@3.0.2)(@datocms/cma-client@3.3.12)(@types/node@18.19.50)(@types/react-dom@18.3.0)(@types/react@18.3.8)(datocms-listen@1.0.1)(next-seo@5.15.0)(next@14.2.7)(react-datocms@6.0.6)(react-dom@18.3.1)(react@18.3.1):
+  github.com/bebejane/dato-nextjs-utils/25a4c44aaaf0463f44bcbb4cf5149d300933d057(@apollo/client@3.11.8)(@datocms/cma-client-browser@3.3.12)(@datocms/cma-client-node@3.3.12)(@datocms/cma-client@3.3.12)(@types/node@18.19.50)(@types/react-dom@18.3.0)(@types/react@18.3.8)(datocms-listen@1.0.1)(next-seo@5.15.0)(next@14.2.7)(react-datocms@6.0.6)(react-dom@18.3.1)(react@18.3.1):
     resolution: {tarball: https://codeload.github.com/bebejane/dato-nextjs-utils/tar.gz/25a4c44aaaf0463f44bcbb4cf5149d300933d057}
     id: github.com/bebejane/dato-nextjs-utils/25a4c44aaaf0463f44bcbb4cf5149d300933d057
     name: dato-nextjs-utils
@@ -13793,14 +13828,14 @@ packages:
       '@apollo/client': 3.11.8(@types/react@18.3.8)(graphql@16.9.0)(react-dom@18.3.1)(react@18.3.1)
       '@datocms/cma-client': 3.3.12
       '@datocms/cma-client-browser': 3.3.12
-      '@datocms/cma-client-node': 3.0.2
+      '@datocms/cma-client-node': 3.3.12
       '@next/env': 13.5.7
       '@types/node': 18.19.50
       '@types/react': 18.3.8
       '@types/react-dom': 18.3.0
       datocms-listen: 1.0.1(graphql@16.9.0)
       markdown-truncate: 1.1.1
-      next: 14.2.7(@babel/core@7.25.2)(react-dom@18.3.1)(react@18.3.1)(sass@1.79.2)
+      next: 14.2.7(@babel/core@7.25.2)(react-dom@18.3.1)(react@18.3.1)(sass@1.79.3)
       next-seo: 5.15.0(next@14.2.7)(react-dom@18.3.1)(react@18.3.1)
       react: 18.3.1
       react-datocms: 6.0.6(@types/react-dom@18.3.0)(@types/react@18.3.8)(graphql@16.9.0)(react-dom@18.3.1)(react@18.3.1)

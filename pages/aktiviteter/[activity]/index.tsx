@@ -54,12 +54,15 @@ export default function Activity({ activity: {
 				/>
 			</Article>
 
-			<button data-toggled={showForm} className="wide" onClick={() => setShowForm(!showForm)}>
-				Anmäl dig
-			</button>
+			{!isAdmin &&
+				<>
+					<button data-toggled={showForm} className="wide" onClick={() => setShowForm(!showForm)}>
+						Anmäl dig
+					</button>
 
-			<MemberForm activity={activity} show={showForm} setShow={setShowForm} />
-
+					<MemberForm activity={activity} show={showForm} setShow={setShowForm} />
+				</>
+			}
 			{isAdmin &&
 				<Link href={`/aktiviteter/${slug}/admin`} prefetch={true}>
 					<button className="wide">Administrera</button>
