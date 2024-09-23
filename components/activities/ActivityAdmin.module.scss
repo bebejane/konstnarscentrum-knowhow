@@ -117,6 +117,11 @@
       top: 0;
       right: 0;
       border: 0;
+      padding: var(--outer-margin);
+      &:hover {
+        background-color: var(--background);
+        color: var(--foreground);
+      }
     }
   }
 
