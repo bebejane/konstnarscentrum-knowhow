@@ -195,7 +195,7 @@ export default function MemberForm({ activity, show, setShow }: Props) {
     }
   }
 
-  const fields: FormField[] = [
+  let fields: FormField[] = [
     { id: 'id', type: 'hidden', value: activity.id },
     { id: 'email', type: 'email', label: 'E-post', required: 'E-post är obligatoriskt', pattern: { value: /\S+@\S+\.\S+/, message: 'Ogiltig e-postadress' } },
     { id: 'kc_member', type: 'checkbox', label: 'Jag är medlem i Konstnärscentrum' },
@@ -206,14 +206,15 @@ export default function MemberForm({ activity, show, setShow }: Props) {
     { id: 'postal_code', type: 'text', label: 'Postnummer', required: 'Postnummer är obligatoriskt' },
     { id: 'phone', type: 'text', label: 'Telefon' },
     { id: 'age', type: 'text', label: 'Ålder', required: 'Ålder är obligatoriskt' },
-    { id: 'sex', type: 'select', label: 'Kön', required: 'Kön är obligatoriskt', options: [{ id: 'female', value: 'Kvinna' }, { id: 'man', value: 'Man' }, { id: 'other', value: 'Annat' }] },
+    { id: 'sex', type: 'select', label: 'Kön', required: 'Kön är obligatoriskt', options: [{ id: 'Kvinna', value: 'Kvinna' }, { id: 'Man', value: 'Man' }, { id: 'Annat', value: 'Annat' }] },
     { id: 'country', type: 'text', label: 'Födelseland', required: 'Födelseland är obligatoriskt' },
     { id: 'language', type: 'text', label: 'Språk', required: 'Språk är obligatoriskt' },
     { id: 'education', type: 'textarea', label: 'Utbildning' },
     { id: 'mission', type: 'textarea', label: 'Uppdrag' },
     { id: 'work_category', type: 'textarea', label: 'Arbetskategori' },
     { id: 'pdf', type: 'file', label: 'Pdf', value: '' },
-  ].filter(({ id }) => isAlreadyMember && !['email', 'kc_member', 'id'].includes(id) ? false : true)
+  ]
+  fields = fields.filter(({ id }) => isAlreadyMember && !['email', 'kc_member', 'id'].includes(id) ? false : true)
 
   return (
     <div id="apply" className={cn(s.container, show && s.show)}>
