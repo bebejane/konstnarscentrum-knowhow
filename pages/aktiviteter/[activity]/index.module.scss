@@ -1,2 +1,7 @@
-.container {
+.apply {
+  border: 3px solid;
+
+  &[data-toggled="true"] {
+    border: 3px solid var(--orange);
+  }
 }
