@@ -90,7 +90,9 @@ export default function MemberForm({ activity, show, setShow }: Props) {
       const upload = data.pdf[0] instanceof File ? await createUpload(data.pdf[0], []) : null;
 
       if (upload)
-        body.member.pdf = { upload_id: upload.id, default_field_metadata: upload.default_field_metadata }
+        body.member.pdf = { upload_id: upload.id, default_field_metadata: upload.default_field_metadata } ?? null
+      else
+        body.member.pdf = null
 
       const res = await fetch('/api/activity/register', {
         method: 'POST',
