@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import Modal from '/components/layout/Modal';
 import cn from 'classnames';
 import s from './ActivityAdmin.module.scss';
 
@@ -14,7 +15,9 @@ export default function ActivityAdmin({ activity, applications: _applications }:
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [applications, setApplications] = useState(_applications);
+  const [application, setApplication] = useState<ApplicationRecord | null>(null);
   const [open, setOpen] = useState({});
+  const [showModal, setShowModal] = useState(false);
   const abortController = useRef(new AbortController());
   const colSpanMax = 20;
 
@@ -93,12 +96,12 @@ export default function ActivityAdmin({ activity, applications: _applications }:
   const declined = applications.filter((application) => application.approvalStatus === 'DECLINED');
   const pending = applications.filter((application) => application.approvalStatus === 'PENDING');
 
-  const Application = ({ application: { id, approvalStatus, member }, decline = 'Bortvald', approve = 'Utvald' }) => (
+  const Application = ({ application: { id, approvalStatus, member }, application, decline = 'Bortvald', approve = 'Utvald' }) => (
     <>
       <tr
         key={id}
         className={open[id] ? s.open : undefined}
-        onClick={() => setOpen((o) => ({ ...o, [id]: open[id] ? false : true }))}
+        onClick={() => setApplication(application)}
       >
         <td>{member.firstName} {member.lastName}</td>
         <td>{member.email}</td>
@@ -106,7 +109,6 @@ export default function ActivityAdmin({ activity, applications: _applications }:
         <td>{member.age}</td>
         <td>{member.country}</td>
         <td>{member.language}</td>
-
         <td className={s.buttons}>
 
           <button
@@ -136,31 +138,57 @@ export default function ActivityAdmin({ activity, applications: _applications }:
   )
 
   return (
-    <table className={s.container}>
-      <tbody>
-        <tr><th colSpan={colSpanMax}>Ohanterade anmälningar ({pending.length})</th></tr>
-        <tr><td colSpan={colSpanMax}><hr /></td></tr>
-        {pending.map((application, i) => <Application key={i} application={application} />)}
-        {!pending.length && <tr><td>Alla anmälningar hanterade</td></tr>}
+    <>
+      <table className={s.container}>
+        <tbody>
+          <tr><th colSpan={colSpanMax}>Ohanterade anmälningar ({pending.length})</th></tr>
+          <tr><td colSpan={colSpanMax}><hr /></td></tr>
+          {pending.map((application, i) => <Application key={i} application={application} />)}
+          {!pending.length && <tr><td>Alla anmälningar hanterade</td></tr>}
 
-        <tr><th colSpan={colSpanMax}>Utvalda ({approved.length})</th></tr>
-        <tr><td colSpan={colSpanMax}><hr /></td></tr>
-        {approved.map((application, i) => <Application key={i} application={application} />)}
-        {!approved.length && <tr><td>Inga anmälningar är utvalda</td></tr>}
+          <tr><th colSpan={colSpanMax}>Utvalda ({approved.length})</th></tr>
+          <tr><td colSpan={colSpanMax}><hr /></td></tr>
+          {approved.map((application, i) => <Application key={i} application={application} />)}
+          {!approved.length && <tr><td>Inga anmälningar är utvalda</td></tr>}
 
-        <tr><th colSpan={colSpanMax}>Bortvalda ({declined.length})</th></tr>
-        <tr><td colSpan={colSpanMax}><hr /></td></tr>
-        {declined.map((application, i) => <Application key={i} application={application} approve="Ångra" />)}
-        {!declined.length && <tr><td>Inga anmälningar är bortvalda</td></tr>}
+          <tr><th colSpan={colSpanMax}>Bortvalda ({declined.length})</th></tr>
+          <tr><td colSpan={colSpanMax}><hr /></td></tr>
+          {declined.map((application, i) => <Application key={i} application={application} approve="Ångra" />)}
+          {!declined.length && <tr><td>Inga anmälningar är bortvalda</td></tr>}
 
-        <tr><td colSpan={colSpanMax}>{error && <p className={s.error}>{error}</p>}</td></tr>
+          <tr><td colSpan={colSpanMax}>{error && <p className={s.error}>{error}</p>}</td></tr>
 
-        <tr>
-          <td colSpan={colSpanMax}>
-            <button className={cn("wide", s.export)} onClick={handleExport} disabled={approved.length === 0}>Exportera lista</button>
-          </td>
-        </tr>
-      </tbody >
-    </table >
+          <tr>
+            <td colSpan={colSpanMax}>
+              <button className={cn("wide", s.export)} onClick={handleExport} disabled={approved.length === 0}>Exportera lista</button>
+            </td>
+          </tr>
+        </tbody >
+      </table >
+      {application &&
+        <Modal>
+          <div className={cn(s.modal, application && s.show)}>
+            <div className={s.wrap}>
+              <div className={s.content}>
+                <h5>{application?.member?.firstName} {application?.member?.lastName}</h5>
+                <span>{application.member?.email}</span><br />
+                <span>{application.member?.address}</span><br />
+                <span>{application.member?.postalCode} {application.member?.city}</span><br />
+                <span>{application.member?.phone}</span><br />
+                <span>{application.member?.country}</span><br />
+                <span>{application.member?.language}</span><br />
+                <span>{application.member?.age}</span><br />
+                <span>{application.member?.sex}</span><br />
+                <span><a href={application.member?.url} rel="noreferrer" target="_new">{application.member?.url}</a></span><br />
+                <p>{application.member?.mission}</p>
+                <p>{application.member?.education}</p>
+                {application.member?.pdf && <p>{application.member?.pdf.url}</p>}
+              </div>
+              <button className={s.close} onClick={() => setApplication(null)}>Stäng</button>
+            </div>
+          </div>
+        </Modal>
+      }
+    </>
   );
 }
