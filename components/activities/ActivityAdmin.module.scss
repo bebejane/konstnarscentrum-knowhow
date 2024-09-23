@@ -109,6 +109,10 @@
     background-color: var(--background);
     padding: var(--outer-margin);
 
+    h4 {
+      padding-bottom: var(--small-space);
+    }
+
     .content {
     }
 

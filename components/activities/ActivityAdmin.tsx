@@ -103,8 +103,8 @@ export default function ActivityAdmin({ activity, applications: _applications }:
         className={open[id] ? s.open : undefined}
         onClick={() => setApplication(application)}
       >
-        <td>{member.firstName} {member.lastName}</td>
         <td>{member.email}</td>
+        <td>{member.firstName} {member.lastName}</td>
         <td>{member.sex}</td>
         <td>{member.age}</td>
         <td>{member.country}</td>
