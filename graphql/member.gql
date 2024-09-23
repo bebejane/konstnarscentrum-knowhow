@@ -38,4 +38,9 @@ fragment MemberFragment on MemberRecord {
 	sex
 	workCategory
 	url
+	pdf {
+		id
+		url
+		filename
+	}
 }

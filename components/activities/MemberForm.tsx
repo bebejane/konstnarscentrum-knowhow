@@ -342,7 +342,8 @@ function MemberLogin({ }: MemberLoginProps) {
     setLoading(false);
   }
 
-  if (status === 'authenticated' || done) return null;
+  //console.log(status, session?.user?.name, done)
+  if (done) return null;
 
   return (
     <form onSubmit={handleLogin} className={cn(s.form)}>
