@@ -9,9 +9,10 @@ export const config = {
 const pick = (obj: any, keys) => Object.fromEntries(keys.filter(key => key in obj).map(key => [key, obj[key]]));
 
 const field_ids = [
+  'email',
+  'kc_member',
   'first_name',
   'last_name',
-  'email',
   'address',
   'city',
   'postal_code',

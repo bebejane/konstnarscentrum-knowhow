@@ -7,6 +7,8 @@ import { signIn, useSession } from 'next-auth/react';
 import { OnProgressInfo, SimpleSchemaTypes } from '@datocms/cma-client-browser';
 import { buildClient } from '@datocms/cma-client-browser'
 
+const pick = (obj: any, keys) => Object.fromEntries(keys.filter(key => key in obj).map(key => [key, obj[key]]));
+
 const uploadClient = buildClient({
   apiToken: process.env.NEXT_PUBLIC_UPLOADS_API_TOKEN,
   environment: process.env.NEXT_PUBLIC_DATOCMS_ENVIRONMENT ?? 'main'
@@ -73,6 +75,7 @@ export default function MemberForm({ activity, show, setShow }: Props) {
   const [loadingMember, setLoadingMember] = useState(false);
   const abortController = useRef(new AbortController());
   const { data: session, status } = useSession();
+  const kcMemberFields = ['email', 'kc_member', 'id']
 
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
 
@@ -92,6 +95,10 @@ export default function MemberForm({ activity, show, setShow }: Props) {
         body.member.pdf = { upload_id: upload.id, default_field_metadata: upload.default_field_metadata } ?? null
       else
         body.member.pdf = null
+
+      if (isAlreadyMember)
+        body.member = pick(body.member, kcMemberFields)
+      console.log(body.member)
 
       const res = await fetch('/api/activity/register', {
         method: 'POST',
@@ -215,7 +222,9 @@ export default function MemberForm({ activity, show, setShow }: Props) {
     { id: 'work_category', type: 'textarea', label: 'Arbetskategori' },
     { id: 'pdf', type: 'file', label: 'Pdf', value: '' },
   ]
-  fields = fields.filter(({ id }) => isAlreadyMember && !['email', 'kc_member', 'id'].includes(id) ? false : true)
+  fields = fields
+    .filter(({ id }) => isAlreadyMember && !kcMemberFields.includes(id) ? false : true)
+    .map((field) => ({ ...field, required: isAlreadyMember ? undefined : field.required }))
 
   return (
     <div id="apply" className={cn(s.container, show && s.show)}>
