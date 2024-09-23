@@ -183,13 +183,16 @@ select {
 	background-color: var(--orange-light);
 	margin-bottom: 1em;
 	padding: 0.8em;
-	padding-bottom: 0.9em;
+	padding-bottom: 0.8em;
 	padding-left: 1em;
 	font-family: "Jazz";
 	border: none;
 
 	&:focus {
 		outline: 1px solid var(--orange-mid);
+	}
+	&::placeholder {
+		color: var(--orange-mid);
 	}
 }
 
