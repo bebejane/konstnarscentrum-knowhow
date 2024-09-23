@@ -15,7 +15,7 @@
     position: relative;
     width: 100%;
 
-    &:hover {
+    &.member:hover {
       background-color: var(--orange-light);
     }
 
@@ -56,16 +56,6 @@
         }
       }
 
-      .extended {
-        display: none;
-      }
-
-      &.open {
-        .extended {
-          display: block;
-        }
-      }
-
       hr {
         width: 100%;
       }
@@ -97,7 +87,7 @@
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto;
+
   padding: var(--total-outer-margin);
   background-color: transparent;
 
@@ -108,13 +98,13 @@
     height: 100%;
     background-color: var(--background);
     padding: var(--outer-margin);
+    overflow-y: scroll;
 
     h4 {
       padding-bottom: var(--small-space);
     }
 
-    .content {
-    }
+    .content {}
 
     .close {
       position: absolute;
@@ -122,6 +112,7 @@
       right: 0;
       border: 0;
       padding: var(--outer-margin);
+
       &:hover {
         background-color: var(--background);
         color: var(--foreground);

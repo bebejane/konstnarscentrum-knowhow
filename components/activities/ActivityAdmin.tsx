@@ -16,8 +16,6 @@ export default function ActivityAdmin({ activity, applications: _applications }:
   const [loading, setLoading] = useState(false);
   const [applications, setApplications] = useState(_applications);
   const [application, setApplication] = useState<ApplicationRecord | null>(null);
-  const [open, setOpen] = useState({});
-  const [showModal, setShowModal] = useState(false);
   const abortController = useRef(new AbortController());
   const colSpanMax = 20;
 
@@ -96,12 +94,12 @@ export default function ActivityAdmin({ activity, applications: _applications }:
   const declined = applications.filter((application) => application.approvalStatus === 'DECLINED');
   const pending = applications.filter((application) => application.approvalStatus === 'PENDING');
 
-  const Application = ({ application: { id, approvalStatus, member }, application, decline = 'Bortvald', approve = 'Utvald' }) => (
+  const Application = ({ application: { id, approvalStatus, member }, application: _application, decline = 'Bortvald', approve = 'Utvald' }) => (
     <>
       <tr
         key={id}
-        className={open[id] ? s.open : undefined}
-        onClick={() => setApplication(application)}
+        className={cn(s.member, application?.id === id && s.open)}
+        onClick={() => setApplication(_application)}
       >
         <td>{member.email}</td>
         <td>{member.firstName} {member.lastName}</td>
@@ -109,8 +107,8 @@ export default function ActivityAdmin({ activity, applications: _applications }:
         <td>{member.age}</td>
         <td>{member.country}</td>
         <td>{member.language}</td>
-        <td className={s.buttons}>
 
+        <td className={s.buttons}>
           <button
             type="button"
             data-application-id={id}
@@ -127,13 +125,6 @@ export default function ActivityAdmin({ activity, applications: _applications }:
           >{approve}</button>
         </td>
       </tr>
-      {open[id] &&
-        <tr>
-          <td colSpan={colSpanMax} className={s.extended}>
-            Extended content...
-          </td>
-        </tr>
-      }
     </>
   )
 
@@ -163,8 +154,8 @@ export default function ActivityAdmin({ activity, applications: _applications }:
               <button className={cn("wide", s.export)} onClick={handleExport} disabled={approved.length === 0}>Exportera lista</button>
             </td>
           </tr>
-        </tbody >
-      </table >
+        </tbody>
+      </table>
       {application &&
         <Modal>
           <div className={cn(s.modal, application && s.show)}>
@@ -172,19 +163,25 @@ export default function ActivityAdmin({ activity, applications: _applications }:
               <div className={s.content}>
                 <h4>{application?.member?.firstName} {application?.member?.lastName}</h4>
                 <h5>Kontakt:</h5>
-                <p>{application.member?.email}, {application.member?.phone}
-                </p>
+                <p>{application.member?.email}, {application.member?.phone}</p>
                 <h5>Adress:</h5>
                 <p>{application.member?.address}, {application.member?.postalCode} {application.member?.city}</p>
                 <h5>Info:</h5>
                 <p>{application.member?.country}, {application.member?.language}, {application.member?.age}, {application.member?.sex}</p>
                 <h5>Portfolio:</h5>
-                <p><a href={application.member?.url} rel="noreferrer" target="_new">{application.member?.url}</a> {application.member?.pdf && <p>{application.member?.pdf.url}</p>}</p>
+                <p><a href={application.member?.url} rel="noreferrer" target="_new">{application.member?.url}</a></p>
                 <h5>Uppdrag:</h5>
                 <p>{application.member?.mission}</p>
                 <h5>Utbildning:</h5>
                 <p>{application.member?.education}</p>
-
+                <h5>CV:</h5>
+                <p>
+                  {application.member?.pdf ?
+                    <a href={application.member?.pdf.url} target="_new" rel="noreferrer">Pdf</a>
+                    :
+                    'Ingen pdf uppladdad...'
+                  }
+                </p>
               </div>
               <button className={s.close} onClick={() => setApplication(null)}>Stäng</button>
             </div>
