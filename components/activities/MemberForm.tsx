@@ -16,7 +16,6 @@ const uploadClient = buildClient({
 
 type ActivityRecord = {
   id: string;
-  // Add other properties of ActivityRecord as needed
 };
 
 type Props = {
@@ -64,6 +63,8 @@ export default function MemberForm({ activity, show, setShow }: Props) {
     register,
     handleSubmit,
     reset,
+    getValues,
+    watch,
     formState: { errors },
   } = useForm<FormInputs>();
 
@@ -97,8 +98,7 @@ export default function MemberForm({ activity, show, setShow }: Props) {
         body.member.pdf = null
 
       if (isAlreadyMember)
-        body.member = pick(body.member, kcMemberFields)
-      console.log(body.member)
+        body.member = pick(body.member, kcMemberFields) as any
 
       const res = await fetch('/api/activity/register', {
         method: 'POST',
@@ -165,6 +165,7 @@ export default function MemberForm({ activity, show, setShow }: Props) {
 
   }, [setShow])
 
+
   const createUpload = useCallback(async (file: File, allTags: string[]): Promise<Upload> => {
 
     if (!file)
@@ -201,7 +202,9 @@ export default function MemberForm({ activity, show, setShow }: Props) {
       default:
         break;
     }
+
   }
+
 
   let fields: FormField[] = [
     { id: 'id', type: 'hidden', value: activity.id },
@@ -230,7 +233,7 @@ export default function MemberForm({ activity, show, setShow }: Props) {
     <div id="apply" className={cn(s.container, show && s.show)}>
       <MemberLogin />
       {!success ?
-        <form className={s.form} onSubmit={handleSubmit(onSubmit)} >
+        <form className={s.form} onSubmit={handleSubmit(onSubmit)} autoComplete="new" >
           {fields.map(({ id, type, label, value, options, required, pattern }, idx) => (
             <React.Fragment key={idx}>
               {label &&
@@ -245,6 +248,8 @@ export default function MemberForm({ activity, show, setShow }: Props) {
                   {...register(id, { required, pattern })}
                   className={cn(errors[id] && s.error)}
                   onChange={handleValueChange}
+                  autoComplete="new"
+                  autoCorrect={'off'}
                 />
                 :
                 type === 'file' ?
@@ -261,6 +266,7 @@ export default function MemberForm({ activity, show, setShow }: Props) {
                       {...register(id, { required, pattern })}
                       className={cn(errors[id] && s.error)}
                       onChange={handleValueChange}
+                      autoComplete="new"
                     >
                       <option value="">Välj...</option>
                       {options.map(({ id, value }) => <option key={id} value={id}>{value}</option>)}
@@ -273,6 +279,7 @@ export default function MemberForm({ activity, show, setShow }: Props) {
                       {...register(id, { required, pattern })}
                       className={cn(errors[id] && s.error)}
                       onChange={handleValueChange}
+                      autoComplete="new"
                     />
               }
             </React.Fragment>
@@ -401,7 +408,7 @@ function FileField({ member, id, register, className }: FileFieldProps) {
   return (
     <div className={cn(s.file, className)}>
       <button type="button" onClick={handleClick}>Välj fil</button>
-      <input ref={ref} id={id} {...register(id)} type="file" accept=".pdf" className={className} />
+      <input ref={ref} id={id} {...register(id)} type="file" accept=".pdf" className={className} autoComplete="false" />
     </div>
   )
 }
