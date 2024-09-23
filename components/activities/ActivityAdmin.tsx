@@ -170,19 +170,21 @@ export default function ActivityAdmin({ activity, applications: _applications }:
           <div className={cn(s.modal, application && s.show)}>
             <div className={s.wrap}>
               <div className={s.content}>
-                <h5>{application?.member?.firstName} {application?.member?.lastName}</h5>
-                <span>{application.member?.email}</span><br />
-                <span>{application.member?.address}</span><br />
-                <span>{application.member?.postalCode} {application.member?.city}</span><br />
-                <span>{application.member?.phone}</span><br />
-                <span>{application.member?.country}</span><br />
-                <span>{application.member?.language}</span><br />
-                <span>{application.member?.age}</span><br />
-                <span>{application.member?.sex}</span><br />
-                <span><a href={application.member?.url} rel="noreferrer" target="_new">{application.member?.url}</a></span><br />
+                <h4>{application?.member?.firstName} {application?.member?.lastName}</h4>
+                <h5>Kontakt:</h5>
+                <p>{application.member?.email}, {application.member?.phone}
+                </p>
+                <h5>Adress:</h5>
+                <p>{application.member?.address}, {application.member?.postalCode} {application.member?.city}</p>
+                <h5>Info:</h5>
+                <p>{application.member?.country}, {application.member?.language}, {application.member?.age}, {application.member?.sex}</p>
+                <h5>Portfolio:</h5>
+                <p><a href={application.member?.url} rel="noreferrer" target="_new">{application.member?.url}</a> {application.member?.pdf && <p>{application.member?.pdf.url}</p>}</p>
+                <h5>Uppdrag:</h5>
                 <p>{application.member?.mission}</p>
+                <h5>Utbildning:</h5>
                 <p>{application.member?.education}</p>
-                {application.member?.pdf && <p>{application.member?.pdf.url}</p>}
+
               </div>
               <button className={s.close} onClick={() => setApplication(null)}>Stäng</button>
             </div>
