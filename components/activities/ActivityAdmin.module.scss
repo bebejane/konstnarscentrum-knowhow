@@ -23,6 +23,7 @@
         flex-direction: row;
         align-items: center;
         justify-content: flex-end;
+        opacity: 0;
 
         button {
           //all: unset;
@@ -33,6 +34,7 @@
           padding-left: 0.25em;
           padding-right: 0.25em;
           border: none;
+
           &:first-of-type {
             margin-left: 0.25em;
           }
@@ -51,6 +53,12 @@
 
       hr {
         width: 100%;
+      }
+    }
+
+    &:hover {
+      .buttons {
+        opacity: 1;
       }
     }
   }

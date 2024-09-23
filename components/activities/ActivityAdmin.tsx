@@ -93,7 +93,7 @@ export default function ActivityAdmin({ activity, applications: _applications }:
   const declined = applications.filter((application) => application.approvalStatus === 'DECLINED');
   const pending = applications.filter((application) => application.approvalStatus === 'PENDING');
 
-  const Application = ({ application: { id, approvalStatus, member } }) => (
+  const Application = ({ application: { id, approvalStatus, member }, decline = 'Bortvald', approve = 'Utvald' }) => (
     <>
       <tr
         key={id}
@@ -115,14 +115,14 @@ export default function ActivityAdmin({ activity, applications: _applications }:
             data-approval={'DECLINED'}
             disabled={approvalStatus === 'DECLINED'}
             onClick={handleApprove}
-          >Bortvald</button>
+          >{decline}</button>
           <button
             type="button"
             data-application-id={id}
             data-approval={'APPROVED'}
             disabled={approvalStatus === 'APPROVED'}
             onClick={handleApprove}
-          >Utvald</button>
+          >{approve}</button>
         </td>
       </tr>
       {open[id] &&
@@ -150,7 +150,7 @@ export default function ActivityAdmin({ activity, applications: _applications }:
 
         <tr><th colSpan={colSpanMax}>Bortvalda ({declined.length})</th></tr>
         <tr><td colSpan={colSpanMax}><hr /></td></tr>
-        {declined.map((application, i) => <Application key={i} application={application} />)}
+        {declined.map((application, i) => <Application key={i} application={application} approve="Ångra" />)}
         {!declined.length && <tr><td>Inga anmälningar är bortvalda</td></tr>}
 
         <tr><td colSpan={colSpanMax}>{error && <p className={s.error}>{error}</p>}</td></tr>

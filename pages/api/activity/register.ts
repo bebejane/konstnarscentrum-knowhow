@@ -13,6 +13,7 @@ const field_ids = [
   'last_name',
   'email',
   'address',
+  'city',
   'postal_code',
   'phone',
   'age',
@@ -55,8 +56,6 @@ export default async function handler(req: NextRequest, res: NextResponse) {
     const memberData = {}
 
     Object.keys(fields).forEach(key => fields[key] && (memberData[key] = fields[key]));
-
-    //console.log(memberData)
 
     if (currentMember) {
       console.log('updating member')

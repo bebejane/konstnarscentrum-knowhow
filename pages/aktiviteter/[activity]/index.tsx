@@ -1,4 +1,6 @@
 import withGlobalProps from "/lib/withGlobalProps";
+import s from "./index.module.scss";
+import cn from "classnames";
 import { GetStaticProps } from "next";
 import { apiQuery } from "dato-nextjs-utils/api";
 import { ActivityDocument, AllActivitiesDocument } from "/graphql";
@@ -54,15 +56,16 @@ export default function Activity({ activity: {
 				/>
 			</Article>
 
-			{!isAdmin &&
-				<>
-					<button data-toggled={showForm} className="wide" onClick={() => setShowForm(!showForm)}>
-						Anmäl dig
-					</button>
+			<button
+				data-toggled={showForm}
+				className={cn(s.apply, "wide")}
+				onClick={() => setShowForm(!showForm)}
+			>
+				Anmäl dig
+			</button>
 
-					<MemberForm activity={activity} show={showForm} setShow={setShowForm} />
-				</>
-			}
+			<MemberForm activity={activity} show={showForm} setShow={setShowForm} />
+
 			{isAdmin &&
 				<Link href={`/aktiviteter/${slug}/admin`} prefetch={true}>
 					<button className="wide">Administrera</button>

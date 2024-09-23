@@ -26,11 +26,13 @@ type Props = {
 export type Upload = SimpleSchemaTypes.Upload;
 
 type FormInputs = {
+  email: string;
+  kc_member: string
   first_name: string;
   last_name: string;
   address: string;
   postal_code: string;
-  email: string;
+  city?: string;
   pdf?: File | { upload_id: string, default_field_metadata: any }
   id: string
   phone?: string;
@@ -45,11 +47,13 @@ type FormInputs = {
 
 type FormField = {
   id: keyof FormInputs
-  type: 'email' | 'hidden' | 'text' | 'textarea' | 'file'
+  type: 'email' | 'hidden' | 'text' | 'textarea' | 'file' | 'checkbox' | 'select'
   label?: string
   required?: string
   pattern?: { value: RegExp, message: string }
   value?: string
+  options?: { id: string, value: string }[]
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 export default function MemberForm({ activity, show, setShow }: Props) {
@@ -65,6 +69,7 @@ export default function MemberForm({ activity, show, setShow }: Props) {
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const [member, setMember] = useState<any | null>(null);
+  const [isAlreadyMember, setIsAlreadyMember] = useState(false);
   const [loadingMember, setLoadingMember] = useState(false);
   const abortController = useRef(new AbortController());
   const { data: session, status } = useSession();
@@ -177,30 +182,45 @@ export default function MemberForm({ activity, show, setShow }: Props) {
 
   }, [])
 
+  const handleValueChange = (e: React.ChangeEvent<HTMLElement>) => {
+    const target = e.target as HTMLInputElement
+    const { id } = target
+
+    switch (id) {
+      case 'kc_member':
+        setIsAlreadyMember(target.checked)
+        break;
+      default:
+        break;
+    }
+  }
+
   const fields: FormField[] = [
     { id: 'id', type: 'hidden', value: activity.id },
     { id: 'email', type: 'email', label: 'E-post', required: 'E-post är obligatoriskt', pattern: { value: /\S+@\S+\.\S+/, message: 'Ogiltig e-postadress' } },
+    { id: 'kc_member', type: 'checkbox', label: 'Jag är medlem i Konstnärscentrum' },
     { id: 'first_name', type: 'text', label: 'Namn', required: 'Namn är obligatoriskt' },
     { id: 'last_name', type: 'text', label: 'Efternamn', required: 'Efternamn är obligatoriskt' },
     { id: 'address', type: 'text', label: 'Adress', required: 'Adress är obligatoriskt' },
+    { id: 'city', type: 'text', label: 'Stad', required: 'Stad är obligatoriskt' },
     { id: 'postal_code', type: 'text', label: 'Postnummer', required: 'Postnummer är obligatoriskt' },
     { id: 'phone', type: 'text', label: 'Telefon' },
     { id: 'age', type: 'text', label: 'Ålder', required: 'Ålder är obligatoriskt' },
-    { id: 'sex', type: 'text', label: 'Kön' },
+    { id: 'sex', type: 'select', label: 'Kön', required: 'Kön är obligatoriskt', options: [{ id: 'female', value: 'Kvinna' }, { id: 'man', value: 'Man' }, { id: 'other', value: 'Annat' }] },
     { id: 'country', type: 'text', label: 'Födelseland', required: 'Födelseland är obligatoriskt' },
     { id: 'language', type: 'text', label: 'Språk', required: 'Språk är obligatoriskt' },
     { id: 'education', type: 'textarea', label: 'Utbildning' },
     { id: 'mission', type: 'textarea', label: 'Uppdrag' },
     { id: 'work_category', type: 'textarea', label: 'Arbetskategori' },
     { id: 'pdf', type: 'file', label: 'Pdf', value: '' },
-  ]
+  ].filter(({ id }) => isAlreadyMember && !['email', 'kc_member', 'id'].includes(id) ? false : true)
 
   return (
     <div id="apply" className={cn(s.container, show && s.show)}>
       <MemberLogin />
       {!success ?
         <form className={s.form} onSubmit={handleSubmit(onSubmit)} >
-          {fields.map(({ id, type, label, value, required, pattern }, idx) => (
+          {fields.map(({ id, type, label, value, options, required, pattern }, idx) => (
             <React.Fragment key={idx}>
               {label &&
                 <label htmlFor={id}>
@@ -213,6 +233,7 @@ export default function MemberForm({ activity, show, setShow }: Props) {
                   id={id}
                   {...register(id, { required, pattern })}
                   className={cn(errors[id] && s.error)}
+                  onChange={handleValueChange}
                 />
                 :
                 type === 'file' ?
@@ -223,13 +244,25 @@ export default function MemberForm({ activity, show, setShow }: Props) {
                     className={cn(errors[id] && s.error)}
                   />
                   :
-                  <input
-                    id={id}
-                    type={type}
-                    value={value}
-                    {...register(id, { required, pattern })}
-                    className={cn(errors[id] && s.error)}
-                  />
+                  type === 'select' ?
+                    <select
+                      id={id}
+                      {...register(id, { required, pattern })}
+                      className={cn(errors[id] && s.error)}
+                      onChange={handleValueChange}
+                    >
+                      <option value="">Välj...</option>
+                      {options.map(({ id, value }) => <option key={id} value={id}>{value}</option>)}
+                    </select>
+
+                    : <input
+                      id={id}
+                      type={type}
+                      value={value}
+                      {...register(id, { required, pattern })}
+                      className={cn(errors[id] && s.error)}
+                      onChange={handleValueChange}
+                    />
               }
             </React.Fragment>
           ))}
