@@ -1,6 +1,8 @@
 .container {
-  width: 100%;
+  width: calc(100% + 2 * var(--total-outer-margin));
   font-size: 0.7rem;
+  margin-left: calc(-1 * var(--total-outer-margin));
+  margin-right: calc(-1 * var(--total-outer-margin));
 
   th {
     font-weight: bold;
@@ -17,6 +19,7 @@
     td {
       width: auto;
       cursor: pointer;
+      margin-bottom: 0.5em;
 
       &.buttons {
         display: flex;
@@ -61,6 +64,13 @@
         opacity: 1;
       }
     }
+  }
+
+  .export {
+    margin-top: var(--space);
+    margin-left: var(--total-outer-margin);
+    margin-right: var(--total-outer-margin);
+    width: calc(100% - 2 * var(--total-outer-margin));
   }
 }
 

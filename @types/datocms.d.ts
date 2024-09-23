@@ -4145,12 +4145,14 @@ type MemberModelFilter = {
   address?: InputMaybe<StringFilter>;
   age?: InputMaybe<IntegerFilter>;
   auth?: InputMaybe<JsonFilter>;
+  city?: InputMaybe<StringFilter>;
   country?: InputMaybe<StringFilter>;
   createdAt?: InputMaybe<CreatedAtFilter>;
   education?: InputMaybe<TextFilter>;
   email?: InputMaybe<StringFilter>;
   firstName?: InputMaybe<StringFilter>;
   id?: InputMaybe<ItemIdFilter>;
+  kcMember?: InputMaybe<BooleanFilter>;
   language?: InputMaybe<StringFilter>;
   lastName?: InputMaybe<StringFilter>;
   mission?: InputMaybe<TextFilter>;
@@ -4184,6 +4186,8 @@ enum MemberModelOrderBy {
   address_DESC = 'address_DESC',
   age_ASC = 'age_ASC',
   age_DESC = 'age_DESC',
+  city_ASC = 'city_ASC',
+  city_DESC = 'city_DESC',
   country_ASC = 'country_ASC',
   country_DESC = 'country_DESC',
   createdAt_ASC = 'createdAt_ASC',
@@ -4194,6 +4198,8 @@ enum MemberModelOrderBy {
   firstName_DESC = 'firstName_DESC',
   id_ASC = 'id_ASC',
   id_DESC = 'id_DESC',
+  kcMember_ASC = 'kcMember_ASC',
+  kcMember_DESC = 'kcMember_DESC',
   language_ASC = 'language_ASC',
   language_DESC = 'language_DESC',
   lastName_ASC = 'lastName_ASC',
@@ -4228,25 +4234,27 @@ type MemberRecord = RecordInterface & {
   _status: ItemStatus;
   _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
   _updatedAt: Scalars['DateTime'];
-  address: Scalars['String'];
-  age: Scalars['IntType'];
+  address?: Maybe<Scalars['String']>;
+  age?: Maybe<Scalars['IntType']>;
   auth?: Maybe<Scalars['JsonField']>;
-  country: Scalars['String'];
+  city?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
   education?: Maybe<Scalars['String']>;
   email: Scalars['String'];
-  firstName: Scalars['String'];
+  firstName?: Maybe<Scalars['String']>;
   id: Scalars['ItemId'];
-  language: Scalars['String'];
-  lastName: Scalars['String'];
+  kcMember?: Maybe<Scalars['BooleanType']>;
+  language?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
   mission?: Maybe<Scalars['String']>;
   pdf?: Maybe<FileField>;
   phone?: Maybe<Scalars['String']>;
-  postalCode: Scalars['String'];
+  postalCode?: Maybe<Scalars['String']>;
   sex?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
   url?: Maybe<Scalars['String']>;
-  workCategory: Scalars['String'];
+  workCategory?: Maybe<Scalars['String']>;
 };
 
 
@@ -6415,11 +6423,11 @@ type AllApplicationsByActivityQueryVariables = Exact<{
 }>;
 
 
-type AllApplicationsByActivityQuery = { __typename?: 'Query', applications: Array<{ __typename: 'ApplicationRecord', id: any, approvalStatus: string, member: { __typename: 'MemberRecord', id: any, firstName: string, lastName: string, email: string, phone?: string | null, education?: string | null, age: any, country: string, language: string, address: string, mission?: string | null, postalCode: string, sex?: string | null, workCategory: string, url?: string | null } }>, pagination: { __typename?: 'CollectionMetadata', count: any } };
+type AllApplicationsByActivityQuery = { __typename?: 'Query', applications: Array<{ __typename: 'ApplicationRecord', id: any, approvalStatus: string, member: { __typename: 'MemberRecord', id: any, firstName?: string | null, lastName?: string | null, email: string, phone?: string | null, education?: string | null, age?: any | null, country?: string | null, language?: string | null, address?: string | null, mission?: string | null, postalCode?: string | null, sex?: string | null, workCategory?: string | null, url?: string | null } }>, pagination: { __typename?: 'CollectionMetadata', count: any } };
 
-type ApplicationFragment = { __typename: 'ApplicationRecord', id: any, approvalStatus: string, member: { __typename: 'MemberRecord', id: any, firstName: string, lastName: string, email: string, phone?: string | null, education?: string | null, age: any, country: string, language: string, address: string, mission?: string | null, postalCode: string, sex?: string | null, workCategory: string, url?: string | null } };
+type ApplicationFragment = { __typename: 'ApplicationRecord', id: any, approvalStatus: string, member: { __typename: 'MemberRecord', id: any, firstName?: string | null, lastName?: string | null, email: string, phone?: string | null, education?: string | null, age?: any | null, country?: string | null, language?: string | null, address?: string | null, mission?: string | null, postalCode?: string | null, sex?: string | null, workCategory?: string | null, url?: string | null } };
 
-type MemberFragment = { __typename: 'MemberRecord', id: any, firstName: string, lastName: string, email: string, phone?: string | null, education?: string | null, age: any, country: string, language: string, address: string, mission?: string | null, postalCode: string, sex?: string | null, workCategory: string, url?: string | null };
+type MemberFragment = { __typename: 'MemberRecord', id: any, firstName?: string | null, lastName?: string | null, email: string, phone?: string | null, education?: string | null, age?: any | null, country?: string | null, language?: string | null, address?: string | null, mission?: string | null, postalCode?: string | null, sex?: string | null, workCategory?: string | null, url?: string | null };
 
 type SiteSearchQueryVariables = Exact<{
   activityIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>> | InputMaybe<Scalars['ItemId']>>;

@@ -20,7 +20,8 @@
     }
 
     input,
-    textarea {
+    textarea,
+    select {
       margin: 0;
       margin-bottom: var(--small-space);
       color: var(--foreground);
@@ -37,7 +38,6 @@
     }
 
     .file {
-
       display: flex;
       flex-direction: row;
       padding: 0.8em;
@@ -52,8 +52,17 @@
       button {
         display: inline;
         white-space: nowrap;
-        //padding: 0.3em;
+        padding: 0.3em;
+        padding-left: 0.7em;
+        padding-right: 0.7em;
         font-size: 1rem !important;
+        line-height: 1;
+        height: 1.8rem;
+        margin-right: 1em;
+      }
+      input {
+        padding: 0;
+        padding-top: 0.3em;
       }
     }
 

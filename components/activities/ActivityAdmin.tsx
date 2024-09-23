@@ -157,7 +157,7 @@ export default function ActivityAdmin({ activity, applications: _applications }:
 
         <tr>
           <td colSpan={colSpanMax}>
-            <button className="wide" onClick={handleExport} disabled={approved.length === 0}>Exportera lista</button>
+            <button className={cn("wide", s.export)} onClick={handleExport} disabled={approved.length === 0}>Exportera lista</button>
           </td>
         </tr>
       </tbody >

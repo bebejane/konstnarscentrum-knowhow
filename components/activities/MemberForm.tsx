@@ -210,20 +210,20 @@ export default function MemberForm({ activity, show, setShow }: Props) {
     { id: 'id', type: 'hidden', value: activity.id },
     { id: 'email', type: 'email', label: 'E-post', required: 'E-post är obligatoriskt', pattern: { value: /\S+@\S+\.\S+/, message: 'Ogiltig e-postadress' } },
     { id: 'kc_member', type: 'checkbox', label: 'Jag är medlem i Konstnärscentrum' },
-    { id: 'first_name', type: 'text', label: 'Namn', required: 'Namn är obligatoriskt' },
+    { id: 'first_name', type: 'text', label: 'Förnamn', required: 'Namn är obligatoriskt' },
     { id: 'last_name', type: 'text', label: 'Efternamn', required: 'Efternamn är obligatoriskt' },
     { id: 'address', type: 'text', label: 'Adress', required: 'Adress är obligatoriskt' },
     { id: 'city', type: 'text', label: 'Stad', required: 'Stad är obligatoriskt' },
     { id: 'postal_code', type: 'text', label: 'Postnummer', required: 'Postnummer är obligatoriskt' },
     { id: 'phone', type: 'text', label: 'Telefon' },
     { id: 'age', type: 'text', label: 'Ålder', required: 'Ålder är obligatoriskt' },
-    { id: 'sex', type: 'select', label: 'Kön', required: 'Kön är obligatoriskt', options: [{ id: 'Kvinna', value: 'Kvinna' }, { id: 'Man', value: 'Man' }, { id: 'Annat', value: 'Annat' }] },
+    { id: 'sex', type: 'select', label: 'Kön', required: 'Kön är obligatoriskt', options: [{ id: 'Kvinna', value: 'Kvinna' }, { id: 'Man', value: 'Man' }, { id: 'Annat', value: 'Annat' }, { id: 'Vill ej uppge', value: 'Vill ej uppge' }] },
     { id: 'country', type: 'text', label: 'Födelseland', required: 'Födelseland är obligatoriskt' },
     { id: 'language', type: 'text', label: 'Språk', required: 'Språk är obligatoriskt' },
     { id: 'education', type: 'textarea', label: 'Utbildning' },
     { id: 'mission', type: 'textarea', label: 'Uppdrag' },
     { id: 'work_category', type: 'textarea', label: 'Arbetskategori' },
-    { id: 'pdf', type: 'file', label: 'Pdf', value: '' },
+    { id: 'pdf', type: 'file', label: 'CV som PDF', value: '' },
   ]
   fields = fields
     .filter(({ id }) => isAlreadyMember && !kcMemberFields.includes(id) ? false : true)
@@ -349,9 +349,6 @@ function MemberLogin({ }: MemberLoginProps) {
       <p>
         Har du deltagit i våra aktiviteter innan?
         Då behöver du bara fylla i din mailadress för att anmäla dig nedan.
-
-        Är det första gången du anmäler dig till en aktivitet?
-        Då vill vi veta lite mer om dig (om du inte är medlem i Konstnärscentrum redan).
       </p>
       <input
         type="email"
