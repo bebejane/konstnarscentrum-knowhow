@@ -84,7 +84,6 @@ export default function MemberForm({ activity, show, setShow }: Props) {
     abortController.current = new AbortController();
 
     try {
-      console.log(data)
 
       const body = { member: data, id: activity.id }
       const upload = data.pdf[0] instanceof File ? await createUpload(data.pdf[0], []) : null;
