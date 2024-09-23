@@ -109,20 +109,21 @@ export default function ActivityAdmin({ activity, applications: _applications }:
         <td>{member.language}</td>
 
         <td className={s.buttons}>
+          {approvalStatus !== 'DECLINED' &&
+            <button
+              type="button"
+              data-application-id={id}
+              data-approval={'DECLINED'}
+              disabled={approvalStatus === 'DECLINED'}
+              onClick={handleApprove}
+            >{decline}</button>
+          }
           <button
             type="button"
             data-application-id={id}
-            data-approval={'DECLINED'}
-            disabled={approvalStatus === 'DECLINED'}
+            data-approval={approvalStatus === 'PENDING' ? 'APPROVED' : 'PENDING'}
             onClick={handleApprove}
-          >{decline}</button>
-          <button
-            type="button"
-            data-application-id={id}
-            data-approval={'APPROVED'}
-            disabled={approvalStatus === 'APPROVED'}
-            onClick={handleApprove}
-          >{approve}</button>
+          >{approvalStatus !== 'PENDING' ? 'Ångra' : 'Utvald'}</button>
         </td>
       </tr>
     </>
@@ -144,7 +145,7 @@ export default function ActivityAdmin({ activity, applications: _applications }:
 
           <tr><th colSpan={colSpanMax}>Bortvalda ({declined.length})</th></tr>
           <tr><td colSpan={colSpanMax}><hr /></td></tr>
-          {declined.map((application, i) => <Application key={i} application={application} approve="Ångra" />)}
+          {declined.map((application, i) => <Application key={i} application={application} />)}
           {!declined.length && <tr><td>Inga anmälningar är bortvalda</td></tr>}
 
           <tr><td colSpan={colSpanMax}>{error && <p className={s.error}>{error}</p>}</td></tr>

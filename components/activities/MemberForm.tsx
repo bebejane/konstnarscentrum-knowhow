@@ -6,6 +6,7 @@ import React from 'react';
 import { signIn, useSession } from 'next-auth/react';
 import { OnProgressInfo, SimpleSchemaTypes } from '@datocms/cma-client-browser';
 import { buildClient } from '@datocms/cma-client-browser'
+import { Loader } from '..';
 
 const pick = (obj: any, keys) => Object.fromEntries(keys.filter(key => key in obj).map(key => [key, obj[key]]));
 
@@ -234,58 +235,75 @@ export default function MemberForm({ activity, show, setShow }: Props) {
       <MemberLogin />
       {!success ?
         <form className={s.form} onSubmit={handleSubmit(onSubmit)} autoComplete="new" >
-          {fields.map(({ id, type, label, value, options, required, pattern }, idx) => (
-            <React.Fragment key={idx}>
-              {label &&
-                <label htmlFor={id}>
-                  {label}
-                  {required && <span className={s.required}>*</span>}
-                </label>
-              }
-              {type === 'textarea' ?
-                <textarea
-                  id={id}
-                  {...register(id, { required, pattern })}
-                  className={cn(errors[id] && s.error)}
-                  onChange={handleValueChange}
-                  autoComplete="new"
-                  autoCorrect={'off'}
-                />
-                :
-                type === 'file' ?
-                  <FileField
+          <p>
+            Är det första gången du anmäler dig till en aktivitet?
+            Då vill vi veta lite mer om dig (om du inte är medlem i Konstnärscentrum redan).
+          </p>
+
+          {fields.map(({ id, type, label, value, options, required, pattern }, idx) => {
+            const title = (<label htmlFor={id}>{label}{required && <span className={s.required}>*</span>}</label>)
+
+            return (
+              <React.Fragment key={idx}>
+                {type !== 'checkbox' && title}
+                {type === 'textarea' ?
+                  <textarea
                     id={id}
-                    register={register}
-                    member={member}
+                    {...register(id, { required, pattern })}
                     className={cn(errors[id] && s.error)}
+                    onChange={handleValueChange}
+                    autoComplete="new"
+                    autoCorrect={'off'}
                   />
                   :
-                  type === 'select' ?
-                    <select
+                  type === 'file' ?
+                    <FileField
                       id={id}
-                      {...register(id, { required, pattern })}
+                      register={register}
+                      member={member}
                       className={cn(errors[id] && s.error)}
-                      onChange={handleValueChange}
-                      autoComplete="new"
-                    >
-                      <option value="">Välj...</option>
-                      {options.map(({ id, value }) => <option key={id} value={id}>{value}</option>)}
-                    </select>
-
-                    : <input
-                      id={id}
-                      type={type}
-                      value={value}
-                      {...register(id, { required, pattern })}
-                      className={cn(errors[id] && s.error)}
-                      onChange={handleValueChange}
-                      autoComplete="new"
                     />
-              }
-            </React.Fragment>
-          ))}
+                    :
+                    type === 'select' ?
+                      <select
+                        id={id}
+                        {...register(id, { required, pattern })}
+                        className={cn(errors[id] && s.error)}
+                        onChange={handleValueChange}
+                        autoComplete="new"
+                      >
+                        <option value="">Välj...</option>
+                        {options.map(({ id, value }) => <option key={id} value={id}>{value}</option>)}
+                      </select>
+
+                      : type === 'checkbox' ?
+                        <div className={s.checkbox}>
+                          <input
+                            id={id}
+                            type={type}
+                            value={value}
+                            {...register(id, { required, pattern })}
+                            className={cn(errors[id] && s.error)}
+                            onChange={handleValueChange}
+                            autoComplete="new"
+                          />
+                          {title}
+                        </div>
+                        : <input
+                          id={id}
+                          type={type}
+                          value={value}
+                          {...register(id, { required, pattern })}
+                          className={cn(errors[id] && s.error)}
+                          onChange={handleValueChange}
+                          autoComplete="new"
+                        />
+                }
+              </React.Fragment>
+            )
+          })}
           {error && <span className={s.error}>{error}</span>}
-          <button type="submit" disabled={loading}>Skicka</button>
+          <button type="submit" disabled={loading}>{loading ? <Loader /> : 'Skicka'}</button>
         </form>
         :
         <div className={s.success}>
