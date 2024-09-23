@@ -330,6 +330,13 @@ function MemberLogin({ }: MemberLoginProps) {
 
   return (
     <form onSubmit={handleLogin} className={cn(s.form)}>
+      <p>
+        Har du deltagit i våra aktiviteter innan?
+        Då behöver du bara fylla i din mailadress för att anmäla dig nedan.
+
+        Är det första gången du anmäler dig till en aktivitet?
+        Då vill vi veta lite mer om dig (om du inte är medlem i Konstnärscentrum redan).
+      </p>
       <input
         type="email"
         value={email}
