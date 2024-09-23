@@ -12,31 +12,43 @@
 
   tr {
     padding: 0;
-    margin-bottom: 1rem;
     position: relative;
     width: 100%;
+
+    &:hover {
+      background-color: var(--orange-light);
+    }
 
     td {
       width: auto;
       cursor: pointer;
       margin-bottom: 0.5em;
+      margin-top: 0.5em;
+      vertical-align: middle;
 
       &.buttons {
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: flex-end;
+        border: 0;
         opacity: 0;
+        margin-right: 0.5rem;
 
         button {
           //all: unset;
           font-size: 0.7rem !important;
+          background-color: var(--orange-light);
 
           cursor: pointer;
           padding: 0rem;
           padding-left: 0.25em;
           padding-right: 0.25em;
           border: none;
+
+          &:hover {
+            background-color: var(--orange);
+          }
 
           &:first-of-type {
             margin-left: 0.25em;
@@ -86,7 +98,7 @@
   width: 100%;
   height: 100%;
   overflow: auto;
-  padding: var(--outer-margin);
+  padding: var(--total-outer-margin);
   background-color: transparent;
 
   .wrap {
@@ -95,14 +107,16 @@
     width: 100%;
     height: 100%;
     background-color: var(--background);
+    padding: var(--outer-margin);
 
-    .content {}
+    .content {
+    }
 
     .close {
       position: absolute;
       top: 0;
       right: 0;
-
+      border: 0;
     }
   }
 
@@ -110,7 +124,6 @@
     display: flex;
   }
 }
-
 
 .error {
   color: #e00;

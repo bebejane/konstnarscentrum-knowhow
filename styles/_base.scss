@@ -187,6 +187,7 @@ select {
 	padding-left: 1em;
 	font-family: "Jazz";
 	border: none;
+	color: var(--foreground);
 
 	&:focus {
 		outline: 1px solid var(--orange-mid);
