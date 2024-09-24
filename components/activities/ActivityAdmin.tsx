@@ -167,16 +167,23 @@ export default function ActivityAdmin({ activity, applications: _applications }:
                 <h5>Kontakt:</h5>
                 <p>{application.member?.email}, {application.member?.phone}</p>
                 <h5>Adress:</h5>
-                <p>{application.member?.address}, {application.member?.postalCode} {application.member?.city}</p>
-                <h5>Info:</h5>
                 <p>{[
                   application.member?.address,
                   application.member?.postalCode,
-                  application.member?.city
+                  application.member?.city,
+                ].filter(el => el).join(', ')}</p>
+                <h5>Info:</h5>
+                <p>{[
+                  application.member?.country,
+                  application.member?.language,
+                  application.member?.age,
+                  application.member?.sex
                 ].filter(el => el).join(', ')}
                 </p>
                 <h5>Portfolio:</h5>
                 <p><a href={application.member?.url} rel="noreferrer" target="_new">{application.member?.url}</a></p>
+                <h5>Social</h5>
+                <p>{application.member?.social}</p>
                 <h5>Uppdrag:</h5>
                 <p>{application.member?.mission}</p>
                 <h5>Utbildning:</h5>
@@ -189,6 +196,11 @@ export default function ActivityAdmin({ activity, applications: _applications }:
                     'Ingen pdf uppladdad...'
                   }
                 </p>
+                <h5>Medlem i Konstnärscentrum:</h5>
+                <p>{application.member?.kcMember ? 'Ja' : 'Nej'}</p>
+                <h5>Skyddad identitet:</h5>
+                <p>{application.member?.protectedIdentity ? 'Ja' : 'Nej'}</p>
+
                 <div className={s.buttons}>
                   <button
                     data-application-id={application.id}
