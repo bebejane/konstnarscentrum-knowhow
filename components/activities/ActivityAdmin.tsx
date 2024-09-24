@@ -60,6 +60,7 @@ export default function ActivityAdmin({ activity, applications: _applications }:
     const approval = target.getAttribute('data-approval') as ApprovalStatus;
     const applicationId = target.getAttribute('data-application-id');
     const currentApplications = [...applications]
+    console.log(approval, applicationId)
 
     setApplications((applications) => applications.map((a) => {
       if (a.id === applicationId)
@@ -168,7 +169,12 @@ export default function ActivityAdmin({ activity, applications: _applications }:
                 <h5>Adress:</h5>
                 <p>{application.member?.address}, {application.member?.postalCode} {application.member?.city}</p>
                 <h5>Info:</h5>
-                <p>{application.member?.country}, {application.member?.language}, {application.member?.age}, {application.member?.sex}</p>
+                <p>{[
+                  application.member?.address,
+                  application.member?.postalCode,
+                  application.member?.city
+                ].filter(el => el).join(', ')}
+                </p>
                 <h5>Portfolio:</h5>
                 <p><a href={application.member?.url} rel="noreferrer" target="_new">{application.member?.url}</a></p>
                 <h5>Uppdrag:</h5>
@@ -183,6 +189,20 @@ export default function ActivityAdmin({ activity, applications: _applications }:
                     'Ingen pdf uppladdad...'
                   }
                 </p>
+                <div className={s.buttons}>
+                  <button
+                    data-application-id={application.id}
+                    data-approval={application.approvalStatus === 'PENDING' ? 'APPROVED' : 'PENDING'}
+                    data-toggled={application.approvalStatus === 'APPROVED'}
+                    onClick={handleApprove}
+                  >Utvald</button>
+                  <button
+                    data-application-id={application.id}
+                    data-approval={application.approvalStatus !== 'DECLINED' ? 'DECLINED' : 'PENDING'}
+                    data-toggled={application?.approvalStatus === 'DECLINED'}
+                    onClick={handleApprove}
+                  >Bortvald</button>
+                </div>
               </div>
               <button className={s.close} onClick={() => setApplication(null)}>Stäng</button>
             </div>
