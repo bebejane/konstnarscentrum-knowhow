@@ -10,7 +10,7 @@ export type Props = {
 export default function Logout({ }: Props) {
 
 	useEffect(() => {
-		signOut({ callbackUrl: `${window.location.origin}/` })
+		signOut({ callbackUrl: `${window.location.origin}/logga-in` })
 	}, [])
 
 	return <div className={s.logout}>Loggar ut...</div>
