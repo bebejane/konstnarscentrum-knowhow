@@ -1,5 +1,18 @@
 .container {
 
+  .logout {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - var(--navbar-height));
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+
+    button {
+      margin-top: 1rem;
+    }
+  }
+
   form {
     display: flex;
     flex-direction: column;

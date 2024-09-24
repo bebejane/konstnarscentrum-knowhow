@@ -39,8 +39,7 @@ export default function Login({ }: Props) {
 			username,
 			password,
 		});
-
-	};
+	}
 
 	return (
 		<div className={s.container}>
@@ -48,7 +47,7 @@ export default function Login({ }: Props) {
 				<Loader />
 				:
 				status === 'authenticated' ?
-					<p>
+					<p className={s.logout}>
 						Du är redan inloggad.<br />
 						<Link href="/logga-ut">
 							<button disabled={isSubmitting}>

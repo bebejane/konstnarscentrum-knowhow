@@ -35,6 +35,7 @@ fragment MemberFragment on MemberRecord {
 	mission
 	phone
 	postalCode
+	social
 	sex
 	workCategory
 	url
