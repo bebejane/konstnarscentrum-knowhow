@@ -193,7 +193,7 @@ export default function ActivityAdmin({ activity, applications: _applications }:
                   </span>
                   <span>
                     <h5>Social</h5>
-                    <p>{application.member?.social}</p>
+                    <p className="small">{application.member?.social}</p>
                   </span>
                   <span>
 
