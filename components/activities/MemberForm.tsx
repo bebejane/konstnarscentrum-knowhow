@@ -238,7 +238,9 @@ export default function MemberForm({ activity, show, setShow }: Props) {
 
   return (
     <div id="apply" className={cn(s.container, show && s.show)}>
-      <MemberLogin onSuccess={() => { setLoginLinkSent(true) }} />
+      {status !== 'authenticated' &&
+        <MemberLogin onSuccess={() => { setLoginLinkSent(true) }} />
+      }
       {!success && !loginLinkSent &&
         <form className={s.form} onSubmit={handleSubmit(onSubmit)} autoComplete="new" >
           <p>

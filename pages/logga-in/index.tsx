@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { Loader } from "/components";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 export type Props = {
 	csrfToken: string,
@@ -43,42 +44,54 @@ export default function Login({ }: Props) {
 
 	return (
 		<div className={s.container}>
-			{status === 'loading' ? <Loader />
+			{status === 'loading' ?
+				<Loader />
 				:
-				<>
-					<h1><RevealText>Logga in</RevealText></h1>
-					<form
-						className={s.form}
-						method="post"
-						action="/api/auth/callback/credentials"
-						onSubmit={handleSubmit(onSubmitSignIn)}
-					>
-						<input name="csrfToken" type="hidden" value={csrfToken} />
+				status === 'authenticated' ?
+					<p>
+						Du är redan inloggad.<br />
+						<Link href="/logga-ut">
+							<button disabled={isSubmitting}>
+								Logga ut
+							</button>
+						</Link>
+					</p>
+					:
+					<>
+						<h1><RevealText>Logga in</RevealText></h1>
+						<form
+							className={s.form}
+							method="post"
+							action="/api/auth/callback/credentials"
+							onSubmit={handleSubmit(onSubmitSignIn)}
+						>
+							<input name="csrfToken" type="hidden" value={csrfToken} />
 
-						<input
-							{...register("username", { required: true })}
-							placeholder="E-post..."
-							name="username"
-							type="email"
-						/>
+							<input
+								{...register("username", { required: true })}
+								placeholder="E-post..."
+								name="username"
+								type="email"
+							/>
 
-						<input
-							{...register("password", { required: true })}
-							placeholder={`Lösenord...`}
-							name="password"
-							type={'password'}
-						/>
+							<input
+								{...register("password", { required: true })}
+								placeholder={`Lösenord...`}
+								name="password"
+								type={'password'}
+							/>
 
-						<button disabled={isSubmitting}>
-							Skicka
-						</button>
-						{error &&
-							<p className={s.formError}>
-								{`${typeof error === 'string' ? error : error}`}
-							</p>
-						}
-					</form>
-				</>
+							<button disabled={isSubmitting}>
+								Skicka
+							</button>
+							{error &&
+								<p className={s.formError}>
+									{`${typeof error === 'string' ? error : error}`}
+								</p>
+							}
+
+						</form>
+					</>
 			}
 		</div>
 	);
