@@ -27,12 +27,13 @@ export default function Activity({ activity: {
 	image,
 	category,
 	blackHeadline,
+	showForm,
 	_seoMetaTags
 }, activity }: Props) {
 
 	const startDate = format(new Date(date), "d MMMM y")
 	const endDate = dateEnd ? format(new Date(dateEnd), "d MMMM y") : undefined
-	const [showForm, setShowForm] = useState(false)
+	const [showMemberForm, setShowMemberForm] = useState(false)
 	const { data: session } = useSession()
 	const isAdmin = session?.user?.name === 'admin'
 
@@ -55,23 +56,19 @@ export default function Activity({ activity: {
 					]}
 				/>
 			</Article>
-
-			<button
-				data-toggled={showForm}
-				className={cn(s.apply, "wide")}
-				onClick={() => setShowForm(!showForm)}
-			>
-				Anmäl dig
-			</button>
-
-			<MemberForm activity={activity} show={showForm} setShow={setShowForm} />
-
-			{isAdmin &&
-				<Link href={`/aktiviteter/${slug}/admin`} prefetch={true}>
-					<button className="wide">Administrera</button>
-				</Link>
+			{showForm &&
+				<>
+					<button data-toggled={showMemberForm} className={cn(s.apply, "wide")} onClick={() => setShowMemberForm(!showMemberForm)}>
+						Anmäl dig
+					</button>
+					<MemberForm activity={activity} show={showMemberForm} setShow={setShowMemberForm} />
+					{isAdmin &&
+						<Link href={`/aktiviteter/${slug}/admin`} prefetch={true}>
+							<button className="wide">Administrera</button>
+						</Link>
+					}
+				</>
 			}
-
 			<Link href={'/aktiviteter'}>
 				<button className="wide">Tillbaka till översikt</button>
 			</Link>

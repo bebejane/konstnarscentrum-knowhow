@@ -11,6 +11,8 @@ const pick = (obj: any, keys) => Object.fromEntries(keys.filter(key => key in ob
 const field_ids = [
   'email',
   'kc_member',
+  'protected_identity',
+  'social',
   'first_name',
   'last_name',
   'address',

@@ -29,7 +29,9 @@ export type Upload = SimpleSchemaTypes.Upload;
 
 type FormInputs = {
   email: string;
-  kc_member: string
+  kc_member: string;
+  protected_identity?: string;
+  social?: string;
   first_name: string;
   last_name: string;
   address: string;
@@ -42,6 +44,7 @@ type FormInputs = {
   sex?: string;
   country?: string;
   language?: string;
+  url?: string;
   education?: string;
   mission?: string;
   work_category?: string;
@@ -221,9 +224,12 @@ export default function MemberForm({ activity, show, setShow }: Props) {
     { id: 'sex', type: 'select', label: 'Kön', required: 'Kön är obligatoriskt', options: [{ id: 'Kvinna', value: 'Kvinna' }, { id: 'Man', value: 'Man' }, { id: 'Annat', value: 'Annat' }, { id: 'Vill ej uppge', value: 'Vill ej uppge' }] },
     { id: 'country', type: 'text', label: 'Födelseland', required: 'Födelseland är obligatoriskt' },
     { id: 'language', type: 'text', label: 'Språk', required: 'Språk är obligatoriskt' },
+    { id: 'url', type: 'text', label: 'Webbplats' },
+    { id: 'social', type: 'textarea', label: 'Social media' },
     { id: 'education', type: 'textarea', label: 'Utbildning/ professionell yrkeserfarenhet' },
     { id: 'mission', type: 'textarea', label: 'Uppdrag' },
     { id: 'pdf', type: 'file', label: 'CV som PDF', value: '' },
+    { id: 'protected_identity', type: 'checkbox', label: 'Skyddad identitet' },
   ]
   fields = fields
     .filter(({ id }) => isAlreadyMember && !kcMemberFields.includes(id) ? false : true)
