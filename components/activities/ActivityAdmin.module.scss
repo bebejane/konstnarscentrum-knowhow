@@ -37,6 +37,8 @@
 
         button {
           //all: unset;
+          margin-left: 0.25em;
+
           font-size: 0.7rem !important;
           background-color: var(--orange-light);
 
@@ -48,10 +50,6 @@
 
           &:hover {
             background-color: var(--orange);
-          }
-
-          &:first-of-type {
-            margin-left: 0.25em;
           }
         }
       }
@@ -100,6 +98,10 @@
     padding: var(--outer-margin);
     overflow-y: scroll;
 
+    .cols {
+      column-count: 2;
+    }
+
     h4 {
       padding-bottom: var(--small-space);
     }
@@ -107,6 +109,7 @@
     .buttons {
       display: flex;
       flex-direction: row;
+      margin-top: 2rem;
 
       button {
         margin-right: 0.5em;

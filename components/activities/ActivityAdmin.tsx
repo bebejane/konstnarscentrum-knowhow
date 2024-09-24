@@ -164,42 +164,65 @@ export default function ActivityAdmin({ activity, applications: _applications }:
             <div className={s.wrap}>
               <div className={s.content}>
                 <h4>{application?.member?.firstName} {application?.member?.lastName}</h4>
-                <h5>Kontakt:</h5>
-                <p>{application.member?.email}, {application.member?.phone}</p>
-                <h5>Adress:</h5>
-                <p>{[
-                  application.member?.address,
-                  application.member?.postalCode,
-                  application.member?.city,
-                ].filter(el => el).join(', ')}</p>
-                <h5>Info:</h5>
-                <p>{[
-                  application.member?.country,
-                  application.member?.language,
-                  application.member?.age,
-                  application.member?.sex
-                ].filter(el => el).join(', ')}
-                </p>
-                <h5>Portfolio:</h5>
-                <p><a href={application.member?.url} rel="noreferrer" target="_new">{application.member?.url}</a></p>
-                <h5>Social</h5>
-                <p>{application.member?.social}</p>
-                <h5>Uppdrag:</h5>
-                <p>{application.member?.mission}</p>
-                <h5>Utbildning:</h5>
-                <p>{application.member?.education}</p>
-                <h5>CV:</h5>
-                <p>
-                  {application.member?.pdf ?
-                    <a href={application.member?.pdf.url} target="_new" rel="noreferrer">Visa Pdf</a>
-                    :
-                    'Ingen pdf uppladdad...'
-                  }
-                </p>
-                <h5>Medlem i Konstnärscentrum:</h5>
-                <p>{application.member?.kcMember ? 'Ja' : 'Nej'}</p>
-                <h5>Skyddad identitet:</h5>
-                <p>{application.member?.protectedIdentity ? 'Ja' : 'Nej'}</p>
+                <div className={s.cols}>
+                  <span>
+                    <h5>Kontakt:</h5>
+                    <p>{application.member?.email}, {application.member?.phone}</p>
+                  </span>
+                  <span>
+                    <h5>Adress:</h5>
+                    <p>{[
+                      application.member?.address,
+                      application.member?.postalCode,
+                      application.member?.city,
+                    ].filter(el => el).join(', ')}</p>
+                  </span>
+                  <span>
+                    <h5>Info:</h5>
+                    <p>{[
+                      application.member?.country,
+                      application.member?.language,
+                      application.member?.age,
+                      application.member?.sex
+                    ].filter(el => el).join(', ')}
+                    </p>
+                  </span>
+                  <span>
+                    <h5>Hemsida:</h5>
+                    <p><a href={application.member?.url} rel="noreferrer" target="_new">Besök</a></p>
+                  </span>
+                  <span>
+                    <h5>Social</h5>
+                    <p>{application.member?.social}</p>
+                  </span>
+                  <span>
+
+                    <h5>Uppdrag:</h5>
+                    <p>{application.member?.mission}</p>
+                  </span>
+                  <span>
+                    <h5>Utbildning:</h5>
+                    <p>{application.member?.education}</p>
+                  </span>
+                  <span>
+                    <h5>CV:</h5>
+                    <p>
+                      {application.member?.pdf ?
+                        <a href={application.member?.pdf.url} target="_new" rel="noreferrer">Visa Pdf</a>
+                        :
+                        'Ingen pdf uppladdad...'
+                      }
+                    </p>
+                  </span>
+                  <span>
+                    <h5>Medlem i Konstnärscentrum:</h5>
+                    <p>{application.member?.kcMember ? 'Ja' : 'Nej'}</p>
+                  </span>
+                  <span>
+                    <h5>Skyddad identitet:</h5>
+                    <p>{application.member?.protectedIdentity ? 'Ja' : 'Nej'}</p>
+                  </span>
+                </div>
 
                 <div className={s.buttons}>
                   <button

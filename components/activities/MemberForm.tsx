@@ -245,7 +245,7 @@ export default function MemberForm({ activity, show, setShow }: Props) {
         <form className={s.form} onSubmit={handleSubmit(onSubmit)} autoComplete="new" >
           <p>
             Är det första gången du anmäler dig till en aktivitet?
-            Då vill vi veta lite mer om dig (om du inte är medlem i Konstnärscentrum redan).
+            Då vill vi veta lite mer om dig (om du inte är medlem i Konstnärscentrum redan).<br /> <a href="mailto:knowhow@konstnarscentrum.org">Hör av dig till oss</a> om något är oklart.
           </p>
 
           {fields.map(({ id, type, label, value, options, required, pattern }, idx) => {
