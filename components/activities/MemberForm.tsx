@@ -221,9 +221,8 @@ export default function MemberForm({ activity, show, setShow }: Props) {
     { id: 'sex', type: 'select', label: 'Kön', required: 'Kön är obligatoriskt', options: [{ id: 'Kvinna', value: 'Kvinna' }, { id: 'Man', value: 'Man' }, { id: 'Annat', value: 'Annat' }, { id: 'Vill ej uppge', value: 'Vill ej uppge' }] },
     { id: 'country', type: 'text', label: 'Födelseland', required: 'Födelseland är obligatoriskt' },
     { id: 'language', type: 'text', label: 'Språk', required: 'Språk är obligatoriskt' },
-    { id: 'education', type: 'textarea', label: 'Utbildning' },
+    { id: 'education', type: 'textarea', label: 'Utbildning/ professionell yrkeserfarenhet' },
     { id: 'mission', type: 'textarea', label: 'Uppdrag' },
-    { id: 'work_category', type: 'textarea', label: 'Arbetskategori' },
     { id: 'pdf', type: 'file', label: 'CV som PDF', value: '' },
   ]
   fields = fields
@@ -378,11 +377,11 @@ function MemberLogin({ }: MemberLoginProps) {
         disabled={loading}
       />
       <button className={s.register} type="submit" disabled={loading}>
-        Skicka login länk
+        Skicka inloggningslänk
       </button>
       {success &&
         <div className={s.success}>
-          <span>Ett mail med din login länk har skickats till din e-postadress.</span>
+          <span>Ett meddelande med din inloggningslänk har skickats till din e-postadress.</span>
           <button type="reset" onClick={() => setDone(true)}>Stäng</button>
         </div>
       }
