@@ -16,6 +16,7 @@ fragment ActivityFragment on ActivityRecord {
 	date
 	dateEnd
 	location
+	showForm
 	slug
 	content {
 		value
