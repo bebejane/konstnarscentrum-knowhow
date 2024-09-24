@@ -12,6 +12,12 @@
   padding-top: var(--space);
   padding-bottom: var(--small-space);
 
+  &.dark {
+    a:hover {
+      color: var(--white) !important;
+    }
+  }
+
   section {
     display: flex;
     flex-direction: row;

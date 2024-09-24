@@ -16,8 +16,8 @@ export type FooterProps = {
 
 export default function Footer({ menu, footer }: FooterProps) {
 
-	const { setTheme } = useTheme()
-	const { inView, ref } = useInView({ threshold: 0.50 })
+	const { theme, setTheme } = useTheme()
+	const { inView, ref } = useInView({ threshold: 0.80 })
 	const [showMobileMenu] = useStore(({ showMenuMobile }) => [showMenuMobile])
 
 	useEffect(() => {
@@ -26,7 +26,7 @@ export default function Footer({ menu, footer }: FooterProps) {
 
 	return (
 		<>
-			<footer className={cn(s.footer)} id="footer" ref={ref}>
+			<footer className={cn(s.footer, s[theme])} id="footer" ref={ref}>
 				<section className={s.menu}>
 					<nav>
 						<ul>
