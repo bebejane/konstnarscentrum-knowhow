@@ -104,7 +104,14 @@
       padding-bottom: var(--small-space);
     }
 
-    .content {}
+    .buttons {
+      display: flex;
+      flex-direction: row;
+
+      button {
+        margin-right: 0.5em;
+      }
+    }
 
     .close {
       position: absolute;
