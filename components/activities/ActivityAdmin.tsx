@@ -178,7 +178,7 @@ export default function ActivityAdmin({ activity, applications: _applications }:
                 <h5>CV:</h5>
                 <p>
                   {application.member?.pdf ?
-                    <a href={application.member?.pdf.url} target="_new" rel="noreferrer">Pdf</a>
+                    <a href={application.member?.pdf.url} target="_new" rel="noreferrer">Visa Pdf</a>
                     :
                     'Ingen pdf uppladdad...'
                   }
