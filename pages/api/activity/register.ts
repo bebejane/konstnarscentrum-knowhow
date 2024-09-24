@@ -22,6 +22,7 @@ const field_ids = [
   'age',
   'sex',
   'city',
+  'country',
   'language',
   'url',
   'education',

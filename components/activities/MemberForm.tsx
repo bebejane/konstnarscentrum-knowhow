@@ -78,6 +78,7 @@ export default function MemberForm({ activity, show, setShow }: Props) {
   const [member, setMember] = useState<any | null>(null);
   const [isAlreadyMember, setIsAlreadyMember] = useState(false);
   const [loadingMember, setLoadingMember] = useState(false);
+  const [loginLinkSent, setLoginLinkSent] = useState(false);
   const abortController = useRef(new AbortController());
   const { data: session, status } = useSession();
   const kcMemberFields = ['email', 'kc_member', 'id']
@@ -158,6 +159,7 @@ export default function MemberForm({ activity, show, setShow }: Props) {
     reset(member)
     setSuccess(false)
     setError(null)
+    setLoginLinkSent(false)
 
   }, [member, reset])
 
@@ -168,7 +170,6 @@ export default function MemberForm({ activity, show, setShow }: Props) {
     setTimeout(() => document.getElementById('apply')?.scrollIntoView({ behavior: 'auto', block: 'start' }), 200);
 
   }, [setShow])
-
 
   const createUpload = useCallback(async (file: File, allTags: string[]): Promise<Upload> => {
 
@@ -237,8 +238,8 @@ export default function MemberForm({ activity, show, setShow }: Props) {
 
   return (
     <div id="apply" className={cn(s.container, show && s.show)}>
-      <MemberLogin />
-      {!success ?
+      <MemberLogin onSuccess={() => { setLoginLinkSent(true) }} />
+      {!success && !loginLinkSent &&
         <form className={s.form} onSubmit={handleSubmit(onSubmit)} autoComplete="new" >
           <p>
             Är det första gången du anmäler dig till en aktivitet?
@@ -310,13 +311,15 @@ export default function MemberForm({ activity, show, setShow }: Props) {
           {error && <span className={s.error}>{error}</span>}
           <button type="submit" disabled={loading}>{loading ? <Loader /> : 'Skicka'}</button>
         </form>
-        :
+      }
+      {success && !loginLinkSent &&
         <div className={s.success}>
           Tack för din anmälan!
           <button onClick={() => {
             setShow(false)
             setSuccess(false)
             setError(null)
+            setLoginLinkSent(false)
           }}>Stäng</button>
         </div>
       }
@@ -324,9 +327,11 @@ export default function MemberForm({ activity, show, setShow }: Props) {
   );
 }
 
-type MemberLoginProps = {}
+type MemberLoginProps = {
+  onSuccess: () => void
+}
 
-function MemberLogin({ }: MemberLoginProps) {
+function MemberLogin({ onSuccess }: MemberLoginProps) {
 
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
@@ -355,8 +360,10 @@ function MemberLogin({ }: MemberLoginProps) {
 
       if (res?.error === 'EmailSignin')
         setError('Något gick fel, försök igen senare');
-      else
+      else {
         setSuccess(true);
+        onSuccess()
+      }
 
     } catch (e: any) {
       setError(e.message)
@@ -365,7 +372,6 @@ function MemberLogin({ }: MemberLoginProps) {
     setLoading(false);
   }
 
-  //console.log(status, session?.user?.name, done)
   if (done) return null;
 
   return (
@@ -383,7 +389,7 @@ function MemberLogin({ }: MemberLoginProps) {
         disabled={loading}
       />
       <button className={s.register} type="submit" disabled={loading}>
-        Skicka inloggningslänk
+        {loading ? <Loader /> : 'Skicka inloggningslänk'}
       </button>
       {success &&
         <div className={s.success}>
