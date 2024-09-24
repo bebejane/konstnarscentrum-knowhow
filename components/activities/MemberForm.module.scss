@@ -13,7 +13,6 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    margin-top: 1rem;
     width: 100%;
 
     &:first-of-type {
@@ -49,12 +48,13 @@
     .checkbox {
       display: flex;
       flex-direction: row;
-      align-items: center;
+      align-items: flex-start;
 
       input {
         flex: 0 0;
+        margin-top: 0.2rem;
+        margin-right: 0.5rem;
       }
-
     }
 
     .file {
