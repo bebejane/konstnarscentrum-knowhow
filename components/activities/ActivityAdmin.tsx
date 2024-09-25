@@ -104,47 +104,42 @@ export default function ActivityAdmin({ activity, applications: _applications }:
   }
 
   const handleExportAll = async () => {
-    const columns = ['email', 'firstName', 'lastName', 'address', 'postalCode', 'city', 'sex', 'age', 'country', 'language', 'url', 'social', 'kcMember'];
+    const columns = ['email', 'firstName', 'lastName', 'address', 'postalCode', 'city', 'sex', 'age', 'country', 'language', 'url', 'social', 'kcMember', 'protectedIdentity'];
 
-    // Generate a tab-separated string of column headers
     const header = columns.join('\t');
 
-    // Filter and format APPROVED applications
     const approvedApplications = applications
       .filter(application => application.approvalStatus === 'APPROVED')
       .map(({ member }) => columns
         .map(c => {
-          if (c === 'kcMember') {
-            return member[c] ? 'Ja' : 'Nej'; // Convert kcMember boolean to "yes"/"no"
+          if (c === 'kcMember' || c === 'protectedIdentity') {
+            return member[c] ? 'Ja' : 'Nej';
           }
-          return member[c] || ''; // Handle undefined values
+          return member[c] || '';
         }).join('\t')).join('\n');
 
-    // Filter and format DECLINED applications
     const declinedApplications = applications
       .filter(application => application.approvalStatus === 'DECLINED')
       .map(({ member }) => columns
         .map(c => {
-          if (c === 'kcMember') {
-            return member[c] ? 'Ja' : 'Nej'; // Convert kcMember boolean to "yes"/"no"
+          if (c === 'kcMember' || c === 'protectedIdentity') {
+            return member[c] ? 'Ja' : 'Nej';
           }
-          return member[c] || ''; // Handle undefined values
+          return member[c] || '';
         }).join('\t')).join('\n');
 
-    // Combine sections with headers and blank line between sections
     const t = [
-      `Approved`,           // Section header for Approved
-      header,               // Column headers for Approved
-      approvedApplications, // Approved applications data
-      '',                   // Blank line separating the sections
-      `Declined`,           // Section header for Declined
-      declinedApplications  // Declined applications data
+      `Utvalda`,
+      header,
+      approvedApplications,
+      '',
+      `Bortvalda`,
+      header,
+      declinedApplications
     ].filter(Boolean).join('\n');
 
-    // If there is no data, return early
     if (!t) return;
 
-    // Copy the result to the clipboard
     await navigator.clipboard.writeText(t);
     alert('Kopierat till urklipp');
   };
