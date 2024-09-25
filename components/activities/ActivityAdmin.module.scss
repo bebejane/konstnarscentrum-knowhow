@@ -66,8 +66,11 @@
     }
   }
 
+  .exportFirst {
+    margin-top: 3rem;
+  }
+
   .export {
-    margin-top: var(--space);
     margin-left: var(--total-outer-margin);
     margin-right: var(--total-outer-margin);
     width: calc(100% - 2 * var(--total-outer-margin));
