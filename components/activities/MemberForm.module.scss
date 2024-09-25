@@ -149,9 +149,15 @@
     justify-content: center;
     background-color: var(--white);
     padding: 1rem;
+    background-color: var(--orange-light);
+
+    p {
+      margin-top: 1rem;
+    }
 
     button {
       margin-top: 1rem;
+      margin-bottom: 1rem;
     }
   }
 }

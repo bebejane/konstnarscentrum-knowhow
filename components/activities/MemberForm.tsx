@@ -316,7 +316,7 @@ export default function MemberForm({ activity, show, setShow }: Props) {
       }
       {success && !loginLinkSent &&
         <div className={s.success}>
-          Tack för din anmälan!
+          <p>Tack för din anmälan! Vi kontaktar dig för bekräftelse om du har fått plats via mail.</p>
           <button onClick={() => {
             setShow(false)
             setSuccess(false)
