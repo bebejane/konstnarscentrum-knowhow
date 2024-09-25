@@ -214,23 +214,23 @@ export default function MemberForm({ activity, show, setShow }: Props) {
   let fields: FormField[] = [
     { id: 'id', type: 'hidden', value: activity.id },
     { id: 'email', type: 'email', label: 'E-post', required: 'E-post är obligatoriskt', pattern: { value: /\S+@\S+\.\S+/, message: 'Ogiltig e-postadress' } },
-    { id: 'kc_member', type: 'checkbox', label: 'Jag är medlem i Konstnärscentrum' },
     { id: 'first_name', type: 'text', label: 'Förnamn', required: 'Namn är obligatoriskt' },
     { id: 'last_name', type: 'text', label: 'Efternamn', required: 'Efternamn är obligatoriskt' },
     { id: 'address', type: 'text', label: 'Adress', required: 'Adress är obligatoriskt' },
-    { id: 'city', type: 'text', label: 'Stad', required: 'Stad är obligatoriskt' },
     { id: 'postal_code', type: 'text', label: 'Postnummer', required: 'Postnummer är obligatoriskt' },
+    { id: 'city', type: 'text', label: 'Stad', required: 'Stad är obligatoriskt' },
     { id: 'phone', type: 'text', label: 'Telefon' },
     { id: 'age', type: 'text', label: 'Ålder', required: 'Ålder är obligatoriskt' },
     { id: 'sex', type: 'select', label: 'Kön', required: 'Kön är obligatoriskt', options: [{ id: 'Kvinna', value: 'Kvinna' }, { id: 'Man', value: 'Man' }, { id: 'Annat', value: 'Annat' }, { id: 'Vill ej uppge', value: 'Vill ej uppge' }] },
     { id: 'country', type: 'text', label: 'Födelseland', required: 'Födelseland är obligatoriskt' },
     { id: 'language', type: 'text', label: 'Språk', required: 'Språk är obligatoriskt' },
     { id: 'url', type: 'text', label: 'Webbplats' },
-    { id: 'social', type: 'textarea', label: 'Social media' },
-    { id: 'education', type: 'textarea', label: 'Utbildning/ professionell yrkeserfarenhet' },
-    { id: 'mission', type: 'textarea', label: 'Uppdrag' },
-    { id: 'pdf', type: 'file', label: 'CV som PDF', value: '' },
-    { id: 'protected_identity', type: 'checkbox', label: 'Skyddad identitet' },
+    { id: 'social', type: 'textarea', label: 'Sociala medier' },
+    //{ id: 'education', type: 'textarea', label: 'Utbildning/ professionell yrkeserfarenhet' },
+    //{ id: 'mission', type: 'textarea', label: 'Uppdrag' },
+    { id: 'pdf', type: 'file', label: 'CV som PDF', value: '', required: 'CV är obligatoriskt' },
+    { id: 'protected_identity', type: 'checkbox', label: 'Jag har skyddad identitet' },
+    { id: 'kc_member', type: 'checkbox', label: 'Jag är medlem i Konstnärscentrum' },
   ]
   fields = fields
     .filter(({ id }) => isAlreadyMember && !kcMemberFields.includes(id) ? false : true)
@@ -244,8 +244,8 @@ export default function MemberForm({ activity, show, setShow }: Props) {
       {!success && !loginLinkSent &&
         <form className={s.form} onSubmit={handleSubmit(onSubmit)} autoComplete="new" >
           <p>
-            Är det första gången du anmäler dig till en aktivitet?
-            Då vill vi veta lite mer om dig (om du inte är medlem i Konstnärscentrum redan).<br /> <a href="mailto:knowhow@konstnarscentrum.org">Hör av dig till oss</a> om något är oklart.
+            Är det första gången du anmäler intresse att delta i en aktivitet?
+            Då vill vi veta lite  om dig så vi kan sätta ihop en bra grupp.<br /> <a href="mailto:knowhow@konstnarscentrum.org">Hör av dig till oss</a> om något är oklart.
           </p>
 
           {fields.map(({ id, type, label, value, options, required, pattern }, idx) => {
@@ -316,7 +316,7 @@ export default function MemberForm({ activity, show, setShow }: Props) {
       }
       {success && !loginLinkSent &&
         <div className={s.success}>
-          <p>Tack för din anmälan! Vi kontaktar dig för bekräftelse om du har fått plats via mail.</p>
+          <p>Tack för din intresseanmälan!<br /> Vi kontaktar dig för bekräftelse om du har fått plats via mail.</p>
           <button onClick={() => {
             setShow(false)
             setSuccess(false)
