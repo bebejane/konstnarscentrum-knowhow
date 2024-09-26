@@ -47,6 +47,8 @@ export default async function handler(req: NextRequest, res: NextResponse) {
     const applicationTypeId = itemTypes.find(({ api_key }) => api_key === 'application')?.id;
     const fields = pick(member, field_ids);
 
+    fields.email = fields.email.toLowerCase();
+
     const currentMember = (await client.items.list({
       filter: {
         type: 'member',
