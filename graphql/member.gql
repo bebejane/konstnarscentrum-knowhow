@@ -32,6 +32,7 @@ fragment MemberFragment on MemberRecord {
 	country
 	language
 	address
+	city
 	mission
 	phone
 	postalCode
@@ -39,6 +40,10 @@ fragment MemberFragment on MemberRecord {
 	sex
 	workCategory
 	url
+	kcMember
+	protectedIdentity
+	educationThreeYears
+	haveWorkedThreeYears
 	pdf {
 		id
 		url

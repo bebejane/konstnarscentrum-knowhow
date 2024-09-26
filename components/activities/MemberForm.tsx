@@ -31,6 +31,8 @@ type FormInputs = {
   email: string;
   kc_member: string;
   protected_identity?: string;
+  education_three_years?: string;
+  have_worked_three_years?: string;
   social?: string;
   first_name: string;
   last_name: string;
@@ -67,8 +69,6 @@ export default function MemberForm({ activity, show, setShow }: Props) {
     register,
     handleSubmit,
     reset,
-    getValues,
-    watch,
     formState: { errors },
   } = useForm<FormInputs>();
 
@@ -76,9 +76,9 @@ export default function MemberForm({ activity, show, setShow }: Props) {
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const [member, setMember] = useState<any | null>(null);
-  const [isAlreadyMember, setIsAlreadyMember] = useState(false);
   const [loadingMember, setLoadingMember] = useState(false);
   const [loginLinkSent, setLoginLinkSent] = useState(false);
+  const [loginFromLink, setLoginFromLink] = useState(false);
   const abortController = useRef(new AbortController());
   const { data: session, status } = useSession();
   const kcMemberFields = ['email', 'kc_member', 'id']
@@ -102,9 +102,6 @@ export default function MemberForm({ activity, show, setShow }: Props) {
       else
         body.member.pdf = null
 
-      if (isAlreadyMember)
-        body.member = pick(body.member, kcMemberFields) as any
-
       const res = await fetch('/api/activity/register', {
         method: 'POST',
         body: JSON.stringify(body),
@@ -123,6 +120,7 @@ export default function MemberForm({ activity, show, setShow }: Props) {
       const result = await res.json(); console.log(result);
       reset()
       setSuccess(true)
+      scrollToForm()
     } catch (e: any) {
       if (e.name === 'AbortError') return;
       setError(e.message);
@@ -166,8 +164,9 @@ export default function MemberForm({ activity, show, setShow }: Props) {
   useEffect(() => {
     if (window.location.hash !== '#apply?login=1') return
 
+    setLoginFromLink(true)
     setShow(true)
-    setTimeout(() => document.getElementById('apply')?.scrollIntoView({ behavior: 'auto', block: 'start' }), 200);
+    scrollToForm()
 
   }, [setShow])
 
@@ -196,20 +195,14 @@ export default function MemberForm({ activity, show, setShow }: Props) {
 
   }, [])
 
-  const handleValueChange = (e: React.ChangeEvent<HTMLElement>) => {
-    const target = e.target as HTMLInputElement
-    const { id } = target
-
-    switch (id) {
-      case 'kc_member':
-        setIsAlreadyMember(target.checked)
-        break;
-      default:
-        break;
-    }
-
+  const scrollToForm = () => {
+    setTimeout(() => document.getElementById('apply')?.scrollIntoView({ behavior: 'auto', block: 'start' }), 300);
   }
 
+  const handleLoginSuccess = () => {
+    setLoginLinkSent(true)
+    scrollToForm()
+  }
 
   let fields: FormField[] = [
     { id: 'id', type: 'hidden', value: activity.id },
@@ -226,31 +219,37 @@ export default function MemberForm({ activity, show, setShow }: Props) {
     { id: 'language', type: 'text', label: 'Språk', required: 'Språk är obligatoriskt' },
     { id: 'url', type: 'text', label: 'Webbplats' },
     { id: 'social', type: 'textarea', label: 'Sociala medier' },
-    //{ id: 'education', type: 'textarea', label: 'Utbildning/ professionell yrkeserfarenhet' },
-    //{ id: 'mission', type: 'textarea', label: 'Uppdrag' },
     { id: 'pdf', type: 'file', label: 'CV som PDF', value: '', required: 'CV är obligatoriskt' },
     { id: 'protected_identity', type: 'checkbox', label: 'Jag har skyddad identitet' },
     { id: 'kc_member', type: 'checkbox', label: 'Jag är medlem i Konstnärscentrum' },
+    { id: 'education_three_years', type: 'checkbox', label: 'Utbildad på konstnärlig högskola minst 3 år' },
+    { id: 'have_worked_three_years', type: 'checkbox', label: 'Jag har arbetat längre än 3 år som professionell konstnär utan att ha gått konstnärlig högskola' },
   ]
-  fields = fields
-    .filter(({ id }) => isAlreadyMember && !kcMemberFields.includes(id) ? false : true)
-    .map((field) => ({ ...field, required: isAlreadyMember ? undefined : field.required }))
 
   return (
     <div id="apply" className={cn(s.container, show && s.show)}>
       {status !== 'authenticated' &&
-        <MemberLogin onSuccess={() => { setLoginLinkSent(true) }} />
+        <MemberLogin onSuccess={handleLoginSuccess} />
       }
       {!success && !loginLinkSent &&
         <form className={s.form} onSubmit={handleSubmit(onSubmit)} autoComplete="new" >
+
           <p>
-            Är det första gången du anmäler intresse att delta i en aktivitet?
-            Då vill vi veta lite  om dig så vi kan sätta ihop en bra grupp.<br /> <a href="mailto:knowhow@konstnarscentrum.org">Hör av dig till oss</a> om något är oklart.
+            {!loginFromLink ?
+              <>
+                Är det första gången du anmäler intresse att delta i en aktivitet?
+                Då vill vi veta lite  om dig så vi kan sätta ihop en bra grupp.<br /> <a href="mailto:knowhow@konstnarscentrum.org">Hör av dig till oss</a> om något är oklart.
+              </>
+              :
+              <>
+                Du har redan anmält dig till en kurs hos oss så vi har sparat dina uppgifter.
+                Kontrollera att dom stämmer och klicka sen &quot;Skicka&quot; för att anmäla ditt intresse för denna kursen.
+              </>
+            }
           </p>
 
           {fields.map(({ id, type, label, value, options, required, pattern }, idx) => {
             const title = (<label htmlFor={id}>{label}{required && <span className={s.required}>*</span>}</label>)
-
             return (
               <React.Fragment key={idx}>
                 {type !== 'checkbox' && title}
@@ -259,7 +258,6 @@ export default function MemberForm({ activity, show, setShow }: Props) {
                     id={id}
                     {...register(id, { required, pattern })}
                     className={cn(errors[id] && s.error)}
-                    onChange={handleValueChange}
                     autoComplete="new"
                     autoCorrect={'off'}
                   />
@@ -277,7 +275,6 @@ export default function MemberForm({ activity, show, setShow }: Props) {
                         id={id}
                         {...register(id, { required, pattern })}
                         className={cn(errors[id] && s.error)}
-                        onChange={handleValueChange}
                         autoComplete="new"
                       >
                         <option value="">Välj...</option>
@@ -292,7 +289,6 @@ export default function MemberForm({ activity, show, setShow }: Props) {
                             value={value}
                             {...register(id, { required, pattern })}
                             className={cn(errors[id] && s.error)}
-                            onChange={handleValueChange}
                             autoComplete="new"
                           />
                           {title}
@@ -303,7 +299,6 @@ export default function MemberForm({ activity, show, setShow }: Props) {
                           value={value}
                           {...register(id, { required, pattern })}
                           className={cn(errors[id] && s.error)}
-                          onChange={handleValueChange}
                           autoComplete="new"
                         />
                 }

@@ -12,6 +12,8 @@ const field_ids = [
   'email',
   'kc_member',
   'protected_identity',
+  'education_three_years',
+  'have_worked_three_years',
   'social',
   'first_name',
   'last_name',
