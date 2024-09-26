@@ -64,7 +64,6 @@ export default async function (client: Client) {
     label: "Namn",
     field_type: "string",
     api_key: "first_name",
-    validators: { required: {} },
     appearance: {
       addons: [],
       editor: "single_line",
@@ -81,7 +80,6 @@ export default async function (client: Client) {
     label: "Efternamn",
     field_type: "string",
     api_key: "last_name",
-    validators: { required: {} },
     appearance: {
       addons: [],
       editor: "single_line",
@@ -98,7 +96,22 @@ export default async function (client: Client) {
     label: "Adress",
     field_type: "string",
     api_key: "address",
-    validators: { required: {} },
+    appearance: {
+      addons: [],
+      editor: "single_line",
+      parameters: { heading: false, placeholder: null },
+    },
+    default_value: "",
+  });
+
+  console.log(
+    'Create Single-line string field "Stad" (`city`) in model "Medlem" (`member`)',
+  );
+  await client.fields.create("LIP_uDB9RMeopV35L9i_ZQ", {
+    id: "D3fkur_qRruFVYnbYnGBiQ",
+    label: "Stad",
+    field_type: "string",
+    api_key: "city",
     appearance: {
       addons: [],
       editor: "single_line",
@@ -115,7 +128,6 @@ export default async function (client: Client) {
     label: "Postnummer",
     field_type: "string",
     api_key: "postal_code",
-    validators: { required: {} },
     appearance: {
       addons: [],
       editor: "single_line",
@@ -148,7 +160,6 @@ export default async function (client: Client) {
     label: "\u00C5lder",
     field_type: "integer",
     api_key: "age",
-    validators: { required: {} },
     appearance: {
       addons: [],
       editor: "integer",
@@ -164,7 +175,9 @@ export default async function (client: Client) {
     label: "K\u00F6n",
     field_type: "string",
     api_key: "sex",
-    validators: { enum: { values: ["Man", "Kvinna", "Annat"] } },
+    validators: {
+      enum: { values: ["Man", "Kvinna", "Annat", "Vill ej uppge"] },
+    },
     appearance: {
       addons: [],
       editor: "single_line",
@@ -181,7 +194,6 @@ export default async function (client: Client) {
     label: "F\u00F6delseland",
     field_type: "string",
     api_key: "country",
-    validators: { required: {} },
     appearance: {
       addons: [],
       editor: "single_line",
@@ -198,7 +210,6 @@ export default async function (client: Client) {
     label: "Spr\u00E5k",
     field_type: "string",
     api_key: "language",
-    validators: { required: {} },
     appearance: {
       addons: [],
       editor: "single_line",
@@ -225,13 +236,13 @@ export default async function (client: Client) {
   });
 
   console.log(
-    'Create Multiple-paragraph text field "Utbildning" (`education`) in model "Medlem" (`member`)',
+    'Create Multiple-paragraph text field "Social media" (`social`) in model "Medlem" (`member`)',
   );
   await client.fields.create("LIP_uDB9RMeopV35L9i_ZQ", {
-    id: "Xyt21P-qRYqACbULLv1P7Q",
-    label: "Utbildning",
+    id: "BnKw2-foRnmuNtXxCvciIw",
+    label: "Social media",
     field_type: "text",
-    api_key: "education",
+    api_key: "social",
     appearance: {
       addons: [],
       editor: "markdown",
@@ -250,6 +261,23 @@ export default async function (client: Client) {
           "fullscreen",
         ],
       },
+      type: "markdown",
+    },
+    default_value: "",
+  });
+
+  console.log(
+    'Create Multiple-paragraph text field "Utbildning" (`education`) in model "Medlem" (`member`)',
+  );
+  await client.fields.create("LIP_uDB9RMeopV35L9i_ZQ", {
+    id: "Xyt21P-qRYqACbULLv1P7Q",
+    label: "Utbildning",
+    field_type: "text",
+    api_key: "education",
+    appearance: {
+      addons: [],
+      editor: "markdown",
+      parameters: { toolbar: [] },
       type: "markdown",
     },
     default_value: "",
@@ -266,21 +294,7 @@ export default async function (client: Client) {
     appearance: {
       addons: [],
       editor: "markdown",
-      parameters: {
-        toolbar: [
-          "heading",
-          "bold",
-          "italic",
-          "strikethrough",
-          "code",
-          "unordered_list",
-          "ordered_list",
-          "quote",
-          "link",
-          "image",
-          "fullscreen",
-        ],
-      },
+      parameters: { toolbar: [] },
       type: "markdown",
     },
     default_value: "",
@@ -294,7 +308,6 @@ export default async function (client: Client) {
     label: "Yrkeskategori",
     field_type: "string",
     api_key: "work_category",
-    validators: { required: {} },
     appearance: {
       addons: [],
       editor: "single_line",
@@ -313,6 +326,51 @@ export default async function (client: Client) {
     api_key: "pdf",
     validators: { extension: { extensions: ["pdf"] } },
     appearance: { addons: [], editor: "file", parameters: {} },
+  });
+
+  console.log(
+    'Create Boolean field "Konstn\u00E4rscentrum medlem" (`kc_member`) in model "Medlem" (`member`)',
+  );
+  await client.fields.create("LIP_uDB9RMeopV35L9i_ZQ", {
+    id: "QrYBNjb0RuSpCZMZJcsoNw",
+    label: "Konstn\u00E4rscentrum medlem",
+    field_type: "boolean",
+    api_key: "kc_member",
+    appearance: { addons: [], editor: "boolean", parameters: {} },
+  });
+
+  console.log(
+    'Create Boolean field "Utbildad p\u00E5 konstn\u00E4rlig h\u00F6gskola minst 3 \u00E5r" (`education_three_years`) in model "Medlem" (`member`)',
+  );
+  await client.fields.create("LIP_uDB9RMeopV35L9i_ZQ", {
+    id: "cm0dQaRASAiovcYOIwcw-w",
+    label: "Utbildad p\u00E5 konstn\u00E4rlig h\u00F6gskola minst 3 \u00E5r",
+    field_type: "boolean",
+    api_key: "education_three_years",
+    appearance: { addons: [], editor: "boolean", parameters: {} },
+  });
+
+  console.log(
+    'Create Boolean field "Jag har arbetat l\u00E4ngre \u00E4n 3 \u00E5r som professionell konstn\u00E4r utan att ha g\u00E5tt konstn\u00E4rlig h\u00F6gskola" (`have_worked_three_years`) in model "Medlem" (`member`)',
+  );
+  await client.fields.create("LIP_uDB9RMeopV35L9i_ZQ", {
+    id: "ZlqSxOlmQq2XGqFJIh5vKw",
+    label:
+      "Jag har arbetat l\u00E4ngre \u00E4n 3 \u00E5r som professionell konstn\u00E4r utan att ha g\u00E5tt konstn\u00E4rlig h\u00F6gskola",
+    field_type: "boolean",
+    api_key: "have_worked_three_years",
+    appearance: { addons: [], editor: "boolean", parameters: {} },
+  });
+
+  console.log(
+    'Create Boolean field "Skyddad identitet" (`protected_identity`) in model "Medlem" (`member`)',
+  );
+  await client.fields.create("LIP_uDB9RMeopV35L9i_ZQ", {
+    id: "AJ8pUKfFREmyVEnkt3rOcQ",
+    label: "Skyddad identitet",
+    field_type: "boolean",
+    api_key: "protected_identity",
+    appearance: { addons: [], editor: "boolean", parameters: {} },
   });
 
   console.log('Create JSON field "Auth" (`auth`) in model "Medlem" (`member`)');
@@ -382,6 +440,50 @@ export default async function (client: Client) {
       parameters: { heading: false, placeholder: null },
     },
     default_value: "PENDING",
+  });
+
+  console.log(
+    'Create Boolean field "Visa anm\u00E4lningsformul\u00E4r" (`show_form`) in model "Aktiviteter" (`activity`)',
+  );
+  await client.fields.create("1349208", {
+    id: "ZUIxaqngT8WmXhhfzUKLkg",
+    label: "Visa anm\u00E4lningsformul\u00E4r",
+    field_type: "boolean",
+    api_key: "show_form",
+    appearance: { addons: [], editor: "boolean", parameters: {} },
+    default_value: false,
+  });
+
+  console.log("Update existing fields/fieldsets");
+
+  console.log('Reorder fields/fieldsets for model "Aktiviteter" (`activity`)');
+  await client.itemTypes.rawReorderFieldsAndFieldsets("1349208", {
+    data: [
+      {
+        id: "ZUIxaqngT8WmXhhfzUKLkg",
+        type: "field",
+        attributes: { position: 8 },
+        relationships: { fieldset: { data: null } },
+      },
+      {
+        id: "10340057",
+        type: "field",
+        attributes: { position: 9 },
+        relationships: { fieldset: { data: null } },
+      },
+      {
+        id: "10340060",
+        type: "field",
+        attributes: { position: 10 },
+        relationships: { fieldset: { data: null } },
+      },
+      {
+        id: "10340061",
+        type: "field",
+        attributes: { position: 11 },
+        relationships: { fieldset: { data: null } },
+      },
+    ],
   });
 
   console.log("Finalize models/block models");
