@@ -196,7 +196,7 @@ export default function MemberForm({ activity, show, setShow }: Props) {
   }, [])
 
   const scrollToForm = () => {
-    setTimeout(() => document.getElementById('apply')?.scrollIntoView({ behavior: 'auto', block: 'start' }), 300);
+    setTimeout(() => document.getElementById('apply')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 300);
   }
 
   const handleLoginSuccess = () => {
