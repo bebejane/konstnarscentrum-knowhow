@@ -1,6 +1,7 @@
 .container {
   display: none;
   flex-direction: column;
+  scroll-margin-top: calc(var(--navbar-height) + 100px);
 
   &.show {
     display: flex;

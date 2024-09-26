@@ -282,6 +282,14 @@ export default function ActivityAdmin({ activity, applications: _applications }:
                     <p>{application.member?.kcMember ? 'Ja' : 'Nej'}</p>
                   </span>
                   <span>
+                    <h5>Utbildad på konstnärlig högskola minst 3 år:</h5>
+                    <p>{application.member?.educationThreeYears ? 'Ja' : 'Nej'}</p>
+                  </span>
+                  <span>
+                    <h5>Jag har arbetat längre än 3 år som professionell konstnär utan att ha gått konstnärlig högskola:</h5>
+                    <p>{application.member?.haveWorkedThreeYears ? 'Ja' : 'Nej'}</p>
+                  </span>
+                  <span>
                     <h5>Skyddad identitet:</h5>
                     <p>{application.member?.protectedIdentity ? 'Ja' : 'Nej'}</p>
                   </span>
