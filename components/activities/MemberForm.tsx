@@ -228,7 +228,7 @@ export default function MemberForm({ activity, show, setShow }: Props) {
 
   return (
     <div id="apply" className={cn(s.container, show && s.show)}>
-      {status !== 'authenticated' &&
+      {status !== 'authenticated' && !success &&
         <MemberLogin onSuccess={handleLoginSuccess} />
       }
       {!success && !loginLinkSent &&
