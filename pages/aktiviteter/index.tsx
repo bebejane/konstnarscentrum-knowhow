@@ -38,8 +38,8 @@ export default function Activities({ presentActivities, activities: activitiesFr
 	const allNews = [...presentActivities, ...activities]
 		.map(el => ({ ...el, status: activityStatus(el.date, el.dateEnd) }))
 		.filter(({ category }) => activitiesCategoryId ? activitiesCategoryId === category?.id : true)
-		.sort((a, b) => new Date(a.date) > new Date(b.date) ? -1 : 1)
 		.sort((a, b) => a.status.value === 'past' ? 1 : -1)
+		.sort((a, b) => new Date(a.createdAt) > new Date(b.createdAt) ? -1 : 1)
 
 	return (
 		<>
