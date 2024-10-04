@@ -374,8 +374,9 @@ function MemberLogin({ onSuccess }: MemberLoginProps) {
   return (
     <form onSubmit={handleLogin} className={cn(s.form)}>
       <p>
-        Har du deltagit i våra aktiviteter innan?
-        Då behöver du bara fylla i din mailadress för att anmäla dig nedan.
+        Har du deltagit i våra aktiviteter innan och anmält dig via formuläret här på hemsidan?
+        Då behöver du bara fylla i din mailadress för att anmäla dig nedan. <br />
+        Om inte, anmäl dig med formuläret nedan.
       </p>
       <input
         type="email"
