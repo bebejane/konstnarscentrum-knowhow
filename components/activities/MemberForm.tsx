@@ -222,7 +222,7 @@ export default function MemberForm({ activity, show, setShow }: Props) {
     { id: 'pdf', type: 'file', label: 'CV som PDF', value: '', required: 'CV är obligatoriskt' },
     { id: 'protected_identity', type: 'checkbox', label: 'Jag har skyddad identitet' },
     { id: 'kc_member', type: 'checkbox', label: 'Jag är medlem i Konstnärscentrum' },
-    { id: 'education_three_years', type: 'checkbox', label: 'Utbildad på konstnärlig högskola minst 3 år' },
+    { id: 'education_three_years', type: 'checkbox', label: 'Jag är utbildad på konstnärlig högskola minst 3 år' },
     { id: 'have_worked_three_years', type: 'checkbox', label: 'Jag har arbetat längre än 3 år som professionell konstnär utan att ha gått konstnärlig högskola' },
   ]
 
@@ -374,7 +374,7 @@ function MemberLogin({ onSuccess }: MemberLoginProps) {
   return (
     <form onSubmit={handleLogin} className={cn(s.form)}>
       <p>
-        Har du deltagit i våra aktiviteter innan?
+        Har du deltagit i våra aktiviteter innan och anmält dig via detta formulär?
         Då behöver du bara fylla i din mailadress för att anmäla dig nedan.
       </p>
       <input

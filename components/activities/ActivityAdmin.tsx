@@ -104,7 +104,7 @@ export default function ActivityAdmin({ activity, applications: _applications }:
   }
 
   const handleExportAll = async () => {
-    const columns = ['email', 'firstName', 'lastName', 'address', 'postalCode', 'city', 'sex', 'age', 'country', 'language', 'url', 'social', 'kcMember', 'protectedIdentity'];
+    const columns = ['email', 'firstName', 'lastName', 'address', 'postalCode', 'city', 'sex', 'age', 'country', 'language', 'url', 'social', 'kcMember', 'protectedIdentity', 'educationThreeYears', 'haveWorkedThreeYears'];
 
     const header = columns.join('\t');
 
@@ -112,7 +112,7 @@ export default function ActivityAdmin({ activity, applications: _applications }:
       .filter(application => application.approvalStatus === 'APPROVED')
       .map(({ member }) => columns
         .map(c => {
-          if (c === 'kcMember' || c === 'protectedIdentity') {
+          if (c === 'kcMember' || c === 'protectedIdentity' || c === 'educationThreeYears' || c === 'haveWorkedThreeYears') {
             return member[c] ? 'Ja' : 'Nej';
           }
           return member[c] || '';
@@ -122,7 +122,7 @@ export default function ActivityAdmin({ activity, applications: _applications }:
       .filter(application => application.approvalStatus === 'DECLINED')
       .map(({ member }) => columns
         .map(c => {
-          if (c === 'kcMember' || c === 'protectedIdentity') {
+          if (c === 'kcMember' || c === 'protectedIdentity' || c === 'educationThreeYears' || c === 'haveWorkedThreeYears') {
             return member[c] ? 'Ja' : 'Nej';
           }
           return member[c] || '';
@@ -282,11 +282,11 @@ export default function ActivityAdmin({ activity, applications: _applications }:
                     <p>{application.member?.kcMember ? 'Ja' : 'Nej'}</p>
                   </span>
                   <span>
-                    <h5>Utbildad på konstnärlig högskola minst 3 år:</h5>
+                    <h5>Jag är utbildad på konstnärlig högskola minst 3 år:</h5>
                     <p>{application.member?.educationThreeYears ? 'Ja' : 'Nej'}</p>
                   </span>
                   <span>
-                    <h5>Jag har arbetat längre än 3 år som professionell konstnär utan att ha gått konstnärlig högskola:</h5>
+                    <h5>Jag har arbetat längre än 3 år som professionell konstnär:</h5>
                     <p>{application.member?.haveWorkedThreeYears ? 'Ja' : 'Nej'}</p>
                   </span>
                   <span>
