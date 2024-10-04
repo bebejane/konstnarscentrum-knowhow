@@ -251,7 +251,7 @@ export default function ActivityAdmin({ activity, applications: _applications }:
                     </p>
                   </span>
                   <span>
-                    <h5>Hemsida:</h5>
+                    <h5>Hemsida: (Obs! Krävs komplett url inkl http://)</h5>
                     <p><a href={application.member?.url} rel="noreferrer" target="_new">Besök</a></p>
                   </span>
                   <span>
