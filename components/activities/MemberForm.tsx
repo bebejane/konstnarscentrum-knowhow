@@ -217,7 +217,7 @@ export default function MemberForm({ activity, show, setShow }: Props) {
     { id: 'sex', type: 'select', label: 'Kön', required: 'Kön är obligatoriskt', options: [{ id: 'Kvinna', value: 'Kvinna' }, { id: 'Man', value: 'Man' }, { id: 'Annat', value: 'Annat' }, { id: 'Vill ej uppge', value: 'Vill ej uppge' }] },
     { id: 'country', type: 'text', label: 'Födelseland', required: 'Födelseland är obligatoriskt' },
     { id: 'language', type: 'text', label: 'Språk', required: 'Språk är obligatoriskt' },
-    { id: 'url', type: 'text', label: 'Webbplats' },
+    { id: 'url', type: 'text', label: 'Webbplats (Krävs fullständig url med http://)' },
     { id: 'social', type: 'textarea', label: 'Sociala medier' },
     { id: 'pdf', type: 'file', label: 'CV som PDF', value: '', required: 'CV är obligatoriskt' },
     { id: 'protected_identity', type: 'checkbox', label: 'Jag har skyddad identitet' },
