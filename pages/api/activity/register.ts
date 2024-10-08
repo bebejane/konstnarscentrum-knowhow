@@ -28,8 +28,7 @@ const field_ids = [
   'url',
   'education',
   'mission',
-  'work_category',
-  'pdf'
+  'work_category'
 ];
 
 export default async function handler(req: NextRequest, res: NextResponse) {

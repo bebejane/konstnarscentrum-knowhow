@@ -40,7 +40,14 @@ export default function Activities({ presentActivities, activities: activitiesFr
 		.filter(({ category }) => activitiesCategoryId ? activitiesCategoryId === category?.id : true)
 		.sort((a, b) => new Date(a.createdAt) > new Date(b.createdAt) ? -1 : 1)
 		.sort((a, b) => a.status.value === 'past' ? 1 : -1)
+		.sort((a, b) => {
+			if (a.status.value === 'past' && b.status.value === 'past')
+				return new Date(a.createdAt) > new Date(b.createdAt) ? 1 : -1
 
+			return 0
+		})
+
+	console.log(allNews.map(el => ({ d: el.createdAt, s: el.status.value, t: el.title })))
 	return (
 		<>
 			<h1><RevealText>Aktiviteter</RevealText></h1>
@@ -52,7 +59,7 @@ export default function Activities({ presentActivities, activities: activitiesFr
 
 			<CardContainer columns={2} className={s.activities} key={`${page.no}-${activitiesCategoryId}`}>
 				{allNews.length > 0 ? allNews.map((el, idx) => {
-					const { id, date, title, intro, slug, image, category } = el
+					const { id, date, title, intro, slug, image, category, createdAt } = el
 					return (
 						<NewsCard
 							key={id}

@@ -268,16 +268,6 @@ export default function ActivityAdmin({ activity, applications: _applications }:
                     <p>{application.member?.education}</p>
                   </span>
                   <span>
-                    <h5>CV:</h5>
-                    <p>
-                      {application.member?.pdf ?
-                        <a href={application.member?.pdf.url} target="_new" rel="noreferrer">Visa Pdf</a>
-                        :
-                        'Ingen pdf uppladdad...'
-                      }
-                    </p>
-                  </span>
-                  <span>
                     <h5>Medlem i Konstnärscentrum:</h5>
                     <p>{application.member?.kcMember ? 'Ja' : 'Nej'}</p>
                   </span>

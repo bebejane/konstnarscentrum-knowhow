@@ -95,12 +95,6 @@ export default function MemberForm({ activity, show, setShow }: Props) {
     try {
 
       const body = { member: data, id: activity.id }
-      const upload = data.pdf[0] instanceof File ? await createUpload(data.pdf[0], []) : null;
-
-      if (upload)
-        body.member.pdf = { upload_id: upload.id, default_field_metadata: upload.default_field_metadata } ?? null
-      else
-        body.member.pdf = null
 
       const res = await fetch('/api/activity/register', {
         method: 'POST',
@@ -262,38 +256,20 @@ export default function MemberForm({ activity, show, setShow }: Props) {
                     autoCorrect={'off'}
                   />
                   :
-                  type === 'file' ?
-                    <FileField
+                  type === 'select' ?
+                    <select
                       id={id}
-                      register={register}
-                      member={member}
+                      {...register(id, { required, pattern })}
                       className={cn(errors[id] && s.error)}
-                    />
-                    :
-                    type === 'select' ?
-                      <select
-                        id={id}
-                        {...register(id, { required, pattern })}
-                        className={cn(errors[id] && s.error)}
-                        autoComplete="new"
-                      >
-                        <option value="">Välj...</option>
-                        {options.map(({ id, value }) => <option key={id} value={id}>{value}</option>)}
-                      </select>
+                      autoComplete="new"
+                    >
+                      <option value="">Välj...</option>
+                      {options.map(({ id, value }) => <option key={id} value={id}>{value}</option>)}
+                    </select>
 
-                      : type === 'checkbox' ?
-                        <div className={s.checkbox}>
-                          <input
-                            id={id}
-                            type={type}
-                            value={value}
-                            {...register(id, { required, pattern })}
-                            className={cn(errors[id] && s.error)}
-                            autoComplete="new"
-                          />
-                          {title}
-                        </div>
-                        : <input
+                    : type === 'checkbox' ?
+                      <div className={s.checkbox}>
+                        <input
                           id={id}
                           type={type}
                           value={value}
@@ -301,6 +277,16 @@ export default function MemberForm({ activity, show, setShow }: Props) {
                           className={cn(errors[id] && s.error)}
                           autoComplete="new"
                         />
+                        {title}
+                      </div>
+                      : <input
+                        id={id}
+                        type={type}
+                        value={value}
+                        {...register(id, { required, pattern })}
+                        className={cn(errors[id] && s.error)}
+                        autoComplete="new"
+                      />
                 }
               </React.Fragment>
             )
@@ -400,40 +386,3 @@ function MemberLogin({ onSuccess }: MemberLoginProps) {
   )
 }
 
-type FileFieldProps = {
-  member: any
-  id: string
-  register: any
-  className: string
-}
-
-function FileField({ member, id, register, className }: FileFieldProps) {
-
-  const [newUpload, setNewUpload] = useState(false)
-  const ref = useRef<HTMLInputElement | null>(null)
-  const upload = member?.[id]
-
-  if (upload && !newUpload) {
-
-    const title = upload.default_field_metadata?.en?.title ?? upload.title ?? 'Unknow.pdf'
-
-    return (
-      <div className={cn(s.upload, className)}>
-        <div className={s.title}>{title}</div>
-        <button onClick={() => setNewUpload(true)}>&times;</button>
-      </div>
-    )
-  }
-
-  const handleClick = () => {
-    const input = document.getElementById(id) as HTMLInputElement
-    input?.click()
-  }
-
-  return (
-    <div className={cn(s.file, className)}>
-      <button type="button" onClick={handleClick}>Välj fil</button>
-      <input ref={ref} id={id} {...register(id)} type="file" accept=".pdf" className={className} autoComplete="false" />
-    </div>
-  )
-}

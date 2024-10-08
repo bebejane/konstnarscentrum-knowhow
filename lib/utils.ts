@@ -67,7 +67,7 @@ export const pingEndpoint = async (path: string | string[], method: 'GET' | 'POS
   )
 }
 
-export const recordToSlug = (record: any, region?: Region): string => {
+export const recordToSlug = (record: any): string => {
 
   let url: string;
 
@@ -95,7 +95,7 @@ export const recordToSlug = (record: any, region?: Region): string => {
   }
 
 
-  return region && !region?.global ? `/${region.slug}/${url}` : url
+  return url
 }
 
 export const isEmail = (email: string): boolean => {
@@ -196,7 +196,7 @@ export const apiQueryAll = async (doc: TypedDocumentNode, opt: ApiQueryOptions =
   return results
 }
 
-export const activityStatus = (date, dateEnd): { value: string, label: string, order: number } => {
+export const activityStatus = (date: string, dateEnd: string): { value: string, label: string, order: number } => {
   const today = new Date(); today.setHours(0, 0, 0, 0)
   const start = new Date(date);
   const end = !dateEnd ? start : new Date(dateEnd);
