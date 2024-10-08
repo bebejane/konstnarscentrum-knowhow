@@ -213,7 +213,6 @@ export default function MemberForm({ activity, show, setShow }: Props) {
     { id: 'language', type: 'text', label: 'Språk', required: 'Språk är obligatoriskt' },
     { id: 'url', type: 'text', label: 'Webbplats (Krävs fullständig url med http://)' },
     { id: 'social', type: 'textarea', label: 'Sociala medier' },
-    { id: 'pdf', type: 'file', label: 'CV som PDF', value: '', required: 'CV är obligatoriskt' },
     { id: 'protected_identity', type: 'checkbox', label: 'Jag har skyddad identitet' },
     { id: 'kc_member', type: 'checkbox', label: 'Jag är medlem i Konstnärscentrum' },
     { id: 'education_three_years', type: 'checkbox', label: 'Utbildad på konstnärlig högskola minst 3 år' },
