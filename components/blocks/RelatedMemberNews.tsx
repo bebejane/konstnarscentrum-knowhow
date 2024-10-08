@@ -14,15 +14,12 @@ export type RelatedMemberNewsBlockProps = {
 }
 
 export default function RelatedMemberNews({ data: { memberNews }, data, onClick }: RelatedMemberNewsBlockProps) {
-  const { id, content, date, dateEnd, intro, slug, title, region, createdAt, blackHeadline } = memberNews
+  const { id, content, blackHeadline } = memberNews
   return (
 
     <Article
       id={id}
-      //title={title}
-      subtitle={`${format(new Date(createdAt), "d MMMM y")} • ${region.name}`}
       blackHeadline={blackHeadline}
-      //text={intro}
       content={content}
     />
   )

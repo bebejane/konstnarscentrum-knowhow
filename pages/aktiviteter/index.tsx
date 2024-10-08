@@ -38,16 +38,14 @@ export default function Activities({ presentActivities, activities: activitiesFr
 	const allNews = [...presentActivities, ...activities]
 		.map(el => ({ ...el, status: activityStatus(el.date, el.dateEnd) }))
 		.filter(({ category }) => activitiesCategoryId ? activitiesCategoryId === category?.id : true)
-		.sort((a, b) => new Date(a.createdAt) > new Date(b.createdAt) ? -1 : 1)
+		.sort((a, b) => new Date(a.date) > new Date(b.date) ? -1 : 1)
 		.sort((a, b) => a.status.value === 'past' ? 1 : -1)
 		.sort((a, b) => {
 			if (a.status.value === 'past' && b.status.value === 'past')
-				return new Date(a.createdAt) > new Date(b.createdAt) ? 1 : -1
-
+				return new Date(a.date) > new Date(b.date) ? -1 : 1
 			return 0
 		})
 
-	console.log(allNews.map(el => ({ d: el.createdAt, s: el.status.value, t: el.title })))
 	return (
 		<>
 			<h1><RevealText>Aktiviteter</RevealText></h1>

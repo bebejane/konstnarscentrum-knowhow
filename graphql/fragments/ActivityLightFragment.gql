@@ -4,7 +4,6 @@ fragment ActivityLightFragment on ActivityRecord {
 	__typename
 	_modelApiKey
 	id
-	createdAt
 	title
 	blackHeadline
 	image {

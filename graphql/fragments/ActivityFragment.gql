@@ -2,7 +2,6 @@ fragment ActivityFragment on ActivityRecord {
 	__typename
 	_modelApiKey
 	id
-	createdAt
 	title
 	blackHeadline
 	image {

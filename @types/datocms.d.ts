@@ -12,7 +12,6 @@ type Scalars = {
   Float: number;
   BooleanType: any;
   CustomData: any;
-  Date: any;
   DateTime: any;
   FloatType: any;
   IntType: any;
@@ -235,8 +234,8 @@ type ActivityModelFilter = {
   category?: InputMaybe<LinkFilter>;
   content?: InputMaybe<StructuredTextFilter>;
   createdAt?: InputMaybe<CreatedAtFilter>;
-  date?: InputMaybe<DateFilter>;
-  dateEnd?: InputMaybe<DateFilter>;
+  date?: InputMaybe<DateTimeFilter>;
+  dateEnd?: InputMaybe<DateTimeFilter>;
   id?: InputMaybe<ItemIdFilter>;
   image?: InputMaybe<FileFilter>;
   intro?: InputMaybe<TextFilter>;
@@ -304,8 +303,8 @@ type ActivityRecord = RecordInterface & {
   category: ActivityCategoryRecord;
   content: ActivityModelContentField;
   createdAt: Scalars['DateTime'];
-  date: Scalars['Date'];
-  dateEnd?: Maybe<Scalars['Date']>;
+  date: Scalars['DateTime'];
+  dateEnd?: Maybe<Scalars['DateTime']>;
   id: Scalars['ItemId'];
   image?: Maybe<FileField>;
   intro: Scalars['String'];
@@ -1076,22 +1075,22 @@ type CreatedAtFilter = {
   neq?: InputMaybe<Scalars['DateTime']>;
 };
 
-/** Specifies how to filter Date fields */
-type DateFilter = {
-  /** Search for records with an exact match */
-  eq?: InputMaybe<Scalars['Date']>;
+/** Specifies how to filter DateTime fields */
+type DateTimeFilter = {
+  /** Filter records with a value that's within the specified minute range. Seconds and milliseconds are truncated from the argument. */
+  eq?: InputMaybe<Scalars['DateTime']>;
   /** Filter records with the specified field defined (i.e. with any value) or not */
   exists?: InputMaybe<Scalars['BooleanType']>;
-  /** Filter records with a value that's strictly greater than the one specified */
-  gt?: InputMaybe<Scalars['Date']>;
-  /** Filter records with a value that's greater than or equal to the one specified */
-  gte?: InputMaybe<Scalars['Date']>;
-  /** Filter records with a value that's less than the one specified */
-  lt?: InputMaybe<Scalars['Date']>;
-  /** Filter records with a value that's less or equal than the one specified */
-  lte?: InputMaybe<Scalars['Date']>;
-  /** Exclude records with an exact match */
-  neq?: InputMaybe<Scalars['Date']>;
+  /** Filter records with a value that's strictly greater than the one specified. Seconds and milliseconds are truncated from the argument. */
+  gt?: InputMaybe<Scalars['DateTime']>;
+  /** Filter records with a value that's greater than or equal to than the one specified. Seconds and milliseconds are truncated from the argument. */
+  gte?: InputMaybe<Scalars['DateTime']>;
+  /** Filter records with a value that's less than the one specified. Seconds and milliseconds are truncated from the argument. */
+  lt?: InputMaybe<Scalars['DateTime']>;
+  /** Filter records with a value that's less or equal than the one specified. Seconds and milliseconds are truncated from the argument. */
+  lte?: InputMaybe<Scalars['DateTime']>;
+  /** Filter records with a value that's outside the specified minute range. Seconds and milliseconds are truncated from the argument. */
+  neq?: InputMaybe<Scalars['DateTime']>;
 };
 
 type EmployeeModelFilter = {
@@ -6377,14 +6376,14 @@ type ActivityQueryVariables = Exact<{
 }>;
 
 
-type ActivityQuery = { __typename?: 'Query', activity?: { __typename: 'ActivityRecord', _modelApiKey: string, id: any, createdAt: any, title: string, blackHeadline?: any | null, intro: string, date: any, dateEnd?: any | null, location?: string | null, showForm?: any | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } | null, category: { __typename?: 'ActivityCategoryRecord', id: any, category: string }, content: { __typename?: 'ActivityModelContentField', value: any, links: Array<{ __typename: 'LexiconRecord', id: any, word?: string | null, desc?: { __typename?: 'LexiconModelDescField', blocks: Array<string>, links: Array<string>, value: any } | null }>, blocks: Array<{ __typename: 'ButtonRecord', id: any, text?: string | null, url: string } | { __typename: 'FormRecord', id: any, subject?: string | null, reciever?: string | null, confirmation: string, formFields: Array<{ __typename: 'FormTextRecord', id: any, title?: string | null } | { __typename: 'FormTextblockRecord', id: any, title?: string | null } | { __typename: 'PdfFormRecord', id: any, title?: string | null }> } | { __typename: 'ImageRecord', id: any, image: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null }> } | { __typename: 'VideoRecord', id: any, title?: string | null, video?: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } | null }> }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
+type ActivityQuery = { __typename?: 'Query', activity?: { __typename: 'ActivityRecord', _modelApiKey: string, id: any, title: string, blackHeadline?: any | null, intro: string, date: any, dateEnd?: any | null, location?: string | null, showForm?: any | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } | null, category: { __typename?: 'ActivityCategoryRecord', id: any, category: string }, content: { __typename?: 'ActivityModelContentField', value: any, links: Array<{ __typename: 'LexiconRecord', id: any, word?: string | null, desc?: { __typename?: 'LexiconModelDescField', blocks: Array<string>, links: Array<string>, value: any } | null }>, blocks: Array<{ __typename: 'ButtonRecord', id: any, text?: string | null, url: string } | { __typename: 'FormRecord', id: any, subject?: string | null, reciever?: string | null, confirmation: string, formFields: Array<{ __typename: 'FormTextRecord', id: any, title?: string | null } | { __typename: 'FormTextblockRecord', id: any, title?: string | null } | { __typename: 'PdfFormRecord', id: any, title?: string | null }> } | { __typename: 'ImageRecord', id: any, image: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null }> } | { __typename: 'VideoRecord', id: any, title?: string | null, video?: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } | null }> }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
 
 type ActivityByIdQueryVariables = Exact<{
   id: Scalars['ItemId'];
 }>;
 
 
-type ActivityByIdQuery = { __typename?: 'Query', activity?: { __typename: 'ActivityRecord', _modelApiKey: string, id: any, createdAt: any, title: string, blackHeadline?: any | null, intro: string, date: any, dateEnd?: any | null, location?: string | null, showForm?: any | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } | null, category: { __typename?: 'ActivityCategoryRecord', id: any, category: string }, content: { __typename?: 'ActivityModelContentField', value: any, links: Array<{ __typename: 'LexiconRecord', id: any, word?: string | null, desc?: { __typename?: 'LexiconModelDescField', blocks: Array<string>, links: Array<string>, value: any } | null }>, blocks: Array<{ __typename: 'ButtonRecord', id: any, text?: string | null, url: string } | { __typename: 'FormRecord', id: any, subject?: string | null, reciever?: string | null, confirmation: string, formFields: Array<{ __typename: 'FormTextRecord', id: any, title?: string | null } | { __typename: 'FormTextblockRecord', id: any, title?: string | null } | { __typename: 'PdfFormRecord', id: any, title?: string | null }> } | { __typename: 'ImageRecord', id: any, image: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null }> } | { __typename: 'VideoRecord', id: any, title?: string | null, video?: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } | null }> }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
+type ActivityByIdQuery = { __typename?: 'Query', activity?: { __typename: 'ActivityRecord', _modelApiKey: string, id: any, title: string, blackHeadline?: any | null, intro: string, date: any, dateEnd?: any | null, location?: string | null, showForm?: any | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } | null, category: { __typename?: 'ActivityCategoryRecord', id: any, category: string }, content: { __typename?: 'ActivityModelContentField', value: any, links: Array<{ __typename: 'LexiconRecord', id: any, word?: string | null, desc?: { __typename?: 'LexiconModelDescField', blocks: Array<string>, links: Array<string>, value: any } | null }>, blocks: Array<{ __typename: 'ButtonRecord', id: any, text?: string | null, url: string } | { __typename: 'FormRecord', id: any, subject?: string | null, reciever?: string | null, confirmation: string, formFields: Array<{ __typename: 'FormTextRecord', id: any, title?: string | null } | { __typename: 'FormTextblockRecord', id: any, title?: string | null } | { __typename: 'PdfFormRecord', id: any, title?: string | null }> } | { __typename: 'ImageRecord', id: any, image: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null }> } | { __typename: 'VideoRecord', id: any, title?: string | null, video?: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } | null }> }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
 
 type AllActivitiesQueryVariables = Exact<{
   first?: InputMaybe<Scalars['IntType']>;
@@ -6392,26 +6391,26 @@ type AllActivitiesQueryVariables = Exact<{
 }>;
 
 
-type AllActivitiesQuery = { __typename?: 'Query', activities: Array<{ __typename: 'ActivityRecord', _modelApiKey: string, id: any, createdAt: any, title: string, blackHeadline?: any | null, intro: string, date: any, dateEnd?: any | null, location?: string | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null } | null } | null, category: { __typename?: 'ActivityCategoryRecord', id: any, category: string } }>, pagination: { __typename?: 'CollectionMetadata', count: any } };
+type AllActivitiesQuery = { __typename?: 'Query', activities: Array<{ __typename: 'ActivityRecord', _modelApiKey: string, id: any, title: string, blackHeadline?: any | null, intro: string, date: any, dateEnd?: any | null, location?: string | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null } | null } | null, category: { __typename?: 'ActivityCategoryRecord', id: any, category: string } }>, pagination: { __typename?: 'CollectionMetadata', count: any } };
 
 type AllPastAndFutureActivitiesQueryVariables = Exact<{
   categoryId?: InputMaybe<Scalars['ItemId']>;
-  date?: InputMaybe<Scalars['Date']>;
+  date?: InputMaybe<Scalars['DateTime']>;
   first?: InputMaybe<Scalars['IntType']>;
   skip?: InputMaybe<Scalars['IntType']>;
 }>;
 
 
-type AllPastAndFutureActivitiesQuery = { __typename?: 'Query', activities: Array<{ __typename: 'ActivityRecord', _modelApiKey: string, id: any, createdAt: any, title: string, blackHeadline?: any | null, intro: string, date: any, dateEnd?: any | null, location?: string | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null } | null } | null, category: { __typename?: 'ActivityCategoryRecord', id: any, category: string } }>, pagination: { __typename?: 'CollectionMetadata', count: any } };
+type AllPastAndFutureActivitiesQuery = { __typename?: 'Query', activities: Array<{ __typename: 'ActivityRecord', _modelApiKey: string, id: any, title: string, blackHeadline?: any | null, intro: string, date: any, dateEnd?: any | null, location?: string | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null } | null } | null, category: { __typename?: 'ActivityCategoryRecord', id: any, category: string } }>, pagination: { __typename?: 'CollectionMetadata', count: any } };
 
 type AllPresentActivitiesQueryVariables = Exact<{
   first?: InputMaybe<Scalars['IntType']>;
   skip?: InputMaybe<Scalars['IntType']>;
-  date?: InputMaybe<Scalars['Date']>;
+  date?: InputMaybe<Scalars['DateTime']>;
 }>;
 
 
-type AllPresentActivitiesQuery = { __typename?: 'Query', presentActivities: Array<{ __typename: 'ActivityRecord', _modelApiKey: string, id: any, createdAt: any, title: string, blackHeadline?: any | null, intro: string, date: any, dateEnd?: any | null, location?: string | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null } | null } | null, category: { __typename?: 'ActivityCategoryRecord', id: any, category: string } }>, pagination: { __typename?: 'CollectionMetadata', count: any } };
+type AllPresentActivitiesQuery = { __typename?: 'Query', presentActivities: Array<{ __typename: 'ActivityRecord', _modelApiKey: string, id: any, title: string, blackHeadline?: any | null, intro: string, date: any, dateEnd?: any | null, location?: string | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null } | null } | null, category: { __typename?: 'ActivityCategoryRecord', id: any, category: string } }>, pagination: { __typename?: 'CollectionMetadata', count: any } };
 
 type AllActivityCategoriesQueryVariables = Exact<{
   first?: InputMaybe<Scalars['IntType']>;
@@ -6424,11 +6423,11 @@ type AllActivityCategoriesQuery = { __typename?: 'Query', activityCategories: Ar
 type LatestActivitiesQueryVariables = Exact<{
   first?: InputMaybe<Scalars['IntType']>;
   skip?: InputMaybe<Scalars['IntType']>;
-  date?: InputMaybe<Scalars['Date']>;
+  date?: InputMaybe<Scalars['DateTime']>;
 }>;
 
 
-type LatestActivitiesQuery = { __typename?: 'Query', activities: Array<{ __typename: 'ActivityRecord', _modelApiKey: string, id: any, createdAt: any, title: string, blackHeadline?: any | null, intro: string, date: any, dateEnd?: any | null, location?: string | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null } | null } | null, category: { __typename?: 'ActivityCategoryRecord', id: any, category: string } }> };
+type LatestActivitiesQuery = { __typename?: 'Query', activities: Array<{ __typename: 'ActivityRecord', _modelApiKey: string, id: any, title: string, blackHeadline?: any | null, intro: string, date: any, dateEnd?: any | null, location?: string | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null } | null } | null, category: { __typename?: 'ActivityCategoryRecord', id: any, category: string } }> };
 
 type ContactPageQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -6447,9 +6446,9 @@ type FooterQuery = { __typename?: 'Query', footer?: { __typename?: 'FooterRecord
 
 type AboutFragment = { __typename: 'AboutRecord', _modelApiKey: string, id: any, title: string, intro: string, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } | null, content: { __typename?: 'AboutModelContentField', value: any, links: Array<{ __typename: 'LexiconRecord', id: any, word?: string | null, desc?: { __typename?: 'LexiconModelDescField', blocks: Array<string>, links: Array<string>, value: any } | null }>, blocks: Array<{ __typename: 'ButtonRecord', id: any, text?: string | null, url: string } | { __typename: 'ImageRecord', id: any, image: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null }> } | { __typename: 'VideoRecord', id: any, title?: string | null, video?: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } | null }> }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> };
 
-type ActivityFragment = { __typename: 'ActivityRecord', _modelApiKey: string, id: any, createdAt: any, title: string, blackHeadline?: any | null, intro: string, date: any, dateEnd?: any | null, location?: string | null, showForm?: any | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } | null, category: { __typename?: 'ActivityCategoryRecord', id: any, category: string }, content: { __typename?: 'ActivityModelContentField', value: any, links: Array<{ __typename: 'LexiconRecord', id: any, word?: string | null, desc?: { __typename?: 'LexiconModelDescField', blocks: Array<string>, links: Array<string>, value: any } | null }>, blocks: Array<{ __typename: 'ButtonRecord', id: any, text?: string | null, url: string } | { __typename: 'FormRecord', id: any, subject?: string | null, reciever?: string | null, confirmation: string, formFields: Array<{ __typename: 'FormTextRecord', id: any, title?: string | null } | { __typename: 'FormTextblockRecord', id: any, title?: string | null } | { __typename: 'PdfFormRecord', id: any, title?: string | null }> } | { __typename: 'ImageRecord', id: any, image: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null }> } | { __typename: 'VideoRecord', id: any, title?: string | null, video?: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } | null }> }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> };
+type ActivityFragment = { __typename: 'ActivityRecord', _modelApiKey: string, id: any, title: string, blackHeadline?: any | null, intro: string, date: any, dateEnd?: any | null, location?: string | null, showForm?: any | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } | null, category: { __typename?: 'ActivityCategoryRecord', id: any, category: string }, content: { __typename?: 'ActivityModelContentField', value: any, links: Array<{ __typename: 'LexiconRecord', id: any, word?: string | null, desc?: { __typename?: 'LexiconModelDescField', blocks: Array<string>, links: Array<string>, value: any } | null }>, blocks: Array<{ __typename: 'ButtonRecord', id: any, text?: string | null, url: string } | { __typename: 'FormRecord', id: any, subject?: string | null, reciever?: string | null, confirmation: string, formFields: Array<{ __typename: 'FormTextRecord', id: any, title?: string | null } | { __typename: 'FormTextblockRecord', id: any, title?: string | null } | { __typename: 'PdfFormRecord', id: any, title?: string | null }> } | { __typename: 'ImageRecord', id: any, image: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null }> } | { __typename: 'VideoRecord', id: any, title?: string | null, video?: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } | null }> }, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> };
 
-type ActivityLightFragment = { __typename: 'ActivityRecord', _modelApiKey: string, id: any, createdAt: any, title: string, blackHeadline?: any | null, intro: string, date: any, dateEnd?: any | null, location?: string | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null } | null } | null, category: { __typename?: 'ActivityCategoryRecord', id: any, category: string } };
+type ActivityLightFragment = { __typename: 'ActivityRecord', _modelApiKey: string, id: any, title: string, blackHeadline?: any | null, intro: string, date: any, dateEnd?: any | null, location?: string | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null } | null } | null, category: { __typename?: 'ActivityCategoryRecord', id: any, category: string } };
 
 type ImageFragment = { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null };
 
