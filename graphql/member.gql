@@ -44,9 +44,4 @@ fragment MemberFragment on MemberRecord {
 	protectedIdentity
 	educationThreeYears
 	haveWorkedThreeYears
-	pdf {
-		id
-		url
-		filename
-	}
 }

@@ -3,7 +3,7 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "DATOCMS_ENVIRONMENT=dev NEXT_PUBLIC_DATOCMS_ENVIRONMENT=dev npm run dev:watch",
+		"dev": "npm run dev:watch",
 		"dev:staging": "DATOCMS_ENVIRONMENT=staging NEXT_PUBLIC_DATOCMS_ENVIRONMENT=staging npm run dev:watch",
 		"dev:watch": "LOG_GRAPHQL=false next dev & npm run barrel:watch & graphql-codegen --watch",
 		"build": "next build && npm run postbuild",

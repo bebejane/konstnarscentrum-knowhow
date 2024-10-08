@@ -4162,7 +4162,6 @@ type MemberModelFilter = {
   language?: InputMaybe<StringFilter>;
   lastName?: InputMaybe<StringFilter>;
   mission?: InputMaybe<TextFilter>;
-  pdf?: InputMaybe<FileFilter>;
   phone?: InputMaybe<StringFilter>;
   postalCode?: InputMaybe<StringFilter>;
   protectedIdentity?: InputMaybe<BooleanFilter>;
@@ -4264,7 +4263,6 @@ type MemberRecord = RecordInterface & {
   language?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
   mission?: Maybe<Scalars['String']>;
-  pdf?: Maybe<FileField>;
   phone?: Maybe<Scalars['String']>;
   postalCode?: Maybe<Scalars['String']>;
   protectedIdentity?: Maybe<Scalars['BooleanType']>;
@@ -4640,6 +4638,8 @@ type Query = {
   _allProjectsMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
   _allRegionsMeta: CollectionMetadata;
+  /** Returns meta information regarding a record collection */
+  _allSchemaMigrationsMeta: CollectionMetadata;
   /** Returns meta information regarding an assets collection */
   _allUploadsMeta: CollectionMetadata;
   /** Returns the single instance record */
@@ -4686,6 +4686,8 @@ type Query = {
   allProjects: Array<ProjectRecord>;
   /** Returns a collection of records */
   allRegions: Array<RegionRecord>;
+  /** Returns a collection of records */
+  allSchemaMigrations: Array<SchemaMigrationRecord>;
   /** Returns a collection of assets */
   allUploads: Array<FileField>;
   /** Returns a specific record */
@@ -4730,6 +4732,8 @@ type Query = {
   project?: Maybe<ProjectRecord>;
   /** Returns a specific record */
   region?: Maybe<RegionRecord>;
+  /** Returns a specific record */
+  schemaMigration?: Maybe<SchemaMigrationRecord>;
   /** Returns the single instance record */
   start?: Maybe<StartRecord>;
   /** Returns a specific asset */
@@ -4877,6 +4881,14 @@ type Query_allProjectsMetaArgs = {
 type Query_allRegionsMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<RegionModelFilter>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** The query root for this schema */
+type Query_allSchemaMigrationsMetaArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<SchemaMigrationModelFilter>;
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -5121,6 +5133,17 @@ type QueryallRegionsArgs = {
 
 
 /** The query root for this schema */
+type QueryallSchemaMigrationsArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<SchemaMigrationModelFilter>;
+  first?: InputMaybe<Scalars['IntType']>;
+  locale?: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<SchemaMigrationModelOrderBy>>>;
+  skip?: InputMaybe<Scalars['IntType']>;
+};
+
+
+/** The query root for this schema */
 type QueryallUploadsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<UploadFilter>;
@@ -5305,6 +5328,15 @@ type QueryregionArgs = {
   filter?: InputMaybe<RegionModelFilter>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<RegionModelOrderBy>>>;
+};
+
+
+/** The query root for this schema */
+type QueryschemaMigrationArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<SchemaMigrationModelFilter>;
+  locale?: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<SchemaMigrationModelOrderBy>>>;
 };
 
 
@@ -5505,6 +5537,78 @@ type ResponsiveImage = {
   title?: Maybe<Scalars['String']>;
   webpSrcSet: Scalars['String'];
   width: Scalars['IntType'];
+};
+
+type SchemaMigrationModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<SchemaMigrationModelFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<SchemaMigrationModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
+  createdAt?: InputMaybe<CreatedAtFilter>;
+  id?: InputMaybe<ItemIdFilter>;
+  name?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<UpdatedAtFilter>;
+};
+
+enum SchemaMigrationModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
+  createdAt_ASC = 'createdAt_ASC',
+  createdAt_DESC = 'createdAt_DESC',
+  id_ASC = 'id_ASC',
+  id_DESC = 'id_DESC',
+  name_ASC = 'name_ASC',
+  name_DESC = 'name_DESC',
+  updatedAt_ASC = 'updatedAt_ASC',
+  updatedAt_DESC = 'updatedAt_DESC'
+}
+
+/** Record of type Schema migration (schema_migration) */
+type SchemaMigrationRecord = RecordInterface & {
+  __typename?: 'SchemaMigrationRecord';
+  _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
+  _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ItemId'];
+  name: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
+};
+
+
+/** Record of type Schema migration (schema_migration) */
+type SchemaMigrationRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
 };
 
 /** Block of type Utvalda uppdrag (selected_commission) */
@@ -6447,11 +6551,11 @@ type AllApplicationsByActivityQueryVariables = Exact<{
 }>;
 
 
-type AllApplicationsByActivityQuery = { __typename?: 'Query', applications: Array<{ __typename: 'ApplicationRecord', id: any, approvalStatus: string, member: { __typename: 'MemberRecord', id: any, firstName?: string | null, lastName?: string | null, email: string, phone?: string | null, education?: string | null, age?: any | null, country?: string | null, language?: string | null, address?: string | null, city?: string | null, mission?: string | null, postalCode?: string | null, social?: string | null, sex?: string | null, workCategory?: string | null, url?: string | null, kcMember?: any | null, protectedIdentity?: any | null, educationThreeYears?: any | null, haveWorkedThreeYears?: any | null, pdf?: { __typename?: 'FileField', id: any, url: string, filename: string } | null } }>, pagination: { __typename?: 'CollectionMetadata', count: any } };
+type AllApplicationsByActivityQuery = { __typename?: 'Query', applications: Array<{ __typename: 'ApplicationRecord', id: any, approvalStatus: string, member: { __typename: 'MemberRecord', id: any, firstName?: string | null, lastName?: string | null, email: string, phone?: string | null, education?: string | null, age?: any | null, country?: string | null, language?: string | null, address?: string | null, city?: string | null, mission?: string | null, postalCode?: string | null, social?: string | null, sex?: string | null, workCategory?: string | null, url?: string | null, kcMember?: any | null, protectedIdentity?: any | null, educationThreeYears?: any | null, haveWorkedThreeYears?: any | null } }>, pagination: { __typename?: 'CollectionMetadata', count: any } };
 
-type ApplicationFragment = { __typename: 'ApplicationRecord', id: any, approvalStatus: string, member: { __typename: 'MemberRecord', id: any, firstName?: string | null, lastName?: string | null, email: string, phone?: string | null, education?: string | null, age?: any | null, country?: string | null, language?: string | null, address?: string | null, city?: string | null, mission?: string | null, postalCode?: string | null, social?: string | null, sex?: string | null, workCategory?: string | null, url?: string | null, kcMember?: any | null, protectedIdentity?: any | null, educationThreeYears?: any | null, haveWorkedThreeYears?: any | null, pdf?: { __typename?: 'FileField', id: any, url: string, filename: string } | null } };
+type ApplicationFragment = { __typename: 'ApplicationRecord', id: any, approvalStatus: string, member: { __typename: 'MemberRecord', id: any, firstName?: string | null, lastName?: string | null, email: string, phone?: string | null, education?: string | null, age?: any | null, country?: string | null, language?: string | null, address?: string | null, city?: string | null, mission?: string | null, postalCode?: string | null, social?: string | null, sex?: string | null, workCategory?: string | null, url?: string | null, kcMember?: any | null, protectedIdentity?: any | null, educationThreeYears?: any | null, haveWorkedThreeYears?: any | null } };
 
-type MemberFragment = { __typename: 'MemberRecord', id: any, firstName?: string | null, lastName?: string | null, email: string, phone?: string | null, education?: string | null, age?: any | null, country?: string | null, language?: string | null, address?: string | null, city?: string | null, mission?: string | null, postalCode?: string | null, social?: string | null, sex?: string | null, workCategory?: string | null, url?: string | null, kcMember?: any | null, protectedIdentity?: any | null, educationThreeYears?: any | null, haveWorkedThreeYears?: any | null, pdf?: { __typename?: 'FileField', id: any, url: string, filename: string } | null };
+type MemberFragment = { __typename: 'MemberRecord', id: any, firstName?: string | null, lastName?: string | null, email: string, phone?: string | null, education?: string | null, age?: any | null, country?: string | null, language?: string | null, address?: string | null, city?: string | null, mission?: string | null, postalCode?: string | null, social?: string | null, sex?: string | null, workCategory?: string | null, url?: string | null, kcMember?: any | null, protectedIdentity?: any | null, educationThreeYears?: any | null, haveWorkedThreeYears?: any | null };
 
 type SiteSearchQueryVariables = Exact<{
   activityIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>> | InputMaybe<Scalars['ItemId']>>;
