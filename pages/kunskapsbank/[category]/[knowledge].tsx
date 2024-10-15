@@ -7,8 +7,7 @@ import { DatoSEO } from "dato-nextjs-utils/components";
 import Link from "next/link";
 
 export type Props = {
-	knowledge: KnowledgeRecord,
-	region: Region
+	knowledge: KnowledgeRecord
 }
 
 export default function Knowledge({ knowledge: {
@@ -33,11 +32,7 @@ export default function Knowledge({ knowledge: {
 				blackHeadline={blackHeadline}
 				content={content}
 			>
-				<MetaSection
-					items={[
-						{ title: 'Kategori', value: category.category }
-					]}
-				/>
+				<MetaSection items={[{ title: 'Kategori', value: category.category }]} />
 			</Article>
 			<Link href={`/kunskapsbank/${category.slug}`}>
 				<button className="wide">Tillbaka till översikt</button>

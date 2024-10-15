@@ -4,6 +4,7 @@
 	--orange: #ff4400;
 	--orange-light: #ff440030;
 	--orange-mid: #ff44003f;
+	--orange-dark: #c03300;
 	--orange-light-solid: #eceae5;
 	--orange-very-light: #e1dcd216;
 	--red: #ff4400;
@@ -192,6 +193,7 @@ select {
 	&:focus {
 		outline: 1px solid var(--orange-mid);
 	}
+
 	&::placeholder {
 		color: var(--orange-mid);
 	}
