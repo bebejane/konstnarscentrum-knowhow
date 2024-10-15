@@ -2,8 +2,7 @@ import s from "./index.module.scss";
 import withGlobalProps from "/lib/withGlobalProps";
 import useApiQuery from "/lib/hooks/useApiQuery";
 import { GetStaticProps } from "next";
-import { apiQuery } from "dato-nextjs-utils/api";
-import { AllPresentActivitiesDocument, AllPastAndFutureActivitiesDocument, AllActivityCategoriesDocument } from "/graphql";
+import { AllActivityCategoriesDocument, AllActivitiesDocument } from "/graphql";
 import { format } from "date-fns";
 import { pageSize, apiQueryAll, activityStatus } from "/lib/utils";
 import { CardContainer, NewsCard, FilterBar, RevealText, Loader } from '/components'
@@ -12,18 +11,18 @@ import { useInView } from "react-intersection-observer";
 
 export type ActivityRecordWithStatus = ActivityRecord & { status: { value: string, label: string } }
 export type Props = {
-	presentActivities: ActivityRecordWithStatus[],
+
 	activities: ActivityRecordWithStatus[],
 	activityCategories: ActivityCategoryRecord[]
 	date: string
 	pagination: Pagination
 }
 
-export default function Activities({ presentActivities, activities: activitiesFromProps, activityCategories, date, pagination }: Props) {
+export default function Activities({ activities: activitiesFromProps, activityCategories, date, pagination }: Props) {
 
 	const [activitiesCategoryId, setActivitiesCategoryId] = useState<string | string[] | undefined>()
 
-	let { data: { activities }, loading, error, nextPage, page } = useApiQuery<{ activities: ActivityRecordWithStatus[] }>(AllPastAndFutureActivitiesDocument, {
+	let { data: { activities }, loading, error, nextPage, page } = useApiQuery<{ activities: ActivityRecordWithStatus[] }>(AllActivitiesDocument, {
 		initialData: { activities: activitiesFromProps, pagination },
 		variables: { first: pageSize, date },
 		pageSize
@@ -35,7 +34,7 @@ export default function Activities({ presentActivities, activities: activitiesFr
 		if (inView && !page.end && !loading) nextPage()
 	}, [inView, page, loading, nextPage])
 
-	const allNews = [...presentActivities, ...activities]
+	activities = activities
 		.map(el => ({ ...el, status: activityStatus(el.date, el.dateEnd) }))
 		.filter(({ category }) => activitiesCategoryId ? activitiesCategoryId === category?.id : true)
 		.sort((a, b) => new Date(a.date) > new Date(b.date) ? -1 : 1)
@@ -46,6 +45,7 @@ export default function Activities({ presentActivities, activities: activitiesFr
 			return 0
 		})
 
+	console.log(activities.length)
 	return (
 		<>
 			<h1><RevealText>Aktiviteter</RevealText></h1>
@@ -56,7 +56,7 @@ export default function Activities({ presentActivities, activities: activitiesFr
 			/>
 
 			<CardContainer columns={2} className={s.activities} key={`${page.no}-${activitiesCategoryId}`}>
-				{allNews.length > 0 ? allNews.map((el, idx) => {
+				{activities.length > 0 ? activities.map((el, idx) => {
 					const { id, date, title, intro, slug, image, category, createdAt } = el
 					return (
 						<NewsCard
@@ -93,8 +93,8 @@ export const getStaticProps: GetStaticProps = withGlobalProps({ queries: [AllAct
 	const isFirstPage = page === 1
 	const date = format(new Date(), 'yyyy-MM-dd')
 
-	let { presentActivities } = await apiQuery(AllPresentActivitiesDocument, { variables: { date } });
-	let { activities, pagination } = await apiQueryAll(AllPastAndFutureActivitiesDocument, { variables: { date } });
+	//let { presentActivities } = await apiQuery(AllPresentActivitiesDocument, { variables: { date } });
+	let { activities, pagination } = await apiQueryAll(AllActivitiesDocument, { variables: { date } });
 
 	let start = (isFirstPage ? 0 : (page - 1) * pageSize)
 	let end = isFirstPage ? pageSize : ((pageSize * (page)))
@@ -105,17 +105,13 @@ export const getStaticProps: GetStaticProps = withGlobalProps({ queries: [AllAct
 		.map(el => ({ ...el, status: activityStatus(el.date, el.dateEnd) }))
 		.slice(start, end)
 
-	presentActivities = presentActivities
-		.map(el => ({ ...el, status: activityStatus(el.date, el.dateEnd) }))
-		.sort((a, b) => a.status.order > b.status.order ? -1 : 1)
 
-	if (!activities.length && !presentActivities.length)
+	if (!activities.length)
 		return { notFound: true }
 
 	return {
 		props: {
 			...props,
-			presentActivities,
 			activities,
 			date,
 			pagination: { ...pagination, page, size: pageSize, count }
