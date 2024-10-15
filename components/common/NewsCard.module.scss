@@ -32,4 +32,10 @@
       background: linear-gradient(90deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.283));
     }
   }
+
+  &.past {
+    img {
+      filter: grayscale(1);
+    }
+  }
 }

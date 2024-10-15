@@ -45,7 +45,6 @@ export default function Activities({ activities: activitiesFromProps, activityCa
 			return 0
 		})
 
-	console.log(activities.length)
 	return (
 		<>
 			<h1><RevealText>Aktiviteter</RevealText></h1>
@@ -57,7 +56,7 @@ export default function Activities({ activities: activitiesFromProps, activityCa
 
 			<CardContainer columns={2} className={s.activities} key={`${page.no}-${activitiesCategoryId}`}>
 				{activities.length > 0 ? activities.map((el, idx) => {
-					const { id, date, title, intro, slug, image, category, createdAt } = el
+					const { id, date, title, intro, slug, image, category, status } = el
 					return (
 						<NewsCard
 							key={id}
@@ -67,6 +66,7 @@ export default function Activities({ activities: activitiesFromProps, activityCa
 							label={activityStatus(el.date, el.dateEnd).label}
 							text={intro}
 							image={image}
+							past={status.value === 'past'}
 							slug={`/aktiviteter/${slug}`}
 						/>
 					)

@@ -1,4 +1,5 @@
 import s from './NewsCard.module.scss'
+import cn from 'classnames'
 import React from 'react'
 import Link from 'next/link'
 import { KCImage as Image } from '/components'
@@ -15,12 +16,13 @@ export type NewsCardProps = {
   slug: string,
   date?: string
   image?: FileField
+  past?: boolean
 }
 
-export default function NewsCard({ title, subtitle, date, text, slug, image, label }: NewsCardProps) {
+export default function NewsCard({ title, subtitle, date, text, slug, image, label, past }: NewsCardProps) {
 
   return (
-    <Card className={s.card}>
+    <Card className={cn(s.card, past && s.past)}>
       {image &&
         <Link href={slug}>
           <Image className={s.image} data={image.responsiveImage} />
