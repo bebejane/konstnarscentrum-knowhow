@@ -10,7 +10,7 @@ query ActivityById($id: ItemId!) {
 }
 
 query AllActivities($first: IntType = 10, $skip: IntType = 0) {
-	activities: allActivities(orderBy: [date_ASC], first: $first, skip: $skip) {
+	activities: allActivities(orderBy: [date_DESC], first: $first, skip: $skip) {
 		...ActivityLightFragment
 	}
 	pagination: _allActivitiesMeta {
