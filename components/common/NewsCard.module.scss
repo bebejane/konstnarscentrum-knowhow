@@ -35,7 +35,8 @@
 
   &.past {
     img {
-      filter: grayscale(1);
+      //filter: grayscale(0.8);
+      opacity: 0.5 !important;
     }
   }
 }
