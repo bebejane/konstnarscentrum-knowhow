@@ -9,6 +9,7 @@ export const config = {
 
 const handler = withAuthentication(async (req, res, session) => {
 
+  console.log('member retrieve', session?.user?.email, session)
   const email = session.user.email
   const member = await getUserByEmail(email)
 

@@ -21,12 +21,12 @@ export const authOptions: NextAuthOptions = {
     signOut: '/logga-ut',
   },
   callbacks: {
-    session: async (params: { session: Session; token: JWT; user: AdapterUser; }) => {
+    session: async (params: { session: Session; token: JWT; user: AdapterUser, }) => {
       //console.log('session callback', params)
       const { session, user } = params;
-
+      console.log('callback', user, session)
       if (session.user && user) {
-        //session.user.id = user?.id;
+        session.user.email = user?.email;
       }
 
       return session;

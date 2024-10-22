@@ -11,7 +11,7 @@ const getUserByEmail = async (email: string) => {
 }
 
 const main = async () => {
-  const user = await getUserByEmail('tobias.sjoedin@gmail.com')
+  const user = await getUserByEmail('kootasu@hotmail.com')
   console.log(user)
 }
 main()
