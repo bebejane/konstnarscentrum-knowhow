@@ -1,6 +1,6 @@
 //@ts-nocheck
 import type { Adapter } from "next-auth/adapters"
-import { default as client, getUserByEmail } from "/lib/client"
+import { default as client, getUserByEmail, getUserById } from "/lib/client"
 
 
 export default function DatoCMSAdapter(): Adapter {
@@ -20,7 +20,7 @@ export default function DatoCMSAdapter(): Adapter {
     },
     async updateUser(user) {
       console.log('update user', user)
-      return await getUserByEmail(user.email)
+      return await getUserById(user?.id)
     },
     async deleteUser(userId) {
 

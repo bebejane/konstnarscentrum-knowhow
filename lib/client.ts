@@ -8,5 +8,9 @@ const getUserByEmail = async (email: string) => {
   if (!email) return null
   return (await client.items.list({ page: { limit: 1 }, filter: { type: 'member', fields: { email: { eq: email } } } }))?.[0]
 }
+const getUserById = async (id: string) => {
+  if (!id) return null
+  return (await client.items.list({ page: { limit: 1 }, filter: { type: 'member', fields: { email: { eq: id } } } }))?.[0]
+}
 export default client;
-export { buildClient, getUserByEmail }
+export { buildClient, getUserByEmail, getUserById }
