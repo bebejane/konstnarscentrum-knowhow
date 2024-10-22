@@ -19,6 +19,7 @@ export default function DatoCMSAdapter(): Adapter {
       return getUserByEmail(email)
     },
     async updateUser(user) {
+      console.log('update user', user)
       return await getUserByEmail(user.email)
     },
     async deleteUser(userId) {

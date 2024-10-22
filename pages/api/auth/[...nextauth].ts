@@ -24,17 +24,12 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     session: async (params) => {
       const { session, user } = params;
-      console.log('callback', params)
-      if (session.user && user) {
-        session.user.id = user?.id;
+      if (session.user && user)
         session.user.email = user?.email;
-      }
-
       return session;
     },
 
   },
-
   adapter: DatoCMSAdapter(),
   providers: [
     EmailProvider({
