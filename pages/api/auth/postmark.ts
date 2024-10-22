@@ -4,7 +4,7 @@ import { Client } from "@datocms/cma-client-browser"
 import client from '/lib/client'
 
 export const sendVerificationRequest = async (params: any) => {
-  console.log('sendVerificationRequest');
+  console.log('sendVerificationRequest', params);
 
   let { identifier: email, url, provider: { from } } = params;
 
