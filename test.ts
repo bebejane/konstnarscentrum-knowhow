@@ -7,11 +7,20 @@ const client = buildClient({
 })
 
 const getUserByEmail = async (email: string) => {
-  return (await client.items.list({ page: { limit: 1 }, filter: { type: 'member', fields: { email: { eq: email } } } }))?.[0]
+
+  return (await client.items.list({
+    page: { limit: 1 },
+    filter: {
+      type: 'member',
+      fields: {
+        email: { eq: email, neq: undefined }
+      }
+    }
+  }))?.[0]
 }
 
 const main = async () => {
-  const user = await getUserByEmail('kootasu@hotmail.com')
+  const user = await getUserByEmail(null)
   console.log(user)
 }
 main()

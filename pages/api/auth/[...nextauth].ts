@@ -6,6 +6,7 @@ import { JWT } from 'next-auth/jwt';
 import CredentialsProvider from 'next-auth/providers/credentials'
 import EmailProvider from 'next-auth/providers/email';
 import DatoCMSAdapter from './datocms-adapter';
+import { getUserByEmail } from '/lib/client';
 import { sendVerificationRequest } from "./postmark"
 
 export const authOptions: NextAuthOptions = {
@@ -21,11 +22,11 @@ export const authOptions: NextAuthOptions = {
     signOut: '/logga-ut',
   },
   callbacks: {
-    session: async (params: { session: Session; token: JWT; user: AdapterUser, }) => {
-      //console.log('session callback', params)
+    session: async (params) => {
       const { session, user } = params;
-      console.log('callback', user, session)
+      console.log('callback', params)
       if (session.user && user) {
+        session.user.id = user?.id;
         session.user.email = user?.email;
       }
 
@@ -49,6 +50,7 @@ export const authOptions: NextAuthOptions = {
       type: 'email',
       from: process.env.SMTP_FROM,
       sendVerificationRequest,
+
     }),
     CredentialsProvider({
       name: 'Credentials',
@@ -59,6 +61,7 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials) {
 
         try {
+          console.log('authorize', credentials)
           const { username: email, password } = credentials
           const checkPassword = password === process.env.ADMIN_PASSWORD && email === process.env.ADMIN_EMAIL;
 
