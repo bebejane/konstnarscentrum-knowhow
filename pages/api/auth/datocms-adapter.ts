@@ -5,8 +5,6 @@ import { default as client, getUserByEmail } from "/lib/client"
 
 export default function DatoCMSAdapter(): Adapter {
 
-  const datocms = buildClient({ apiToken: process.env.DATOCMS_API_TOKEN, environment: process.env.DATOCMS_ENVIRONMENT })
-
   return {
     async createUser(user) {
       console.log('createUser', user)
@@ -55,7 +53,7 @@ export default function DatoCMSAdapter(): Adapter {
 
       if (user) {
         console.log('user', user)
-        user = await datocms.items.update(user.id, { auth: JSON.stringify(params) })
+        user = await client.items.update(user.id, { auth: JSON.stringify(params) })
         return user.auth
       }
 
