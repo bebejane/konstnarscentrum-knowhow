@@ -1,10 +1,7 @@
 //@ts-nocheck
 import type { Adapter } from "next-auth/adapters"
-import { buildClient, Client } from "@datocms/cma-client"
+import { default as client, getUserByEmail } from "/lib/client"
 
-const getUserByEmail = async (client: Client, email) => {
-  return (await client.items.list({ filter: { type: 'member', fields: { email: { eq: email } } } }))?.[0]
-}
 
 export default function DatoCMSAdapter(): Adapter {
 
@@ -21,10 +18,10 @@ export default function DatoCMSAdapter(): Adapter {
     },
     async getUserByEmail(email) {
       console.log('getUserByEmail', email)
-      return getUserByEmail(datocms, email)
+      return getUserByEmail(email)
     },
     async updateUser(user) {
-      return await getUserByEmail(datocms, user.email)
+      return await getUserByEmail(user.email)
     },
     async deleteUser(userId) {
 
@@ -54,7 +51,7 @@ export default function DatoCMSAdapter(): Adapter {
     },
     async createVerificationToken(params) {
       const { identifier: email, token, expires } = params
-      let user = await getUserByEmail(datocms, email)
+      let user = await getUserByEmail(email)
 
       if (user) {
         console.log('user', user)
@@ -67,7 +64,7 @@ export default function DatoCMSAdapter(): Adapter {
       console.log('useVerificationToken', params)
 
       const { identifier: email, token } = params
-      const user = await getUserByEmail(datocms, email)
+      const user = await getUserByEmail(email)
       const auth = user ? JSON.parse(user.auth) : null
 
       if (auth?.token === token) {
