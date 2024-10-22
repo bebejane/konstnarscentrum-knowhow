@@ -1,8 +1,8 @@
 //@ts-nocheck
 import type { Adapter } from "next-auth/adapters"
-import { buildClient } from "@datocms/cma-client"
+import { buildClient, Client } from "@datocms/cma-client"
 
-const getUserByEmail = async (client, email) => {
+const getUserByEmail = async (client: Client, email) => {
   return (await client.items.list({ filter: { type: 'member', fields: { email: { eq: email } } } }))?.[0]
 }
 
@@ -17,7 +17,7 @@ export default function DatoCMSAdapter(): Adapter {
     },
     async getUser(id) {
       console.log('getUser', id)
-      return (await datocms.items.list({ type: 'member', fields: { id: { eq: id } } }))?.[0]
+      return (await client.items.list({ filter: { type: 'member', fields: { id: { eq: id } } } }))?.[0]
     },
     async getUserByEmail(email) {
       console.log('getUserByEmail', email)
