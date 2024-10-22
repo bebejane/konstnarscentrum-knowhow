@@ -10,7 +10,7 @@ const getUserByEmail = async (email: string) => {
 }
 const getUserById = async (id: string) => {
   if (!id) return null
-  return (await client.items.list({ page: { limit: 1 }, filter: { type: 'member', fields: { email: { eq: id } } } }))?.[0]
+  return (await client.items.list({ page: { limit: 1 }, filter: { type: 'member', fields: { id: { eq: id } } } }))?.[0]
 }
 export default client;
 export { buildClient, getUserByEmail, getUserById }
