@@ -16,7 +16,7 @@ query Lexicon($id: ItemId!) {
 }
 
 query AllLexicons($first: IntType, $skip: IntType) {
-	lexicons: allLexicons(first: $first, skip: $skip, orderBy: [word_DESC]) {
+	lexicons: allLexicons(first: $first, skip: $skip, orderBy: [word_ASC]) {
 		id
 		word
 		desc {

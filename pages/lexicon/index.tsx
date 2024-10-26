@@ -7,7 +7,6 @@ import { ToolTip } from '/components';
 
 
 export type Props = {
-  region: Region
   lexicons: LexiconRecord[]
   lexiconText: LexiconTextRecord
 }
