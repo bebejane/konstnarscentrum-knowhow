@@ -2,12 +2,15 @@ html,
 body {
   font-size: 16px;
   font-weight: normal;
+
   @include mq($from: tablet) {
     font-size: 22px;
   }
+
   @include mq($from: semi-wide) {
-    font-size: 24px;
+    font-size: 26px;
   }
+
   @include mq($from: wide) {
     font-size: 26px;
   }
@@ -17,14 +20,17 @@ h1,
 h2 {
   font-family: $headline-font;
   font-size: 1.8rem;
+
   @include mq($from: tablet) {
     font-size: 2.5rem;
   }
+
   //letter-spacing: -0.01em;
   font-weight: normal;
   padding-top: 0.1em;
   padding-bottom: 0.8em;
   line-height: 1.25;
+
   &.noPadding {
     padding: 0;
   }
@@ -32,9 +38,11 @@ h2 {
 
 h3 {
   font-size: 1.3rem;
+
   @include mq($from: tablet) {
     font-size: 1.5rem;
   }
+
   font-weight: normal;
   letter-spacing: -0.015em;
   padding-bottom: 1em;
@@ -71,10 +79,11 @@ h5 {
 
 // Typo för content
 .article {
-  p + h3,
-  ul + h3,
-  ul + h2,
-  p + h2 {
+
+  p+h3,
+  ul+h3,
+  ul+h2,
+  p+h2 {
     padding-top: 1rem;
   }
 }
