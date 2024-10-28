@@ -12,7 +12,7 @@ body {
   }
 
   @include mq($from: wide) {
-    font-size: 27px;
+    font-size: 25px;
   }
 }
 
@@ -79,11 +79,10 @@ h5 {
 
 // Typo för content
 .article {
-
-  p+h3,
-  ul+h3,
-  ul+h2,
-  p+h2 {
+  p + h3,
+  ul + h3,
+  ul + h2,
+  p + h2 {
     padding-top: 1rem;
   }
 }
