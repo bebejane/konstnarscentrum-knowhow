@@ -1,6 +1,7 @@
 .words {
   padding: 0;
   column-count: 2;
+  column-gap: 0px;
 
   @include mq($from: tablet) {
     column-count: 3;
@@ -10,5 +11,8 @@
     display: block;
     padding-bottom: 1em;
     white-space: nowrap;
+    break-inside: avoid;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }

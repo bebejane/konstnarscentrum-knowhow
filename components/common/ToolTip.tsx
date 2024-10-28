@@ -15,7 +15,7 @@ export default function ToolTip({ lexicon, children }: Props): ReactElement<any,
 
   return (
     <ToolTipPopup
-      placement={'topLeft'}
+      placement={'bottomLeft'}
       showArrow={false}
       overlay={<StructuredContent id={lexicon.id} record={{}} content={lexicon.desc} />}
       overlayClassName={s.tooltip}
