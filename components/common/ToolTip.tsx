@@ -20,7 +20,7 @@ export default function ToolTip({ lexicon, children }: Props): ReactElement<any,
       overlay={<StructuredContent id={lexicon.id} record={{}} content={lexicon.desc} />}
       overlayClassName={s.tooltip}
     >
-      <a id={lexicon.id} data-tooltip="true">{children}</a>
+      <a data-tooltip="true">{children}</a>
     </ToolTipPopup>
   );
 }

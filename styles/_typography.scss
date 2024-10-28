@@ -8,11 +8,11 @@ body {
   }
 
   @include mq($from: semi-wide) {
-    font-size: 26px;
+    font-size: 24px;
   }
 
   @include mq($from: wide) {
-    font-size: 26px;
+    font-size: 27px;
   }
 }
 
