@@ -20,8 +20,6 @@ export default async function handler(req: NextRequest, res: NextResponse) {
 
     const { id, approvalStatus } = await req.json();
     const itemTypes = await client.itemTypes.list()
-    const memberTypeId = itemTypes.find(({ api_key }) => api_key === 'member')?.id;
-    const applicationTypeId = itemTypes.find(({ api_key }) => api_key === 'application')?.id;
     const application = await client.items.find(id);
 
     if (!application) {

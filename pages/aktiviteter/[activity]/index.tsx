@@ -58,7 +58,11 @@ export default function Activity({ activity: {
 			</Article>
 			{showForm &&
 				<>
-					<button data-toggled={showMemberForm} className={cn(s.apply, "wide")} onClick={() => setShowMemberForm(!showMemberForm)}>
+					<button
+						data-toggled={showMemberForm}
+						className={cn(s.apply, "wide")}
+						onClick={() => setShowMemberForm(!showMemberForm)}
+					>
 						Anmäl dig
 					</button>
 					<MemberForm activity={activity} show={showMemberForm} setShow={setShowMemberForm} />

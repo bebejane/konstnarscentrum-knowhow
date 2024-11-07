@@ -81,7 +81,6 @@ export default function MemberForm({ activity, show, setShow }: Props) {
   const [loginFromLink, setLoginFromLink] = useState(false);
   const abortController = useRef(new AbortController());
   const { data: session, status } = useSession();
-  const kcMemberFields = ['email', 'kc_member', 'id']
 
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
 
@@ -108,10 +107,11 @@ export default function MemberForm({ activity, show, setShow }: Props) {
       if (res.status === 404)
         throw new Error('Du måste registrera dig först');
 
-      if (res.status !== 200)
-        throw new Error('Något gick fel, försök igen senare.');
+      const result = await res.json();
 
-      const result = await res.json(); console.log(result);
+      if (res.status !== 200)
+        throw new Error(`Något gick fel, försök igen senare. Error: ${result?.message ?? JSON.stringify(result)}`)
+
       reset()
       setSuccess(true)
       scrollToForm()
