@@ -13,14 +13,14 @@ const getUserByEmail = async (email: string) => {
     filter: {
       type: 'member',
       fields: {
-        email: { eq: email, neq: undefined }
+        email: { eq: email }
       }
     }
   }))?.[0]
 }
 
 const main = async () => {
-  const user = await getUserByEmail(null)
+  const user = await getUserByEmail('laurenfueyo@gmail.com')
   console.log(user)
 }
 main()

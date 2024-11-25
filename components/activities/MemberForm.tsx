@@ -84,6 +84,7 @@ export default function MemberForm({ activity, show, setShow }: Props) {
 
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
 
+
     setError(null);
     setSuccess(false);
     setLoading(true);
@@ -104,6 +105,7 @@ export default function MemberForm({ activity, show, setShow }: Props) {
         },
       });
 
+
       if (res.status === 404)
         throw new Error('Du måste registrera dig först');
 
@@ -116,6 +118,7 @@ export default function MemberForm({ activity, show, setShow }: Props) {
       setSuccess(true)
       scrollToForm()
     } catch (e: any) {
+
       if (e.name === 'AbortError') return;
       setError(e.message);
     }
@@ -341,7 +344,7 @@ function MemberLogin({ onSuccess }: MemberLoginProps) {
       });
 
       if (res?.error === 'EmailSignin')
-        setError('Något gick fel, försök igen senare');
+        setError('E-postadressen är inte registrerad. Var vänlig registrera dig nedan först.');
       else {
         setSuccess(true);
         onSuccess()
@@ -380,7 +383,7 @@ function MemberLogin({ onSuccess }: MemberLoginProps) {
           <button type="reset" onClick={() => setDone(true)}>Stäng</button>
         </div>
       }
-      {error && <span className={s.error}>{error}</span>}
+      {error && <span className={s.errorMessage}>{error}</span>}
     </form>
   )
 }
