@@ -333,7 +333,7 @@ function MemberLogin({ onSuccess }: MemberLoginProps) {
     setDone(false);
 
     const emailInput = e.currentTarget.elements.namedItem('email') as HTMLInputElement;
-    const email = emailInput.value;
+    const email = emailInput.value?.toLowerCase().trim();
     const callbackUrl = `${window.location.href.replace('#apply?login=1', '')}#apply?login=1`;
 
     try {
