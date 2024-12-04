@@ -4,6 +4,7 @@ import { GetStaticProps } from "next";
 import { AllLexiconsDocument } from "/graphql";
 import { Article, StructuredContent } from '/components'
 import { ToolTip } from '/components';
+import { apiQueryAll } from 'dato-nextjs-utils/api';
 
 
 export type Props = {
@@ -37,12 +38,15 @@ export default function Lexicons({ lexicons, lexiconText }: Props) {
 
 Lexicons.page = { crumbs: [{ slug: 'lexicon', title: 'Lexicon' }] } as PageProps
 
-export const getStaticProps: GetStaticProps = withGlobalProps({ queries: [AllLexiconsDocument] }, async ({ props, revalidate, context }: any) => {
+export const getStaticProps: GetStaticProps = withGlobalProps({ queries: [] }, async ({ props, revalidate, context }: any) => {
 
+  const { lexicons, lexiconText } = await apiQueryAll(AllLexiconsDocument, { preview: context.preview }, context.preview);
 
   return {
     props: {
-      ...props
+      ...props,
+      lexicons,
+      lexiconText
     },
     revalidate
   };
