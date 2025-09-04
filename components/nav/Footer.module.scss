@@ -106,9 +106,11 @@
 	.about {
 		p {
 			width: 100%;
-			column-count: 2;
-			column-gap: var(--gutter);
-			margin-bottom: 0;
+			@include mq($from: desktop) {
+				column-count: 2;
+				column-gap: var(--gutter);
+				margin-bottom: 0;
+			}
 		}
 	}
 

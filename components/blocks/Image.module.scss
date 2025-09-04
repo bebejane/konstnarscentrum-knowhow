@@ -81,12 +81,17 @@
 .grid {
 	list-style: none;
 	display: grid;
-	grid-template-columns: repeat(4, 1fr);
 	align-items: stretch; /* gör att alla i raden sträcks till samma höjd */
 	gap: 1rem;
-	width: calc(100% + (var(--outer-margin) * 2));
-	margin-left: calc(-1 * var(--outer-margin));
-	margin-left: calc(-1 * var(--outer-margin));
+
+	grid-template-columns: repeat(3, 1fr);
+
+	@include mq($from: desktop) {
+		grid-template-columns: repeat(4, 1fr);
+		width: calc(100% + (var(--outer-margin) * 2));
+		margin-left: calc(-1 * var(--outer-margin));
+		margin-left: calc(-1 * var(--outer-margin));
+	}
 
 	padding: 0;
 	li {
