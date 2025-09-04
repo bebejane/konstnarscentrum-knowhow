@@ -32,6 +32,18 @@ query Start {
 				text
 				link
 			}
+			... on ImageShortcutDoubleRecord {
+				id
+				shortcuts{
+					id
+					headline
+					image{
+						...ImageFragment
+					}
+					link
+					text
+				}
+			}
 			... on TextRecord {
 				id
 				headline
