@@ -87,6 +87,7 @@
 		div,
 		p {
 			color: var(--white);
+			width: 100%;
 
 			span {
 				padding-right: 1em;
@@ -103,7 +104,11 @@
 	}
 
 	.about {
-		columns: 2;
+		p {
+			width: 100%;
+			column-count: 2;
+			column-gap: var(--gutter);
+		}
 	}
 
 	.social {
