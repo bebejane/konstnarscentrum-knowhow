@@ -1,33 +1,51 @@
-import s from './Layout.module.scss'
-import cn from 'classnames'
-import React, { useEffect, useState } from 'react'
-import { Content, Footer, MenuDesktop, MenuMobile, Logo, Grid, Search, FullscreenGallery, Breadcrumbs } from '/components'
-import type { MenuItem } from '/lib/menu'
-import { buildMenu } from '/lib/menu'
-import { useRouter } from 'next/router'
-import { useStore } from '/lib/store'
+import s from './Layout.module.scss';
+import cn from 'classnames';
+import React, { useEffect, useState } from 'react';
+import {
+	Content,
+	Footer,
+	MenuDesktop,
+	MenuMobile,
+	Logo,
+	Grid,
+	Search,
+	FullscreenGallery,
+	Breadcrumbs,
+} from '/components';
+import type { MenuItem } from '/lib/menu';
+import { buildMenu } from '/lib/menu';
+import { useRouter } from 'next/router';
+import { useStore } from '/lib/store';
 
 export type LayoutProps = {
-	children: React.ReactNode,
-	menu: MenuItem[],
-	title: string,
-	footer: FooterRecord
-}
+	children: React.ReactNode;
+	menu: MenuItem[];
+	title: string;
+	footer: FooterRecord;
+};
 
 export default function Layout({ children, menu: menuFromProps, title, footer }: LayoutProps) {
+	const [images, imageId, setImageId, showMenu] = useStore((state) => [
+		state.images,
+		state.imageId,
+		state.setImageId,
+		state.showMenu,
+	]);
+	const { asPath } = useRouter();
+	const [isHome, setIsHome] = useState(true);
+	const [menu, setMenu] = useState(menuFromProps);
+	console.log(images);
+	useEffect(() => {
+		// Refresh menu on load.
+		buildMenu()
+			.then((res) => setMenu(res))
+			.catch((err) => console.error(err));
+	}, []);
 
-	const [images, imageId, setImageId, showMenu] = useStore((state) => [state.images, state.imageId, state.setImageId, state.showMenu])
-	const { asPath } = useRouter()
-	const [isHome, setIsHome] = useState(true)
-	const [menu, setMenu] = useState(menuFromProps)
-
-	useEffect(() => { // Refresh menu on load.
-		buildMenu().then(res => setMenu(res)).catch(err => console.error(err))
-	}, [])
-
-	useEffect(() => { // Detect if we are on the home page.
-		setIsHome(asPath === '/')
-	}, [asPath])
+	useEffect(() => {
+		// Detect if we are on the home page.
+		setIsHome(asPath === '/');
+	}, [asPath]);
 
 	return (
 		<>
@@ -52,5 +70,5 @@ export default function Layout({ children, menu: menuFromProps, title, footer }:
 			/>
 			<Grid />
 		</>
-	)
+	);
 }
