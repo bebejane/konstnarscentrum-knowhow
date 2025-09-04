@@ -1,79 +1,94 @@
 .single {
-  margin-top: var(--space);
-  margin-bottom: var(--space);
-  width: calc(100% + (var(--outer-margin) * 2));
-  margin-left: calc(-1 * var(--outer-margin));
-  margin-left: calc(-1 * var(--outer-margin));
+	margin-top: var(--space);
+	margin-bottom: var(--space);
+	width: calc(100% + (var(--outer-margin) * 2));
+	margin-left: calc(-1 * var(--outer-margin));
+	margin-left: calc(-1 * var(--outer-margin));
 
-  @include mq($from: tablet) {
-    width: calc(100% + (var(--grid-unit) * 2));
-    margin-left: calc(-1 * var(--grid-unit));
-    margin-left: calc(-1 * var(--grid-unit));
-  }
+	@include mq($from: tablet) {
+		width: calc(100% + (var(--grid-unit) * 2));
+		margin-left: calc(-1 * var(--grid-unit));
+		margin-left: calc(-1 * var(--grid-unit));
+	}
 
-  div {
-    max-width: none !important;
-  }
+	div {
+		max-width: none !important;
+	}
 
-  figcaption {
-    line-height: 0 !important;
+	figcaption {
+		line-height: 0 !important;
 
-    @include mq($until: tablet) {
-      padding-left: var(--outer-margin);
-      padding-right: var(--outer-margin);
-    }
-  }
+		@include mq($until: tablet) {
+			padding-left: var(--outer-margin);
+			padding-right: var(--outer-margin);
+		}
+	}
 }
 
 .double {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  margin-top: var(--space);
-  margin-bottom: var(--space);
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	margin-top: var(--space);
+	margin-bottom: var(--space);
 
-  @include mq($from: tablet) {
-    width: calc(100% + (var(--grid-unit) * 2));
-    margin-left: calc(-1 * var(--grid-unit));
-    margin-left: calc(-1 * var(--grid-unit));
-  }
+	@include mq($from: tablet) {
+		width: calc(100% + (var(--grid-unit) * 2));
+		margin-left: calc(-1 * var(--grid-unit));
+		margin-left: calc(-1 * var(--grid-unit));
+	}
 
-  .imgWrap,
-  .captionWrap {
-    display: flex;
-    width: 100%;
-  }
+	.imgWrap,
+	.captionWrap {
+		display: flex;
+		width: 100%;
+	}
 
-  .imgWrap {
-    align-items: flex-end;
-  }
+	.imgWrap {
+		align-items: flex-end;
+	}
 
-  figure,
-  figcaption {
-    margin: 0;
-    flex: 0 0 calc(50% - (var(--gutter) / 2));
-    margin-right: var(--gutter);
+	figure,
+	figcaption {
+		margin: 0;
+		flex: 0 0 calc(50% - (var(--gutter) / 2));
+		margin-right: var(--gutter);
 
-    &:last-child {
-      margin-right: 0;
-    }
+		&:last-child {
+			margin-right: 0;
+		}
 
-    .image {
-      max-width: none !important;
-    }
-  }
+		.image {
+			max-width: none !important;
+		}
+	}
 }
 
 .single,
 .double {
-  img {
-    cursor: pointer;
-  }
+	img {
+		cursor: pointer;
+	}
 
-  figcaption {
-    p {
-      margin-bottom: 0;
-    }
-  }
+	figcaption {
+		p {
+			margin-bottom: 0;
+		}
+	}
+}
+
+.grid {
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	padding: 0;
+	li {
+		margin-bottom: 1rem;
+		figure {
+			img {
+				width: 100%;
+			}
+		}
+	}
 }

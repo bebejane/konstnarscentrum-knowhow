@@ -38,6 +38,7 @@ fragment KnowledgeFragment on KnowledgeRecord {
 				image {
 					...ImageFragment
 				}
+				layout
 			}
 			... on ButtonRecord {
 				__typename

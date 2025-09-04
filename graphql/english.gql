@@ -33,6 +33,7 @@ query InEnglish {
 					image {
 						...ImageFragment
 					}
+					layout
 				}
 				... on TextRecord {
 					__typename
