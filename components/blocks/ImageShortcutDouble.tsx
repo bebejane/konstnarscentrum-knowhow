@@ -8,11 +8,11 @@ export type ImageShortcutDoubleBlockProps = {
   data: ImageShortcutDoubleRecord
 }
 
-export default function ImageShortcutDouble({ data: {shortcuts } }: ImageShortcutDoubleBlockProps) {
+export default function ImageShortcutDouble({ data: { shortcuts } }: ImageShortcutDoubleBlockProps) {
 
   return (
     <section className={s.container}>
-      {shortcuts.map(({image, headline, text, link, blackHeadline}, idx) =>
+      {shortcuts.map(({ image, headline, text, link, blackHeadline }, idx) =>
         <figure key={idx}>
           {image &&
             <Image
@@ -27,7 +27,7 @@ export default function ImageShortcutDouble({ data: {shortcuts } }: ImageShortcu
             <h2 className={cn(blackHeadline && s.black)}>
               {headline}
             </h2>
-            <p className={cn(blackHeadline && s.black, "intro")}>{text}</p><br />
+            <p className={cn(blackHeadline && s.black,)}>{text}</p><br />
             <ReadMore link={link} message={link === '/english' ? 'Read more' : 'Läs mer'} external={true} regional={false} invert={blackHeadline ? false : true} />
           </figcaption>
         </figure>
