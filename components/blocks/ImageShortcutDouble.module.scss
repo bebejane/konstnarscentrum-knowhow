@@ -1,6 +1,6 @@
 .container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   color: var(--white);
   margin-top: var(--space);
   margin-right: calc(-1 * var(--outer-margin));
@@ -12,6 +12,7 @@
   }
 
   @include mq($from: tablet) {
+    flex-direction: row;
     min-width: calc(100% - (2 * var(--full-margin)));
     margin-right: var(--full-margin);
     margin-left: var(--full-margin);
@@ -20,13 +21,18 @@
   }
 
   figure {
-    flex: 0 0 50%;
+    @include mq($from: desktop) {
+      flex: 0 0 50%;
+    }
     position: relative;
 
     .image {
       width: 100%;
+      height: 30vh;
 
-      height: 60vh;
+      @include mq($from: desktop) {
+        height: 60vh;
+      }
     }
 
     figcaption {
@@ -35,11 +41,8 @@
       left: 0;
       width: 100%;
       height: 100%;
-
-      @include mq($from: tablet) {
-        padding-left: calc(var(--grid-unit));
-        padding-right: calc(var(--grid-unit));
-      }
+      padding-left: calc(var(--grid-unit));
+      padding-right: calc(var(--grid-unit));
 
       h2,
       p,
