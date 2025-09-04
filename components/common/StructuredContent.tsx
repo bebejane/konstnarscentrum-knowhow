@@ -1,113 +1,106 @@
 import { StructuredText, renderNodeRule } from 'react-datocms/structured-text';
-import { isParagraph, isRoot } from 'datocms-structured-text-utils';
-import ToolTip from '/components/common/ToolTip'
+import { isLink, isParagraph, isRoot } from 'datocms-structured-text-utils';
+import ToolTip from '/components/common/ToolTip';
 
 import Block from '/components/blocks';
+import Link from 'next/link';
 
 export type Props = {
-  id: string
-  content: any
-  record: any
-  className?: string
-  styles?: { [key: string]: string }
-  onClick?: (imageId: string) => void
-  lexicons?: LexiconRecord[]
-}
+	id: string;
+	content: any;
+	record: any;
+	className?: string;
+	styles?: { [key: string]: string };
+	onClick?: (imageId: string) => void;
+	lexicons?: LexiconRecord[];
+};
 
 export default function StructuredContent({ record, content, onClick, className, styles, lexicons }: Props) {
+	if (!content) return null;
 
-  if (!content)
-    return null
+	return (
+		<StructuredText
+			data={content}
+			renderBlock={({ record: block }) => {
+				return <Block data={block} record={record} onClick={(id) => onClick?.(id)} />;
+			}}
+			renderInlineRecord={({ record }) => {
+				switch (record.__typename) {
+					default:
+						return null;
+				}
+			}}
+			renderLinkToRecord={({ record, children, transformedMeta }) => {
+				switch (record.__typename) {
+					case 'LexiconRecord':
+						return <ToolTip lexicon={record as LexiconRecord}>{children}</ToolTip>;
+					default:
+						return null;
+				}
+			}}
+			renderText={(text) => {
+				const t = text?.replace(/\s/g, ' ');
+				return t;
+				if (!lexicons || !t) return t;
 
-  return (
-    <StructuredText
-      data={content}
-      renderBlock={({ record: block }) => {
-        return <Block data={block} record={record} onClick={(id) => onClick?.(id)} />
-      }}
-      renderInlineRecord={({ record }) => {
-        switch (record.__typename) {
-          default:
-            return null;
-        }
-      }}
-      renderLinkToRecord={({ record, children, transformedMeta }) => {
-        //return <>{children}</>
+				return t.split(' ').map((word, index) => {
+					const lexicon = lexicons.find((l) => l.word.toLowerCase() === word.toLowerCase());
+					return lexicon ? <ToolTip lexicon={lexicon}>{word} </ToolTip> : <>{word} </>;
+				}) as any;
+			}}
+			customNodeRules={[
+				// Clenup paragraphs
+				renderNodeRule(isParagraph, ({ adapter: { renderNode }, node, children, key, ancestors }) => {
+					const firstChild = node.children[0];
+					const lastChild = node.children[node.children.length - 1];
 
-        switch (record.__typename) {
-          case 'LexiconRecord':
-            return <ToolTip lexicon={record as LexiconRecord}>{children}</ToolTip>
-          default:
-            return null;
-        }
-      }}
-      renderText={(text) => {
-        const t = text?.replace(/\s/g, ' ')
-        return t;
-        if (!lexicons || !t) return t
+					// Remove trailing <br>
+					if (isRoot(ancestors[0]) && lastChild.type === 'span' && lastChild.value?.endsWith('\n')) {
+						let index = node.children.length;
 
-        return t.split(' ').map((word, index) => {
-          const lexicon = lexicons.find(l => l.word.toLowerCase() === word.toLowerCase())
-          return lexicon ? <ToolTip lexicon={lexicon}>{word} </ToolTip> : <>{word} </>
-        }) as any
-      }}
+						while (index >= 0 && firstChild.type === 'span' && firstChild.value[index] === '\n') index--;
 
-      customNodeRules={[
-        /* Wrap <a> with nextjs Link
-        renderNodeRule(isLink, ({ adapter: { renderNode }, node, children, key, ancestors }) => {
-          return <Link href={node.url}>{children}</Link>
-        }),
-        */
-        // Clenup paragraphs
-        renderNodeRule(isParagraph, ({ adapter: { renderNode }, node, children, key, ancestors }) => {
+						// remove trailing br
+						if (children && Array.isArray(children) && typeof children[0] === 'object')
+							Array.isArray(children[0].props.children) && children[0].props.children.splice(index);
+					}
 
-          const firstChild = node.children[0]
-          const lastChild = node.children[node.children.length - 1]
+					////@ts-ignore // Remove leading <br>
+					if (isRoot(ancestors[0]) && firstChild.type === 'span' && firstChild.value.startsWith('\n')) {
+						let index = 0;
 
-          // Remove trailing <br>
-          if (isRoot(ancestors[0]) && lastChild.type === 'span' && lastChild.value?.endsWith('\n')) {
+						while (index < firstChild.value.length && firstChild.value[index] === '\n') index++;
 
-            let index = node.children.length;
+						if (children && Array.isArray(children) && typeof children[0] === 'object')
+							Array.isArray(children[0].props.children) && children[0].props.children?.splice(0, index + 1);
+					}
 
-            while (index >= 0 && firstChild.type === 'span' && firstChild.value[index] === '\n') index--;
+					// Filter out empty paragraphs
+					children = children?.filter(
+						(c) => !(typeof c === 'object' && c.props.children?.length === 1 && !c.props.children[0])
+					);
 
-            // remove trailing br
-            if (children && Array.isArray(children) && typeof children[0] === 'object')
-              Array.isArray(children[0].props.children) && children[0].props.children.splice(index)
-          }
+					// If no children remove tag completely
+					if (!children?.length) return null;
 
-          ////@ts-ignore // Remove leading <br>
-          if (isRoot(ancestors[0]) && firstChild.type === 'span' && firstChild.value.startsWith('\n')) {
-            let index = 0;
+					const classNames = [];
 
-            while (index < firstChild.value.length && firstChild.value[index] === '\n') index++;
+					isRoot(ancestors[0]) && className && classNames.push(className);
+					node.style && styles?.[node.style] && classNames.push(styles[node.style]);
 
-            if (children && Array.isArray(children) && typeof children[0] === 'object')
-              Array.isArray(children[0].props.children) && children[0].props.children?.splice(0, index + 1)
-          }
+					node.style && !styles?.[node.style] && console.warn(node.style, 'does not exist in styles', 'P');
 
-          // Filter out empty paragraphs
-          children = children?.filter(c => !(typeof c === 'object' && c.props.children?.length === 1 && !c.props.children[0]))
-
-          // If no children remove tag completely
-          if (!children?.length) return null
-
-          const classNames = []
-
-          isRoot(ancestors[0]) && className && classNames.push(className)
-          node.style && styles?.[node.style] && classNames.push(styles[node.style])
-
-          node.style && !styles?.[node.style] && console.warn(node.style, 'does not exist in styles', 'P')
-
-          // Return paragraph with sanitized children
-          return renderNode('p', {
-            key,
-            className: classNames.length ? classNames.join(' ') : undefined,
-          }, children)
-
-        }),
-      ]}
-
-    />
-  );
+					// Return paragraph with sanitized children
+					return renderNode(
+						'p',
+						{
+							key,
+							className: classNames.length ? classNames.join(' ') : undefined,
+						},
+						children
+					);
+				}),
+			]}
+		/>
+	);
 }
