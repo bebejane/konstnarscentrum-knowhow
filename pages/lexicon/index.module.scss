@@ -2,9 +2,13 @@
   padding: 0;
   column-count: 2;
   column-gap: 0px;
+  line-height: 1.25em;
 
   @include mq($from: tablet) {
     column-count: 3;
+  }
+  a {
+    line-height: 1.25 !important;
   }
 
   li {
