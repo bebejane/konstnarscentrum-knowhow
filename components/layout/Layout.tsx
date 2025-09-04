@@ -34,7 +34,7 @@ export default function Layout({ children, menu: menuFromProps, title, footer }:
 	const { asPath } = useRouter();
 	const [isHome, setIsHome] = useState(true);
 	const [menu, setMenu] = useState(menuFromProps);
-	console.log(images);
+
 	useEffect(() => {
 		// Refresh menu on load.
 		buildMenu()
