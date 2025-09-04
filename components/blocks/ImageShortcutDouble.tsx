@@ -27,7 +27,7 @@ export default function ImageShortcutDouble({ data: { shortcuts } }: ImageShortc
             <h2 className={cn(blackHeadline && s.black)}>
               {headline}
             </h2>
-            <p className={cn(blackHeadline && s.black,)}>{text}</p><br />
+            <p className={cn(blackHeadline && s.black, "mid")}>{text}</p><br />
             <ReadMore link={link} message={link === '/english' ? 'Read more' : 'Läs mer'} external={true} regional={false} invert={blackHeadline ? false : true} />
           </figcaption>
         </figure>
