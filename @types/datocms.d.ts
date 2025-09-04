@@ -556,34 +556,6 @@ type ColorField = {
   red: Scalars['IntType'];
 };
 
-/** Block of type Två mindre bildgenvägar (column_image_shortcut) */
-type ColumnImageShortcutRecord = RecordInterface & {
-  __typename?: 'ColumnImageShortcutRecord';
-  _createdAt: Scalars['DateTime'];
-  /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']>;
-  _firstPublishedAt: Scalars['DateTime'];
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt: Scalars['DateTime'];
-  /** Generates SEO and Social card meta tags to be used in your frontend */
-  _seoMetaTags: Array<Tag>;
-  _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  shortcut: Array<ImageShortcutRecord>;
-  updatedAt: Scalars['DateTime'];
-};
-
-
-/** Block of type Två mindre bildgenvägar (column_image_shortcut) */
-type ColumnImageShortcutRecord_seoMetaTagsArgs = {
-  locale?: InputMaybe<SiteLocale>;
-};
-
 type CommissionCategoryModelFilter = {
   AND?: InputMaybe<Array<InputMaybe<CommissionCategoryModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<CommissionCategoryModelFilter>>>;
@@ -1675,6 +1647,34 @@ type ImageRecord = RecordInterface & {
 
 /** Block of type Bild(er) (image) */
 type ImageRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
+/** Block of type Två mindre bildgenvägar (image_shortcut_double) */
+type ImageShortcutDoubleRecord = RecordInterface & {
+  __typename?: 'ImageShortcutDoubleRecord';
+  _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
+  _firstPublishedAt: Scalars['DateTime'];
+  _isValid: Scalars['BooleanType'];
+  _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt: Scalars['DateTime'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ItemId'];
+  shortcuts: Array<ImageShortcutRecord>;
+  updatedAt: Scalars['DateTime'];
+};
+
+
+/** Block of type Två mindre bildgenvägar (image_shortcut_double) */
+type ImageShortcutDoubleRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -5973,7 +5973,7 @@ type SponsorRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
-type StartModelSectionsField = ImageShortcutRecord | LatestActivityRecord | TextRecord;
+type StartModelSectionsField = ImageShortcutDoubleRecord | ImageShortcutRecord | LatestActivityRecord | TextRecord;
 
 /** Record of type Start (start) */
 type StartRecord = RecordInterface & {
@@ -6770,4 +6770,4 @@ type SiteSearchQuery = { __typename?: 'Query', activities: Array<{ __typename: '
 type StartQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type StartQuery = { __typename?: 'Query', start?: { __typename?: 'StartRecord', id: any, gallery: Array<{ __typename?: 'SlideRecord', id: any, headline?: string | null, blackText?: any | null, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null }, link?: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ActivityRecord', id: any, slug: string, title: string } | { __typename?: 'CommissionRecord' } | { __typename?: 'ForArtistRecord' } | { __typename?: 'KnowledgeRecord' } | { __typename?: 'NewsRecord' } | null }>, sections: Array<{ __typename: 'ImageShortcutRecord', id: any, headline?: string | null, text?: string | null, link?: string | null, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } } | { __typename: 'LatestActivityRecord', id: any } | { __typename: 'TextRecord', id: any, headline?: string | null, text?: string | null, link?: string | null }> } | null };
+type StartQuery = { __typename?: 'Query', start?: { __typename?: 'StartRecord', id: any, gallery: Array<{ __typename?: 'SlideRecord', id: any, headline?: string | null, blackText?: any | null, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null }, link?: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ActivityRecord', id: any, slug: string, title: string } | { __typename?: 'CommissionRecord' } | { __typename?: 'ForArtistRecord' } | { __typename?: 'KnowledgeRecord' } | { __typename?: 'NewsRecord' } | null }>, sections: Array<{ __typename: 'ImageShortcutDoubleRecord', id: any, shortcuts: Array<{ __typename?: 'ImageShortcutRecord', id: any, headline?: string | null, link?: string | null, text?: string | null, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } }> } | { __typename: 'ImageShortcutRecord', id: any, headline?: string | null, text?: string | null, link?: string | null, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } } | { __typename: 'LatestActivityRecord', id: any } | { __typename: 'TextRecord', id: any, headline?: string | null, text?: string | null, link?: string | null }> } | null };

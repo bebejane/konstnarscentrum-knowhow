@@ -1,0 +1,81 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  color: var(--white);
+  margin-top: var(--space);
+  width: 100vw;
+  margin-left: var(--full-margin);
+  margin-right: var(--full-margin);
+  
+  figure {
+    flex: 0 0 50%;
+    position: relative;
+
+    .image {
+      width: 100%;
+
+      @include mq($until: tablet) {
+        height: 60vh;
+      }
+
+      @include mq($from: tablet) {
+        min-width: calc(50% - (2 * var(--full-margin)));
+        margin-right: var(--full-margin);
+        margin-left: var(--full-margin);
+        max-width: none;
+        max-height: calc(100vh - (2 * var(--navbar-height)));
+      }
+    }
+
+    figcaption {
+      position: absolute;
+      top: var(--small-space);
+      left: 0;
+      width: 100%;
+      height: 100%;
+
+      @include mq($from: tablet) {
+        margin-left: calc(-1 * var(--grid-unit));
+      }
+
+      h2,
+      p,
+      a {
+        z-index: 2;
+        position: relative;
+      }
+
+      p {
+        margin-bottom: 0;
+        padding-right: var(--grid-unit);
+      }
+
+      a {
+        color: var(--white);
+      }
+
+      .fade {
+        display: none;
+        //background-color: red;
+        background: var(--fade);
+        position: absolute;
+        z-index: 0;
+        top: 0;
+        left: 0;
+        height: 50%;
+        margin-top: calc(-1 * var(--small-space));
+        width: 100%;
+
+        @include mq($from: tablet) {
+          margin-left: calc(-1 * var(--grid-unit));
+          margin-right: calc(-1 * var(--grid-unit));
+          width: calc(100% + (4 * var(--grid-unit)));
+        }
+      }
+    }
+  }
+
+  .black {
+    color: var(--black);
+  }
+}
