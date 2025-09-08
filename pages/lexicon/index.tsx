@@ -5,7 +5,7 @@ import { AllLexiconsDocument } from '/graphql';
 import { Article, StructuredContent } from '/components';
 import { ToolTip } from '/components';
 import { apiQueryAll } from 'dato-nextjs-utils/api';
-import { sortSwedish } from 'dato-nextjs-utils/utils';
+import { sortSwedish } from 'next-dato-utils/utils';
 
 export type Props = {
 	lexicons: LexiconRecord[];
