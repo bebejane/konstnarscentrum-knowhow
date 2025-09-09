@@ -11,6 +11,10 @@
     line-height: 1.25 !important;
   }
 
+  p a {
+    border-bottom: 1px solid var(--red);
+  }
+
   li {
     display: block;
     padding-bottom: 1em;
