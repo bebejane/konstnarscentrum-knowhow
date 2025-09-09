@@ -26,6 +26,10 @@
         color: var(--foreground);
         margin: 0;
         font-size: 0.8rem;
+
+        a {
+          border-bottom: 1px solid var(--black);
+        }
       }
     }
   }
