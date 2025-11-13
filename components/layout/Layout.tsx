@@ -36,13 +36,6 @@ export default function Layout({ children, menu: menuFromProps, title, footer }:
 	const [menu, setMenu] = useState(menuFromProps);
 
 	useEffect(() => {
-		// Refresh menu on load.
-		buildMenu()
-			.then((res) => setMenu(res))
-			.catch((err) => console.error(err));
-	}, []);
-
-	useEffect(() => {
 		// Detect if we are on the home page.
 		setIsHome(asPath === '/');
 	}, [asPath]);

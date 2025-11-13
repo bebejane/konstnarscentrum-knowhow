@@ -1,19 +1,19 @@
-import s from "./index.module.scss";
-import withGlobalProps from "/lib/withGlobalProps";
-import useApiQuery from "/lib/hooks/useApiQuery";
-import { GetStaticProps } from "next";
-import { apiQuery } from "dato-nextjs-utils/api";
+import s from './index.module.scss';
+import withGlobalProps from '/lib/withGlobalProps';
+import useApiQuery from '/lib/hooks/useApiQuery';
+import { GetStaticProps } from 'next';
+import { apiQuery } from 'dato-nextjs-utils/api';
 import {
 	AllPresentKnowledgesDocument,
 	AllPastAndFutureKnowledgesDocument,
 	AllKnowledgeCategoriesDocument,
-} from "/graphql";
-import { format } from "date-fns";
-import { pageSize, apiQueryAll, getStaticPagePaths } from "/lib/utils";
-import { CardContainer, NewsCard, RevealText, Loader } from "/components";
-import { useEffect } from "react";
-import { useInView } from "react-intersection-observer";
-import { uniqBy } from "lodash-es";
+} from '/graphql';
+import { format } from 'date-fns';
+import { pageSize, apiQueryAll, getStaticPagePaths } from '/lib/utils';
+import { CardContainer, NewsCard, RevealText, Loader } from '/components';
+import { useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
+import { uniqBy } from 'lodash-es';
 
 export type KnowledgeRecordWithStatus = KnowledgeRecord & {
 	status: { value: string; label: string };
@@ -47,7 +47,7 @@ export default function Knowledges({
 		pageSize,
 	});
 
-	const { inView, ref } = useInView({ triggerOnce: true, rootMargin: "0px 0px 2000px 0px" });
+	const { inView, ref } = useInView({ triggerOnce: true, rootMargin: '0px 0px 2000px 0px' });
 
 	useEffect(() => {
 		if (inView && !page.end && !loading) {
@@ -55,7 +55,7 @@ export default function Knowledges({
 		}
 	}, [page, inView, loading, nextPage]);
 
-	const allKnowledges = uniqBy([...presentKnowledges, ...knowledges], "id");
+	const allKnowledges = uniqBy([...presentKnowledges, ...knowledges], 'id');
 
 	return (
 		<>
@@ -63,11 +63,7 @@ export default function Knowledges({
 				<RevealText>{category.category}</RevealText>
 			</h1>
 
-			<CardContainer
-				columns={2}
-				className={s.knowledges}
-				key={`${page.no}-${category.id}`}
-			>
+			<CardContainer columns={2} className={s.knowledges} key={`${page.no}-${category.id}`}>
 				{allKnowledges.length > 0 ? (
 					allKnowledges.map((el, idx) => {
 						const { id, title, intro, slug, image, category } = el;
@@ -76,7 +72,7 @@ export default function Knowledges({
 								key={id}
 								title={title}
 								subtitle={`${category.category}`}
-								label={""}
+								label={''}
 								text={intro}
 								image={image}
 								slug={`/kunskapsbank/${category.slug}/${slug}`}
@@ -89,11 +85,7 @@ export default function Knowledges({
 			</CardContainer>
 
 			{!page.end && (
-				<div
-					ref={ref}
-					className={s.loader}
-					key={`page-${page.no}`}
-				>
+				<div ref={ref} className={s.loader} key={`page-${page.no}`}>
 					{loading && <Loader />}
 				</div>
 			)}
@@ -107,10 +99,10 @@ export default function Knowledges({
 	);
 }
 
-Knowledges.page = { title: "Kunskapsbank", crumbs: [{ title: "Kunskapsbank" }] } as PageProps;
+Knowledges.page = { title: 'Kunskapsbank', crumbs: [{ title: 'Kunskapsbank' }] } as PageProps;
 
 export async function getStaticPaths() {
-	const paths = await getStaticPagePaths(AllKnowledgeCategoriesDocument, "category");
+	const paths = await getStaticPagePaths(AllKnowledgeCategoriesDocument, 'category');
 	return paths;
 }
 
@@ -121,9 +113,11 @@ export const getStaticProps: GetStaticProps = withGlobalProps(
 		const category = knowledgeCategories.find((el) => el.slug === context.params?.category);
 		const categoryId = category?.id;
 
+		if (!categoryId) return { notFound: true, revalidate };
+
 		const page = parseInt(context.params?.page) || 1;
 		const isFirstPage = page === 1;
-		const date = format(new Date(), "yyyy-MM-dd");
+		const date = format(new Date(), 'yyyy-MM-dd');
 
 		let { presentKnowledges } = await apiQuery(AllPresentKnowledgesDocument, {
 			variables: { date, categoryId },
@@ -137,10 +131,10 @@ export const getStaticProps: GetStaticProps = withGlobalProps(
 
 		const count = knowledges.length;
 
-		knowledges = knowledges.map((el) => ({ ...el, status: "" })).slice(start, end);
+		knowledges = knowledges.map((el) => ({ ...el, status: '' })).slice(start, end);
 
 		presentKnowledges = presentKnowledges
-			.map((el) => ({ ...el, status: "" }))
+			.map((el) => ({ ...el, status: '' }))
 			.sort((a, b) => (a.status.order > b.status.order ? -1 : 1));
 
 		return {
