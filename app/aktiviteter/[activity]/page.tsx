@@ -1,7 +1,5 @@
 import { apiQuery } from 'next-dato-utils/api';
 import { ActivityDocument, AllActivitiesDocument } from '@/graphql';
-import { format } from 'date-fns';
-import { sv } from 'date-fns/locale';
 import { Article, Breadcrumbs, MetaSection } from '@/components';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
