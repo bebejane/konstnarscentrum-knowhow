@@ -124,6 +124,7 @@ export default async function Activities({ params, searchParams }: PageProps<'/a
 			</div>
 			<Link
 				className={s.view}
+				prefetch={true}
 				href={{
 					pathname: '/aktiviteter',
 					query: { view: view === 'list' ? 'calendar' : 'list' },
