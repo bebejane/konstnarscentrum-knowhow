@@ -7,6 +7,7 @@ import { getSession } from '@/lib/auth';
 import Link from 'next/link';
 import { Metadata } from 'next';
 import { buildMetadata } from '@/app/layout';
+import { sv } from 'date-fns/locale';
 
 export type Props = {
 	activity: ActivityRecord;
@@ -32,8 +33,8 @@ export default async function ActivityAdminPage({
 	});
 
 	const { id, date, dateEnd, title } = activity;
-	const startDate = format(new Date(date), 'd MMM y');
-	const endDate = dateEnd ? format(new Date(dateEnd), 'd MMM y') : undefined;
+	const startDate = format(new Date(date), 'd MMM y', { locale: sv });
+	const endDate = dateEnd ? format(new Date(dateEnd), 'd MMM y', { locale: sv }) : undefined;
 
 	return (
 		<>

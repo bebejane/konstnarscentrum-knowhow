@@ -1,42 +1,13 @@
-import { isAfter, isBefore } from 'date-fns';
+import { isAfter, isBefore, format } from 'date-fns';
+import { sv } from 'date-fns/locale';
 
-export const isServer = typeof window === 'undefined';
-
+export const pageSize = 10;
 export const breakpoints = {
 	mobile: 320,
 	tablet: 740,
 	desktop: 980,
 	wide: 1441,
 	navBreak: 1368,
-};
-export const pageSize = 10;
-
-export const recordToSlug = (record: any): string => {
-	let url: string;
-
-	if (!record) {
-		throw new Error('recordToSlug: Record  is empty');
-	}
-
-	if (typeof record === 'string') return record;
-
-	const { __typename, slug, category } = record;
-
-	switch (__typename) {
-		case 'ActivityRecord':
-			url = `/aktiviteter/${slug}`;
-			break;
-		case 'KnowledgeRecord':
-			url = `/kunskapsbank/${category.slug}/${slug}`;
-			break;
-		case 'AboutRecord':
-			url = `/om/${slug}`;
-			break;
-		default:
-			throw Error(`${__typename} is unknown record slug!`);
-	}
-
-	return url;
 };
 
 export const activityStatus = (
@@ -55,8 +26,8 @@ export const activityStatus = (
 	return status;
 };
 
-export const randomInt = (min, max) => {
-	min = Math.ceil(min);
-	max = Math.floor(max);
-	return Math.floor(Math.random() * (max - min + 1)) + min;
+export const formatDate = (date?: string | Date, short?: boolean) => {
+	if (!date) return date;
+	if (short) return format(new Date(date), 'dd MMM', { locale: sv });
+	return format(new Date(date), 'dd MMMM yyyy', { locale: sv });
 };

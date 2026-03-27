@@ -1,6 +1,7 @@
 import { apiQuery } from 'next-dato-utils/api';
 import { ActivityDocument, AllActivitiesDocument } from '@/graphql';
 import { format } from 'date-fns';
+import { sv } from 'date-fns/locale';
 import { Article, Breadcrumbs, MetaSection } from '@/components';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -9,7 +10,9 @@ import { DraftMode } from 'next-dato-utils/components';
 import { Metadata } from 'next';
 import { buildMetadata } from '@/app/layout';
 import { toZonedTime } from 'date-fns-tz';
+
 import * as ics from 'ics';
+import { formatDate } from '@/lib/utils';
 
 export default async function Activity({ params }: PageProps<'/aktiviteter/[activity]'>) {
 	const { activity: slug } = await params;
@@ -20,8 +23,6 @@ export default async function Activity({ params }: PageProps<'/aktiviteter/[acti
 	if (!activity) return notFound();
 
 	const { id, date, dateEnd, intro, title, content, image, category, blackHeadline } = activity;
-	const startDate = format(new Date(date), 'd MMMM y');
-	const endDate = dateEnd ? format(new Date(dateEnd), 'd MMMM y') : undefined;
 	const icsEvent = await generateIcs(activity);
 
 	return (
@@ -36,8 +37,8 @@ export default async function Activity({ params }: PageProps<'/aktiviteter/[acti
 				<MetaSection
 					items={[
 						{ title: 'Kategori', value: category.category },
-						{ title: 'Datum', value: startDate },
-						{ title: 'Slutdatum', value: endDate && endDate !== startDate ? endDate : undefined },
+						{ title: 'Datum', value: formatDate(date) },
+						{ title: 'Slutdatum', value: formatDate(dateEnd) },
 						{
 							title: 'Tips',
 							value: icsEvent ? 'Lägg till i din kalender' : undefined,

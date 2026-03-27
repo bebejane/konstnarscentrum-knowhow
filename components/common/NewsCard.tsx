@@ -6,8 +6,8 @@ import Link from 'next/link';
 import { Image } from 'react-datocms';
 import { Card, ReadMore } from '@/components';
 import BalanceText from 'react-balance-text';
-import { format } from 'date-fns';
 import { truncateParagraph } from 'next-dato-utils/utils';
+import { formatDate } from '@/lib/utils';
 
 export type NewsCardProps = {
 	title: string;
@@ -43,7 +43,7 @@ export default function NewsCard({
 				</Link>
 			)}
 			<h5 suppressHydrationWarning>
-				{`${subtitle}${date ? ` • ${format(new Date(date), 'd MMM').replace('.', '')}` : ''}`}
+				{`${subtitle}${date ? ` • ${formatDate(date, true)?.replace('.', '')}` : ''}`}
 			</h5>
 			<Link href={slug}>
 				<BalanceText>

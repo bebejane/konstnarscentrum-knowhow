@@ -2,7 +2,6 @@
 
 import cn from 'classnames';
 import styles from './ReadMore.module.scss';
-import { recordToSlug } from '@/lib/utils';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 
@@ -18,7 +17,7 @@ export default function ReadMore({ message, link, invert = false }: Props) {
 	if (!link) return null;
 
 	return (
-		<Link href={recordToSlug(link)} className={cn(styles.more, 'small', invert && styles.invert)}>
+		<Link href={link} className={cn(styles.more, 'small', invert && styles.invert)}>
 			<div className={cn(styles.square)} data-theme={theme} suppressHydrationWarning />
 			<span data-theme={theme} suppressHydrationWarning>
 				{message}
