@@ -13,6 +13,8 @@ import { ThemeProvider } from 'next-themes';
 import { getSession } from '@/lib/auth';
 import SessionProvider from '@/lib/auth/SessionProvider';
 
+export const dynamic = 'force-static';
+
 export default async function RootLayout({ children, params }: LayoutProps<'/'>) {
 	const session = await getSession();
 	const menu = await buildMenu();
