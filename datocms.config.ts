@@ -9,12 +9,11 @@ import { MetadataRoute } from 'next';
 import { SiteDocument, SitemapDocument } from '@/graphql';
 
 export function getRoute(item: any, _apiKey?: string): string {
-	console.log(item);
 	const apiKey = _apiKey ?? getItemApiKey(item);
 	if (!apiKey) throw new Error('No api key found');
 
 	const { slug, category } = item.attributes ?? item;
-	console.log(item);
+
 	switch (apiKey) {
 		case 'start':
 		case 'footer':
