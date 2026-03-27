@@ -1,19 +1,13 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+'use client';
+
 import s from './MemberForm.module.scss';
 import cn from 'classnames';
 import React from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { signIn, useSession } from 'next-auth/react';
-import { OnProgressInfo, SimpleSchemaTypes } from '@datocms/cma-client-browser';
-import { buildClient } from '@datocms/cma-client-browser';
-import { Loader } from '..';
-
-const pick = (obj: any, keys) => Object.fromEntries(keys.filter((key) => key in obj).map((key) => [key, obj[key]]));
-
-const uploadClient = buildClient({
-	apiToken: process.env.NEXT_PUBLIC_UPLOADS_API_TOKEN,
-	environment: process.env.NEXT_PUBLIC_DATOCMS_ENVIRONMENT ?? 'main',
-});
+import { SimpleSchemaTypes } from '@datocms/cma-client-browser';
+import { Loader } from '@/components';
 
 type ActivityRecord = {
 	id: string;
@@ -106,7 +100,9 @@ export default function MemberForm({ activity, show, setShow }: Props) {
 			const result = await res.json();
 
 			if (res.status !== 200)
-				throw new Error(`Något gick fel, försök igen senare. Error: ${result?.message ?? JSON.stringify(result)}`);
+				throw new Error(
+					`Något gick fel, försök igen senare. Error: ${result?.message ?? JSON.stringify(result)}`,
+				);
 
 			reset();
 			setSuccess(true);
@@ -155,33 +151,12 @@ export default function MemberForm({ activity, show, setShow }: Props) {
 		scrollToForm();
 	}, [setShow]);
 
-	const createUpload = useCallback(async (file: File, allTags: string[]): Promise<Upload> => {
-		if (!file) return Promise.reject(new Error('Ingen fil vald'));
-
-		return new Promise((resolve, reject) => {
-			uploadClient.uploads
-				.createFromFileOrBlob({
-					fileOrBlob: file,
-					filename: file.name,
-					tags: allTags.concat(['upload']),
-					default_field_metadata: {
-						en: {
-							alt: file.name,
-							title: file.name,
-							custom_data: {},
-						},
-					},
-					onProgress: (info: OnProgressInfo) => {
-						console.log(info);
-					},
-				})
-				.then((u) => resolve(u))
-				.catch(reject);
-		});
-	}, []);
-
 	const scrollToForm = () => {
-		setTimeout(() => document.getElementById('apply')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 300);
+		setTimeout(
+			() =>
+				document.getElementById('apply')?.scrollIntoView({ behavior: 'smooth', block: 'start' }),
+			300,
+		);
 	};
 
 	const handleLoginSuccess = () => {
@@ -201,7 +176,12 @@ export default function MemberForm({ activity, show, setShow }: Props) {
 		{ id: 'first_name', type: 'text', label: 'Förnamn', required: 'Namn är obligatoriskt' },
 		{ id: 'last_name', type: 'text', label: 'Efternamn', required: 'Efternamn är obligatoriskt' },
 		{ id: 'address', type: 'text', label: 'Adress', required: 'Adress är obligatoriskt' },
-		{ id: 'postal_code', type: 'text', label: 'Postnummer', required: 'Postnummer är obligatoriskt' },
+		{
+			id: 'postal_code',
+			type: 'text',
+			label: 'Postnummer',
+			required: 'Postnummer är obligatoriskt',
+		},
 		{ id: 'city', type: 'text', label: 'Stad', required: 'Stad är obligatoriskt' },
 		{ id: 'phone', type: 'text', label: 'Telefon' },
 		{ id: 'age', type: 'text', label: 'Ålder', required: 'Ålder är obligatoriskt' },
@@ -219,15 +199,20 @@ export default function MemberForm({ activity, show, setShow }: Props) {
 		},
 		{ id: 'country', type: 'text', label: 'Födelseland', required: 'Födelseland är obligatoriskt' },
 		{ id: 'language', type: 'text', label: 'Språk', required: 'Språk är obligatoriskt' },
-		{ id: 'url', type: 'text', label: 'Webbplats (Krävs fullständig url med http://)' },
+		{ id: 'url', type: 'text', label: 'Webbplats (Krävs fullständig url med https://)' },
 		{ id: 'social', type: 'textarea', label: 'Sociala medier' },
 		{ id: 'protected_identity', type: 'checkbox', label: 'Jag har skyddad identitet' },
 		{ id: 'kc_member', type: 'checkbox', label: 'Jag är medlem i Konstnärscentrum' },
-		{ id: 'education_three_years', type: 'checkbox', label: 'Utbildad på konstnärlig högskola minst 3 år' },
+		{
+			id: 'education_three_years',
+			type: 'checkbox',
+			label: 'Utbildad på konstnärlig högskola minst 3 år',
+		},
 		{
 			id: 'have_worked_three_years',
 			type: 'checkbox',
-			label: 'Jag har arbetat längre än 3 år som professionell konstnär utan att ha gått konstnärlig högskola',
+			label:
+				'Jag har arbetat längre än 3 år som professionell konstnär utan att ha gått konstnärlig högskola',
 		},
 	];
 
@@ -239,14 +224,16 @@ export default function MemberForm({ activity, show, setShow }: Props) {
 					<p>
 						{!loginFromLink ? (
 							<>
-								Är det första gången du anmäler intresse att delta i en aktivitet? Då vill vi veta lite om dig så vi kan
-								sätta ihop en bra grupp.
-								<br /> <a href='mailto:knowhow@konstnarscentrum.org'>Hör av dig till oss</a> om något är oklart.
+								Är det första gången du anmäler intresse att delta i en aktivitet? Då vill vi veta
+								lite om dig så vi kan sätta ihop en bra grupp.
+								<br /> <a href='mailto:knowhow@konstnarscentrum.org'>Hör av dig till oss</a> om
+								något är oklart.
 							</>
 						) : (
 							<>
-								Du har redan anmält dig till en kurs hos oss så vi har sparat dina uppgifter. Kontrollera att dom
-								stämmer och klicka sen &quot;Skicka&quot; för att anmäla ditt intresse för denna kursen.
+								Du har redan anmält dig till en kurs hos oss så vi har sparat dina uppgifter.
+								Kontrollera att dom stämmer och klicka sen &quot;Skicka&quot; för att anmäla ditt
+								intresse för denna kursen.
 							</>
 						)}
 					</p>
@@ -277,7 +264,7 @@ export default function MemberForm({ activity, show, setShow }: Props) {
 										autoComplete='new'
 									>
 										<option value=''>Välj...</option>
-										{options.map(({ id, value }) => (
+										{options?.map(({ id, value }) => (
 											<option key={id} value={id}>
 												{value}
 											</option>
@@ -384,8 +371,8 @@ function MemberLogin({ onSuccess }: MemberLoginProps) {
 	return (
 		<form onSubmit={handleLogin} className={cn(s.form)}>
 			<p>
-				Har du deltagit i våra aktiviteter innan och anmält dig via formuläret här på hemsidan? Då behöver du bara fylla
-				i din mailadress för att anmäla dig nedan. <br />
+				Har du deltagit i våra aktiviteter innan och anmält dig via formuläret här på hemsidan? Då
+				behöver du bara fylla i din mailadress för att anmäla dig nedan. <br />
 				Om inte, anmäl dig med formuläret nedan.
 			</p>
 			<input

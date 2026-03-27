@@ -1,0 +1,55 @@
+.calendar {
+	padding: 1rem;
+
+	th {
+		text-transform: capitalize !important;
+	}
+
+	td {
+		width: 1.5rem;
+		height: 1.5rem;
+		color: var(--black) !important;
+	}
+
+	.day {
+		all: unset;
+		cursor: default;
+		padding: 0rem;
+		width: 1.5rem;
+		height: 1.5rem;
+
+		&.active {
+			cursor: pointer;
+			background-color: var(--orange);
+			color: var(--white);
+		}
+	}
+
+	nav {
+		height: 1.5rem;
+		span {
+		}
+	}
+
+	div div div {
+		height: 1.5rem;
+		font-size: 0.75rem;
+		text-transform: capitalize !important;
+	}
+
+	div div span {
+		padding-left: 0.25em;
+	}
+
+	nav button {
+		height: 1.5rem;
+		width: 1.5rem;
+	}
+
+	nav button svg {
+		fill: var(--orange) !important;
+		&:hover {
+			fill: var(--white) !important;
+		}
+	}
+}

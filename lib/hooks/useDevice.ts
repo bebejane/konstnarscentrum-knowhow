@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useMediaQuery } from 'usehooks-ts'
 import { useWindowSize } from 'rooks'
-import { breakpoints } from '/lib/utils'
+import { breakpoints } from '@/lib/utils'
 
 export default function useDevice() {
 

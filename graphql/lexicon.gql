@@ -15,8 +15,8 @@ query Lexicon($id: ItemId!) {
 	}
 }
 
-query AllLexicons($first: IntType, $skip: IntType) {
-	lexicons: allLexicons(first: $first, skip: $skip, orderBy: [word_ASC]) {
+query AllLexicons($first: IntType = 500, $skip: IntType = 0) {
+	allLexicons(first: $first, skip: $skip, orderBy: [word_ASC]) {
 		id
 		word
 		desc {
@@ -25,7 +25,7 @@ query AllLexicons($first: IntType, $skip: IntType) {
 			links
 		}
 	}
-	pagination: _allLexiconsMeta {
+	_allLexiconsMeta {
 		count
 	}
 	lexiconText {

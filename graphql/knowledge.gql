@@ -9,17 +9,17 @@ query KnowledgeById($id: ItemId!) {
 	}
 }
 
-query AllKnowledges($first: IntType = 10, $skip: IntType = 0) {
-	knowledges: allKnowledges(orderBy: [createdAt_DESC], first: $first, skip: $skip) {
+query AllKnowledges($first: IntType = 500, $skip: IntType = 0) {
+	allKnowledges(orderBy: [createdAt_DESC], first: $first, skip: $skip) {
 		...KnowledgeLightFragment
 	}
-	pagination: _allKnowledgesMeta {
+	_allKnowledgesMeta {
 		count
 	}
 }
 
 query AllKnowledgesByCategory($categoryId: ItemId!, $first: IntType = 10, $skip: IntType = 0) {
-	knowledges: allKnowledges(
+	allKnowledges(
 		filter: { category: { eq: $categoryId } }
 		orderBy: [createdAt_DESC]
 		first: $first
@@ -27,40 +27,153 @@ query AllKnowledgesByCategory($categoryId: ItemId!, $first: IntType = 10, $skip:
 	) {
 		...KnowledgeLightFragment
 	}
-	pagination: _allKnowledgesMeta(filter: { category: { eq: $categoryId } }) {
+	_allKnowledgesMeta(filter: { category: { eq: $categoryId } }) {
 		count
 	}
 }
 
-query AllPastAndFutureKnowledges($categoryId: ItemId, $first: IntType, $skip: IntType) {
-	knowledges: allKnowledges(filter: { category: { eq: $categoryId } }, first: $first, skip: $skip) {
+query AllPastAndFutureKnowledges($categoryId: ItemId, $first: IntType = 500, $skip: IntType = 0) {
+	allKnowledges(filter: { category: { eq: $categoryId } }, first: $first, skip: $skip) {
 		...KnowledgeLightFragment
 	}
-	pagination: _allKnowledgesMeta(filter: { category: { eq: $categoryId } }) {
+	_allKnowledgesMeta(filter: { category: { eq: $categoryId } }) {
 		count
 	}
 }
 
-query AllPresentKnowledges($categoryId: ItemId!, $first: IntType = 100, $skip: IntType = 0) {
-	presentKnowledges: allKnowledges(
-		filter: { category: { eq: $categoryId } }
-		first: $first
-		skip: $skip
-	) {
+query AllPresentKnowledges($categoryId: ItemId!, $first: IntType = 500, $skip: IntType = 0) {
+	allKnowledges(filter: { category: { eq: $categoryId } }, first: $first, skip: $skip) {
 		...KnowledgeLightFragment
 	}
-	pagination: _allKnowledgesMeta {
+	_allKnowledgesMeta {
 		count
 	}
 }
 
-query AllKnowledgeCategories($first: IntType = 100, $skip: IntType = 0) {
-	knowledgeCategories: allKnowledgeCategories(first: $first, skip: $skip) {
+query AllKnowledgeCategories($first: IntType = 500, $skip: IntType = 0) {
+	allKnowledgeCategories(first: $first, skip: $skip) {
 		id
 		category
 		slug
 	}
-	pagination: _allKnowledgeCategoriesMeta {
+	_allKnowledgeCategoriesMeta {
 		count
 	}
+}
+
+fragment KnowledgeFragment on KnowledgeRecord {
+	__typename
+	_modelApiKey
+	_createdAt
+	id
+	createdAt
+	title
+	blackHeadline
+	image {
+		...ImageFragment
+	}
+	intro(markdown: false)
+	category {
+		id
+		category
+		slug
+	}
+	slug
+	content {
+		value
+		links {
+			__typename
+			... on LexiconRecord {
+				__typename
+				id
+				word
+				desc {
+					blocks
+					links
+					value
+				}
+			}
+		}
+		blocks {
+			__typename
+			... on ImageRecord {
+				__typename
+				id
+				image {
+					...ImageFragment
+				}
+				layout
+			}
+			... on ButtonRecord {
+				__typename
+				id
+				text
+				url
+			}
+			... on VideoRecord {
+				__typename
+				id
+				title
+				video {
+					height
+					width
+					title
+					provider
+					providerUid
+					thumbnailUrl
+					url
+				}
+			}
+			... on RecordInterface {
+				__typename
+				id
+			}
+			... on FormRecord {
+				__typename
+				id
+				subject
+				reciever
+				confirmation
+				formFields {
+					__typename
+					... on FormTextRecord {
+						id
+						title
+					}
+					... on FormTextblockRecord {
+						id
+						title
+					}
+					... on PdfFormRecord {
+						id
+						title
+					}
+				}
+			}
+		}
+	}
+	_seoMetaTags {
+		attributes
+		content
+		tag
+	}
+}
+
+fragment KnowledgeLightFragment on KnowledgeRecord {
+	__typename
+	_modelApiKey
+	_createdAt
+	id
+	createdAt
+	title
+	image {
+		...ImageThumbnailFragment
+	}
+	intro(markdown: false)
+	category {
+		id
+		category
+		slug
+	}
+	slug
 }

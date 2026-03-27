@@ -1,23 +1,26 @@
+'use client';
+
 import s from './Footer.module.scss';
 import cn from 'classnames';
-import type { MenuItem } from '/lib/menu';
-import Logo from '/public/images/logo-round.svg';
-import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components';
+import type { MenuItem } from '@/lib/menu';
+import Logo from '@/public/images/logo-round.svg';
+import { Markdown } from 'next-dato-utils/components';
 import { useInView } from 'react-intersection-observer';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { useTheme } from 'next-themes';
-import { useStore } from '/lib/store';
+import { useShallow, useStore } from '@/lib/store';
+import Icon from '@/components/common/Icon';
 
 export type FooterProps = {
 	menu: MenuItem[];
-	footer: FooterRecord;
+	footer: FooterQuery['footer'];
 };
 
 export default function Footer({ menu, footer }: FooterProps) {
 	const { theme, setTheme } = useTheme();
 	const { inView, ref } = useInView({ threshold: 0.8 });
-	const [showMobileMenu] = useStore(({ showMenuMobile }) => [showMenuMobile]);
+	const [showMobileMenu] = useStore(useShallow(({ showMenuMobile }) => [showMenuMobile]));
 
 	useEffect(() => {
 		setTheme(inView && !showMobileMenu ? 'dark' : 'light');
@@ -25,7 +28,7 @@ export default function Footer({ menu, footer }: FooterProps) {
 
 	return (
 		<>
-			<footer className={cn(s.footer, s[theme])} id='footer' ref={ref}>
+			<footer className={cn(s.footer, theme && s[theme])} id='footer' ref={ref}>
 				<section className={s.menu}>
 					<nav>
 						<ul>
@@ -65,11 +68,9 @@ export default function Footer({ menu, footer }: FooterProps) {
 						</ul>
 					</nav>
 				</section>
-
 				<section className={s.about}>
-					<Markdown>{footer?.aboutTheProject}</Markdown>
+					<Markdown content={footer?.aboutTheProject} />
 				</section>
-
 				<section className={s.social}>
 					<div>
 						<span>Följ oss</span>
@@ -81,7 +82,7 @@ export default function Footer({ menu, footer }: FooterProps) {
 						</span>
 					</div>
 					<div className={s.copyright}>
-						<span>Copyright Konstnärscentrum 2024</span>
+						<span>Copyright Konstnärscentrum 2026</span>
 						<span>GDPR & Cookies</span>
 					</div>
 				</section>
@@ -90,7 +91,7 @@ export default function Footer({ menu, footer }: FooterProps) {
 					Med support av Arbetsförmedlingen.
 					<div className={cn(s.logo, inView && s.inview)}>
 						<a href='https://www.konstnarscentrum.org/' target='new'>
-							<Logo />
+							<Icon src={Logo} />
 						</a>
 					</div>
 				</section>

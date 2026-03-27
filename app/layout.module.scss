@@ -1,0 +1,55 @@
+.layout {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+
+  header {
+    position: relative;
+  }
+	
+	.content {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		flex: 1 1 auto;
+		min-width: 100%;
+
+		article {
+			padding-left: var(--outer-margin);
+			padding-right: var(--outer-margin);
+			padding-bottom: var(--space);
+			margin: 0;
+
+			@include mq($from: tablet) {
+				margin-left: calc(var(--total-outer-margin));
+				margin-right: calc(var(--total-outer-margin));
+				padding-left: calc(2 * var(--grid-unit));
+				padding-right: calc(2 * var(--grid-unit));
+			}
+
+			@include mq($until: tablet) {
+				padding-top: var(--navbar-height);
+			}
+
+			&.nomargins {
+
+				margin: 0;
+				padding-left: 0;
+				padding-right: 0;
+
+				@include mq($from: tablet) {
+					margin-left: 0;
+					margin-right: 0;
+					padding-left: 0;
+					padding-right: 0;
+				}
+
+			}
+
+			&.nobottom {
+				padding-bottom: 0;
+			}
+		}
+	}
+}

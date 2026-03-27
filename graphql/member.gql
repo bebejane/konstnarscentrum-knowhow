@@ -1,12 +1,12 @@
 query AllApplicationsByActivity($first: IntType = 100, $skip: IntType = 0, $activityId: ItemId) {
-	applications: allApplications(
+	allApplications(
 		first: $first
 		skip: $skip
 		filter: { activity: { eq: $activityId } }
 	) {
 		...ApplicationFragment
 	}
-	pagination: _allMembersMeta {
+	_allApplicationsMeta(filter: { activity: { eq: $activityId } }) {
 		count
 	}
 }

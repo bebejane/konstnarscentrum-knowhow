@@ -1,20 +1,92 @@
-#import "./fragments/AboutFragment.gql"
-
 query About($slug: String!) {
 	about(filter: { slug: { eq: $slug } }) {
 		...AboutFragment
 	}
 }
 
-query AllAbouts {
-	abouts: allAbouts(first: 100) {
+query AllAbouts($first: IntType = 500, $skip: IntType = 0) {
+	allAbouts(first: $first, skip: $skip) {
 		...AboutFragment
+	}
+	_allAboutsMeta {
+		count
 	}
 }
 
-query AllAboutsMenu {
-	abouts: allAbouts(first: 100) {
+query AllAboutsMenu($first: IntType = 500, $skip: IntType = 0) {
+	allAbouts(first: $first, skip: $skip) {
 		title
 		slug
+	}
+	_allAboutsMeta {
+		count
+	}
+}
+
+fragment AboutFragment on AboutRecord {
+	__typename
+	_modelApiKey
+	id
+	title
+	intro
+	slug
+	image {
+		...ImageFragment
+	}
+	content {
+		links {
+			__typename
+			... on LexiconRecord {
+				__typename
+				id
+				word
+				desc {
+					blocks
+					links
+					value
+				}
+			}
+		}
+		value
+		blocks {
+			__typename
+			... on ImageRecord {
+				__typename
+				id
+				image {
+					...ImageFragment
+				}
+				layout
+			}
+			... on ButtonRecord {
+				__typename
+				id
+				text
+				url
+			}
+			... on VideoRecord {
+				__typename
+				id
+				title
+				video {
+					height
+					width
+					title
+					provider
+					providerUid
+					thumbnailUrl
+					url
+				}
+			}
+			... on RecordInterface {
+				__typename
+				id
+			}
+		}
+	}
+	_seoMetaTags {
+		attributes
+		content
+		tag
 	}
 }

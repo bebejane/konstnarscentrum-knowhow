@@ -1,149 +1,217 @@
 .container {
-  width: calc(100% + 2 * var(--total-outer-margin));
-  font-size: 0.7rem;
-  margin-left: calc(-1 * var(--total-outer-margin));
-  margin-right: calc(-1 * var(--total-outer-margin));
+	font-size: 0.7rem;
+	width: calc(100% + calc(2 * var(--total-outer-margin)));
+	margin-left: calc(-1 * var(--total-outer-margin));
+	margin-right: calc(-1 * var(--total-outer-margin));
 
-  th {
-    font-weight: bold;
-    text-align: left;
-    padding-top: 2rem;
-  }
+	@include mq($until: tablet) {
+		width: 100%;
+		margin-left: 0;
+		margin-right: 0;
+	}
 
-  tr {
-    padding: 0;
-    position: relative;
-    width: 100%;
+	th,
+	td {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+	th {
+		font-weight: bold;
+		text-align: left;
+		padding-top: 2rem;
+	}
 
-    &.member:hover {
-      background-color: var(--orange-light);
-    }
+	tr {
+		padding: 0;
+		position: relative;
+		width: 100%;
 
-    td {
-      width: auto;
-      cursor: pointer;
-      margin-bottom: 0.5em;
-      margin-top: 0.5em;
-      vertical-align: middle;
+		&.member:hover {
+			background-color: var(--orange-light);
+		}
 
-      &.buttons {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: flex-end;
-        border: 0;
-        opacity: 0;
-        margin-right: 0.5rem;
+		&.member {
+			&:hover {
+				background-color: var(--orange-light);
+			}
 
-        button {
-          //all: unset;
-          margin-left: 0.25em;
+			td:not(:last-child) {
+				@include mq($until: tablet) {
+					max-width: 60px;
+					&.email {
+						display: none;
+					}
+				}
+			}
+		}
 
-          font-size: 0.7rem !important;
-          background-color: var(--orange-light);
+		td {
+			width: auto;
+			cursor: pointer;
+			margin-bottom: 0.5em;
+			margin-top: 0.5em;
+			vertical-align: middle;
 
-          cursor: pointer;
-          padding: 0rem;
-          padding-left: 0.25em;
-          padding-right: 0.25em;
-          border: none;
+			&.buttons {
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				justify-content: flex-end;
+				border: 0;
+				opacity: 0;
+				margin-right: 0.5rem;
 
-          &:hover {
-            background-color: var(--orange);
-          }
-        }
-      }
+				button {
+					margin-left: 0.25em;
+					font-size: 0.7rem !important;
+					background-color: var(--orange-light);
+					cursor: pointer;
+					padding: 0.2em;
+					padding-left: 0.25em;
+					padding-right: 0.25em;
+					border: none;
 
-      hr {
-        width: 100%;
-      }
-    }
+					&:hover {
+						background-color: var(--orange);
+					}
+				}
 
-    &:hover {
-      .buttons {
-        opacity: 1;
-      }
-    }
-  }
+				@include mq($until: tablet) {
+					flex-direction: column;
+					opacity: 1;
+					background-color: transparent;
+					button {
+						margin-bottom: 0.25em;
+						width: 100%;
+					}
+				}
+			}
 
-  .exportFirst {
-    margin-top: 3rem;
-  }
+			hr {
+				width: 100%;
+			}
+		}
 
-  .export {
-    margin-left: var(--total-outer-margin);
-    margin-right: var(--total-outer-margin);
-    width: calc(100% - 2 * var(--total-outer-margin));
-  }
+		&:hover {
+			.buttons {
+				opacity: 1;
+			}
+		}
+	}
+
+	.exportFirst {
+		margin-top: 3rem;
+	}
+
+	.export {
+		margin-left: var(--total-outer-margin);
+		margin-right: var(--total-outer-margin);
+		width: calc(100% - 2 * var(--total-outer-margin));
+	}
 }
 
 .modal {
-  display: none;
-  //display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  z-index: 10000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	position: fixed;
+	z-index: 10000;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	padding: var(--total-outer-margin);
+	background-color: transparent;
 
-  padding: var(--total-outer-margin);
-  background-color: transparent;
+	@include mq($until: tablet) {
+		padding: 10px;
+	}
 
-  .wrap {
-    position: relative;
-    border: 2px solid var(--orange);
-    width: 100%;
-    height: 100%;
-    background-color: var(--background);
-    padding: var(--outer-margin);
-    overflow-y: scroll;
+	.wrap {
+		position: relative;
+		border: 2px solid var(--orange);
+		width: 100%;
+		height: 100%;
+		background-color: var(--background);
+		padding: var(--outer-margin);
+		overflow-y: auto;
 
-    .cols {
-      column-count: 2;
+		.cols {
+			column-count: 2;
 
-      span {
-        break-inside: avoid;
-        display: block;
-      }
-    }
+			span {
+				break-inside: avoid;
+				display: block;
+			}
+		}
 
-    h4 {
-      padding-bottom: var(--small-space);
-    }
+		h4 {
+			padding-bottom: var(--small-space);
+		}
 
-    .buttons {
-      display: flex;
-      flex-direction: row;
-      margin-top: 2rem;
+		.buttons {
+			display: flex;
+			flex-direction: row;
+			margin-top: 2rem;
 
-      button {
-        margin-right: 0.5em;
-      }
-    }
+			button {
+				margin-right: 0.5em;
+			}
+		}
 
-    .close {
-      position: absolute;
-      top: 0;
-      right: 0;
-      border: 0;
-      padding: var(--outer-margin);
+		.close {
+			position: absolute;
+			top: 0;
+			right: 0;
+			border: 0;
+			padding: var(--outer-margin);
 
-      &:hover {
-        background-color: var(--background);
-        color: var(--foreground);
-      }
-    }
-  }
+			&:hover {
+				background-color: var(--background);
+				color: var(--foreground);
+			}
+		}
+	}
 
-  &.show {
-    display: flex;
-  }
+	&.show {
+		display: flex;
+	}
+}
+
+.toast {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 100;
+	display: flex;
+	margin-top: calc(3 * var(--outer-margin));
+	align-items: flex-start;
+	justify-content: center;
+	animation: fadeout 0.5s ease-out;
+	animation-fill-mode: forwards;
+	animation-delay: 1.5s;
+	pointer-events: none;
+
+	div {
+		padding: 1rem;
+		background-color: var(--background);
+	}
+
+	@include mq($until: tablet) {
+	}
+
+	@keyframes fadeout {
+		to {
+			opacity: 0;
+			visibility: hidden;
+		}
+	}
 }
 
 .error {
-  color: #e00;
-  margin-bottom: 1rem;
+	color: #e00;
+	margin-bottom: 1rem;
 }

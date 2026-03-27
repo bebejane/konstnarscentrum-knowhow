@@ -1,29 +1,29 @@
-import { useContext, createContext } from "react";
+'use client';
 
-const initialState: PageProps = {
-  noBottom: false,
-  crumbs: undefined,
-  lexicons: undefined
-}
+import { useContext, createContext } from 'react';
+
+export type PageMetaProps = {
+	crumbs?: { title: string; slug: string }[];
+};
+
+const initialState: PageMetaProps = {
+	crumbs: undefined,
+};
 
 export const PageContext = createContext(initialState);
 
 export type PageProviderProps = {
-  children: React.ReactElement,
-  value: PageProps
-  lexicons?: LexiconRecord[]
-}
+	children: React.ReactElement;
+	value: PageMetaProps;
+};
 
 // Context provider
 export const PageProvider = ({ children, value }: PageProviderProps) => {
-
-  return (
-    <PageContext.Provider value={{ ...initialState, ...value }}>
-      {children}
-    </PageContext.Provider>
-  )
+	return (
+		<PageContext.Provider value={{ ...initialState, ...value }}>{children}</PageContext.Provider>
+	);
 };
 // usePage hook
-export const usePage = (): PageProps => {
-  return useContext(PageContext)
-}
+export const usePage = (): PageMetaProps => {
+	return useContext(PageContext);
+};

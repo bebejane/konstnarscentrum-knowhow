@@ -1,0 +1,55 @@
+.container {
+	width: 100%;
+
+	h2 {
+		padding-bottom: 0.5em;
+	}
+
+	p {
+		margin-bottom: 0em;
+	}
+}
+
+.nomatches,
+.error {
+	margin-left: var(--outer-margin);
+	margin-right: var(--outer-margin);
+	width: 100%;
+	text-align: center;
+	color: var(--orange);
+	margin-top: 1rem;
+}
+
+.error {
+	color: var(--red);
+}
+
+.loader {
+	margin-top: var(--space);
+}
+
+.view {
+	position: absolute;
+	top: 4.5rem;
+	right: 0;
+	z-index: 100;
+
+	@include mq($from: desktop) {
+		top: 1.75rem;
+	}
+}
+
+.toggle {
+	border: 0;
+	padding: 0;
+	&:hover {
+		background: transparent;
+		color: var(--black);
+	}
+	padding-right: var(--outer-margin);
+
+	@include mq($from: desktop) {
+		margin-right: calc(var(--total-outer-margin));
+		padding-right: calc(1 * var(--grid-unit));
+	}
+}

@@ -9,11 +9,34 @@ query ActivityById($id: ItemId!) {
 	}
 }
 
-query AllActivities($first: IntType = 10, $skip: IntType = 0) {
-	activities: allActivities(orderBy: [date_DESC], first: $first, skip: $skip) {
+query AllActivities($first: IntType = 500, $skip: IntType = 0, $categoryId: ItemId) {
+	allActivities(
+		orderBy: [date_DESC]
+		first: $first
+		skip: $skip
+		filter: { category: { eq: $categoryId } }
+	) {
 		...ActivityLightFragment
 	}
-	pagination: _allActivitiesMeta {
+	_allActivitiesMeta(filter: { category: { eq: $categoryId } }) {
+		count
+	}
+}
+
+query AllActivitiesForCalendar($first: IntType = 500, $skip: IntType = 0, $categoryId: ItemId) {
+	allActivities(
+		orderBy: [date_DESC]
+		first: $first
+		skip: $skip
+		filter: { category: { eq: $categoryId } }
+	) {
+		id
+		date
+		dateEnd
+		title
+		slug
+	}
+	_allActivitiesMeta(filter: { category: { eq: $categoryId } }) {
 		count
 	}
 }
@@ -24,7 +47,7 @@ query AllPastAndFutureActivities(
 	$first: IntType
 	$skip: IntType
 ) {
-	activities: allActivities(
+	allActivities(
 		filter: {
 			category: { eq: $categoryId }
 			OR: [
@@ -39,7 +62,7 @@ query AllPastAndFutureActivities(
 	) {
 		...ActivityLightFragment
 	}
-	pagination: _allActivitiesMeta(
+	_allActivitiesMeta(
 		filter: {
 			category: { eq: $categoryId }
 			OR: [
@@ -54,7 +77,7 @@ query AllPastAndFutureActivities(
 }
 
 query AllPresentActivities($first: IntType = 100, $skip: IntType = 0, $date: DateTime) {
-	presentActivities: allActivities(
+	allActivities(
 		filter: { date: { lte: $date }, dateEnd: { gte: $date, exists: true } }
 		orderBy: [date_ASC]
 		first: $first
@@ -62,22 +85,20 @@ query AllPresentActivities($first: IntType = 100, $skip: IntType = 0, $date: Dat
 	) {
 		...ActivityLightFragment
 	}
-	pagination: _allActivitiesMeta(
-		filter: { date: { lte: $date }, dateEnd: { gte: $date, exists: true } }
-	) {
+	_allActivitiesMeta(filter: { date: { lte: $date }, dateEnd: { gte: $date, exists: true } }) {
 		count
 	}
 }
 
 query AllActivityCategories($first: IntType = 100, $skip: IntType = 0) {
-	activityCategories: allActivityCategories(first: $first, skip: $skip) {
+	allActivityCategories(first: $first, skip: $skip) {
 		id
 		category
 	}
 }
 
 query LatestActivities($first: IntType = 2, $skip: IntType = 0, $date: DateTime) {
-	activities: allActivities(
+	allActivities(
 		filter: { dateEnd: { gte: $date } }
 		orderBy: [date_ASC]
 		first: $first
@@ -85,4 +106,123 @@ query LatestActivities($first: IntType = 2, $skip: IntType = 0, $date: DateTime)
 	) {
 		...ActivityLightFragment
 	}
+}
+
+fragment ActivityFragment on ActivityRecord {
+	__typename
+	_modelApiKey
+	id
+	title
+	blackHeadline
+	image {
+		...ImageFragment
+	}
+	intro(markdown: false)
+	category {
+		id
+		category
+	}
+	date
+	dateEnd
+	location
+	showForm
+	slug
+	content {
+		value
+		links {
+			__typename
+			... on LexiconRecord {
+				__typename
+				id
+				word
+				desc {
+					blocks
+					links
+					value
+				}
+			}
+		}
+		blocks {
+			__typename
+			... on ImageRecord {
+				__typename
+				id
+				image {
+					...ImageFragment
+				}
+				layout
+			}
+			... on ButtonRecord {
+				__typename
+				id
+				text
+				url
+			}
+			... on VideoRecord {
+				__typename
+				id
+				title
+				video {
+					height
+					width
+					title
+					provider
+					providerUid
+					thumbnailUrl
+					url
+				}
+			}
+			... on RecordInterface {
+				__typename
+				id
+			}
+			... on FormRecord {
+				__typename
+				id
+				subject
+				reciever
+				confirmation
+				formFields {
+					__typename
+					... on FormTextRecord {
+						id
+						title
+					}
+					... on FormTextblockRecord {
+						id
+						title
+					}
+					... on PdfFormRecord {
+						id
+						title
+					}
+				}
+			}
+		}
+	}
+	_seoMetaTags {
+		attributes
+		content
+		tag
+	}
+}
+
+fragment ActivityLightFragment on ActivityRecord {
+	__typename
+	_modelApiKey
+	id
+	title
+	blackHeadline
+	image {
+		...ImageThumbnailFragment
+	}
+	intro(markdown: false)
+	category {
+		id
+		category
+	}
+	date
+	dateEnd
+	location
+	slug
 }

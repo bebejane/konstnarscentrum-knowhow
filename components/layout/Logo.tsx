@@ -1,17 +1,15 @@
-import s from './Logo.module.scss'
-import cn from 'classnames'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import Link from 'next/link'
+import s from './Logo.module.scss';
+import cn from 'classnames';
+import Link from 'next/link';
 
-export type Props = {
-
-}
-
-export default function Logo({ }: Props) {
-
-  return (
-    <div className={cn(s.logo)}>
-      <Link href="/">Know<br /><span>–</span>How</Link>
-    </div >
-  )
+export default function Logo() {
+	return (
+		<div className={cn(s.logo)}>
+			<Link href='/'>
+				Know
+				<br />
+				<span>–</span>How
+			</Link>
+		</div>
+	);
 }

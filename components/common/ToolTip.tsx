@@ -1,5 +1,7 @@
+'use client';
+
 import s from './ToolTip.module.scss';
-import { StructuredContent } from '/components';
+import { Content } from '@/components';
 import ToolTipPopup from 'rc-tooltip';
 import { ReactElement } from 'react';
 
@@ -15,7 +17,7 @@ export default function ToolTip({ lexicon, children }: Props): ReactElement<any,
 		<ToolTipPopup
 			placement={'bottomLeft'}
 			showArrow={false}
-			overlay={<StructuredContent id={lexicon.id} record={{}} content={lexicon.desc} />}
+			overlay={<Content id={lexicon.id} content={lexicon.desc} />}
 			overlayClassName={s.tooltip}
 		>
 			<a data-tooltip='true' suppressHydrationWarning={true}>

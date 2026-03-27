@@ -1,0 +1,51 @@
+import 'dotenv/config';
+import { Section, Column, Row } from '@react-email/components';
+import Header from './components/Header';
+import Heading from './components/Heading';
+import Footer from './components/Footer';
+import BaseLayout from './components/BaseLayout';
+import Text from './components/Text';
+import Button from './components/Button';
+import { spacing, fontSize } from './components/theme';
+
+export type KKVEmailProps = {
+	title?: string;
+	name?: string;
+	text?: string;
+	content?: string;
+	url?: string;
+	button?: string;
+};
+
+const KnowHowEmail = ({ name, text, url, button, title, content }: KKVEmailProps) => (
+	<BaseLayout width={600} preview={title}>
+		<Header title='KnowHow' openInBrowser={false} />
+		<Section style={{ paddingLeft: spacing.s7, paddingRight: spacing.s7 }}>
+			<Row>
+				<Column>
+					<Heading style={{ fontSize: fontSize.lg }}>Hej, {name}</Heading>
+					<Text style={{ paddingTop: spacing.s7 }}>{text}</Text>
+					{content && <Text style={{ paddingTop: spacing.s7 }}>{content}</Text>}
+				</Column>
+			</Row>
+			{url && (
+				<Row>
+					<Column style={{ textAlign: 'center' }}>
+						<Button href={url}>{button || 'Klicka här'}</Button>
+					</Column>
+				</Row>
+			)}
+		</Section>
+		<Footer />
+	</BaseLayout>
+);
+
+export default KnowHowEmail;
+
+KnowHowEmail.PreviewProps = {
+	name: 'Name',
+	title: 'Titel',
+	label: 'Klicka här',
+	url: process.env.NEXT_PUBLIC_SITE_URL,
+	text: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.',
+};

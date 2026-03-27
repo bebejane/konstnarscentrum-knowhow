@@ -1,99 +1,103 @@
-import s from './Article.module.scss'
-import cn from 'classnames'
-import React from 'react'
-import { DatoMarkdown as Markdown } from 'dato-nextjs-utils/components'
-import { StructuredContent, RevealText } from "/components";
-import { KCImage as Image } from '/components'
-import BalanceText from 'react-balance-text'
-import { useScrollInfo } from 'dato-nextjs-utils/hooks';
-import { usePage } from '../../lib/context/page';
+'use client';
+
+import s from './Article.module.scss';
+import cn from 'classnames';
+import React, { useEffect, useState } from 'react';
+import { Markdown } from 'next-dato-utils/components';
+import { Content, RevealText } from '@/components';
+import { Image } from 'react-datocms';
+import BalanceText from 'react-balance-text';
+import { useScrollInfo } from 'next-dato-utils/hooks';
+import useStore, { useShallow } from '@/lib/store';
 
 export type ArticleProps = {
-  id: string,
-  children?: React.ReactNode | React.ReactNode[]
-  title?: string,
-  blackHeadline?: boolean,
-  text?: string,
-  image?: FileField
-  showImage?: boolean,
-  content?: any
-  editable?: any
-  noBottom?: boolean
-  className?: string
-  onClick?: (id: string) => void
-}
+	children?: React.ReactNode | React.ReactNode[];
+	title?: string;
+	blackHeadline?: boolean;
+	text?: string;
+	image?: FileField | any;
+	showImage?: boolean;
+	content?: any;
+	noBottom?: boolean;
+	className?: string;
+};
 
 export default function Article({
-  id,
-  children,
-  title,
-  blackHeadline = false,
-  text,
-  image,
-  content,
-  showImage = true,
-  className,
-  editable,
-  onClick,
-}: ArticleProps, record: ArticleProps) {
+	children,
+	title,
+	blackHeadline = false,
+	text,
+	image,
+	content,
+	showImage = true,
+	className,
+}: ArticleProps) {
+	const haveImage = image?.responsiveImage !== undefined;
+	const { scrolledPosition } = useScrollInfo();
+	const [hideCaption, setHideCaption] = useState(false);
+	const [setImageId, setImages] = useStore(
+		useShallow((state) => [state.setImageId, state.setImages]),
+	);
 
-  const { lexicons } = usePage()
-  const { scrolledPosition } = useScrollInfo()
-  const hideCaption = scrolledPosition > 100;
-  const haveImage = image?.responsiveImage !== undefined
+	useEffect(() => {
+		const images = [image];
+		content?.blocks?.forEach((el: any) => {
+			console.log(el.image);
+			el.__typename === 'ImageRecord' && images.push(el.image);
+			el.__typename === 'ImageGalleryRecord' && images.push.apply(images, el.images);
+		});
+		setImages(images.filter((el) => el).flat() as FileField[]);
+	}, []);
 
-  return (
+	useEffect(() => {
+		setHideCaption(scrolledPosition > 100);
+	}, [scrolledPosition]);
 
-    <div className={cn(s.article, 'article', className)}>
-      {showImage &&
-        <header>
-          {title &&
-            <h1 className={cn(s.title, haveImage && s.absolute, (blackHeadline || !haveImage) && s.black)}>
-              <RevealText>
-                <BalanceText>
-                  {title}
-                </BalanceText>
-              </RevealText>
-              {haveImage && <div className={s.fade}></div>}
-            </h1>
-          }
+	return (
+		<div className={cn(s.article, 'article', className)}>
+			{showImage && (
+				<header>
+					{title && (
+						<h1
+							className={cn(
+								s.title,
+								haveImage && s.absolute,
+								(blackHeadline || !haveImage) && s.black,
+							)}
+						>
+							<RevealText>
+								<BalanceText>{title}</BalanceText>
+							</RevealText>
+							{haveImage && <div className={s.fade}></div>}
+						</h1>
+					)}
 
-          {haveImage &&
-            <>
-              <figure data-editable={editable} onClick={() => onClick?.(image?.id)}>
-                <>
-                  <Image
-                    className={s.image}
-                    data={image.responsiveImage}
-                    objectFit="cover"
-                    placeholderClassName={s.placeholder}
-                  />
-                  <figcaption className={cn(hideCaption && s.hide)}>
-                    <Markdown>{image.title}</Markdown>
-                  </figcaption>
-                </>
-              </figure>
-              <div className={s.colorBg} style={{ backgroundColor: image.responsiveImage.bgColor }} />
-            </>
-          }
-        </header>
-      }
-      {text &&
-        <Markdown className="intro" disableBreaks={true}>
-          {text}
-        </Markdown>
-      }
-      {children}
-      {content &&
-        <StructuredContent
-          id={id}
-          record={record}
-          content={content}
-          onClick={(imageId) => onClick?.(imageId)}
-          lexicons={lexicons}
-        />
-      }
-    </div>
-
-  )
+					{haveImage && (
+						<>
+							<figure onClick={() => setImageId(image?.id)}>
+								<>
+									<Image
+										className={s.image}
+										data={image.responsiveImage}
+										objectFit='cover'
+										placeholderClassName={s.placeholder}
+									/>
+									<figcaption className={cn(hideCaption && s.hide)}>
+										<Markdown content={image.title} />
+									</figcaption>
+								</>
+							</figure>
+							<div
+								className={s.colorBg}
+								style={{ backgroundColor: image?.responsiveImage?.bgColor ?? undefined }}
+							/>
+						</>
+					)}
+				</header>
+			)}
+			{text && <Markdown className='intro' disableBreaks={true} content={text} />}
+			{children}
+			{content && <Content content={content} />}
+		</div>
+	);
 }

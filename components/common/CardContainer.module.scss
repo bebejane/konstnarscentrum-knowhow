@@ -1,111 +1,139 @@
 .container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  margin-left: calc(-1 * var(--outer-margin));
-  margin-right: calc(-1 * var(--outer-margin));
-  width: calc(100% + (2 * var(--outer-margin)));
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	margin-left: calc(-1 * var(--outer-margin));
+	margin-right: calc(-1 * var(--outer-margin));
+	width: calc(100% + (2 * var(--outer-margin)));
+	padding: 0;
+	list-style: none;
 
-  @include mq($from: tablet) {
-    margin-left: calc(-1 * var(--gutter));
-    margin-right: calc(-1 * var(--gutter));
-    width: calc(100% + (2 * var(--gutter)));
-  }
+	@include mq($from: tablet) {
+		margin-left: calc(-1 * var(--gutter));
+		margin-right: calc(-1 * var(--gutter));
+		width: calc(100% + (2 * var(--gutter)));
+		grid-template-columns: repeat(3, 1fr);
+	}
 
-  padding: 0;
-  list-style: none;
+	@include mq($from: tablet) {
+		width: calc(100% + (2 * var(--grid-unit)) + (2 * var(--gutter)));
+		margin-left: calc((-1 * var(--grid-unit)) - var(--gutter));
+	}
 
-  @include mq($from: tablet) {
-    width: calc(100% + (2 * var(--grid-unit)) + (2 * var(--gutter)));
-    margin-left: calc((-1 * var(--grid-unit)) - var(--gutter));
-  }
+	li a:hover {
+		color: var(--black) !important;
+	}
 
-  li a:hover {
-    color: var(--black) !important;
-  }
+	> li {
+		padding-bottom: 2rem;
+		margin-bottom: 0rem;
 
-  >li {
-    border-right: 1px solid var(--orange-mid);
-  }
+		@include mq($until: tablet) {
+			padding-left: var(--outer-margin);
+			padding-right: var(--outer-margin);
+		}
 
-  &.two>li {
-    @include mq($from: tablet) {
-      width: 50%;
+		@include mq($from: tablet) {
+			margin-bottom: 2rem;
+			border-bottom: 1px solid var(--orange-mid);
 
-      &:nth-of-type(2n) {
-        border-right: none;
-      }
-    }
+			&:nth-child(odd) {
+				margin-left: var(--outer-margin);
+				padding-right: var(--outer-margin);
+			}
 
-    @include mq($until: tablet) {
-      width: 100%;
-      border-right: none;
+			&:nth-child(even) {
+				margin-right: var(--outer-margin);
+				padding-left: var(--outer-margin);
+			}
 
-      a:last-of-type {
-        margin-bottom: 2rem;
-        padding-bottom: 2rem;
-        border-bottom: 1px solid var(--orange-mid);
-      }
+			&:nth-child(even)::before {
+				content: '';
+				display: block;
+				position: absolute;
+				top: 0;
+				left: 0;
+				height: calc(100% - 2rem);
+				width: 1px;
+				background-color: var(--orange-mid);
+			}
+		}
+	}
 
-      &:last-of-type a:last-of-type {
-        margin-bottom: 0;
-      }
-    }
-  }
+	&.col2 {
+		@include mq($from: tablet) {
+			grid-template-columns: repeat(2, 1fr);
+		}
 
-  &.two {
-    @include mq($until: tablet) {
-      hr {
-        display: none;
-      }
-    }
-  }
+		> li {
+			@include mq($from: tablet) {
+				&:nth-of-type(2n) {
+					border-right: none;
+				}
+			}
 
-  &.three>li {
-    width: 33.333%;
+			@include mq($until: tablet) {
+				width: 100%;
+				border-right: none;
+				grid-column: span 2;
 
-    @include mq($from: tablet) {
-      &:nth-of-type(3n) {
-        border-right: none;
-      }
-    }
+				a:last-of-type {
+					padding-bottom: 2rem;
+					border-bottom: 1px solid var(--orange-mid);
+				}
 
-    @include mq($until: tablet) {
-      width: 50%;
+				&:last-of-type a:last-of-type {
+					margin-bottom: 0;
+					border-bottom: 0;
+				}
+			}
+		}
 
-      &:nth-of-type(odd) {
-        border-right: 1px solid var(--orange-mid);
-      }
+		// Remove bottom border from last row (last 2 items)
+		> li:nth-last-child(-n + 2) {
+			border-bottom: none;
+			margin-bottom: 0;
+			padding-bottom: 0;
+		}
+	}
 
-      &:nth-of-type(even) {
-        border-right: none;
-      }
-    }
-  }
+	&.col3 > li {
+		@include mq($from: tablet) {
+			&:nth-of-type(3n) {
+				border-right: none;
+			}
+		}
 
-  hr {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    margin-left: var(--gutter);
-    margin-right: var(--gutter);
+		@include mq($until: tablet) {
+			&:nth-of-type(odd) {
+				border-right: 1px solid var(--orange-mid);
+			}
 
-    @include mq($until: tablet) {
-      margin-top: 1.5rem;
-      margin-bottom: 1.5rem;
-    }
+			&:nth-of-type(even) {
+				border-right: none;
+			}
+		}
 
-    &:last-child {
-      display: none;
-    }
-  }
+		// Remove bottom border from last row (last 3 items for desktop, last 2 for mobile)
+		&:nth-last-child(-n + 3) {
+			@include mq($from: tablet) {
+				border-bottom: none;
+				margin-bottom: 0;
+				padding-bottom: 0;
+			}
+		}
 
-  &.whiteBorder {
-    &>li {
-      border-color: var(--white) !important;
-    }
+		&:nth-last-child(-n + 2) {
+			@include mq($until: tablet) {
+				border-bottom: none;
+				margin-bottom: 0;
+				padding-bottom: 0;
+			}
+		}
+	}
 
-    hr {
-      background: var(--white) !important;
-    }
-  }
+	&.whiteBorder {
+		& > li {
+			border-color: var(--white) !important;
+		}
+	}
 }

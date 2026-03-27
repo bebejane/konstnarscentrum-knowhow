@@ -1,0 +1,117 @@
+.calendar {
+	background-color: var(--white);
+	width: 100%;
+
+	@include mq($until: desktop) {
+		margin-top: -1rem;
+	}
+
+	@include mq($from: tablet) {
+		width: calc(100% + (2 * var(--grid-unit)) + (2 * var(--gutter)));
+		margin-left: calc((-1 * var(--grid-unit)) - var(--gutter));
+		padding-left: var(--gutter);
+		padding-right: var(--gutter);
+	}
+
+	> div,
+	> div > div,
+	table {
+		width: 100%;
+		max-width: 100%;
+		color: var(--black) !important;
+	}
+
+	nav button svg {
+		fill: var(--black);
+	}
+	nav button:hover svg {
+		fill: var(--white);
+	}
+
+	div > div {
+		text-transform: capitalize;
+
+		span {
+			font-size: 16px;
+
+			@include mq($from: tablet) {
+				font-size: 22px;
+			}
+
+			@include mq($from: semi-wide) {
+				font-size: 24px;
+			}
+
+			@include mq($from: wide) {
+				font-size: 25px;
+			}
+		}
+	}
+
+	table {
+		table-layout: fixed;
+	}
+
+	table {
+		td,
+		th {
+			text-align: left;
+		}
+	}
+
+	td {
+		border: 1px solid var(--orange-light);
+		width: calc(100% / 7);
+		height: 3rem;
+		padding: 0.25rem;
+
+		@include mq($from: desktop) {
+			padding: 0.5rem;
+			height: 5rem;
+		}
+
+		div {
+			color: var(--black) !important;
+		}
+	}
+
+	.day {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		cursor: pointer;
+
+		overflow: hidden;
+
+		.date {
+		}
+
+		.activities {
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			height: auto;
+			width: auto;
+			//white-space: nowrap;
+			//overflow: hidden;
+			//text-overflow: ellipsis;
+			min-width: 0;
+
+			.activity {
+				.title {
+					margin-top: 0.2rem;
+					padding: 0.5em;
+					padding-top: 0.35em;
+					display: inline-block;
+					color: var(--white) !important;
+					background-color: var(--black);
+					display: block;
+					max-width: 100%;
+					//overflow: hidden;
+					//text-overflow: ellipsis;
+					//white-space: nowrap;
+				}
+			}
+		}
+	}
+}

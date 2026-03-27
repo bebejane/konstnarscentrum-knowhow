@@ -1,30 +1,28 @@
-import styles from './ReadMore.module.scss'
-import { recordToSlug } from '/lib/utils'
-import cn from 'classnames'
-import Link from 'next/link'
-import { useTheme } from 'next-themes'
+'use client';
+
+import cn from 'classnames';
+import styles from './ReadMore.module.scss';
+import { recordToSlug } from '@/lib/utils';
+import Link from 'next/link';
+import { useTheme } from 'next-themes';
 
 type Props = {
-  message?: string
-  link: string,
-  invert?: boolean
-  regional?: boolean
-  external?: boolean
-}
+	message?: string;
+	link?: string | null;
+	invert?: boolean;
+};
 
-export default function ReadMore({ message, link, invert = false, regional, external = false }: Props) {
+export default function ReadMore({ message, link, invert = false }: Props) {
+	const { theme } = useTheme();
 
-  const { theme } = useTheme()
+	if (!link) return null;
 
-  if (!link) return null
-
-  return (
-    <Link
-      href={recordToSlug(link)}
-      className={cn(styles.more, 'small', invert && styles.invert)}
-    >
-      <div className={cn(styles.square)} data-theme={theme}></div>
-      <span data-theme={theme}>{message}</span>
-    </Link>
-  )
+	return (
+		<Link href={recordToSlug(link)} className={cn(styles.more, 'small', invert && styles.invert)}>
+			<div className={cn(styles.square)} data-theme={theme} suppressHydrationWarning />
+			<span data-theme={theme} suppressHydrationWarning>
+				{message}
+			</span>
+		</Link>
+	);
 }

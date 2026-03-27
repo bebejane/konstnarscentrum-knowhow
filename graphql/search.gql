@@ -1,13 +1,11 @@
-#import "./fragments/ImageThumbnailFragment"
-
 query SiteSearch(
 	$activityIds: [ItemId]
 	$knowledgeIds: [ItemId]
 	$aboutIds: [ItemId]
-	$first: IntType = 100
+	$first: IntType = 500
 	$skip: IntType = 0
 ) {
-	activities: allActivities(first: $first, skip: $skip, filter: { id: { in: $activityIds } }) {
+	allActivities(first: $first, skip: $skip, filter: { id: { in: $activityIds } }) {
 		__typename
 		_modelApiKey
 		title
@@ -17,7 +15,8 @@ query SiteSearch(
 			...ImageThumbnailFragment
 		}
 	}
-	knowledges: allKnowledges(first: $first, skip: $skip, filter: { id: { in: $knowledgeIds } }) {
+
+	allKnowledges(first: $first, skip: $skip, filter: { id: { in: $knowledgeIds } }) {
 		__typename
 		_modelApiKey
 		title
@@ -32,7 +31,7 @@ query SiteSearch(
 			...ImageThumbnailFragment
 		}
 	}
-	abouts: allAbouts(first: $first, skip: $skip, filter: { id: { in: $aboutIds } }) {
+	allAbouts(first: $first, skip: $skip, filter: { id: { in: $aboutIds } }) {
 		__typename
 		_modelApiKey
 		title

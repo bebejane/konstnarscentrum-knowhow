@@ -22,10 +22,6 @@
 		display: flex;
 		flex-direction: row;
 		margin-bottom: var(--small-space);
-
-		&:first-of-type {
-			//padding-top: var(--space);
-		}
 	}
 
 	.menu {
@@ -107,7 +103,8 @@
 		p {
 			width: 100%;
 			@include mq($from: desktop) {
-				column-count: 2;
+				//column-count: 2;
+				width: 50%;
 				column-gap: var(--gutter);
 				margin-bottom: 0;
 			}
@@ -115,6 +112,9 @@
 	}
 
 	.social {
+		a {
+			color: var(--foreground) !important;
+		}
 		@include mq($until: tablet) {
 			span {
 				padding-bottom: 1em;

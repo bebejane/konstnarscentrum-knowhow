@@ -2,6 +2,7 @@ query Start {
 	start {
 		id
 		gallery {
+			_editingUrl
 			id
 			headline
 			image {
@@ -34,10 +35,10 @@ query Start {
 			}
 			... on ImageShortcutDoubleRecord {
 				id
-				shortcuts{
+				shortcuts {
 					id
 					headline
-					image{
+					image {
 						...ImageFragment
 					}
 					link

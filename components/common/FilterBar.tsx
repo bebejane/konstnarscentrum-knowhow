@@ -1,45 +1,41 @@
-import s from './FilterBar.module.scss'
-import cn from 'classnames'
-import { useEffect, useState } from 'react'
-
+import Link from 'next/link';
+import s from './FilterBar.module.scss';
+import cn from 'classnames';
 
 type FilterOption = {
-  id: string,
-  label: string
-}
+	id: string;
+	label: string;
+};
 
 type Props = {
-  options: FilterOption[],
-  multi?: boolean,
-  onChange: (value: string[] | string) => void
+	options: FilterOption[];
+	params: {
+		view: string;
+		category?: string | null;
+	};
+	pathname: string;
+};
+
+export default function FilterBar({ options = [], params, pathname }: Props) {
+	return (
+		<nav className={s.filter}>
+			<ul>
+				<li>Visa:</li>
+				{options.map((opt, idx) => (
+					<li key={idx} className={cn(params.category === opt.id && s.selected)}>
+						<Link
+							href={{
+								pathname,
+								query: { ...params, category: params.category === opt.id ? null : opt.id },
+							}}
+							prefetch={true}
+						>
+							{opt.label}
+						</Link>
+					</li>
+				))}
+			</ul>
+			<div className={s.background}></div>
+		</nav>
+	);
 }
-
-export default function FilterBar({ options = [], onChange, multi = false }: Props) {
-
-  const [selected, setSelected] = useState<FilterOption[]>([])
-
-  useEffect(() => {
-    onChange(multi ? selected.map(({ id }) => id) : selected[0]?.id)
-  }, [selected])
-
-  return (
-    <nav className={s.filter}>
-
-      <ul>
-        <li>Visa:</li>
-
-        {options.map((opt, idx) =>
-          <li
-            key={idx}
-            onClick={() => setSelected(selected.find(({ id }) => id === opt.id) ? selected.filter(({ id }) => id !== opt.id) : multi ? [...selected, opt] : [opt])}
-            className={cn(selected?.find(({ id }) => id === opt.id) && s.selected)}
-          >
-            {opt.label}
-          </li>
-        )}
-      </ul>
-      <div className={s.background}></div>
-    </nav>
-  )
-}
-
