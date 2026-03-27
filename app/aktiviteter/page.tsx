@@ -41,6 +41,7 @@ export default async function Activities({ params, searchParams }: PageProps<'/a
 		{
 			all: true,
 			variables: { categoryId },
+			tags: ['activity'],
 		},
 	);
 

@@ -19,6 +19,7 @@ export default async function Home() {
 		AllActivitiesForCalendarDocument,
 		{
 			all: true,
+			tags: ['activity'],
 		},
 	);
 

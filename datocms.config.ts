@@ -41,7 +41,12 @@ export default {
 		about: async (item) => [getRoute(item), ...(await getItemReferenceRoutes(item.id))],
 		in_english: async () => [getRoute('in_english')],
 		contact_page: async () => [getRoute('contact_page')],
-		activity: async (item) => [getRoute(item), ...(await getItemReferenceRoutes(item.id))],
+		activity: async (item) => [
+			getRoute(item),
+			'/',
+			'/aktiviteter',
+			...(await getItemReferenceRoutes(item.id)),
+		],
 		knowledge: async (item) => [getRoute(item), ...(await getItemReferenceRoutes(item.id))],
 		upload: async ({ id }) => getUploadReferenceRoutes(id),
 	},
