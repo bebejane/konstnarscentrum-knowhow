@@ -30,6 +30,8 @@ const viewParams = {
 
 const loadSearchParams = createLoader(viewParams);
 
+export const dynamic = 'auto';
+
 export default async function Activities({ params, searchParams }: PageProps<'/aktiviteter'>) {
 	const { view, category, d } = await loadSearchParams(searchParams);
 	const { allActivityCategories, draftUrl } = await apiQuery(AllActivityCategoriesDocument);

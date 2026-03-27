@@ -18,6 +18,7 @@ export default async function Knowledge({
 	if (!knowledge) return notFound();
 
 	const { title, intro, image, blackHeadline, content, category } = knowledge;
+
 	return (
 		<>
 			<Article
