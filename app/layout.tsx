@@ -18,7 +18,7 @@ export const dynamic = 'force-static';
 export default async function RootLayout({ children, params }: LayoutProps<'/'>) {
 	const session = await getSession();
 	const menu = await buildMenu();
-	const { footer } = await apiQuery(FooterDocument);
+	const { footer } = await apiQuery(FooterDocument, { tags: ['footer'] });
 
 	return (
 		<html lang={'sv-SE'} suppressHydrationWarning>

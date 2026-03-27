@@ -9,11 +9,12 @@ import { MetadataRoute } from 'next';
 import { SiteDocument, SitemapDocument } from '@/graphql';
 
 export function getRoute(item: any, _apiKey?: string): string {
+	console.log(item);
 	const apiKey = _apiKey ?? getItemApiKey(item);
 	if (!apiKey) throw new Error('No api key found');
 
 	const { slug, category } = item.attributes ?? item;
-
+	console.log(item);
 	switch (apiKey) {
 		case 'start':
 		case 'footer':
@@ -24,10 +25,20 @@ export function getRoute(item: any, _apiKey?: string): string {
 			return `/english`;
 		case 'contact_page':
 			return `/kontakta-oss`;
+		case 'lexicon':
+		case 'lexicon_text':
+			return `/lexicon`;
 		case 'activity':
 			return `/aktiviteter/${slug}`;
+		case 'activity_category':
+			return `/aktiviteter`;
 		case 'knowledge':
 			return `/kunskapsbank/${category.slug}/${slug}`;
+		case 'knowledge_category':
+			return `/kunskapsbank/${slug}`;
+		case 'member':
+		case 'application':
+			return '/';
 		default:
 			throw new Error('No route found for apiKey: ' + apiKey);
 	}

@@ -57,58 +57,6 @@ export type PdfForm = ItemTypeDefinition<
     };
   }
 >;
-export type News = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1222629',
-  {
-    title: {
-      type: 'string';
-    };
-    image: {
-      type: 'file';
-    };
-    show_image: {
-      type: 'boolean';
-    };
-    black_headline: {
-      type: 'boolean';
-    };
-    intro: {
-      type: 'text';
-    };
-    content: {
-      type: 'structured_text';
-      blocks: RelatedMemberNews | Image;
-    };
-    slug: {
-      type: 'slug';
-    };
-    region: {
-      type: 'link';
-    };
-  }
->;
-export type Consultant = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1343482',
-  {
-    name: {
-      type: 'string';
-    };
-    email: {
-      type: 'string';
-    };
-    title: {
-      type: 'string';
-    };
-    region: {
-      type: 'link';
-    };
-    position: {
-      type: 'integer';
-    };
-  }
->;
 export type About = ItemTypeDefinition<
   EnvironmentSettings,
   '1349096',
@@ -224,30 +172,6 @@ export type Employee = ItemTypeDefinition<
     };
   }
 >;
-export type Project = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1349264',
-  {
-    title: {
-      type: 'string';
-    };
-    image: {
-      type: 'file';
-    };
-    url: {
-      type: 'string';
-    };
-    text: {
-      type: 'text';
-    };
-    region: {
-      type: 'link';
-    };
-    position: {
-      type: 'integer';
-    };
-  }
->;
 export type InEnglish = ItemTypeDefinition<
   EnvironmentSettings,
   '1349296',
@@ -280,42 +204,6 @@ export type Content = ItemTypeDefinition<
     };
     layout: {
       type: 'structured_text';
-    };
-  }
->;
-export type Board = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1737692',
-  {
-    name: {
-      type: 'string';
-    };
-    email: {
-      type: 'string';
-    };
-    title: {
-      type: 'string';
-    };
-    region: {
-      type: 'link';
-    };
-    position: {
-      type: 'integer';
-    };
-  }
->;
-export type ContactIntro = ItemTypeDefinition<
-  EnvironmentSettings,
-  '1789821',
-  {
-    board: {
-      type: 'text';
-    };
-    staff: {
-      type: 'text';
-    };
-    consultant: {
-      type: 'text';
     };
   }
 >;
@@ -370,164 +258,12 @@ export type Video = ItemTypeDefinition<
     };
   }
 >;
-export type Commission = ItemTypeDefinition<
-  EnvironmentSettings,
-  '2022478',
-  {
-    title: {
-      type: 'string';
-    };
-    image: {
-      type: 'file';
-    };
-    black_headline: {
-      type: 'boolean';
-    };
-    intro: {
-      type: 'text';
-    };
-    artist: {
-      type: 'string';
-    };
-    year: {
-      type: 'string';
-    };
-    work: {
-      type: 'string';
-    };
-    city: {
-      type: 'string';
-    };
-    commissioner: {
-      type: 'string';
-    };
-    consultant: {
-      type: 'string';
-    };
-    category: {
-      type: 'link';
-    };
-    content: {
-      type: 'rich_text';
-      blocks: Image | Video;
-    };
-    slug: {
-      type: 'slug';
-    };
-    region: {
-      type: 'link';
-    };
-  }
->;
-export type ForArtist = ItemTypeDefinition<
-  EnvironmentSettings,
-  '2022480',
-  {
-    title: {
-      type: 'string';
-    };
-    image: {
-      type: 'file';
-    };
-    intro: {
-      type: 'text';
-    };
-    content: {
-      type: 'structured_text';
-      blocks: Image | Button | Video;
-    };
-    slug: {
-      type: 'slug';
-    };
-    position: {
-      type: 'integer';
-    };
-  }
->;
-export type CommissionCategory = ItemTypeDefinition<
-  EnvironmentSettings,
-  '2022482',
-  {
-    title: {
-      type: 'string';
-    };
-  }
->;
-export type IntroInitiative = ItemTypeDefinition<
-  EnvironmentSettings,
-  '2022487',
-  {
-    title: {
-      type: 'string';
-    };
-    intro: {
-      type: 'text';
-    };
-    slug: {
-      type: 'slug';
-    };
-  }
->;
 export type Footer = ItemTypeDefinition<
   EnvironmentSettings,
   '2022490',
   {
     about_the_project: {
       type: 'text';
-    };
-  }
->;
-export type Region = ItemTypeDefinition<
-  EnvironmentSettings,
-  '2022503',
-  {
-    gallery: {
-      type: 'rich_text';
-      blocks: Slide;
-    };
-    contact_intro: {
-      type: 'text';
-    };
-    sponsors: {
-      type: 'rich_text';
-      blocks: Sponsor;
-    };
-    info: {
-      type: 'rich_text';
-      blocks: MetaBlock;
-    };
-    sections: {
-      type: 'rich_text';
-      blocks:
-        | Text
-        | SelectedCommission
-        | LatestNews
-        | LatestActivity
-        | ImageShortcut;
-    };
-    name: {
-      type: 'string';
-    };
-    email: {
-      type: 'string';
-    };
-    slug: {
-      type: 'slug';
-    };
-    global: {
-      type: 'boolean';
-    };
-    position: {
-      type: 'integer';
-    };
-  }
->;
-export type MemberCategory = ItemTypeDefinition<
-  EnvironmentSettings,
-  '2022586',
-  {
-    category_type: {
-      type: 'string';
     };
   }
 >;
@@ -641,15 +377,6 @@ export type Sponsor = ItemTypeDefinition<
       type: 'file';
     };
     url: {
-      type: 'string';
-    };
-  }
->;
-export type SchemaMigration = ItemTypeDefinition<
-  EnvironmentSettings,
-  'ADy1zITJTlqZLrB4CdBqMA',
-  {
-    name: {
       type: 'string';
     };
   }
@@ -876,24 +603,12 @@ export type AnyBlock =
   | Sponsor
   | ImageShortcutDouble;
 export type AnyModel =
-  | News
-  | Consultant
   | About
   | Activity
   | ActivityCategory
   | Employee
-  | Project
   | InEnglish
-  | Board
-  | ContactIntro
-  | Commission
-  | ForArtist
-  | CommissionCategory
-  | IntroInitiative
   | Footer
-  | Region
-  | MemberCategory
-  | SchemaMigration
   | ContactPage
   | Knowledge
   | LexiconText
