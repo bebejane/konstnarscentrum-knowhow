@@ -8,8 +8,8 @@ import {
 import { MetadataRoute } from 'next';
 import { SiteDocument, SitemapDocument } from '@/graphql';
 
-export function getRoute(item: any): string {
-	const apiKey = getItemApiKey(item);
+export function getRoute(item: any, _apiKey?: string): string {
+	const apiKey = _apiKey ?? getItemApiKey(item);
 	if (!apiKey) throw new Error('No api key found');
 
 	const { slug, category } = item.attributes ?? item;
@@ -36,18 +36,23 @@ export function getRoute(item: any): string {
 export default {
 	route: async (item) => getRoute(item) ?? null,
 	routes: {
-		start: async () => [getRoute('start')],
-		footer: async () => [getRoute('footer')],
-		about: async (item) => [getRoute(item), ...(await getItemReferenceRoutes(item.id))],
-		in_english: async () => [getRoute('in_english')],
-		contact_page: async () => [getRoute('contact_page')],
+		start: async (item) => [getRoute(item, 'start')],
+		footer: async (item) => [getRoute(item, 'footer')],
+		about: async (item) => [getRoute(item), 'about', ...(await getItemReferenceRoutes(item.id))],
+		in_english: async (item) => [getRoute(item, 'in_english')],
+		contact_page: async (item) => [getRoute(item, 'contact_page')],
 		activity: async (item) => [
-			getRoute(item),
+			getRoute(item, 'activity'),
 			'/',
 			'/aktiviteter',
 			...(await getItemReferenceRoutes(item.id)),
 		],
-		knowledge: async (item) => [getRoute(item), ...(await getItemReferenceRoutes(item.id))],
+		knowledge: async (item) => [
+			getRoute(item, 'knowledge'),
+			'/',
+			'/kunskapsbank',
+			...(await getItemReferenceRoutes(item.id)),
+		],
 		upload: async ({ id }) => getUploadReferenceRoutes(id),
 	},
 	sitemap: async () => {
