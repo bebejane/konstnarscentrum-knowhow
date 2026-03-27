@@ -6869,6 +6869,14 @@ type SiteQuery = { __typename?: 'Query', _site: { __typename?: 'Site', faviconMe
 
 type SiteFragment = { __typename?: 'Site', faviconMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }>, globalSeo?: { __typename?: 'GlobalSeoField', facebookPageUrl?: string | null, siteName?: string | null, titleSuffix?: string | null, twitterAccount?: string | null, fallbackSeo?: { __typename?: 'SeoField', description?: string | null, title?: string | null, twitterCard?: string | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } | null } | null } | null };
 
+type SitemapQueryVariables = Exact<{
+  first?: InputMaybe<Scalars['IntType']['input']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
+}>;
+
+
+type SitemapQuery = { __typename?: 'Query', allAbouts: Array<{ __typename?: 'AboutRecord', _updatedAt: any, slug: string }>, _allAboutsMeta: { __typename?: 'CollectionMetadata', count: any }, allActivities: Array<{ __typename?: 'ActivityRecord', _updatedAt: any, slug: string }>, _allActivitiesMeta: { __typename?: 'CollectionMetadata', count: any }, allKnowledges: Array<{ __typename?: 'KnowledgeRecord', _updatedAt: any, slug: string, category: { __typename?: 'KnowledgeCategoryRecord', slug: string } }>, _allKnowledgesMeta: { __typename?: 'CollectionMetadata', count: any } };
+
 type StartQueryVariables = Exact<{ [key: string]: never; }>;
 
 
