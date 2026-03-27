@@ -38,7 +38,7 @@ export default {
 	routes: {
 		start: async (item) => [getRoute(item, 'start')],
 		footer: async (item) => [getRoute(item, 'footer')],
-		about: async (item) => [getRoute(item), 'about', ...(await getItemReferenceRoutes(item.id))],
+		about: async (item) => [getRoute(item, 'about'), ...(await getItemReferenceRoutes(item.id))],
 		in_english: async (item) => [getRoute(item, 'in_english')],
 		contact_page: async (item) => [getRoute(item, 'contact_page')],
 		activity: async (item) => [
