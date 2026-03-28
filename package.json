@@ -7,7 +7,6 @@
 		"start": "next start",
 		"preview": "pnpm run build && pnpm run start",
 		"build": "next build",
-		"prebuild": "tsx prebuild",
 		"dev:email": "email dev --port=4000",
 		"codegen": "graphql-codegen --watch",
 		"codegen:datocms": "pnpx @datocms/cli schema:generate ./types/datocms-cma.ts",
