@@ -20,7 +20,7 @@ export default async function Knowledges({ params }: PageProps<'/kunskapsbank/[c
 
 	if (!category || !categoryId) return notFound();
 
-	async function getKnowledges(skip: number): Promise<{ news: NewsCardProps[]; count: number }> {
+	async function getKnowledges(skip: number): Promise<NewsCardProps[]> {
 		'use server';
 		const {
 			allKnowledges,
@@ -29,20 +29,15 @@ export default async function Knowledges({ params }: PageProps<'/kunskapsbank/[c
 			variables: { categoryId, first: pageSize, skip },
 		});
 
-		return {
-			news: allKnowledges.map(({ id, title, intro, slug, image, category }) => ({
-				title,
-				slug: `/kunskapsbank/${category.slug}/${slug}`,
-				image: image as FileField,
-				label: '',
-				text: intro,
-				subtitle: category.category,
-			})),
-			count,
-		};
+		return allKnowledges.map(({ id, title, intro, slug, image, category }) => ({
+			title,
+			slug: `/kunskapsbank/${category.slug}/${slug}`,
+			image: image as FileField,
+			label: '',
+			text: intro,
+			subtitle: category.category,
+		}));
 	}
-
-	const { news, count } = await getKnowledges(0);
 
 	return (
 		<>
@@ -51,12 +46,9 @@ export default async function Knowledges({ params }: PageProps<'/kunskapsbank/[c
 			</h1>
 			<CardContainer columns={2}>
 				<InfiniteScroll<NewsCardProps>
-					count={count}
-					data={news}
-					next={async (offset) => {
-						'use server';
-						return (await getKnowledges(offset)).news;
-					}}
+					id={`knowledge-${category.id}`}
+					initial={await getKnowledges(0)}
+					next={getKnowledges}
 				>
 					{NewsCard}
 				</InfiniteScroll>

@@ -688,92 +688,6 @@ type DateTimeFilter = {
   neq?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
-type EmployeeModelFilter = {
-  AND?: InputMaybe<Array<InputMaybe<EmployeeModelFilter>>>;
-  OR?: InputMaybe<Array<InputMaybe<EmployeeModelFilter>>>;
-  _createdAt?: InputMaybe<CreatedAtFilter>;
-  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
-  _isValid?: InputMaybe<BooleanFilter>;
-  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
-  _publishedAt?: InputMaybe<PublishedAtFilter>;
-  _status?: InputMaybe<StatusFilter>;
-  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
-  _updatedAt?: InputMaybe<UpdatedAtFilter>;
-  createdAt?: InputMaybe<CreatedAtFilter>;
-  email?: InputMaybe<StringFilter>;
-  id?: InputMaybe<ItemIdFilter>;
-  name?: InputMaybe<StringFilter>;
-  position?: InputMaybe<PositionFilter>;
-  region?: InputMaybe<LinkFilter>;
-  title?: InputMaybe<StringFilter>;
-  updatedAt?: InputMaybe<UpdatedAtFilter>;
-};
-
-enum EmployeeModelOrderBy {
-  _createdAt_ASC = '_createdAt_ASC',
-  _createdAt_DESC = '_createdAt_DESC',
-  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
-  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
-  _isValid_ASC = '_isValid_ASC',
-  _isValid_DESC = '_isValid_DESC',
-  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
-  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
-  _publishedAt_ASC = '_publishedAt_ASC',
-  _publishedAt_DESC = '_publishedAt_DESC',
-  _status_ASC = '_status_ASC',
-  _status_DESC = '_status_DESC',
-  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
-  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
-  _updatedAt_ASC = '_updatedAt_ASC',
-  _updatedAt_DESC = '_updatedAt_DESC',
-  createdAt_ASC = 'createdAt_ASC',
-  createdAt_DESC = 'createdAt_DESC',
-  email_ASC = 'email_ASC',
-  email_DESC = 'email_DESC',
-  id_ASC = 'id_ASC',
-  id_DESC = 'id_DESC',
-  name_ASC = 'name_ASC',
-  name_DESC = 'name_DESC',
-  position_ASC = 'position_ASC',
-  position_DESC = 'position_DESC',
-  title_ASC = 'title_ASC',
-  title_DESC = 'title_DESC',
-  updatedAt_ASC = 'updatedAt_ASC',
-  updatedAt_DESC = 'updatedAt_DESC'
-}
-
-/** Record of type Personal (employee) */
-type EmployeeRecord = RecordInterface & {
-  __typename?: 'EmployeeRecord';
-  _createdAt: Scalars['DateTime']['output'];
-  /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']['output']>;
-  _firstPublishedAt: Scalars['DateTime']['output'];
-  _isValid: Scalars['BooleanType']['output'];
-  _modelApiKey: Scalars['String']['output'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
-  _publishedAt: Scalars['DateTime']['output'];
-  /** Generates SEO and Social card meta tags to be used in your frontend */
-  _seoMetaTags: Array<Tag>;
-  _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
-  _updatedAt: Scalars['DateTime']['output'];
-  createdAt: Scalars['DateTime']['output'];
-  email: Scalars['String']['output'];
-  id: Scalars['ItemId']['output'];
-  name: Scalars['String']['output'];
-  position?: Maybe<Scalars['IntType']['output']>;
-  region: Scalars['String']['output'];
-  title?: Maybe<Scalars['String']['output']>;
-  updatedAt: Scalars['DateTime']['output'];
-};
-
-
-/** Record of type Personal (employee) */
-type EmployeeRecord_seoMetaTagsArgs = {
-  locale?: InputMaybe<SiteLocale>;
-};
-
 enum FaviconType {
   appleTouchIcon = 'appleTouchIcon',
   icon = 'icon',
@@ -3995,8 +3909,6 @@ type Query = {
   /** Returns meta information regarding a record collection */
   _allApplicationsMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
-  _allEmployeesMeta: CollectionMetadata;
-  /** Returns meta information regarding a record collection */
   _allKnowledgeCategoriesMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
   _allKnowledgesMeta: CollectionMetadata;
@@ -4023,8 +3935,6 @@ type Query = {
   /** Returns a collection of records */
   allApplications: Array<ApplicationRecord>;
   /** Returns a collection of records */
-  allEmployees: Array<EmployeeRecord>;
-  /** Returns a collection of records */
   allKnowledgeCategories: Array<KnowledgeCategoryRecord>;
   /** Returns a collection of records */
   allKnowledges: Array<KnowledgeRecord>;
@@ -4038,8 +3948,6 @@ type Query = {
   application?: Maybe<ApplicationRecord>;
   /** Returns the single instance record */
   contactPage?: Maybe<ContactPageRecord>;
-  /** Returns a specific record */
-  employee?: Maybe<EmployeeRecord>;
   /** Returns the single instance record */
   footer?: Maybe<FooterRecord>;
   /** Returns the single instance record */
@@ -4089,14 +3997,6 @@ type Query_allActivityCategoriesMetaArgs = {
 type Query_allApplicationsMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ApplicationModelFilter>;
-  locale?: InputMaybe<SiteLocale>;
-};
-
-
-/** The query root for this schema */
-type Query_allEmployeesMetaArgs = {
-  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  filter?: InputMaybe<EmployeeModelFilter>;
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -4219,17 +4119,6 @@ type QueryallApplicationsArgs = {
 
 
 /** The query root for this schema */
-type QueryallEmployeesArgs = {
-  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  filter?: InputMaybe<EmployeeModelFilter>;
-  first?: InputMaybe<Scalars['IntType']['input']>;
-  locale?: InputMaybe<SiteLocale>;
-  orderBy?: InputMaybe<Array<InputMaybe<EmployeeModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']['input']>;
-};
-
-
-/** The query root for this schema */
 type QueryallKnowledgeCategoriesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<KnowledgeCategoryModelFilter>;
@@ -4297,15 +4186,6 @@ type QueryapplicationArgs = {
 type QuerycontactPageArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
-};
-
-
-/** The query root for this schema */
-type QueryemployeeArgs = {
-  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  filter?: InputMaybe<EmployeeModelFilter>;
-  locale?: InputMaybe<SiteLocale>;
-  orderBy?: InputMaybe<Array<InputMaybe<EmployeeModelOrderBy>>>;
 };
 
 

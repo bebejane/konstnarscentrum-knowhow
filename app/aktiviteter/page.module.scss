@@ -53,3 +53,9 @@
 		padding-right: calc(1 * var(--grid-unit));
 	}
 }
+
+.loader {
+	width: 100vw;
+	//text-align: center;
+	margin-top: var(--space);
+}
