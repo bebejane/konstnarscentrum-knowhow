@@ -369,7 +369,7 @@ function MemberLogin({ onSuccess }: MemberLoginProps) {
 	if (done) return null;
 
 	return (
-		<form onSubmit={handleLogin} className={cn(s.form)}>
+		<form id='member-form' onSubmit={handleLogin} className={cn(s.form)}>
 			<p>
 				Har du deltagit i våra aktiviteter innan och anmält dig via formuläret här på hemsidan? Då
 				behöver du bara fylla i din mailadress för att anmäla dig nedan. <br />

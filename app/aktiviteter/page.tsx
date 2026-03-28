@@ -11,11 +11,9 @@ import { apiQuery } from 'next-dato-utils/api';
 import { createLoader, parseAsString } from 'nuqs/server';
 import Link from 'next/link';
 import { MonthCalendar } from '@/components';
-import { InfiniteScroll } from '@/components/common/InfiniteScroll';
-import { DraftMode } from 'next-dato-utils/components';
+import { DraftMode, InfiniteScroll } from 'next-dato-utils/components';
 import { Metadata } from 'next';
 import { buildMetadata } from '@/app/layout';
-import { sleep } from 'next-dato-utils/utils';
 
 export type ActivityRecordWithStatus = ActivityRecord & {
 	status: { value: string; label: string };

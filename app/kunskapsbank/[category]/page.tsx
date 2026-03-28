@@ -3,8 +3,7 @@ import { AllKnowledgeCategoriesDocument, AllKnowledgesByCategoryDocument } from 
 import { pageSize } from '@/lib/utils';
 import { Breadcrumbs, CardContainer, NewsCard, RevealText } from '@/components';
 import { notFound } from 'next/navigation';
-import { InfiniteScroll } from '@/components/common/InfiniteScroll';
-import { DraftMode } from 'next-dato-utils/components';
+import { DraftMode, InfiniteScroll } from 'next-dato-utils/components';
 import { buildMetadata } from '@/app/layout';
 import { Metadata } from 'next';
 
@@ -26,7 +25,7 @@ export default async function Knowledges({ params }: PageProps<'/kunskapsbank/[c
 				<RevealText>{category.category}</RevealText>
 			</h1>
 			<CardContainer columns={2}>
-				<InfiniteScroll<NewsCardProps>
+				<InfiniteScroll
 					id={`knowledge-${category.id}`}
 					initial={await getKnowledges(0, { categoryId })}
 					params={{ categoryId }}

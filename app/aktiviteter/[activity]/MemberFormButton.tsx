@@ -2,7 +2,7 @@
 
 import s from './MemberFormButton.module.scss';
 import cn from 'classnames';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MemberForm } from '@/components';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
@@ -16,11 +16,23 @@ export default function MemberFormButton({ activity }: MemberFormButtonProps) {
 	const { data: session } = useSession();
 	const isAdmin = session?.user?.name === 'admin';
 
+	useEffect(() => {
+		if (showMemberForm)
+			setTimeout(
+				() =>
+					document
+						.getElementById('member-form-button')
+						?.scrollIntoView({ behavior: 'smooth', block: 'start' }),
+				100,
+			);
+	}, [showMemberForm]);
+
 	if (!activity) return null;
 
 	return (
 		<>
 			<button
+				id='member-form-button'
 				data-toggled={showMemberForm}
 				className={cn(s.apply, 'wide')}
 				onClick={() => setShowMemberForm(!showMemberForm)}

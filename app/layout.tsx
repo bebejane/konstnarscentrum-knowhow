@@ -38,7 +38,7 @@ export default async function RootLayout({ children, params }: LayoutProps<'/'>)
 						<FullscreenGallery />
 					</ThemeProvider>
 				</SessionProvider>
-				<DraftModeContentLink />
+				<DraftModeContentLink color='#ff4400' />
 			</body>
 		</html>
 	);
