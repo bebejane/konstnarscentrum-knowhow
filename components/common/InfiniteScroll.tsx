@@ -5,7 +5,8 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 export type InfiniteScrollProps<ComponetProps> = {
 	id: string;
 	initial: ComponetProps[];
-	next(offset: number): Promise<ComponetProps[]>;
+	params?: Record<string, any>;
+	next(offset: number, params?: Record<string, any>): Promise<ComponetProps[]>;
 	children: React.JSXElementConstructor<ComponetProps>;
 	loader?: React.ReactNode;
 	rootMargin?: string;
@@ -14,6 +15,7 @@ export type InfiniteScrollProps<ComponetProps> = {
 export function InfiniteScroll<ComponetProps>({
 	id,
 	initial,
+	params,
 	next: _next,
 	children: Component,
 	loader,
@@ -27,12 +29,11 @@ export function InfiniteScroll<ComponetProps>({
 
 	async function next() {
 		if (end || loading) return;
-
 		setLoading(true);
 		setError(null);
 
 		try {
-			const newData = await _next(data.length);
+			const newData = await _next(data.length, params);
 			setData((oldData) => {
 				const d = [...oldData, ...newData];
 				sessionStorage.setItem(id, JSON.stringify(d));

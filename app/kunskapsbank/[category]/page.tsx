@@ -20,25 +20,6 @@ export default async function Knowledges({ params }: PageProps<'/kunskapsbank/[c
 
 	if (!category || !categoryId) return notFound();
 
-	async function getKnowledges(skip: number): Promise<NewsCardProps[]> {
-		'use server';
-		const {
-			allKnowledges,
-			_allKnowledgesMeta: { count },
-		} = await apiQuery(AllKnowledgesByCategoryDocument, {
-			variables: { categoryId, first: pageSize, skip },
-		});
-
-		return allKnowledges.map(({ id, title, intro, slug, image, category }) => ({
-			title,
-			slug: `/kunskapsbank/${category.slug}/${slug}`,
-			image: image as FileField,
-			label: '',
-			text: intro,
-			subtitle: category.category,
-		}));
-	}
-
 	return (
 		<>
 			<h1>
@@ -47,7 +28,8 @@ export default async function Knowledges({ params }: PageProps<'/kunskapsbank/[c
 			<CardContainer columns={2}>
 				<InfiniteScroll<NewsCardProps>
 					id={`knowledge-${category.id}`}
-					initial={await getKnowledges(0)}
+					initial={await getKnowledges(0, { categoryId })}
+					params={{ categoryId }}
 					next={getKnowledges}
 				>
 					{NewsCard}
@@ -57,6 +39,28 @@ export default async function Knowledges({ params }: PageProps<'/kunskapsbank/[c
 			<DraftMode path={`/kunskapsbank/${category.slug}`} url={draftUrl} />
 		</>
 	);
+}
+
+async function getKnowledges(
+	skip: number,
+	{ categoryId }: { categoryId?: string },
+): Promise<NewsCardProps[]> {
+	'use server';
+	const {
+		allKnowledges,
+		_allKnowledgesMeta: { count },
+	} = await apiQuery(AllKnowledgesByCategoryDocument, {
+		variables: { categoryId, first: pageSize, skip },
+	});
+
+	return allKnowledges.map(({ title, intro, slug, image, category }) => ({
+		title,
+		slug: `/kunskapsbank/${category.slug}/${slug}`,
+		image: image as FileField,
+		label: '',
+		text: intro,
+		subtitle: category.category,
+	}));
 }
 
 export async function generateStaticParams() {

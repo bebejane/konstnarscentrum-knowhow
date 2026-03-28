@@ -46,39 +46,7 @@ export default async function Activities({ params, searchParams }: PageProps<'/a
 		},
 	);
 
-	async function getActivities(skip: number): Promise<NewsCardProps[]> {
-		'use server';
-		await sleep(1000);
-		const {
-			allActivities,
-			_allActivitiesMeta: { count },
-		} = await apiQuery(AllActivitiesDocument, {
-			variables: { categoryId, first: pageSize, skip },
-		});
-
-		return allActivities
-			.filter(({ category }) => (categoryId ? categoryId === category?.id : true))
-			.map((el) => ({ ...el, status: activityStatus(el.date, el.dateEnd) }))
-			.sort((a, b) => (new Date(a.date) > new Date(b.date) ? -1 : 1))
-			.sort((a, b) => (a.status.value === 'past' ? 1 : -1))
-			.sort((a, b) => {
-				if (a.status.value === 'past' && b.status.value === 'past')
-					return new Date(a.date) > new Date(b.date) ? -1 : 1;
-				return 0;
-			})
-			.map(({ id, title, intro, slug, image, category, date, dateEnd }) => ({
-				title,
-				slug: `/aktiviteter/${slug}`,
-				image: image as FileField,
-				date,
-				label: activityStatus(date, dateEnd).label,
-				past: activityStatus(date, dateEnd).value === 'past',
-				text: intro,
-				subtitle: category.category ?? '',
-			}));
-	}
-
-	const activities = await getActivities(0);
+	const activities = await getActivities(0, { categoryId });
 
 	return (
 		<>
@@ -97,9 +65,10 @@ export default async function Activities({ params, searchParams }: PageProps<'/a
 				{view === 'list' && (
 					<>
 						<CardContainer columns={2} className={s.activities} key={`${categoryId}`}>
-							<InfiniteScroll<NewsCardProps>
-								id='activities'
+							<InfiniteScroll
+								id={`activities-${categoryId ?? 'all'}`}
 								initial={activities}
+								params={{ categoryId }}
 								next={getActivities}
 							>
 								{NewsCard}
@@ -133,6 +102,41 @@ export default async function Activities({ params, searchParams }: PageProps<'/a
 			<DraftMode path={`/aktiviteter`} url={draftUrl} />
 		</>
 	);
+}
+
+async function getActivities(
+	skip: number,
+	{ categoryId }: { categoryId: string },
+): Promise<NewsCardProps[]> {
+	'use server';
+
+	const {
+		allActivities,
+		_allActivitiesMeta: { count },
+	} = await apiQuery(AllActivitiesDocument, {
+		variables: { categoryId, first: pageSize, skip },
+	});
+
+	return allActivities
+		.filter(({ category }) => (categoryId ? categoryId === category?.id : true))
+		.map((el) => ({ ...el, status: activityStatus(el.date, el.dateEnd) }))
+		.sort((a, b) => (new Date(a.date) > new Date(b.date) ? -1 : 1))
+		.sort((a, b) => (a.status.value === 'past' ? 1 : -1))
+		.sort((a, b) => {
+			if (a.status.value === 'past' && b.status.value === 'past')
+				return new Date(a.date) > new Date(b.date) ? -1 : 1;
+			return 0;
+		})
+		.map(({ id, title, intro, slug, image, category, date, dateEnd }) => ({
+			title,
+			slug: `/aktiviteter/${slug}`,
+			image: image as FileField,
+			date,
+			label: activityStatus(date, dateEnd).label,
+			past: activityStatus(date, dateEnd).value === 'past',
+			text: intro,
+			subtitle: category.category ?? '',
+		}));
 }
 
 export async function generateMetadata(): Promise<Metadata> {
