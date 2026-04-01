@@ -8,7 +8,6 @@ import { DraftMode } from 'next-dato-utils/components';
 import { Metadata } from 'next';
 import { buildMetadata } from '@/app/layout';
 import { toZonedTime } from 'date-fns-tz';
-
 import * as ics from 'ics';
 import { formatDate } from '@/lib/utils';
 
