@@ -36,7 +36,7 @@ export default async function Knowledge({
 			<Breadcrumbs
 				crumbs={[{ title: category.category, slug: `/kunskapsbank/${category.slug}` }]}
 			/>
-			<DraftMode path={`/kunskapsbank/${category.slug}/${slug}`} url={draftUrl} />
+			{/* <DraftMode path={`/kunskapsbank/${category.slug}/${slug}`} url={draftUrl} /> */}
 		</>
 	);
 }
@@ -52,7 +52,7 @@ export async function generateMetadata({
 	params,
 }: PageProps<'/kunskapsbank/[category]/[knowledge]'>): Promise<Metadata> {
 	const { knowledge: slug } = await params;
-	const { knowledge, draftUrl } = await apiQuery(KnowledgeDocument, {
+	const { knowledge } = await apiQuery(KnowledgeDocument, {
 		variables: { slug },
 	});
 
