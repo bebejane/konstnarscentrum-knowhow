@@ -2,7 +2,7 @@ import { apiQuery } from 'next-dato-utils/api';
 import { ActivityDocument, AllApplicationsByActivityDocument } from '@/graphql';
 import { format } from 'date-fns';
 import { ActivityAdmin, Article, Breadcrumbs } from '@/components';
-import { notFound, unauthorized } from 'next/navigation';
+import { notFound, redirect, unauthorized } from 'next/navigation';
 import { getSession } from '@/lib/auth';
 import Link from 'next/link';
 import { Metadata } from 'next';
@@ -18,7 +18,7 @@ export default async function ActivityAdminPage({
 	params,
 }: PageProps<'/aktiviteter/[activity]/admin'>) {
 	const session = await getSession();
-	if (!session?.user) return unauthorized();
+	if (!session?.user) return redirect('/logga-in');
 
 	const { activity: slug } = await params;
 	const { activity } = await apiQuery(ActivityDocument, {

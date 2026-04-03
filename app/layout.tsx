@@ -13,31 +13,29 @@ import { ThemeProvider } from 'next-themes';
 import { getSession } from '@/lib/auth';
 import SessionProvider from '@/lib/auth/SessionProvider';
 
-export const dynamic = 'auto';
+export const dynamic = 'force-static';
 
 export default async function RootLayout({ children, params }: LayoutProps<'/'>) {
-	const session = await getSession();
 	const menu = await buildMenu();
 	const { footer } = await apiQuery(FooterDocument, { tags: ['footer'] });
 
 	return (
 		<html lang={'sv-SE'} suppressHydrationWarning>
 			<body id='root' className='root'>
-				<SessionProvider session={session}>
-					<ThemeProvider defaultTheme='light' themes={['light', 'dark']} enableSystem={false}>
-						<MenuMobile items={menu} />
-						<MenuDesktop items={menu} />
-						<div className={s.layout}>
-							<Logo />
-							<main id='content' className={s.content}>
-								<article>{children}</article>
-							</main>
-							<Search />
-						</div>
-						<Footer menu={menu} footer={footer} />
-						<FullscreenGallery />
-					</ThemeProvider>
-				</SessionProvider>
+				<ThemeProvider defaultTheme='light' themes={['light', 'dark']} enableSystem={false}>
+					<MenuMobile items={menu} />
+					<MenuDesktop items={menu} />
+					<div className={s.layout}>
+						<Logo />
+						<main id='content' className={s.content}>
+							<article>{children}</article>
+						</main>
+						<Search />
+					</div>
+					<Footer menu={menu} footer={footer} />
+					<FullscreenGallery />
+				</ThemeProvider>
+
 				<DraftModeContentLink color='#ff4400' />
 			</body>
 		</html>

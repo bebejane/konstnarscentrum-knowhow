@@ -2,6 +2,7 @@ import { Breadcrumbs } from '@/components';
 import { LogoutForm } from './LogoutForm';
 import { buildMetadata } from '@/app/layout';
 import { Metadata } from 'next';
+
 export default async function Logout() {
 	return (
 		<>

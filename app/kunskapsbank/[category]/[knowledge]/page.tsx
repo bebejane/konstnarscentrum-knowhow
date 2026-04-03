@@ -7,6 +7,8 @@ import { DraftMode } from 'next-dato-utils/components';
 import { buildMetadata } from '@/app/layout';
 import { Metadata } from 'next';
 
+//export const dynamic = 'auto';
+
 export default async function Knowledge({
 	params,
 }: PageProps<'/kunskapsbank/[category]/[knowledge]'>) {
@@ -36,7 +38,7 @@ export default async function Knowledge({
 			<Breadcrumbs
 				crumbs={[{ title: category.category, slug: `/kunskapsbank/${category.slug}` }]}
 			/>
-			{/* <DraftMode path={`/kunskapsbank/${category.slug}/${slug}`} url={draftUrl} /> */}
+			<DraftMode path={`/kunskapsbank/${category.slug}/${slug}`} url={draftUrl} />
 		</>
 	);
 }

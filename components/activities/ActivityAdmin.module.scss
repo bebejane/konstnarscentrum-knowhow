@@ -198,6 +198,7 @@
 	div {
 		padding: 1rem;
 		background-color: var(--background);
+		border: 1px solid var(--foreground);
 	}
 
 	@include mq($until: tablet) {
