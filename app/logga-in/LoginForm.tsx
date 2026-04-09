@@ -6,6 +6,7 @@ import { RevealText } from '@/components';
 import { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 type LoginFormData = {
 	username: string;
@@ -14,6 +15,7 @@ type LoginFormData = {
 
 export function LoginForm() {
 	const searchParams = useSearchParams();
+	const router = useRouter();
 	const [error, setError] = useState<string | null>(null);
 	const {
 		register,
@@ -27,13 +29,19 @@ export function LoginForm() {
 
 	const onSubmitSignIn: SubmitHandler<LoginFormData> = async ({ username, password }) => {
 		setError(null);
-		const referer = searchParams.get('referer');
+		const redirect = searchParams.get('redirect');
+		const callbackUrl = `${window.location.origin}${redirect ?? ''}`;
 
 		await signIn('credentials', {
-			callbackUrl: `${window.location.origin}${referer ?? ''}`,
-			redirect: true,
+			redirect: false,
 			username,
 			password,
+		}).then((res) => {
+			if (res?.error) {
+				setError(res.error);
+			} else {
+				router.push(callbackUrl);
+			}
 		});
 	};
 

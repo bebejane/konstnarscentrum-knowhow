@@ -1,8 +1,9 @@
+import 'dotenv/config';
 import jwt from 'jsonwebtoken';
 import { hash, compare } from 'bcryptjs';
 import { client } from '@/lib/client';
 import type { AuthOptions } from 'next-auth';
-import { getServerSession } from 'next-auth';
+import { getServerSession } from 'next-auth/next';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import EmailProvider from 'next-auth/providers/email';
 import DatoCMSAdapter from './datocms-adapter';
@@ -80,7 +81,7 @@ export const authOptions: AuthOptions = {
  * Helper function to get the session on the server without having to import the authOptions object every single time
  * @returns The session object or null
  */
-const getSession = () => getServerSession(authOptions);
+const getSession = async () => getServerSession(authOptions);
 
 export { getSession };
 

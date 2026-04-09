@@ -14,13 +14,15 @@ export type Props = {
 	applications: ApplicationRecord[];
 };
 
+export const dynamic = 'force-dynamic';
+
 export default async function ActivityAdminPage({
 	params,
 }: PageProps<'/aktiviteter/[activity]/admin'>) {
-	const session = await getSession();
-	if (!session?.user) return redirect('/logga-in');
-
 	const { activity: slug } = await params;
+	const session = await getSession();
+	if (!session?.user) return redirect(`/logga-in?redirect=/aktiviteter/${slug}/admin`);
+
 	const { activity } = await apiQuery(ActivityDocument, {
 		variables: { slug },
 	});

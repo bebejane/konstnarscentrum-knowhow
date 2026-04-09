@@ -32,7 +32,11 @@ const nextConfig: NextConfig = {
 		},
 	},
 	devIndicators: false,
-	logging: false,
+	logging: {
+		fetches: {
+			fullUrl: true,
+		},
+	},
 	async headers() {
 		return [
 			{
