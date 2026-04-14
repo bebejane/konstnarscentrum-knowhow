@@ -75,10 +75,10 @@ export default function Footer({ menu, footer }: FooterProps) {
 					<div>
 						<span>Följ oss</span>
 						<span>
-							<a href='https://www.instagram.com/konstnarscentrum_ost/'>Instagram</a>
+							<a target="_new" href='https://www.instagram.com/konstnarscentrum_ost/'>Instagram</a>
 						</span>
 						<span>
-							<a href='https://www.facebook.com/profile.php?id=100079288527813'>Facebook</a>
+							<a target="_new" href='https://www.facebook.com/profile.php?id=100079288527813'>Facebook</a>
 						</span>
 					</div>
 					<div className={s.copyright}>
@@ -88,7 +88,7 @@ export default function Footer({ menu, footer }: FooterProps) {
 				</section>
 
 				<section className={s.support}>
-					Med support av Arbetsförmedlingen.
+					<div>I samarbete med&nbsp;<a href="https://konstenattdelta.se/" target="_new"> Konsten att delta</a>. Med stöd av Arbetsförmedlingen.</div>
 					<div className={cn(s.logo, inView && s.inview)}>
 						<a href='https://www.konstnarscentrum.org/' target='new'>
 							<Icon src={Logo} />
