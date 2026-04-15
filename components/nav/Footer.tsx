@@ -88,7 +88,7 @@ export default function Footer({ menu, footer }: FooterProps) {
 				</section>
 
 				<section className={s.support}>
-					<div>I samarbete med&nbsp;<a href="https://konstenattdelta.se/" target="_new"> Konsten att delta</a>. Med stöd av Arbetsförmedlingen.</div>
+					<div>I samarbete med <a href="https://konstenattdelta.se/" target="_new">Konsten att delta</a>. Med stöd av Arbetsförmedlingen.</div>
 					<div className={cn(s.logo, inView && s.inview)}>
 						<a href='https://www.konstnarscentrum.org/' target='new'>
 							<Icon src={Logo} />
