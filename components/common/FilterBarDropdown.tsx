@@ -4,6 +4,7 @@ import Link from 'next/link';
 import s from './FilterBarDropdown.module.scss';
 import cn from 'classnames';
 import { useState } from 'react';
+import { sortSwedish } from 'next-dato-utils/utils';
 
 type FilterDropdownOption = {
 	key: string;
@@ -82,7 +83,7 @@ export default function FilterBarDropdown({ options = [], params, pathname }: Pr
 										</Link>
 									</li>
 								)}
-								{opt.items.map((item, idx) => (
+								{sortSwedish(opt.items, 'label').map((item, idx) => (
 									<li key={idx} className={cn(isSelected(item.id) && s.selected)}>
 										<Link
 											prefetch={true}
