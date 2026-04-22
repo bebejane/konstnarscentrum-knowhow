@@ -1,5 +1,6 @@
 .filter {
 	position: relative;
+	margin-top: 2px;
 	padding-top: 1rem;
 	padding-bottom: 1rem;
 	margin-bottom: calc(var(--small-space) + 1rem);
@@ -56,7 +57,7 @@
 					&::after {
 						display: inline-block;
 						margin-left: 0.3em;
-						content: '›';
+						content: "›";
 						transform: rotate(90deg);
 					}
 					&.open {
@@ -75,7 +76,9 @@
 				display: none;
 				flex-direction: column;
 				padding: 0.5em;
-				margin-left: -0.5em;
+				padding-left: 1em;
+				padding-right: 1em;
+				margin-left: -1em;
 				z-index: 2;
 				background-color: var(--white);
 
@@ -84,6 +87,10 @@
 				}
 				li {
 					white-space: pre;
+					line-height: 1.75em;
+					&:hover a {
+						color: var(--orange-dark);
+					}
 				}
 			}
 		}
