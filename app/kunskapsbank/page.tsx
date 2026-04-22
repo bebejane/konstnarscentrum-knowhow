@@ -1,32 +1,19 @@
 import s from './page.module.scss';
-import cn from 'classnames';
-import {
-	AllActivitiesDocument,
-	AllActivitiesForCalendarDocument,
-	AllActivityCategoriesDocument,
-	AllKnowledgesFilterDocument,
-	KnowledgeFiltersDocument,
-} from '@/graphql';
-import { activityStatus, pageSize } from '@/lib/utils';
+import { AllKnowledgesFilterDocument, KnowledgeFiltersDocument } from '@/graphql';
 import { CardContainer, NewsCard, FilterBar, RevealText, Breadcrumbs, Loader } from '@/components';
 import { apiQuery } from 'next-dato-utils/api';
 import { createLoader, parseAsString, parseAsArrayOf } from 'nuqs/server';
-import Link from 'next/link';
-import { MonthCalendar } from '@/components';
 import { DraftMode, InfiniteScroll } from 'next-dato-utils/components';
 import { Metadata } from 'next';
 import { buildMetadata } from '@/app/layout';
 import FilterBarDropdown from '@/components/common/FilterBarDropdown';
-
-export type ActivityRecordWithStatus = ActivityRecord & {
-	status: { value: string; label: string };
-};
 
 type NewsCardProps = React.ComponentProps<typeof NewsCard>;
 
 const viewParams = {
 	theme: parseAsArrayOf(parseAsString).withDefault([]),
 	length: parseAsString,
+	category: parseAsString,
 	series: parseAsArrayOf(parseAsString).withDefault([]),
 };
 
@@ -36,7 +23,7 @@ export const dynamic = 'auto';
 
 export default async function KnowledgePage({ searchParams }: PageProps<'/kunskapsbank'>) {
 	const params = await loadSearchParams(searchParams);
-	const { theme, length, series } = params;
+	const { category, theme, length, series } = params;
 	const {
 		allKnowledgeCategories,
 		allKnowledgeLengths,
@@ -47,11 +34,21 @@ export default async function KnowledgePage({ searchParams }: PageProps<'/kunska
 
 	async function getKnowledges(skip: number) {
 		'use server';
+		console.log({ category });
+		const variables = {
+			themeIds: theme || [],
+			categoryId: category || undefined,
+			lengthId: length || undefined,
+			seriesIds: series || [],
+			skip,
+		};
+		console.log(variables);
 		const { allKnowledges } = await apiQuery(AllKnowledgesFilterDocument, {
-			variables: { themeIds: theme, lengthId: length, seriesIds: series, skip },
+			variables,
 		});
 
-		return allKnowledges.map(({ title, intro, slug, image, category }) => ({
+		return allKnowledges.map(({ id, title, intro, slug, image, category }) => ({
+			id,
 			title,
 			slug: `/kunskapsbank/${category.slug}/${slug}`,
 			image: image as FileField,
@@ -62,7 +59,7 @@ export default async function KnowledgePage({ searchParams }: PageProps<'/kunska
 	}
 
 	const knowledges = await getKnowledges(0);
-
+	console.log(knowledges.length);
 	return (
 		<>
 			<div className={s.container}>
@@ -81,8 +78,16 @@ export default async function KnowledgePage({ searchParams }: PageProps<'/kunska
 				/>
 				<FilterBarDropdown
 					pathname={'/kunskapsbank'}
-					params={{ theme, length, series }}
+					params={{ theme, category, length, series }}
 					options={[
+						{
+							key: 'category',
+							label: 'Kategori',
+							items: allKnowledgeCategories.map(({ id, category }) => ({
+								id,
+								label: category,
+							})),
+						},
 						{
 							key: 'series',
 							label: 'Serie',
@@ -101,15 +106,10 @@ export default async function KnowledgePage({ searchParams }: PageProps<'/kunska
 						},
 					]}
 				/>
-				<CardContainer columns={2} className={s.activities} key={`${theme}`}>
-					<InfiniteScroll
-						id={`knowledge-${theme}`}
-						initial={knowledges}
-						params={params}
-						next={getKnowledges}
-					>
-						{NewsCard}
-					</InfiniteScroll>
+				<CardContainer columns={2} className={s.activities} key={JSON.stringify(params)}>
+					{knowledges.map((item) => (
+						<NewsCard key={item.id} {...item} />
+					))}
 				</CardContainer>
 				{knowledges.length === 0 && <div className={s.nomatches}>Inga träffar...</div>}
 			</div>

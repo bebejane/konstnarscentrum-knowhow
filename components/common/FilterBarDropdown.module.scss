@@ -53,11 +53,12 @@
 				margin-left: 1em;
 
 				span {
-					display: inline-block;
+					white-space: nowrap;
+					overflow: hidden;
 					&::after {
 						display: inline-block;
 						margin-left: 0.3em;
-						content: "›";
+						content: '›';
 						transform: rotate(90deg);
 					}
 					&.open {

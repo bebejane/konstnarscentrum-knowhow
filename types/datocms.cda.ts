@@ -5649,6 +5649,7 @@ type AllKnowledgesQuery = { __typename?: 'Query', allKnowledges: Array<{ __typen
 type AllKnowledgesFilterQueryVariables = Exact<{
   first?: InputMaybe<Scalars['IntType']['input']>;
   skip?: InputMaybe<Scalars['IntType']['input']>;
+  categoryId?: InputMaybe<Scalars['ItemId']['input']>;
   themeIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>> | InputMaybe<Scalars['ItemId']['input']>>;
   lengthId?: InputMaybe<Scalars['ItemId']['input']>;
   seriesIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>> | InputMaybe<Scalars['ItemId']['input']>>;

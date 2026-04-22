@@ -47,18 +47,41 @@ export default function FilterBarDropdown({ options = [], params, pathname }: Pr
 	}
 
 	function getQuery(item?: FilterDropdownOption['items'][number]) {
-		return Object.keys(params).reduce(
+		const baseQuery = Object.keys(params).reduce(
 			(acc, k) => {
-				acc[k] = options.some((o) => o.key === k)
-					? params[k] === item?.id
-						? null
-						: (item?.id ?? null)
-					: params[k];
-
+				if (!options.some((o) => o.key === k)) {
+					acc[k] = params[k];
+				}
 				return acc;
 			},
-			{ ...params },
+			{} as Record<string, string | string[] | null>,
 		);
+
+		if (!item) {
+			return baseQuery;
+		}
+
+		const option = options.find((o) => o.items.some((i) => i.id === item.id));
+		if (!option) {
+			return baseQuery;
+		}
+
+		const key = option.key;
+		const currentValue = params[key];
+
+		if (Array.isArray(currentValue)) {
+			return {
+				...baseQuery,
+				[key]: currentValue.includes(item.id)
+					? currentValue.filter((id) => id !== item.id)
+					: [...currentValue, item.id],
+			};
+		}
+
+		return {
+			...baseQuery,
+			[key]: currentValue === item.id ? null : item.id,
+		};
 	}
 	return (
 		<nav className={s.filter}>
