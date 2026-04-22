@@ -1,7 +1,4 @@
 import 'dotenv/config';
-import jwt from 'jsonwebtoken';
-import { hash, compare } from 'bcryptjs';
-import { client } from '@/lib/client';
 import type { AuthOptions } from 'next-auth';
 import { getServerSession } from 'next-auth/next';
 import CredentialsProvider from 'next-auth/providers/credentials';
@@ -77,36 +74,4 @@ export const authOptions: AuthOptions = {
 	],
 };
 
-/**
- * Helper function to get the session on the server without having to import the authOptions object every single time
- * @returns The session object or null
- */
-const getSession = async () => getServerSession(authOptions);
-
-export { getSession };
-
-export const generateToken = async (email: string): Promise<any> => {
-	return jwt.sign({ email }, process.env.JWT_PRIVATE_KEY!, { expiresIn: 12000 });
-};
-export const hashPassword = async (password: string): Promise<string> => {
-	return hash(password, 12);
-};
-export const comparePassword = async (password: string, password2: string): Promise<boolean> => {
-	return compare(password, password2);
-};
-export const findUser = async (email: string): Promise<any | null> => {
-	if (!email) throw new Error('E-post adress är tom');
-
-	const users = await client.items.list({
-		page: { limit: 1 },
-		filter: {
-			type: 'member',
-			fields: {
-				email: {
-					matches: { pattern: email, caseSensitive: false },
-				},
-			},
-		},
-	});
-	return users[0] ?? null;
-};
+export const getSession = async () => getServerSession(authOptions);
