@@ -69,7 +69,7 @@ export default async function KnowledgePage({ searchParams }: PageProps<'/kunska
 				</h1>
 				<FilterBar
 					pathname={'/kunskapsbank'}
-					params={{ theme, length, series }}
+					params={{ category, theme, length, series }}
 					options={allKnowledgeThemes.map(({ id, title }) => ({
 						id,
 						label: title,
