@@ -34,12 +34,13 @@ export default async function KnowledgePage({ searchParams }: PageProps<'/kunska
 
 	async function getKnowledges(skip: number) {
 		'use server';
-		console.log({ category });
+
 		const variables = {
 			themeIds: theme || [],
 			categoryId: category || undefined,
 			lengthId: length || undefined,
 			seriesIds: series || [],
+			first: 500,
 			skip,
 		};
 		console.log(variables);
@@ -59,7 +60,7 @@ export default async function KnowledgePage({ searchParams }: PageProps<'/kunska
 	}
 
 	const knowledges = await getKnowledges(0);
-	console.log(knowledges.length);
+
 	return (
 		<>
 			<div className={s.container}>
