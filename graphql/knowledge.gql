@@ -18,6 +18,58 @@ query AllKnowledges($first: IntType = 500, $skip: IntType = 0) {
 	}
 }
 
+query AllKnowledgesFilter(
+	$first: IntType = 10
+	$skip: IntType = 0
+	$themeIds: [ItemId]
+	$lengthId: ItemId
+	$seriesIds: [ItemId]
+) {
+	allKnowledges(
+		orderBy: [createdAt_DESC]
+		first: $first
+		skip: $skip
+		filter: {
+			theme: { anyIn: $themeIds }
+			OR: [{ length: { eq: $lengthId } }, { series: { anyIn: $seriesIds } }]
+		}
+	) {
+		...KnowledgeLightFragment
+	}
+	_allKnowledgesMeta(
+		filter: {
+			theme: { anyIn: $themeIds }
+			OR: [{ length: { eq: $lengthId } }, { series: { anyIn: $seriesIds } }]
+		}
+	) {
+		count
+	}
+}
+
+query KnowledgeFilters {
+	allKnowledgeThemes(first: 100) {
+		__typename
+		id
+		title
+	}
+	allKnowledgeLengths(first: 100) {
+		__typename
+		id
+		title
+	}
+	allKnowledgeSeries(first: 100) {
+		__typename
+		id
+		title
+	}
+	allKnowledgeCategories(first: 100) {
+		__typename
+		id
+		category
+		slug
+	}
+}
+
 query AllKnowledgesByCategory($categoryId: ItemId!, $first: IntType = 10, $skip: IntType = 0) {
 	allKnowledges(
 		filter: { category: { eq: $categoryId } }

@@ -3,30 +3,46 @@ import s from './FilterBar.module.scss';
 import cn from 'classnames';
 
 type FilterOption = {
+	key: string;
 	id: string;
 	label: string;
 };
 
 type Props = {
 	options: FilterOption[];
-	params: {
-		view: string;
-		category?: string | null;
-	};
+	params: Record<string, string | string[] | null>;
 	pathname: string;
+	className?: string;
 };
 
-export default function FilterBar({ options = [], params, pathname }: Props) {
+export default function FilterBar({ options = [], params, pathname, className }: Props) {
+	function isSelected(id: string) {
+		return Object.keys(params).some((k) =>
+			Array.isArray(params[k]) ? params[k].includes(id) : params[k] === id,
+		);
+	}
+
 	return (
-		<nav className={s.filter}>
+		<nav className={cn(s.filter, className)}>
 			<ul>
 				<li>Visa:</li>
 				{options.map((opt, idx) => (
-					<li key={idx} className={cn(params.category === opt.id && s.selected)}>
+					<li key={idx} className={cn(isSelected(opt.id) && s.selected)}>
 						<Link
 							href={{
 								pathname,
-								query: { ...params, category: params.category === opt.id ? null : opt.id },
+								query: Object.keys(params).reduce(
+									(acc, k) => {
+										acc[k] = options.some((o) => o.key === k)
+											? params[k] === opt.id
+												? null
+												: opt.id
+											: params[k];
+
+										return acc;
+									},
+									{ ...params },
+								),
 							}}
 							prefetch={true}
 						>

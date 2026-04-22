@@ -56,8 +56,9 @@ export default async function Activities({ params, searchParams }: PageProps<'/a
 					pathname={'/aktiviteter'}
 					params={{ view, category }}
 					options={allActivityCategories.map(({ category }) => ({
-						label: category,
 						id: category,
+						label: category,
+						key: 'category',
 					}))}
 				/>
 				{view === 'list' && (

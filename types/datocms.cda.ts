@@ -3206,6 +3206,78 @@ type KnowledgeCategoryRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
+type KnowledgeLengthModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<KnowledgeLengthModelFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<KnowledgeLengthModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
+  createdAt?: InputMaybe<CreatedAtFilter>;
+  id?: InputMaybe<ItemIdFilter>;
+  title?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<UpdatedAtFilter>;
+};
+
+enum KnowledgeLengthModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
+  createdAt_ASC = 'createdAt_ASC',
+  createdAt_DESC = 'createdAt_DESC',
+  id_ASC = 'id_ASC',
+  id_DESC = 'id_DESC',
+  title_ASC = 'title_ASC',
+  title_DESC = 'title_DESC',
+  updatedAt_ASC = 'updatedAt_ASC',
+  updatedAt_DESC = 'updatedAt_DESC'
+}
+
+/** Record of type Längd (knowledge_length) */
+type KnowledgeLengthRecord = RecordInterface & {
+  __typename?: 'KnowledgeLengthRecord';
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  title: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+
+/** Record of type Längd (knowledge_length) */
+type KnowledgeLengthRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
 type KnowledgeModelContentBlocksField = ButtonRecord | FormRecord | ImageRecord | VideoRecord;
 
 type KnowledgeModelContentField = {
@@ -3239,7 +3311,10 @@ type KnowledgeModelFilter = {
   id?: InputMaybe<ItemIdFilter>;
   image?: InputMaybe<FileFilter>;
   intro?: InputMaybe<TextFilter>;
+  length?: InputMaybe<LinkFilter>;
+  series?: InputMaybe<LinksFilter>;
   slug?: InputMaybe<SlugFilter>;
+  theme?: InputMaybe<LinksFilter>;
   title?: InputMaybe<StringFilter>;
   updatedAt?: InputMaybe<UpdatedAtFilter>;
 };
@@ -3296,7 +3371,10 @@ type KnowledgeRecord = RecordInterface & {
   id: Scalars['ItemId']['output'];
   image?: Maybe<FileField>;
   intro: Scalars['String']['output'];
+  length?: Maybe<KnowledgeLengthRecord>;
+  series: Array<KnowledgeSeriesRecord>;
   slug: Scalars['String']['output'];
+  theme: Array<KnowledgeThemeRecord>;
   title: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
 };
@@ -3311,6 +3389,150 @@ type KnowledgeRecord_seoMetaTagsArgs = {
 /** Record of type Kunskapsbank (knowledge) */
 type KnowledgeRecordintroArgs = {
   markdown?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+type KnowledgeSeriesModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<KnowledgeSeriesModelFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<KnowledgeSeriesModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
+  createdAt?: InputMaybe<CreatedAtFilter>;
+  id?: InputMaybe<ItemIdFilter>;
+  title?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<UpdatedAtFilter>;
+};
+
+enum KnowledgeSeriesModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
+  createdAt_ASC = 'createdAt_ASC',
+  createdAt_DESC = 'createdAt_DESC',
+  id_ASC = 'id_ASC',
+  id_DESC = 'id_DESC',
+  title_ASC = 'title_ASC',
+  title_DESC = 'title_DESC',
+  updatedAt_ASC = 'updatedAt_ASC',
+  updatedAt_DESC = 'updatedAt_DESC'
+}
+
+/** Record of type Serie (knowledge_series) */
+type KnowledgeSeriesRecord = RecordInterface & {
+  __typename?: 'KnowledgeSeriesRecord';
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  title: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+
+/** Record of type Serie (knowledge_series) */
+type KnowledgeSeriesRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
+type KnowledgeThemeModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<KnowledgeThemeModelFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<KnowledgeThemeModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
+  createdAt?: InputMaybe<CreatedAtFilter>;
+  id?: InputMaybe<ItemIdFilter>;
+  title?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<UpdatedAtFilter>;
+};
+
+enum KnowledgeThemeModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
+  createdAt_ASC = 'createdAt_ASC',
+  createdAt_DESC = 'createdAt_DESC',
+  id_ASC = 'id_ASC',
+  id_DESC = 'id_DESC',
+  title_ASC = 'title_ASC',
+  title_DESC = 'title_DESC',
+  updatedAt_ASC = 'updatedAt_ASC',
+  updatedAt_DESC = 'updatedAt_DESC'
+}
+
+/** Record of type Tema (knowledge_theme) */
+type KnowledgeThemeRecord = RecordInterface & {
+  __typename?: 'KnowledgeThemeRecord';
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  title: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+
+/** Record of type Tema (knowledge_theme) */
+type KnowledgeThemeRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
 };
 
 /** Block of type Senaste aktiviteter (latest_activity) */
@@ -3630,6 +3852,20 @@ type LinkingLocalesFilter = {
   notIn?: InputMaybe<Array<LinkingLocale>>;
 };
 
+/** Specifies how to filter Multiple-links fields */
+type LinksFilter = {
+  /** Filter records linked to all of the specified records. The specified values must be Record IDs */
+  allIn?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>>>;
+  /** Filter records linked to at least one of the specified records. The specified values must be Record IDs */
+  anyIn?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>>>;
+  /** Search for records with an exact match. The specified values must be Record IDs */
+  eq?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>>>;
+  /** Filter records with the specified field defined (i.e. with any value) or not */
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
+  /** Filter records not linked to any of the specified records. The specified values must be Record IDs */
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>>>;
+};
+
 type MemberModelFilter = {
   AND?: InputMaybe<Array<InputMaybe<MemberModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<MemberModelFilter>>>;
@@ -3911,6 +4147,12 @@ type Query = {
   /** Returns meta information regarding a record collection */
   _allKnowledgeCategoriesMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
+  _allKnowledgeLengthsMeta: CollectionMetadata;
+  /** Returns meta information regarding a record collection */
+  _allKnowledgeSeriesMeta: CollectionMetadata;
+  /** Returns meta information regarding a record collection */
+  _allKnowledgeThemesMeta: CollectionMetadata;
+  /** Returns meta information regarding a record collection */
   _allKnowledgesMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
   _allLexiconsMeta: CollectionMetadata;
@@ -3937,6 +4179,12 @@ type Query = {
   /** Returns a collection of records */
   allKnowledgeCategories: Array<KnowledgeCategoryRecord>;
   /** Returns a collection of records */
+  allKnowledgeLengths: Array<KnowledgeLengthRecord>;
+  /** Returns a collection of records */
+  allKnowledgeSeries: Array<KnowledgeSeriesRecord>;
+  /** Returns a collection of records */
+  allKnowledgeThemes: Array<KnowledgeThemeRecord>;
+  /** Returns a collection of records */
   allKnowledges: Array<KnowledgeRecord>;
   /** Returns a collection of records */
   allLexicons: Array<LexiconRecord>;
@@ -3956,6 +4204,12 @@ type Query = {
   knowledge?: Maybe<KnowledgeRecord>;
   /** Returns a specific record */
   knowledgeCategory?: Maybe<KnowledgeCategoryRecord>;
+  /** Returns a specific record */
+  knowledgeLength?: Maybe<KnowledgeLengthRecord>;
+  /** Returns a specific record */
+  knowledgeSeries?: Maybe<KnowledgeSeriesRecord>;
+  /** Returns a specific record */
+  knowledgeTheme?: Maybe<KnowledgeThemeRecord>;
   /** Returns a specific record */
   lexicon?: Maybe<LexiconRecord>;
   /** Returns the single instance record */
@@ -4005,6 +4259,30 @@ type Query_allApplicationsMetaArgs = {
 type Query_allKnowledgeCategoriesMetaArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<KnowledgeCategoryModelFilter>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** The query root for this schema */
+type Query_allKnowledgeLengthsMetaArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<KnowledgeLengthModelFilter>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** The query root for this schema */
+type Query_allKnowledgeSeriesMetaArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<KnowledgeSeriesModelFilter>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** The query root for this schema */
+type Query_allKnowledgeThemesMetaArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<KnowledgeThemeModelFilter>;
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -4130,6 +4408,39 @@ type QueryallKnowledgeCategoriesArgs = {
 
 
 /** The query root for this schema */
+type QueryallKnowledgeLengthsArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<KnowledgeLengthModelFilter>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
+  locale?: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<KnowledgeLengthModelOrderBy>>>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
+};
+
+
+/** The query root for this schema */
+type QueryallKnowledgeSeriesArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<KnowledgeSeriesModelFilter>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
+  locale?: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<KnowledgeSeriesModelOrderBy>>>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
+};
+
+
+/** The query root for this schema */
+type QueryallKnowledgeThemesArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<KnowledgeThemeModelFilter>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
+  locale?: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<KnowledgeThemeModelOrderBy>>>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
+};
+
+
+/** The query root for this schema */
 type QueryallKnowledgesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<KnowledgeModelFilter>;
@@ -4218,6 +4529,33 @@ type QueryknowledgeCategoryArgs = {
   filter?: InputMaybe<KnowledgeCategoryModelFilter>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<KnowledgeCategoryModelOrderBy>>>;
+};
+
+
+/** The query root for this schema */
+type QueryknowledgeLengthArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<KnowledgeLengthModelFilter>;
+  locale?: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<KnowledgeLengthModelOrderBy>>>;
+};
+
+
+/** The query root for this schema */
+type QueryknowledgeSeriesArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<KnowledgeSeriesModelFilter>;
+  locale?: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<KnowledgeSeriesModelOrderBy>>>;
+};
+
+
+/** The query root for this schema */
+type QueryknowledgeThemeArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<KnowledgeThemeModelFilter>;
+  locale?: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<KnowledgeThemeModelOrderBy>>>;
 };
 
 
@@ -5307,6 +5645,22 @@ type AllKnowledgesQueryVariables = Exact<{
 
 
 type AllKnowledgesQuery = { __typename?: 'Query', allKnowledges: Array<{ __typename: 'KnowledgeRecord', _modelApiKey: string, _createdAt: any, id: any, createdAt: any, title: string, intro: string, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null } | null } | null, category: { __typename?: 'KnowledgeCategoryRecord', id: any, category: string, slug: string } }>, _allKnowledgesMeta: { __typename?: 'CollectionMetadata', count: any } };
+
+type AllKnowledgesFilterQueryVariables = Exact<{
+  first?: InputMaybe<Scalars['IntType']['input']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
+  themeIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>> | InputMaybe<Scalars['ItemId']['input']>>;
+  lengthId?: InputMaybe<Scalars['ItemId']['input']>;
+  seriesIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>> | InputMaybe<Scalars['ItemId']['input']>>;
+}>;
+
+
+type AllKnowledgesFilterQuery = { __typename?: 'Query', allKnowledges: Array<{ __typename: 'KnowledgeRecord', _modelApiKey: string, _createdAt: any, id: any, createdAt: any, title: string, intro: string, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null } | null } | null, category: { __typename?: 'KnowledgeCategoryRecord', id: any, category: string, slug: string } }>, _allKnowledgesMeta: { __typename?: 'CollectionMetadata', count: any } };
+
+type KnowledgeFiltersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type KnowledgeFiltersQuery = { __typename?: 'Query', allKnowledgeThemes: Array<{ __typename: 'KnowledgeThemeRecord', id: any, title: string }>, allKnowledgeLengths: Array<{ __typename: 'KnowledgeLengthRecord', id: any, title: string }>, allKnowledgeSeries: Array<{ __typename: 'KnowledgeSeriesRecord', id: any, title: string }>, allKnowledgeCategories: Array<{ __typename: 'KnowledgeCategoryRecord', id: any, category: string, slug: string }> };
 
 type AllKnowledgesByCategoryQueryVariables = Exact<{
   categoryId: Scalars['ItemId']['input'];

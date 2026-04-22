@@ -45,10 +45,7 @@ async function getKnowledges(
 	{ categoryId }: { categoryId?: string },
 ): Promise<NewsCardProps[]> {
 	'use server';
-	const {
-		allKnowledges,
-		_allKnowledgesMeta: { count },
-	} = await apiQuery(AllKnowledgesByCategoryDocument, {
+	const { allKnowledges } = await apiQuery(AllKnowledgesByCategoryDocument, {
 		variables: { categoryId, first: pageSize, skip },
 	});
 
