@@ -40,11 +40,25 @@ export default function FilterBarDropdown({ options = [], params, pathname }: Pr
 	function handleClick(e: React.MouseEvent<HTMLSpanElement>) {
 		const key = e.currentTarget.dataset.key as string;
 		const itemId = e.currentTarget.dataset.itemId as string;
-		const item = options.find((el) => el.key === key)?.items.find((el) => el.id === itemId);
+		const item = options.find((el) => el.key === key)?.items.find((el) => el.id === itemId) ?? null;
 		setValues((prev) => ({ ...prev, [key]: item }));
 		setOpen({});
 	}
 
+	function getQuery(item?: FilterDropdownOption['items'][number]) {
+		return Object.keys(params).reduce(
+			(acc, k) => {
+				acc[k] = options.some((o) => o.key === k)
+					? params[k] === item?.id
+						? null
+						: (item?.id ?? null)
+					: params[k];
+
+				return acc;
+			},
+			{ ...params },
+		);
+	}
 	return (
 		<nav className={s.filter}>
 			<ul>
@@ -56,6 +70,18 @@ export default function FilterBarDropdown({ options = [], params, pathname }: Pr
 								{values[opt.key]?.label ?? 'Alla'}
 							</span>
 							<ul className={cn(s.options, open[opt.key] && s.open)}>
+								{values[opt.key] && (
+									<li>
+										<Link
+											prefetch={true}
+											data-key={opt.key}
+											href={{ pathname, query: getQuery() }}
+											onClick={handleClick}
+										>
+											Alla
+										</Link>
+									</li>
+								)}
 								{opt.items.map((item, idx) => (
 									<li key={idx} className={cn(isSelected(item.id) && s.selected)}>
 										<Link
@@ -63,21 +89,7 @@ export default function FilterBarDropdown({ options = [], params, pathname }: Pr
 											data-key={opt.key}
 											data-item-id={item.id}
 											onClick={handleClick}
-											href={{
-												pathname,
-												query: Object.keys(params).reduce(
-													(acc, k) => {
-														acc[k] = options.some((o) => o.key === k)
-															? params[k] === item.id
-																? null
-																: item.id
-															: params[k];
-
-														return acc;
-													},
-													{ ...params },
-												),
-											}}
+											href={{ pathname, query: getQuery(item) }}
 										>
 											{item.label}
 										</Link>
