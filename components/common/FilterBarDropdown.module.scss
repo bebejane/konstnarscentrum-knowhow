@@ -1,6 +1,6 @@
 .filter {
 	position: relative;
-	margin-top: 2px;
+	margin-top: 1px;
 	padding-top: 1rem;
 	padding-bottom: 1rem;
 	margin-bottom: calc(var(--small-space) + 1rem);
@@ -72,7 +72,7 @@
 			ul.options {
 				list-style: none;
 				position: absolute;
-				top: 1.5em;
+				top: 2.28em;
 				left: 0;
 				display: none;
 				flex-direction: column;
@@ -81,7 +81,7 @@
 				padding-right: 1em;
 				margin-left: -1em;
 				z-index: 2;
-				background-color: var(--white);
+				background-color: var(--orange-light-solid);
 
 				&.open {
 					display: flex;

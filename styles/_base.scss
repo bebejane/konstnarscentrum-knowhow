@@ -1,11 +1,12 @@
-@use 'fonts';
-@use 'mediaqueries' as *;
+@use "fonts";
+@use "mediaqueries" as *;
 
 :root {
 	--black: #ff4400;
 	--white: rgb(243, 255, 176);
 	--orange: #ff4400;
 	--orange-light: #ff440030;
+	--orange-light-solid: #f7de95;
 	--orange-mid: #ff44003f;
 	--orange-dark: #c03300;
 	--orange-light-solid: #eceae5;
@@ -30,8 +31,8 @@
 	--background: var(--white);
 	--foreground: var(--black);
 
-	--body-font: 'Jazz', Arial, Helvetica, Sans-Serif;
-	--headline-font: 'Headline', Arial, Helvetica, Sans-Serif;
+	--body-font: "Jazz", Arial, Helvetica, Sans-Serif;
+	--headline-font: "Headline", Arial, Helvetica, Sans-Serif;
 
 	--z-popup: 10000;
 
@@ -56,7 +57,7 @@ body {
 	font-family: var(--body-font);
 	letter-spacing: -0.01em;
 	-webkit-font-smoothing: antialiased;
-	font-feature-settings: 'liga', 'kern';
+	font-feature-settings: "liga", "kern";
 	overflow-x: hidden;
 	transition:
 		color 0.5s ease-in-out,
@@ -66,7 +67,7 @@ body {
 html {
 	box-sizing: border-box;
 
-	&[data-theme='dark'] {
+	&[data-theme="dark"] {
 		--background: var(--black);
 		--foreground: var(--white);
 
@@ -167,7 +168,7 @@ button {
 		border-color: var(--orange);
 	}
 
-	&[data-toggled='true'] {
+	&[data-toggled="true"] {
 		background-color: var(--orange);
 		color: var(--background);
 	}
@@ -193,7 +194,7 @@ select {
 	padding: 0.8em;
 	padding-bottom: 0.8em;
 	padding-left: 1em;
-	font-family: 'Jazz';
+	font-family: "Jazz";
 	border: none;
 	color: var(--foreground);
 
@@ -274,7 +275,7 @@ select {
 	}
 }
 
-[data-tooltip='true'] {
+[data-tooltip="true"] {
 	text-decoration-style: dotted !important;
 
 	//background-color: green;
