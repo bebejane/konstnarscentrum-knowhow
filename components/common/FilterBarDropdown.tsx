@@ -22,7 +22,9 @@ type Props = {
 
 export default function FilterBarDropdown({ options = [], params, pathname }: Props) {
 	const [open, setOpen] = useState<Record<string, boolean>>({});
-	const [values, setValues] = useState<Record<string, string | null>>({});
+	const [values, setValues] = useState<
+		Record<string, FilterDropdownOption['items'][number] | null | undefined>
+	>({});
 
 	function isSelected(id: string) {
 		return Object.keys(params).some((k) =>
@@ -35,8 +37,12 @@ export default function FilterBarDropdown({ options = [], params, pathname }: Pr
 		setOpen((prev) => ({ [key]: !prev[key] }));
 	}
 
-	function setValue(key: string, value: string | null) {
-		setValues((prev) => ({ ...prev, [key]: value }));
+	function handleClick(e: React.MouseEvent<HTMLSpanElement>) {
+		const key = e.currentTarget.dataset.key as string;
+		const itemId = e.currentTarget.dataset.itemId as string;
+		const item = options.find((el) => el.key === key)?.items.find((el) => el.id === itemId);
+		setValues((prev) => ({ ...prev, [key]: item }));
+		setOpen({});
 	}
 
 	return (
@@ -47,14 +53,16 @@ export default function FilterBarDropdown({ options = [], params, pathname }: Pr
 						<div className={s.label}>{opt.label}: </div>
 						<div className={s.value}>
 							<span className={cn(open[opt.key] && s.open)} onClick={toggle} data-key={opt.key}>
-								{values[opt.key] ?? 'Alla'}
+								{values[opt.key]?.label ?? 'Alla'}
 							</span>
 							<ul className={cn(s.options, open[opt.key] && s.open)}>
 								{opt.items.map((item, idx) => (
 									<li key={idx} className={cn(isSelected(item.id) && s.selected)}>
 										<Link
 											prefetch={true}
-											onClick={() => setOpen({})}
+											data-key={opt.key}
+											data-item-id={item.id}
+											onClick={handleClick}
 											href={{
 												pathname,
 												query: Object.keys(params).reduce(
