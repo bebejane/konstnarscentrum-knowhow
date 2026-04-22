@@ -25,7 +25,6 @@ export default function FilterBar({ options = [], params, pathname, className }:
 	return (
 		<nav className={cn(s.filter, className)}>
 			<ul>
-				<li>Visa:</li>
 				{options.map((opt, idx) => (
 					<li key={idx} className={cn(isSelected(opt.id) && s.selected)}>
 						<Link

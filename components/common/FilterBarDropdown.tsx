@@ -3,8 +3,9 @@
 import Link from 'next/link';
 import s from './FilterBarDropdown.module.scss';
 import cn from 'classnames';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { sortSwedish } from 'next-dato-utils/utils';
+import { useOutsideClickRef } from 'rooks';
 
 type FilterDropdownOption = {
 	key: string;
@@ -27,6 +28,10 @@ export default function FilterBarDropdown({ options = [], params, pathname }: Pr
 		Record<string, FilterDropdownOption['items'][number] | null | undefined>
 	>({});
 
+	const [ref] = useOutsideClickRef(() => {
+		setOpen({});
+	});
+
 	function isSelected(id: string) {
 		return Object.keys(params).some((k) =>
 			Array.isArray(params[k]) ? params[k].includes(id) : params[k] === id,
@@ -39,6 +44,7 @@ export default function FilterBarDropdown({ options = [], params, pathname }: Pr
 	}
 
 	function handleClick(e: React.MouseEvent<HTMLSpanElement>) {
+		console.log('click');
 		const key = e.currentTarget.dataset.key as string;
 		const itemId = e.currentTarget.dataset.itemId as string;
 		const item = options.find((el) => el.key === key)?.items.find((el) => el.id === itemId) ?? null;
@@ -83,16 +89,17 @@ export default function FilterBarDropdown({ options = [], params, pathname }: Pr
 			[key]: currentValue === item.id ? null : item.id,
 		};
 	}
+
 	return (
-		<nav className={s.filter}>
+		<nav className={s.filter} ref={ref}>
 			<ul>
 				{options.map((opt, idx) => (
 					<li key={idx}>
 						<div className={s.label}>{opt.label}: </div>
 						<div className={s.value}>
-							<span className={cn(open[opt.key] && s.open)} onClick={toggle} data-key={opt.key}>
+							<button className={cn(open[opt.key] && s.open)} onClick={toggle} data-key={opt.key}>
 								{values[opt.key]?.label ?? 'Alla'}
-							</span>
+							</button>
 							<ul className={cn(s.options, open[opt.key] && s.open)}>
 								{values[opt.key] && (
 									<li>

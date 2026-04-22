@@ -4,25 +4,26 @@
 	padding-top: 1rem;
 	padding-bottom: 1rem;
 	margin-bottom: calc(var(--small-space) + 1rem);
+	//overflow: hidden;
 
 	@include mq($until: desktop) {
-		overflow: hidden;
-		width: calc(100% + var(--outer-margin) * 2);
 		margin-left: calc(var(--outer-margin) * -1);
 		margin-right: calc(var(--outer-margin) * -1);
 		padding-left: var(--outer-margin);
+		padding-right: var(--outer-margin);
 	}
 
 	> ul {
+		position: relative;
 		list-style: none;
 		display: flex;
 		flex-direction: row;
 		padding-left: 0 !important;
+		scrollbar-width: 0px;
+		margin-right: calc(-1 * var(--outer-margin));
 
-		@include mq($until: tablet) {
-			scrollbar-width: 0px;
-			overflow-x: scroll;
-
+		@include mq($until: desktop) {
+			//overflow-x: scroll;
 			&::-webkit-scrollbar {
 				height: 0px;
 			}
@@ -31,18 +32,68 @@
 			&::-webkit-scrollbar-track {
 				background: transparent;
 			}
+		}
+	}
 
-			margin-right: calc(-1 * var(--outer-margin));
+	li {
+		position: relative;
+		display: flex;
+		flex-direction: row;
+		padding-right: 1em;
+
+		&.selected {
+			a {
+				color: var(--orange-dark);
+			}
 		}
 
-		li {
+		.value {
 			position: relative;
 			display: flex;
 			flex-direction: row;
 			padding-right: 1.5em;
+			cursor: pointer;
+			margin-left: 1em;
 
-			&.selected {
-				a {
+			button {
+				all: unset;
+				white-space: nowrap;
+				display: inline-block;
+				&::after {
+					display: inline-block;
+					margin-left: 0.3em;
+					content: '›';
+					transform: rotate(90deg);
+				}
+				&.open {
+					&::after {
+						transform: rotate(0deg);
+					}
+				}
+			}
+		}
+
+		ul.options {
+			list-style: none;
+			position: absolute;
+			top: 1.5em;
+			left: 0;
+			display: none;
+			flex-direction: column;
+			padding: 0.5em;
+			padding-left: 1em;
+			padding-right: 1em;
+			margin-left: -1em;
+			z-index: 2;
+			background-color: var(--white);
+
+			&.open {
+				display: flex;
+			}
+			li {
+				white-space: pre;
+				line-height: 1.75em;
+				&:hover a {
 					color: var(--orange-dark);
 				}
 			}
@@ -58,7 +109,7 @@
 					&::after {
 						display: inline-block;
 						margin-left: 0.3em;
-						content: "›";
+						content: '›';
 						transform: rotate(90deg);
 					}
 					&.open {
@@ -113,5 +164,23 @@
 			width: 100vw;
 			margin-left: calc((var(--full-margin) - var(--total-outer-margin)));
 		}
+	}
+}
+
+.background {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 0;
+	height: 100%;
+	margin-left: calc(-1 * var(--outer-margin));
+	margin-right: calc(-1 * var(--outer-margin));
+	width: 100%;
+	background-color: var(--orange-light);
+	pointer-events: none;
+
+	@include mq($from: desktop) {
+		width: 100vw;
+		margin-left: calc((var(--full-margin) - var(--total-outer-margin)));
 	}
 }

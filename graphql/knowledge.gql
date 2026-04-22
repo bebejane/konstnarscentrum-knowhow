@@ -21,8 +21,8 @@ query AllKnowledges($first: IntType = 500, $skip: IntType = 0) {
 query AllKnowledgesFilter(
 	$first: IntType = 10
 	$skip: IntType = 0
-	$categoryId: ItemId
 	$themeIds: [ItemId]
+	$categoryId: ItemId
 	$lengthId: ItemId
 	$seriesIds: [ItemId]
 ) {

@@ -8,8 +8,6 @@ import { Metadata } from 'next';
 import { buildMetadata } from '@/app/layout';
 import FilterBarDropdown from '@/components/common/FilterBarDropdown';
 
-type NewsCardProps = React.ComponentProps<typeof NewsCard>;
-
 const viewParams = {
 	theme: parseAsArrayOf(parseAsString).withDefault([]),
 	length: parseAsString,
