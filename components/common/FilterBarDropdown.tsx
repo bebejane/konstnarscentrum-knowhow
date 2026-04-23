@@ -1,12 +1,11 @@
 'use client';
 
-import Link from 'next/link';
 import s from './FilterBarDropdown.module.scss';
 import cn from 'classnames';
-import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { sortSwedish } from 'next-dato-utils/utils';
 import { useOutsideClickRef } from 'rooks';
-import { Modal } from 'next-dato-utils/components';
 import { useWindowSize } from 'usehooks-ts';
 
 type FilterDropdownOption = {
@@ -25,7 +24,7 @@ type Props = {
 };
 
 export default function FilterBarDropdown({ options = [], params, pathname }: Props) {
-	const [dropdown, setDrowpdown] = useState<FilterDropdownOption | null>();
+	const [dropdown, setDrowpdown] = useState<FilterDropdownOption | null>(null);
 	const [dropdownStyles, setDrowpdownStyles] = useState<React.CSSProperties | null>(null);
 	const [filterScrollPosition, setFilterScrollPosition] = useState<number>(0);
 	const [values, setValues] = useState<
@@ -50,50 +49,12 @@ export default function FilterBarDropdown({ options = [], params, pathname }: Pr
 	}
 
 	function handleClick(e: React.MouseEvent<HTMLSpanElement>) {
-		e.preventDefault();
 		const key = e.currentTarget.dataset.key as string;
 		const itemId = e.currentTarget.dataset.itemId as string;
 		const item = options.find((el) => el.key === key)?.items.find((el) => el.id === itemId) ?? null;
+
 		setValues((prev) => ({ ...prev, [key]: item }));
 		setDrowpdown(null);
-	}
-
-	function getQuery(item?: FilterDropdownOption['items'][number]) {
-		const baseQuery = Object.keys(params).reduce(
-			(acc, k) => {
-				if (!options.some((o) => o.key === k)) {
-					acc[k] = params[k];
-				}
-				return acc;
-			},
-			{} as Record<string, string | string[] | null>,
-		);
-
-		if (!item) {
-			return baseQuery;
-		}
-
-		const option = options.find((o) => o.items.some((i) => i.id === item.id));
-		if (!option) {
-			return baseQuery;
-		}
-
-		const key = option.key;
-		const currentValue = params[key];
-
-		if (Array.isArray(currentValue)) {
-			return {
-				...baseQuery,
-				[key]: currentValue.includes(item.id)
-					? currentValue.filter((id) => id !== item.id)
-					: [...currentValue, item.id],
-			};
-		}
-
-		return {
-			...baseQuery,
-			[key]: currentValue === item.id ? null : item.id,
-		};
 	}
 
 	useEffect(() => {
@@ -112,7 +73,7 @@ export default function FilterBarDropdown({ options = [], params, pathname }: Pr
 
 	return (
 		<>
-			<nav className={s.filter} ref={ref}>
+			<nav className={s.filter}>
 				<ul onScroll={(e) => setFilterScrollPosition(e.currentTarget.scrollLeft)}>
 					{options.map((opt, idx) => (
 						<li key={idx}>
@@ -132,35 +93,43 @@ export default function FilterBarDropdown({ options = [], params, pathname }: Pr
 				<div className={s.background}></div>
 			</nav>
 			{dropdown && (
-				<Modal>
-					<ul className={cn(s.dropdown, dropdown && s.open)} style={dropdownStyles ?? undefined}>
-						{values[dropdown.key] && (
-							<li>
-								<Link
-									prefetch={true}
-									data-key={dropdown.key}
-									href={{ pathname, query: getQuery() }}
-									onClick={handleClick}
-								>
-									Alla
-								</Link>
-							</li>
-						)}
-						{sortSwedish(dropdown.items, 'label').map((item, idx) => (
-							<li key={idx} className={cn(isSelected(item.id) && s.selected)}>
-								<Link
-									prefetch={true}
-									data-key={dropdown.key}
-									data-item-id={item.id}
-									onClick={handleClick}
-									href={{ pathname, query: getQuery(item) }}
-								>
-									{item.label}
-								</Link>
-							</li>
-						))}
-					</ul>
-				</Modal>
+				<ul
+					className={cn(s.dropdown, dropdown && s.open)}
+					style={dropdownStyles ?? undefined}
+					ref={ref}
+				>
+					{values[dropdown.key] && (
+						<li>
+							<Link
+								prefetch={true}
+								data-key={dropdown.key}
+								href={{ pathname, query: { ...params, [dropdown.key]: null } }}
+								onClick={handleClick}
+							>
+								Alla
+							</Link>
+						</li>
+					)}
+					{sortSwedish(dropdown.items, 'label').map((item, idx) => (
+						<li key={item.id} className={cn(isSelected(item.id) && s.selected)}>
+							<Link
+								prefetch={true}
+								data-key={dropdown.key}
+								data-item-id={item.id}
+								onClick={handleClick}
+								href={{
+									pathname,
+									query: {
+										...params,
+										[dropdown.key]: params[dropdown.key] === item.id ? null : item.id,
+									},
+								}}
+							>
+								{item.label}
+							</Link>
+						</li>
+					))}
+				</ul>
 			)}
 		</>
 	);
