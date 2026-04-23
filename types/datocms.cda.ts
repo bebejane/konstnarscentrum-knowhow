@@ -5669,7 +5669,7 @@ type AllKnowledgesFilterQuery = { __typename?: 'Query', allKnowledges: Array<{ _
 type KnowledgeFiltersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type KnowledgeFiltersQuery = { __typename?: 'Query', allKnowledgeThemes: Array<{ __typename: 'KnowledgeThemeRecord', id: any, title: string }>, allKnowledgeLengths: Array<{ __typename: 'KnowledgeLengthRecord', id: any, title: string }>, allKnowledgeSeries: Array<{ __typename: 'KnowledgeSeriesRecord', id: any, title: string }>, allKnowledgeCategories: Array<{ __typename: 'KnowledgeCategoryRecord', id: any, category: string, slug: string }> };
+type KnowledgeFiltersQuery = { __typename?: 'Query', allKnowledgeThemes: Array<{ __typename?: 'KnowledgeThemeRecord', id: any, title: string }>, allKnowledgeLengths: Array<{ __typename?: 'KnowledgeLengthRecord', id: any, title: string }>, allKnowledgeSeries: Array<{ __typename?: 'KnowledgeSeriesRecord', id: any, title: string }>, allKnowledgeCategories: Array<{ __typename?: 'KnowledgeCategoryRecord', id: any, category: string, slug: string }> };
 
 type AllKnowledgesByCategoryQueryVariables = Exact<{
   categoryId: Scalars['ItemId']['input'];
