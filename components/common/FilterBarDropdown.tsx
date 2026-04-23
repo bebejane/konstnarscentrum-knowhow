@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { sortSwedish } from 'next-dato-utils/utils';
 import { useOutsideClickRef } from 'rooks';
 import { useWindowSize } from 'usehooks-ts';
+import { cleanObject } from '@/lib/utils';
 
 type FilterDropdownOption = {
 	key: string;
@@ -57,6 +58,20 @@ export default function FilterBarDropdown({ options = [], params, pathname }: Pr
 		setDrowpdown(null);
 	}
 
+	function getQuery(item?: FilterDropdownOption['items'][number]) {
+		const q = Object.keys(params).reduce(
+			(acc, k) => {
+				acc[k] = options.some((o) => o.key === k) ? (item?.id ?? null) : params[k];
+				return acc;
+			},
+			{ ...params },
+		);
+		Object.keys(q).forEach((k) => {
+			if (!q[k]) delete q[k];
+		});
+		return q;
+	}
+
 	useEffect(() => {
 		if (dropdown) {
 			const el = document.getElementById(dropdown.key);
@@ -94,7 +109,7 @@ export default function FilterBarDropdown({ options = [], params, pathname }: Pr
 			</nav>
 			{dropdown && (
 				<ul
-					className={cn(s.dropdown, "mid", dropdown && s.open)}
+					className={cn(s.dropdown, 'mid', dropdown && s.open)}
 					style={dropdownStyles ?? undefined}
 					ref={ref}
 				>
@@ -103,15 +118,15 @@ export default function FilterBarDropdown({ options = [], params, pathname }: Pr
 							<Link
 								prefetch={true}
 								data-key={dropdown.key}
-								href={{ pathname, query: { ...params, [dropdown.key]: null } }}
+								href={{ pathname, query: cleanObject({ ...params, [dropdown.key]: null }) }}
 								onClick={handleClick}
 							>
 								Alla
 							</Link>
 						</li>
 					)}
-					{sortSwedish(dropdown.items, 'label').map((item, idx) => (
-						<li key={item.id} className={cn(isSelected(item.id) && s.selected)}>
+					{sortSwedish(dropdown.items, 'label').map((item) => (
+						<li key={item.id} className={cn(isSelected(item.label) && s.selected)}>
 							<Link
 								prefetch={true}
 								data-key={dropdown.key}
@@ -119,10 +134,10 @@ export default function FilterBarDropdown({ options = [], params, pathname }: Pr
 								onClick={handleClick}
 								href={{
 									pathname,
-									query: {
+									query: cleanObject({
 										...params,
 										[dropdown.key]: params[dropdown.key] === item.id ? null : item.id,
-									},
+									}),
 								}}
 							>
 								{item.label}

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import s from './FilterBar.module.scss';
 import cn from 'classnames';
+import { cleanObject } from '@/lib/utils';
 
 type FilterOption = {
 	key: string;
@@ -22,28 +23,33 @@ export default function FilterBar({ options = [], params, pathname, className }:
 		);
 	}
 
+	function getQuery(opt: FilterOption) {
+		return cleanObject(
+			Object.keys(params).reduce(
+				(acc, k) => {
+					acc[k] = options.some((o) => o.key === k)
+						? opt.id === params[k]
+							? null
+							: opt.id
+						: params[k];
+					return acc;
+				},
+				{ ...params },
+			),
+		);
+	}
+
 	return (
 		<nav className={cn(s.filter, className)}>
 			<ul>
 				{options.map((opt, idx) => (
 					<li key={idx} className={cn(isSelected(opt.id) && s.selected)}>
 						<Link
+							prefetch={true}
 							href={{
 								pathname,
-								query: Object.keys(params).reduce(
-									(acc, k) => {
-										acc[k] = options.some((o) => o.key === k)
-											? acc[k] === opt.id
-												? null
-												: opt.id
-											: params[k];
-
-										return acc;
-									},
-									{ ...params },
-								),
+								query: getQuery(opt),
 							}}
-							prefetch={true}
 						>
 							{opt.label}
 						</Link>

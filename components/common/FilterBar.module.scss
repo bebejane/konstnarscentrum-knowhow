@@ -17,7 +17,7 @@
 		display: flex;
 		padding-left: 0 !important;
 
-		@include mq($until: tablet) {
+		@include mq($until: desktop) {
 			scrollbar-width: 0px;
 			overflow-x: scroll;
 
@@ -68,7 +68,7 @@
 		background-color: var(--orange-light);
 		pointer-events: none;
 
-		@include mq($from: tablet) {
+		@include mq($from: desktop) {
 			width: 100vw;
 			margin-left: calc((var(--full-margin) - var(--total-outer-margin)));
 		}

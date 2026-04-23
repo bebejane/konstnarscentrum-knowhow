@@ -31,3 +31,9 @@ export const formatDate = (date?: string | Date, short?: boolean) => {
 	if (short) return format(new Date(date), 'dd MMM', { locale: sv });
 	return format(new Date(date), 'dd MMMM yyyy', { locale: sv });
 };
+
+export const cleanObject = (obj: Record<string, any>) => {
+	const o = { ...obj };
+	Object.keys(o).forEach((key) => (o[key] === undefined || o[key] === null ? delete o[key] : null));
+	return o;
+};
