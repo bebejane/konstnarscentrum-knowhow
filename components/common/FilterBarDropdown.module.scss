@@ -76,7 +76,7 @@
 		ul.options {
 			list-style: none;
 			position: absolute;
-			top: 1.5em;
+			top: 2.3em;
 			left: 0;
 			display: none;
 			flex-direction: column;
@@ -85,7 +85,7 @@
 			padding-right: 1em;
 			margin-left: -1em;
 			z-index: 2;
-			background-color: var(--white);
+			background-color: var(--orange-light-solid);
 
 			&.open {
 				display: flex;
@@ -132,7 +132,6 @@
 				padding-right: 1em;
 				margin-left: -1em;
 				z-index: 2;
-				background-color: var(--orange-light-solid);
 
 				&.open {
 					display: flex;
