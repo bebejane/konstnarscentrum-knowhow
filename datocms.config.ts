@@ -34,7 +34,10 @@ export function getRoute(item: any, _apiKey?: string): string {
 		case 'knowledge':
 			return `/kunskapsbank/${category.slug}/${slug}`;
 		case 'knowledge_category':
-			return `/kunskapsbank/${slug}`;
+		case 'knowledge_length':
+		case 'knowledge_theme':
+		case 'knowledge_series':
+			return `/kunskapsbank`;
 		case 'member':
 		case 'application':
 			return '/';
