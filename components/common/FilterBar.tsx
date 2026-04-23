@@ -21,7 +21,7 @@ export default function FilterBar({ options = [], params, pathname, className }:
 			Array.isArray(params[k]) ? params[k].includes(id) : params[k] === id,
 		);
 	}
-
+	console.log(params);
 	return (
 		<nav className={cn(s.filter, className)}>
 			<ul>
@@ -33,7 +33,7 @@ export default function FilterBar({ options = [], params, pathname, className }:
 								query: Object.keys(params).reduce(
 									(acc, k) => {
 										acc[k] = options.some((o) => o.key === k)
-											? params[k] === opt.id
+											? acc[k] === opt.id
 												? null
 												: opt.id
 											: params[k];

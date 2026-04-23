@@ -2,17 +2,17 @@ import s from './page.module.scss';
 import { AllKnowledgesFilterDocument, KnowledgeFiltersDocument } from '@/graphql';
 import { CardContainer, NewsCard, FilterBar, RevealText, Breadcrumbs, Loader } from '@/components';
 import { apiQuery } from 'next-dato-utils/api';
-import { createLoader, parseAsString, parseAsArrayOf } from 'nuqs/server';
+import { createLoader, parseAsString } from 'nuqs/server';
 import { DraftMode } from 'next-dato-utils/components';
 import { Metadata } from 'next';
 import { buildMetadata } from '@/app/layout';
 import FilterBarDropdown from '@/components/common/FilterBarDropdown';
 
 const viewParams = {
-	theme: parseAsArrayOf(parseAsString).withDefault([]),
+	theme: parseAsString,
 	length: parseAsString,
 	category: parseAsString,
-	series: parseAsArrayOf(parseAsString).withDefault([]),
+	series: parseAsString,
 };
 
 const loadSearchParams = createLoader(viewParams);
@@ -35,10 +35,10 @@ export default async function KnowledgePage({ searchParams }: PageProps<'/kunska
 		'use server';
 
 		const variables = {
-			themeIds: theme || [],
+			themeIds: theme ? [theme] : [],
 			categoryId: category || undefined,
 			lengthId: length || undefined,
-			seriesIds: series || [],
+			seriesIds: series ? [series] : [],
 			first: 500,
 			skip,
 		};
@@ -78,7 +78,7 @@ export default async function KnowledgePage({ searchParams }: PageProps<'/kunska
 				/>
 				<FilterBarDropdown
 					pathname={'/kunskapsbank'}
-					params={{ theme, category, length, series }}
+					params={{ category, theme, length, series }}
 					options={[
 						{
 							key: 'category',
