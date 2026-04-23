@@ -63,6 +63,10 @@ export default {
 			'/kunskapsbank',
 			...(await getItemReferenceRoutes(item.id)),
 		],
+		knowledge_category: async () => ['/kunskapsbank'],
+		knowledge_length: async () => ['/kunskapsbank'],
+		knowledge_theme: async () => ['/kunskapsbank'],
+		knowledge_series: async () => ['/kunskapsbank'],
 		upload: async ({ id }) => getUploadReferenceRoutes(id),
 	},
 	sitemap: async () => {
