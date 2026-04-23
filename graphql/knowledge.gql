@@ -53,22 +53,18 @@ query AllKnowledgesFilter(
 
 query KnowledgeFilters {
 	allKnowledgeThemes(first: 100) {
-		__typename
 		id
 		title
 	}
 	allKnowledgeLengths(first: 100) {
-		__typename
 		id
 		title
 	}
 	allKnowledgeSeries(first: 100) {
-		__typename
 		id
 		title
 	}
 	allKnowledgeCategories(first: 100) {
-		__typename
 		id
 		category
 		slug

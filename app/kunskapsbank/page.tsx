@@ -3,7 +3,7 @@ import { AllKnowledgesFilterDocument, KnowledgeFiltersDocument } from '@/graphql
 import { CardContainer, NewsCard, FilterBar, RevealText, Breadcrumbs, Loader } from '@/components';
 import { apiQuery } from 'next-dato-utils/api';
 import { createLoader, parseAsString, parseAsArrayOf } from 'nuqs/server';
-import { DraftMode, InfiniteScroll } from 'next-dato-utils/components';
+import { DraftMode } from 'next-dato-utils/components';
 import { Metadata } from 'next';
 import { buildMetadata } from '@/app/layout';
 import FilterBarDropdown from '@/components/common/FilterBarDropdown';
@@ -17,11 +17,12 @@ const viewParams = {
 
 const loadSearchParams = createLoader(viewParams);
 
-export const dynamic = 'auto';
+export const dynamic = 'force-dynamic';
 
 export default async function KnowledgePage({ searchParams }: PageProps<'/kunskapsbank'>) {
 	const params = await loadSearchParams(searchParams);
 	const { category, theme, length, series } = params;
+
 	const {
 		allKnowledgeCategories,
 		allKnowledgeLengths,
