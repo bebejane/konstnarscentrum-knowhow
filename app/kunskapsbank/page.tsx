@@ -22,6 +22,7 @@ export const dynamic = 'force-dynamic';
 export default async function KnowledgePage({ searchParams }: PageProps<'/kunskapsbank'>) {
 	const params = await loadSearchParams(searchParams);
 	const { category, theme, length, series } = params;
+	console.log(process.env.DATOCMS_ENVIRONMENT);
 	const {
 		allKnowledgeCategories,
 		allKnowledgeLengths,
