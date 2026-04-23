@@ -65,7 +65,7 @@
 				&::after {
 					display: inline-block;
 					margin-left: 0.3em;
-					content: '›';
+					content: "›";
 					transform: rotate(90deg);
 				}
 				&.open {
@@ -93,7 +93,7 @@
 	background-color: var(--orange-light-solid);
 
 	@include mq($from: desktop) {
-		top: 2.3em;
+		top: 2.5em;
 	}
 
 	button {
@@ -123,7 +123,7 @@
 			&::after {
 				display: inline-block;
 				margin-left: 0.3em;
-				content: '›';
+				content: "›";
 				transform: rotate(90deg);
 			}
 			&.open {
