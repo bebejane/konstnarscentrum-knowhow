@@ -50,6 +50,7 @@ export default function FilterBarDropdown({ options = [], params, pathname }: Pr
 	}
 
 	function handleClick(e: React.MouseEvent<HTMLSpanElement>) {
+		e.preventDefault();
 		const key = e.currentTarget.dataset.key as string;
 		const itemId = e.currentTarget.dataset.itemId as string;
 		const item = options.find((el) => el.key === key)?.items.find((el) => el.id === itemId) ?? null;
