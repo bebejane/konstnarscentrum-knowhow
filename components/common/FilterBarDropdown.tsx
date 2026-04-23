@@ -94,7 +94,7 @@ export default function FilterBarDropdown({ options = [], params, pathname }: Pr
 			</nav>
 			{dropdown && (
 				<ul
-					className={cn(s.dropdown, dropdown && s.open)}
+					className={cn(s.dropdown, "mid", dropdown && s.open)}
 					style={dropdownStyles ?? undefined}
 					ref={ref}
 				>
