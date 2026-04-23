@@ -96,6 +96,11 @@
 		top: 2.3em;
 	}
 
+	button {
+		all: unset;
+		cursor: pointer;
+	}
+
 	&.open {
 		display: flex;
 	}

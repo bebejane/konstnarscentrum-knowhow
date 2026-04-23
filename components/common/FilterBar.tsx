@@ -21,7 +21,7 @@ export default function FilterBar({ options = [], params, pathname, className }:
 			Array.isArray(params[k]) ? params[k].includes(id) : params[k] === id,
 		);
 	}
-	console.log(params);
+
 	return (
 		<nav className={cn(s.filter, className)}>
 			<ul>
