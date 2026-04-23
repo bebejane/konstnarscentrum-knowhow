@@ -17,7 +17,7 @@ const viewParams = {
 
 const loadSearchParams = createLoader(viewParams);
 
-export const dynamic = 'force-dynamic';
+export const dynamic = 'auto';
 
 export default async function KnowledgePage({ searchParams }: PageProps<'/kunskapsbank'>) {
 	const params = await loadSearchParams(searchParams);
@@ -42,7 +42,7 @@ export default async function KnowledgePage({ searchParams }: PageProps<'/kunska
 			first: 500,
 			skip,
 		};
-		console.log(variables);
+
 		const { allKnowledges } = await apiQuery(AllKnowledgesFilterDocument, {
 			variables,
 		});
