@@ -35,14 +35,17 @@ export default async function KnowledgePage({ searchParams }: PageProps<'/kunska
 		'use server';
 
 		const variables = {
-			themeIds: theme ? [theme] : [],
-			categoryId: category || undefined,
-			lengthId: length || undefined,
-			seriesIds: series ? [series] : [],
+			themeIds: theme ? [allKnowledgeThemes.find(({ title }) => title === theme)?.id] : [],
+			categoryId: category
+				? allKnowledgeCategories.find(({ category: c }) => c === category)?.id
+				: undefined,
+			lengthId: length ? allKnowledgeLengths.find(({ title }) => title === length)?.id : undefined,
+			seriesIds: series ? [allKnowledgeSeries.find(({ title }) => title === series)?.id] : [],
 			first: 500,
 			skip,
 		};
 
+		//console.log(variables);
 		const { allKnowledges } = await apiQuery(AllKnowledgesFilterDocument, {
 			variables,
 		});
@@ -70,7 +73,7 @@ export default async function KnowledgePage({ searchParams }: PageProps<'/kunska
 					pathname={'/kunskapsbank'}
 					params={{ category, theme, length, series }}
 					options={allKnowledgeThemes.map(({ id, title }) => ({
-						id,
+						id: title,
 						label: title,
 						key: 'theme',
 					}))}
@@ -84,7 +87,7 @@ export default async function KnowledgePage({ searchParams }: PageProps<'/kunska
 							key: 'category',
 							label: 'Kategori',
 							items: allKnowledgeCategories.map(({ id, category }) => ({
-								id,
+								id: category,
 								label: category,
 							})),
 						},
@@ -92,7 +95,7 @@ export default async function KnowledgePage({ searchParams }: PageProps<'/kunska
 							key: 'series',
 							label: 'Serie',
 							items: allKnowledgeSeries.map(({ id, title }) => ({
-								id,
+								id: title,
 								label: title,
 							})),
 						},
@@ -100,7 +103,7 @@ export default async function KnowledgePage({ searchParams }: PageProps<'/kunska
 							key: 'length',
 							label: 'Längd',
 							items: allKnowledgeLengths.map(({ id, title }) => ({
-								id,
+								id: title,
 								label: title,
 							})),
 						},

@@ -44,11 +44,6 @@
 		display: flex;
 		flex-direction: row;
 		padding-right: 1em;
-		&.selected {
-			a {
-				color: var(--orange-dark);
-			}
-		}
 
 		.value {
 			position: relative;
@@ -173,5 +168,11 @@
 	@include mq($from: desktop) {
 		width: 100vw;
 		margin-left: calc((var(--full-margin) - var(--total-outer-margin)));
+	}
+}
+
+.selected {
+	a {
+		color: var(--orange-dark);
 	}
 }
