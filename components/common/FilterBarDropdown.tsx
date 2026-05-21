@@ -92,7 +92,7 @@ export default function FilterBarDropdown({ options = [], params, pathname }: Pr
 				<ul onScroll={(e) => setFilterScrollPosition(e.currentTarget.scrollLeft)}>
 					{options.map((opt, idx) => (
 						<li key={idx}>
-							<div className={s.label}>{opt.label}: </div>
+							<div className="small">{opt.label}: </div>
 							<div id={opt.key} className={s.value}>
 								<button
 									className={cn(dropdown?.key === opt.key && s.open)}
