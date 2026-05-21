@@ -1,7 +1,6 @@
 .filter {
 	position: relative;
-	margin-top: 1px;
-	padding-top: 1rem;
+	margin-top: -0.2em;
 	padding-bottom: 1rem;
 	margin-bottom: calc(var(--small-space) + 1rem);
 
@@ -12,6 +11,9 @@
 		padding-right: var(--outer-margin);
 		width: 100vw;
 		max-width: 100vw;
+	}
+
+	.label {
 	}
 
 	> ul {
@@ -43,7 +45,7 @@
 		position: relative;
 		display: flex;
 		flex-direction: row;
-		padding-right: 1em;
+		padding-right: 1.2em;
 
 		.value {
 			position: relative;
@@ -80,9 +82,10 @@
 	top: 2.1em;
 	display: none;
 	flex-direction: column;
+	margin-top: -1rem;
 	padding: 0.5em;
 	padding-left: 1em;
-	padding-right: 1em;
+	padding-right: 1.2em;
 	margin-left: -1em;
 	z-index: 2;
 	background-color: var(--orange-light-solid);
@@ -159,10 +162,10 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	z-index: 0;
+	z-index: -1;
 	height: 100%;
 	width: 100%;
-	background-color: var(--orange-light);
+	background-color: var(--orange-light-solid);
 	pointer-events: none;
 
 	@include mq($from: desktop) {
