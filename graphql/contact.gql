@@ -20,6 +20,41 @@ query ContactPage {
 					}
 				}
 			}
+			... on ContactPageModelContentField {
+				blocks {
+					__typename
+					... on ButtonRecord {
+						id
+						text
+						url
+					}
+					... on ImageRecord {
+						id
+						image {
+							...ImageFragment
+						}
+						layout
+					}
+					... on VideoRecord {
+						id
+						video {
+							width
+							height
+							provider
+							providerUid
+							thumbnailUrl
+							title
+							url
+						}
+					}
+				}
+				links {
+					... on LexiconRecord {
+						...LexiconFragment
+					}
+				}
+				value
+			}
 			value
 		}
 		slug

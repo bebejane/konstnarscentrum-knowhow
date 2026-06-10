@@ -1,12 +1,6 @@
 query Lexicon($id: ItemId!) {
 	lexicon(filter: { id: { eq: $id } }) {
-		id
-		word
-		desc {
-			blocks
-			value
-			links
-		}
+		...LexiconFragment
 		_allReferencingActivities {
 			id
 			title
@@ -17,13 +11,7 @@ query Lexicon($id: ItemId!) {
 
 query AllLexicons($first: IntType = 500, $skip: IntType = 0) {
 	allLexicons(first: $first, skip: $skip, orderBy: [word_ASC]) {
-		id
-		word
-		desc {
-			blocks
-			value
-			links
-		}
+		...LexiconFragment
 	}
 	_allLexiconsMeta {
 		count
@@ -34,5 +22,16 @@ query AllLexicons($first: IntType = 500, $skip: IntType = 0) {
 			value
 			links
 		}
+	}
+}
+
+fragment LexiconFragment on LexiconRecord {
+	__typename
+	id
+	word
+	desc {
+		blocks
+		links
+		value
 	}
 }

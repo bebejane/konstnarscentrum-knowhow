@@ -17,3 +17,4 @@ migrations
 failed.json
 current.json
 success.json
+/migrations
