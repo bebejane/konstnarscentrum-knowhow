@@ -21,6 +21,7 @@
 		"@datocms/cma-client-node": "5.3.0",
 		"@datocms/content-link": "^0.3.19",
 		"@mux/mux-player-react": "^3.11.7",
+		"@next/third-parties": "^16.3.4",
 		"@react-email/components": "1.0.10",
 		"@roseline124/react-tree": "^0.0.5",
 		"@u-wave/react-vimeo": "^0.9.12",

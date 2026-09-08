@@ -10,8 +10,7 @@ import { DraftModeContentLink } from 'next-dato-utils/components';
 import { Footer, FullscreenGallery, Logo, MenuDesktop, MenuMobile, Search } from '@/components';
 import { buildMenu } from '@/lib/menu';
 import { ThemeProvider } from 'next-themes';
-import { getSession } from '@/lib/auth';
-import SessionProvider from '@/lib/auth/SessionProvider';
+import { GoogleTagManager } from '@next/third-parties/google';
 
 export const dynamic = 'force-static';
 
@@ -35,8 +34,8 @@ export default async function RootLayout({ children, params }: LayoutProps<'/'>)
 					<Footer menu={menu} footer={footer} />
 					<FullscreenGallery />
 				</ThemeProvider>
-
 				<DraftModeContentLink color='#ff4400' />
+				<GoogleTagManager gtmId='G-PDWPLJN3QT' />
 			</body>
 		</html>
 	);
