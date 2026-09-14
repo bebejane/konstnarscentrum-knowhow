@@ -87,8 +87,13 @@ export default function ActivityAdmin({ applications: _applications }: Props) {
 
 		const t = applications
 			.filter((application) => application.approvalStatus === 'APPROVED')
-			.map(({ member }) => columns.map((c) => member[c as keyof typeof member]).join('\t'))
-			.join('\n');
+			.map(({ member }) =>
+				columns
+					.map((c) => member[c as keyof typeof member])
+					.map((c: any) => (c.replace ? c.replaceAll(/\n/g, ', ') : c))
+					.join('\t'),
+			)
+			.join('\r\n');
 
 		if (!t) return;
 		navigator.clipboard.writeText(t);
@@ -100,8 +105,16 @@ export default function ActivityAdmin({ applications: _applications }: Props) {
 
 		const t = applications
 			.filter((application) => application.approvalStatus === 'DECLINED')
-			.map(({ member }) => columns.map((c) => member[c as keyof typeof member]).join('\t'))
-			.join('\n');
+			.map(({ member }) =>
+				columns
+					.map((c) =>
+						member[c as keyof typeof member].map((c: any) =>
+							c.replace ? c.replaceAll(/\n/g, ', ') : c,
+						),
+					)
+					.join('\t'),
+			)
+			.join('\r\n');
 
 		if (!t) return;
 		navigator.clipboard.writeText(t);
