@@ -124,49 +124,24 @@ export default function ActivityAdmin({ applications: _applications }: Props) {
 			'social',
 			'kcMember',
 			'protectedIdentity',
+			'approvalStatus',
 		];
 
-		const header = columns.join('\t');
-
+		const header = columns.map((c) => c.toUpperCase()).join('\t');
 		const approvedApplications = applications
-			.filter((application) => application.approvalStatus === 'APPROVED')
-			.map(({ member }) =>
+			.map(({ member, approvalStatus }) =>
 				columns
 					.map((c) => {
-						if (c === 'kcMember' || c === 'protectedIdentity') {
-							return member[c] ? 'Ja' : 'Nej';
-						}
+						if (c === 'kcMember' || c === 'protectedIdentity') return member[c] ? 'Ja' : 'Nej';
+						if (c === 'approvalStatus') return approvalStatus;
 						return member[c as keyof typeof member] || '';
 					})
+					.map((c) => (c.replace ? c.replaceAll(/\n/g, ', ') : c))
 					.join('\t'),
 			)
-			.join('\n');
+			.join('\r\n');
 
-		const declinedApplications = applications
-			.filter((application) => application.approvalStatus === 'DECLINED')
-			.map(({ member }) =>
-				columns
-					.map((c) => {
-						if (c === 'kcMember' || c === 'protectedIdentity') {
-							return member[c] ? 'Ja' : 'Nej';
-						}
-						return member[c as keyof typeof member] || '';
-					})
-					.join('\t'),
-			)
-			.join('\n');
-
-		const t = [
-			`Utvalda`,
-			header,
-			approvedApplications,
-			'',
-			`Bortvalda`,
-			header,
-			declinedApplications,
-		]
-			.filter(Boolean)
-			.join('\n');
+		const t = [header, approvedApplications].filter(Boolean).join('\r\n');
 
 		if (!t) return;
 
@@ -289,11 +264,7 @@ export default function ActivityAdmin({ applications: _applications }: Props) {
 					</tr>
 				</tbody>
 			</table>
-			<button
-				className={cn('wide', s.export)}
-				onClick={handleExportAll}
-				disabled={approved.length === 0}
-			>
+			<button className={cn('wide', s.export)} onClick={handleExportAll}>
 				Kopiera all data
 			</button>
 			<button
