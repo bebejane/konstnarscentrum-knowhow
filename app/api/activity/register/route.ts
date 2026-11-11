@@ -41,7 +41,16 @@ export const POST = async (req: Request) => {
 
 		const fields = pick(member, field_ids);
 
-		fields.email = fields.email.toLowerCase();
+		fields.email = fields.email.toLowerCase().trim();
+
+		let activity: Item<Activity> | null = null;
+
+		try {
+			activity = await client.items.find<Activity>(id);
+		} catch (err) {
+			console.log(err);
+		}
+		if (!activity) throw new Error('Det gick ej att hitta aktiviteten');
 
 		const currentMember = (
 			await client.items.list<Member>({
@@ -56,16 +65,6 @@ export const POST = async (req: Request) => {
 				},
 			})
 		)?.[0];
-
-		let activity: Item<Activity> | null = null;
-
-		try {
-			activity = await client.items.find<Activity>(id);
-		} catch (err) {
-			console.log(err);
-		}
-
-		if (!activity) throw new Error('Det gick ej att hitta aktiviteten');
 
 		const memberData: Record<string, any> = {};
 
@@ -83,6 +82,10 @@ export const POST = async (req: Request) => {
 			console.log('updating member');
 			newOrUpdatedMember = await client.items.update<Member>(currentMember.id, memberData);
 		}
+		console.log(memberData);
+
+		const memberId = newOrUpdatedMember.id;
+		const email = newOrUpdatedMember.email;
 
 		// Find exisiting application
 		let application = (
@@ -90,7 +93,7 @@ export const POST = async (req: Request) => {
 				page: { limit: 1 },
 				filter: {
 					type: 'application',
-					fields: { activity: { eq: id }, member: { eq: newOrUpdatedMember.id } },
+					fields: { activity: { eq: id }, member: { eq: memberId } },
 				},
 			})
 		)?.[0];
@@ -99,11 +102,13 @@ export const POST = async (req: Request) => {
 			application = await client.items.create<Application>({
 				item_type: { type: 'item_type', id: applicationTypeId as any },
 				activity: id,
-				member: newOrUpdatedMember.id,
+				member: memberId,
 			});
+		} else {
+			console.log('already registered for activity');
 		}
 
-		await sendActivityRegistration(newOrUpdatedMember.email as string, activity);
+		await sendActivityRegistration(email as string, activity);
 
 		return new Response(JSON.stringify(application), {
 			headers: { 'content-type': 'application/json' },
