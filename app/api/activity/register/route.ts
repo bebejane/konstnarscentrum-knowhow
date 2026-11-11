@@ -82,7 +82,7 @@ export const POST = async (req: Request) => {
 			console.log('updating member');
 			newOrUpdatedMember = await client.items.update<Member>(currentMember.id, memberData);
 		}
-		console.log(memberData);
+		console.log({ memberData, body });
 
 		const memberId = newOrUpdatedMember.id;
 		const email = newOrUpdatedMember.email;
