@@ -1,7 +1,7 @@
 import { sendActivityRegistration } from '@/emails';
 import { client } from '@/lib/client';
 import { Activity, Application, Member } from '@/types/datocms-cma';
-import { Item } from '@datocms/cma-client/dist/types/generated/ApiTypes';
+import { Item } from '@datocms/cma-client/dist/types/generated/ApiTypes.js';
 
 const field_ids = [
 	'email',
