@@ -1,0 +1,21 @@
+.container {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+	gap: var(--gutter);
+	margin: var(--space) 0;
+}
+
+.item {
+	min-width: 0;
+	margin: 0;
+}
+
+.image {
+	aspect-ratio: 4 / 3;
+	object-fit: cover;
+	width: 100%;
+}
+
+.text {
+	margin-top: 1em;
+}

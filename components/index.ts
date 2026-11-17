@@ -6,6 +6,7 @@ export { default as Image } from './content/blocks/Image';
 export { default as ImageGallery } from './content/blocks/ImageGallery';
 export { default as ImageShortcut } from './content/blocks/ImageShortcut';
 export { default as ImageShortcutDouble } from './content/blocks/ImageShortcutDouble';
+export { default as ImagesWithTextBelow } from './content/blocks/ImagesWithTextBelow';
 export { default as Block } from './content/Block';
 export { default as LatestActivity } from './content/blocks/LatestActivity';
 export { default as RelatedMemberNews } from './content/blocks/RelatedMemberNews';

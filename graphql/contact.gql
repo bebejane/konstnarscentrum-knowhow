@@ -35,6 +35,26 @@ query ContactPage {
 						}
 						layout
 					}
+					... on ImagesWithTextBelowRecord {
+						__typename
+						id
+						kolumn {
+							__typename
+							... on ImageTextBelowRecord {
+								__typename
+								id
+								image {
+									...ImageFragment
+								}
+								text {
+									blocks
+									inlineBlocks
+									links
+									value
+								}
+							}
+						}
+					}
 					... on VideoRecord {
 						id
 						video {
