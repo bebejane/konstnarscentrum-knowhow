@@ -472,7 +472,7 @@ type ColorField = {
   red: Scalars['IntType']['output'];
 };
 
-type ContactPageModelContentBlocksField = ButtonRecord | ImageRecord | VideoRecord;
+type ContactPageModelContentBlocksField = ButtonRecord | ImageRecord | ImagesWithTextBelowRecord | VideoRecord;
 
 type ContactPageModelContentField = {
   __typename?: 'ContactPageModelContentField';
@@ -1112,6 +1112,71 @@ type ImageShortcutRecord = RecordInterface & {
 
 /** Block of type Bildgenväg (image_shortcut) */
 type ImageShortcutRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
+type ImageTextBelowModelTextField = {
+  __typename?: 'ImageTextBelowModelTextField';
+  blocks: Array<Scalars['String']['output']>;
+  inlineBlocks: Array<Scalars['String']['output']>;
+  links: Array<Scalars['String']['output']>;
+  value: Scalars['JsonField']['output'];
+};
+
+/** Block of type Bild med text under (image_text_below) */
+type ImageTextBelowRecord = RecordInterface & {
+  __typename?: 'ImageTextBelowRecord';
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  image?: Maybe<FileField>;
+  text?: Maybe<ImageTextBelowModelTextField>;
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+
+/** Block of type Bild med text under (image_text_below) */
+type ImageTextBelowRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
+/** Block of type Bilder med text under (images_with_text_below) */
+type ImagesWithTextBelowRecord = RecordInterface & {
+  __typename?: 'ImagesWithTextBelowRecord';
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  kolumn: Array<ImageTextBelowRecord>;
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+
+/** Block of type Bilder med text under (images_with_text_below) */
+type ImagesWithTextBelowRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -4065,10 +4130,27 @@ type MetaBlockRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
+enum MuxThumbnailFitMode {
+  crop = 'crop',
+  pad = 'pad',
+  preserve = 'preserve',
+  smartcrop = 'smartcrop',
+  stretch = 'stretch'
+}
+
 enum MuxThumbnailFormatType {
   gif = 'gif',
   jpg = 'jpg',
   png = 'png'
+}
+
+enum MuxThumbnailRotation {
+  /** Rotate 90° clockwise */
+  ROTATE_90 = 'ROTATE_90',
+  /** Rotate 180° clockwise */
+  ROTATE_180 = 'ROTATE_180',
+  /** Rotate 270° clockwise */
+  ROTATE_270 = 'ROTATE_270'
 }
 
 /** Specifies how to filter by image orientation */
@@ -5342,6 +5424,8 @@ type UploadVideoField = {
   mp4Url?: Maybe<Scalars['String']['output']>;
   muxAssetId: Scalars['String']['output'];
   muxPlaybackId: Scalars['String']['output'];
+  /** Default poster frame, in seconds into the video. Resolves to the record-level field override when present, otherwise the upload-level default. `null` means Mux's default (middle of the video). */
+  posterTime?: Maybe<Scalars['Float']['output']>;
   streamingUrl: Scalars['String']['output'];
   thumbhash?: Maybe<Scalars['String']['output']>;
   thumbnailUrl: Scalars['String']['output'];
@@ -5371,7 +5455,14 @@ type UploadVideoFieldmp4UrlArgs = {
 
 
 type UploadVideoFieldthumbnailUrlArgs = {
+  fitMode?: InputMaybe<MuxThumbnailFitMode>;
+  flipH?: InputMaybe<Scalars['Boolean']['input']>;
+  flipV?: InputMaybe<Scalars['Boolean']['input']>;
   format?: InputMaybe<MuxThumbnailFormatType>;
+  height?: InputMaybe<Scalars['Int']['input']>;
+  rotate?: InputMaybe<MuxThumbnailRotation>;
+  time?: InputMaybe<Scalars['Float']['input']>;
+  width?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -5587,7 +5678,12 @@ type ActivityLightFragment = { __typename: 'ActivityRecord', _modelApiKey: strin
 type ContactPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type ContactPageQuery = { __typename?: 'Query', contactPage?: { __typename?: 'ContactPageRecord', title: string, showImage: any, intro: string, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } | null, content: { __typename?: 'ContactPageModelContentField', value: any, links: Array<{ __typename: 'LexiconRecord', id: any, word: string, desc: { __typename?: 'LexiconModelDescField', blocks: Array<string>, links: Array<string>, value: any } }> } } | null };
+type ContactPageQuery = { __typename?: 'Query', contactPage?: { __typename?: 'ContactPageRecord', title: string, showImage: any, intro: string, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } | null, content: { __typename?: 'ContactPageModelContentField', value: any, links: Array<{ __typename: 'LexiconRecord', id: any, word: string, desc: { __typename?: 'LexiconModelDescField', blocks: Array<string>, links: Array<string>, value: any } }>, blocks: Array<
+        | { __typename: 'ButtonRecord', id: any, text?: string | null, url: string }
+        | { __typename: 'ImageRecord', id: any, layout?: string | null, image: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null }> }
+        | { __typename: 'ImagesWithTextBelowRecord', id: any, kolumn: Array<{ __typename: 'ImageTextBelowRecord', id: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } | null, text?: { __typename?: 'ImageTextBelowModelTextField', blocks: Array<string>, inlineBlocks: Array<string>, links: Array<string>, value: any } | null }> }
+        | { __typename: 'VideoRecord', id: any, title?: string | null, video?: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } | null }
+      > } } | null };
 
 type InEnglishQueryVariables = Exact<{ [key: string]: never; }>;
 

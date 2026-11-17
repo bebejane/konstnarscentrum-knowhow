@@ -3,6 +3,7 @@ export { default as FindArtist } from './FindArtist';
 export { default as Image } from './Image';
 export { default as ImageShortcut } from './ImageShortcut';
 export { default as ImageShortcutDouble } from './ImageShortcutDouble';
+export { default as ImagesWithTextBelow } from './ImagesWithTextBelow';
 export { default as LatestActivity } from './LatestActivity';
 export { default as RelatedMemberNews } from './RelatedMemberNews';
 export { default as SelectedCommission } from './SelectedCommission';
