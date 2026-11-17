@@ -199,7 +199,16 @@ export default function MemberForm({ activity, show, setShow }: Props) {
 		},
 		{ id: 'country', type: 'text', label: 'Födelseland', required: 'Födelseland är obligatoriskt' },
 		{ id: 'language', type: 'text', label: 'Språk', required: 'Språk är obligatoriskt' },
-		{ id: 'url', type: 'text', label: 'Webbplats (Krävs fullständig url med https://)' },
+		{
+			id: 'url',
+			type: 'text',
+			label: 'Webbplats (Krävs fullständig url med https://)',
+			pattern: {
+				value:
+					/^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,63}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/,
+				message: 'Ogiltig URL för Webbplats',
+			},
+		},
 		{ id: 'social', type: 'textarea', label: 'Sociala medier' },
 		{ id: 'protected_identity', type: 'checkbox', label: 'Jag har skyddad identitet' },
 		{ id: 'kc_member', type: 'checkbox', label: 'Jag är medlem i Konstnärscentrum' },

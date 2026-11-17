@@ -5678,7 +5678,11 @@ type ActivityLightFragment = { __typename: 'ActivityRecord', _modelApiKey: strin
 type ContactPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type ContactPageQuery = { __typename?: 'Query', contactPage?: { __typename?: 'ContactPageRecord', title: string, showImage: any, intro: string, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } | null, content: { __typename?: 'ContactPageModelContentField', value: any, links: Array<{ __typename: 'LexiconRecord', id: any, word: string, desc: { __typename?: 'LexiconModelDescField', blocks: Array<string>, links: Array<string>, value: any } }> } } | null };
+type ContactPageQuery = { __typename?: 'Query', contactPage?: { __typename?: 'ContactPageRecord', title: string, showImage: any, intro: string, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null } | null, content: { __typename?: 'ContactPageModelContentField', value: any, blocks: Array<
+        | { __typename: 'ButtonRecord', id: any, text?: string | null, url: string }
+        | { __typename: 'ImageRecord', id: any, layout?: string | null, image: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null, sizes: string } | null }> }
+        | { __typename: 'VideoRecord', id: any, video?: { __typename?: 'VideoField', width: any, height: any, provider: string, providerUid: string, thumbnailUrl: string, title: string, url: string } | null }
+      >, links: Array<{ __typename: 'LexiconRecord', id: any, word: string, desc: { __typename?: 'LexiconModelDescField', blocks: Array<string>, links: Array<string>, value: any } }> } } | null };
 
 type InEnglishQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -5745,6 +5749,23 @@ type AllKnowledgesQueryVariables = Exact<{
 
 type AllKnowledgesQuery = { __typename?: 'Query', allKnowledges: Array<{ __typename: 'KnowledgeRecord', _modelApiKey: string, _createdAt: any, id: any, createdAt: any, title: string, intro: string, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null } | null } | null, category: { __typename?: 'KnowledgeCategoryRecord', id: any, category: string, slug: string } }>, _allKnowledgesMeta: { __typename?: 'CollectionMetadata', count: any } };
 
+type AllKnowledgesFilterQueryVariables = Exact<{
+  first?: InputMaybe<Scalars['IntType']['input']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
+  themeIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>> | InputMaybe<Scalars['ItemId']['input']>>;
+  categoryId?: InputMaybe<Scalars['ItemId']['input']>;
+  lengthId?: InputMaybe<Scalars['ItemId']['input']>;
+  seriesIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>> | InputMaybe<Scalars['ItemId']['input']>>;
+}>;
+
+
+type AllKnowledgesFilterQuery = { __typename?: 'Query', allKnowledges: Array<{ __typename: 'KnowledgeRecord', _modelApiKey: string, _createdAt: any, id: any, createdAt: any, title: string, intro: string, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, bgColor?: string | null } | null } | null, category: { __typename?: 'KnowledgeCategoryRecord', id: any, category: string, slug: string } }>, _allKnowledgesMeta: { __typename?: 'CollectionMetadata', count: any } };
+
+type KnowledgeFiltersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type KnowledgeFiltersQuery = { __typename?: 'Query', allKnowledgeThemes: Array<{ __typename?: 'KnowledgeThemeRecord', id: any, title: string }>, allKnowledgeLengths: Array<{ __typename?: 'KnowledgeLengthRecord', id: any, title: string }>, allKnowledgeSeries: Array<{ __typename?: 'KnowledgeSeriesRecord', id: any, title: string }>, allKnowledgeCategories: Array<{ __typename?: 'KnowledgeCategoryRecord', id: any, category: string, slug: string }> };
+
 type AllKnowledgesByCategoryQueryVariables = Exact<{
   categoryId: Scalars['ItemId']['input'];
   first?: InputMaybe<Scalars['IntType']['input']>;
@@ -5798,7 +5819,7 @@ type LexiconQueryVariables = Exact<{
 }>;
 
 
-type LexiconQuery = { __typename?: 'Query', lexicon?: { __typename?: 'LexiconRecord', id: any, word: string, desc: { __typename?: 'LexiconModelDescField', blocks: Array<string>, value: any, links: Array<string> }, _allReferencingActivities: Array<{ __typename?: 'ActivityRecord', id: any, title: string, slug: string }> } | null };
+type LexiconQuery = { __typename?: 'Query', lexicon?: { __typename: 'LexiconRecord', id: any, word: string, _allReferencingActivities: Array<{ __typename?: 'ActivityRecord', id: any, title: string, slug: string }>, desc: { __typename?: 'LexiconModelDescField', blocks: Array<string>, links: Array<string>, value: any } } | null };
 
 type AllLexiconsQueryVariables = Exact<{
   first?: InputMaybe<Scalars['IntType']['input']>;
@@ -5806,7 +5827,9 @@ type AllLexiconsQueryVariables = Exact<{
 }>;
 
 
-type AllLexiconsQuery = { __typename?: 'Query', allLexicons: Array<{ __typename?: 'LexiconRecord', id: any, word: string, desc: { __typename?: 'LexiconModelDescField', blocks: Array<string>, value: any, links: Array<string> } }>, _allLexiconsMeta: { __typename?: 'CollectionMetadata', count: any }, lexiconText?: { __typename?: 'LexiconTextRecord', intro?: { __typename?: 'LexiconTextModelIntroField', blocks: Array<string>, value: any, links: Array<string> } | null } | null };
+type AllLexiconsQuery = { __typename?: 'Query', allLexicons: Array<{ __typename: 'LexiconRecord', id: any, word: string, desc: { __typename?: 'LexiconModelDescField', blocks: Array<string>, links: Array<string>, value: any } }>, _allLexiconsMeta: { __typename?: 'CollectionMetadata', count: any }, lexiconText?: { __typename?: 'LexiconTextRecord', intro?: { __typename?: 'LexiconTextModelIntroField', blocks: Array<string>, value: any, links: Array<string> } | null } | null };
+
+type LexiconFragment = { __typename: 'LexiconRecord', id: any, word: string, desc: { __typename?: 'LexiconModelDescField', blocks: Array<string>, links: Array<string>, value: any } };
 
 type AllApplicationsByActivityQueryVariables = Exact<{
   first?: InputMaybe<Scalars['IntType']['input']>;

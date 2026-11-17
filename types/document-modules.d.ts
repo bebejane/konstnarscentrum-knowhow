@@ -107,6 +107,8 @@ declare module '*/knowledge.gql' {
   export const Knowledge: DocumentNode;
 export const KnowledgeById: DocumentNode;
 export const AllKnowledges: DocumentNode;
+export const AllKnowledgesFilter: DocumentNode;
+export const KnowledgeFilters: DocumentNode;
 export const AllKnowledgesByCategory: DocumentNode;
 export const AllPastAndFutureKnowledges: DocumentNode;
 export const AllPresentKnowledges: DocumentNode;
@@ -123,6 +125,7 @@ declare module '*/lexicon.gql' {
   const defaultDocument: DocumentNode;
   export const Lexicon: DocumentNode;
 export const AllLexicons: DocumentNode;
+export const LexiconFragment: DocumentNode;
 
   export default defaultDocument;
 }

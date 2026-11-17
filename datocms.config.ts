@@ -34,7 +34,10 @@ export function getRoute(item: any, _apiKey?: string): string {
 		case 'knowledge':
 			return `/kunskapsbank/${category.slug}/${slug}`;
 		case 'knowledge_category':
-			return `/kunskapsbank/${slug}`;
+		case 'knowledge_length':
+		case 'knowledge_theme':
+		case 'knowledge_series':
+			return `/kunskapsbank`;
 		case 'member':
 		case 'application':
 			return '/';
@@ -63,6 +66,10 @@ export default {
 			'/kunskapsbank',
 			...(await getItemReferenceRoutes(item.id)),
 		],
+		knowledge_category: async () => ['/kunskapsbank'],
+		knowledge_length: async () => ['/kunskapsbank'],
+		knowledge_theme: async () => ['/kunskapsbank'],
+		knowledge_series: async () => ['/kunskapsbank'],
 		upload: async ({ id }) => getUploadReferenceRoutes(id),
 	},
 	sitemap: async () => {
