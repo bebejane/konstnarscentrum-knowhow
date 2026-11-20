@@ -33,6 +33,7 @@ export const POST = async (req: Request) => {
 
 		const fields = pick(member, field_ids);
 		fields.email = fields.email.toLowerCase().trim();
+		Object.keys(fields).forEach((key: string) => fields[key] === '' && delete fields[key]);
 
 		let activity: Item<Activity> | null = null;
 
@@ -57,9 +58,7 @@ export const POST = async (req: Request) => {
 			})
 		)?.[0];
 
-		const memberData: Record<string, any> = {};
-
-		Object.keys(fields).forEach((key: string) => fields[key] === '' && delete fields[key]);
+		const memberData: Record<string, any> = { ...fields };
 
 		let newOrUpdatedMember: Item<Member> | null = null;
 
