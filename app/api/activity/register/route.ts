@@ -6,24 +6,16 @@ import { Item } from '@datocms/cma-client/dist/types/generated/ApiTypes.js';
 const field_ids = [
 	'email',
 	'kc_member',
-	'protected_identity',
 	'education_three_years',
 	'have_worked_three_years',
 	'social',
 	'first_name',
 	'last_name',
-	'address',
-	'city',
 	'postal_code',
 	'country',
-	'phone',
 	'age',
 	'sex',
-	'language',
 	'url',
-	'education',
-	'mission',
-	'work_category',
 ];
 
 const pick = (obj: any, keys: string[]) =>
@@ -67,7 +59,7 @@ export const POST = async (req: Request) => {
 
 		const memberData: Record<string, any> = {};
 
-		Object.keys(fields).forEach((key: string) => fields[key] && (memberData[key] = fields[key]));
+		Object.keys(fields).forEach((key: string) => fields[key] === '' && delete fields[key]);
 
 		let newOrUpdatedMember: Item<Member> | null = null;
 

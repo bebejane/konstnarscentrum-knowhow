@@ -3,7 +3,7 @@ import { client } from '@/lib/client';
 import { render } from '@react-email/components';
 import KnowHowEmail, { KKVEmailProps } from './KnowHowEmail';
 import { Activity, Member } from '@/types/datocms-cma';
-import { Item } from '@datocms/cma-client/dist/types/generated/ApiTypes';
+import { Item } from '@datocms/cma-client/dist/types/generated/ApiTypes.js';
 
 const postmarkClient = new postmark.ServerClient(process.env.POSTMARK_API_KEY as string);
 

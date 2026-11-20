@@ -175,15 +175,12 @@ export default function MemberForm({ activity, show, setShow }: Props) {
 		},
 		{ id: 'first_name', type: 'text', label: 'Förnamn', required: 'Namn är obligatoriskt' },
 		{ id: 'last_name', type: 'text', label: 'Efternamn', required: 'Efternamn är obligatoriskt' },
-		{ id: 'address', type: 'text', label: 'Adress', required: 'Adress är obligatoriskt' },
 		{
 			id: 'postal_code',
 			type: 'text',
 			label: 'Postnummer',
 			required: 'Postnummer är obligatoriskt',
 		},
-		{ id: 'city', type: 'text', label: 'Stad', required: 'Stad är obligatoriskt' },
-		{ id: 'phone', type: 'text', label: 'Telefon' },
 		{ id: 'age', type: 'text', label: 'Ålder', required: 'Ålder är obligatoriskt' },
 		{
 			id: 'sex',
@@ -198,7 +195,6 @@ export default function MemberForm({ activity, show, setShow }: Props) {
 			],
 		},
 		{ id: 'country', type: 'text', label: 'Födelseland', required: 'Födelseland är obligatoriskt' },
-		{ id: 'language', type: 'text', label: 'Språk', required: 'Språk är obligatoriskt' },
 		{
 			id: 'url',
 			type: 'text',
@@ -209,8 +205,6 @@ export default function MemberForm({ activity, show, setShow }: Props) {
 				message: 'Ogiltig URL för Webbplats',
 			},
 		},
-		{ id: 'social', type: 'textarea', label: 'Sociala medier' },
-		{ id: 'protected_identity', type: 'checkbox', label: 'Jag har skyddad identitet' },
 		{ id: 'kc_member', type: 'checkbox', label: 'Jag är medlem i Konstnärscentrum' },
 		{
 			id: 'education_three_years',
