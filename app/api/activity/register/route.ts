@@ -40,7 +40,6 @@ export const POST = async (req: Request) => {
 		if (!memberTypeId || !applicationTypeId) throw new Error('Item types not found');
 
 		const fields = pick(member, field_ids);
-
 		fields.email = fields.email.toLowerCase().trim();
 
 		let activity: Item<Activity> | null = null;
@@ -82,7 +81,6 @@ export const POST = async (req: Request) => {
 			console.log('updating member');
 			newOrUpdatedMember = await client.items.update<Member>(currentMember.id, memberData);
 		}
-		console.log({ memberData, body });
 
 		const memberId = newOrUpdatedMember.id;
 		const email = newOrUpdatedMember.email;

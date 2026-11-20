@@ -27,7 +27,7 @@ export default function MemberFormButton({ activity }: MemberFormButtonProps) {
 			);
 	}, [showMemberForm]);
 
-	if (!activity) return null;
+	if (!activity || !activity.showForm) return null;
 
 	return (
 		<>
